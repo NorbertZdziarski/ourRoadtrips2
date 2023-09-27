@@ -1,9 +1,8 @@
 const express = require('express');
 const server = express();
 
-
-let channel = process.env.CHANNEL || '127.0.0.1:9003';
-
+let host = process.env.HOST || 'localhost';
+let port = process.env.PORT || '9000';
 
 server.use((req, res, next) => {
     if (!req.headers['my-header']) {
@@ -12,12 +11,10 @@ server.use((req, res, next) => {
     next();
 });
 
-
 server.get('/', (req, res) => {
     res.send('jest ok');
 });
 
-
-server.listen(channel, () => {
-    console.log(`Serwer działa na ${channel}`);
+server.listen(port, host, () => {
+    console.log(`Serwer działa na http://${host}:${port}`);
 });
