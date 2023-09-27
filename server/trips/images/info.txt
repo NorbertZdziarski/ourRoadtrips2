@@ -1,0 +1,6 @@
+zdjęcia do tras użytkowników.
+-
+może każda trasa powinna mieć swój folder?
+albo użytkownik folder - a poniżej jego trasy?
+
+jak wszystko wrzuci się do jednego worka szybko zrobi się bałagan....
