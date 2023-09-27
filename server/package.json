@@ -1,7 +1,12 @@
 {
-  "name": "$name$",
-  "version": "$version$",
+  "name": "server",
+  "version": "1.0.0",
+  "description": "ourRoadtrips server",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
-    $END$
+    "express": "^4.17.1"
   }
 }
