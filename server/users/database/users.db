@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Jan",
+      "lastName": "Kowalski",
+      "nick": "janek1",
+      "email": "jan.kowalski@email.com",
+      "photoUrl": string,
+      "cars": [
+        {
+          "carId": 0,
+          "carBrand": "FSO",
+          "carName": "Polonez",
+          "carType": "daily",
+          "carEngineFuel": "petrol",
+          "carEnginePower": 80,
+          "carDescription": "wspaniały potwór",
+          "carPhotoUrl": ""
+        }
+      ]
+    }
+  ]
+}
