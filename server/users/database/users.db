@@ -6,7 +6,7 @@
       "lastName": "Kowalski",
       "nick": "janek1",
       "email": "jan.kowalski@email.com",
-      "photoUrl": string,
+      "photoUrl": "image/stefania.jpg",
       "cars": [
         {
           "carId": 0,
