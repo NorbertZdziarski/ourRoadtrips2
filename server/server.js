@@ -104,10 +104,19 @@ server.use(bodyParser.urlencoded({ extended: true }));
 
 server.post('/user/add', (req, res) => {
     const newItem = req.body;
-    newItem.id = idGenerator;
+    newItem.id = 'user' + idGenerator;
 
     usersData.users.push(newItem);
     writeDataToFile(filesPaths[0], usersData)
+
+    res.status(200).send('Dodano nowy element do bazy danych');
+});
+server.post('/trip/add', (req, res) => {
+    const newItem = req.body;
+    const userId = req.body.userId;
+    newItem.tripId = 'trip-' + userId + '-' + idGenerator;
+    tripsArr.trips.push(newItem);
+    writeDataToFile(filesPaths[1], tripsArr)
 
     res.status(200).send('Dodano nowy element do bazy danych');
 });
