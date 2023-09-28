@@ -178,7 +178,37 @@ server.patch('/user/:id', (req, res) => {
 });
 // ----------------------------------------------------------------------------------------- DELETE
 
+server.delete('/trip/:id',(req,res)=>{
+    const id = req.params.id;
+    let item = tripsArr.trips.find(trip => trip.tripId == id);
 
+    if (item) {
+        tripsArr.trips = tripsArr.trips.filter(trip => trip.tripId != id)
+
+        writeDataToFile(filesPaths[1],tripsArr);
+
+        res.send('podana trasa została usunięta');
+
+    } else {
+        res.status(404).send('nie znaleziono elementu o podanym ID')
+    }
+})
+
+server.delete('/user/:id',(req,res)=>{
+    const id = req.params.id;
+    let item = usersData.users.find(user => user.id == id);
+
+    if (item) {
+        usersData.users = usersData.users.filter(user => user.id != id)
+
+        writeDataToFile(filesPaths[0],usersData);
+
+        res.send('podane dane zostały usunięte');
+
+    } else {
+        res.status(404).send('nie znaleziono elementu o podanym ID')
+    }
+})
 
 server.listen(port, host, () => {
     console.log(`Serwer działa na http://${host}:${port}`);
