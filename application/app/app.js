@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import MyForm from './app_form'
 import './../css/app.scss';
 
 const UsersList = ({ usersData }) => {
     return (
-        <div>
+        <div className="testDataImport">
             {usersData.users.map((user) => (
-                <div key={user.id}>
+                <div key={user.id} className="dataImportLine">
                     <h2>{user.nick}</h2>
                     <p>{user.firstName} {user.lastName}</p>
                     <p>Email: {user.email}</p>
@@ -55,7 +56,7 @@ function App() {
         <div className="App">
             przestrzeń robocza do ourRoadtrips.
             <DownloadData/>
-
+            <MyForm/>
         </div>
 
     );

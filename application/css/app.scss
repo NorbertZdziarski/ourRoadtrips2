@@ -3,3 +3,28 @@
   text-align: center;
   color: #282c34;
 }
+input {
+  border: 0;
+}
+.testDataImport {
+  font-size: 9px;
+  color:darkgrey;
+}
+.dataImportLine {
+  border-bottom: 1px solid #535353;
+  margin-bottom: 5px;
+}
+.testForm {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+.testForm > * {
+  border: 1px solid gray;
+  border-radius: 3px;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
