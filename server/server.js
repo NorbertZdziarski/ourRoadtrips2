@@ -2,11 +2,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path')
+const multer = require('multer');
+const cors = require('cors');
+
 const readDataFromFile = require('./apps/takeData');
 const writeDataToFile = require('./apps/saveData');
 const idGenerator = require('./apps/idGenerator')
-const multer = require('multer');
-// const routes = require('./apps/routes')
+
 
 const server = express();
 
@@ -32,6 +34,7 @@ for (let i=0; i<filesPaths.length; i++) {
             console.error('Błąd podczas odczytywania pliku: ', err);
         });
 }
+
 // ------------------------------------------------------------------------ MULTER - do wgrania plików
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
@@ -55,7 +58,10 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage }).single('image');
+
 // ------------------------------------------------------------------------ USE
+
+server.use(cors());
 server.use((req, res, next) => {
     if (!req.headers['my-header']) {
         return res.status(400).send('error. Attempt to connect without required permissions');
@@ -73,7 +79,6 @@ server.get('/users', (req, res) => {
     }
 });
 
-
 server.get('/trips', (req, res) => {
     if (req.headers['my-header'] === 'all') {
         res.status(200).json(tripsArr);
@@ -81,7 +86,6 @@ server.get('/trips', (req, res) => {
         res.status(400).send('Brak wymaganego nagłówka');
     }
 });
-
 
 server.get('/trip/:tripIdNr', (req, res) => {
     if (req.headers['my-header'] === 'all') {
