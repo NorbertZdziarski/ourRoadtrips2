@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const path = require('path')
 const readDataFromFile = require('./apps/takeData');
 const writeDataToFile = require('./apps/saveData');
 const idGenerator = require('./apps/idGenerator')
@@ -34,7 +35,15 @@ for (let i=0; i<filesPaths.length; i++) {
 // ------------------------------------------------------------------------ MULTER - do wgrania plików
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        const folderName = './trips/images/' + req.body.folderName;
+        const fileType = req.body.type;
+        console.log(fileType)
+        if ((fileType!=='users') && (fileType!=='trips')) {
+            const error = new Error('błędna nazwa folderu (typ)');
+            error.code = 'INCORRECT_FOLDER';
+            return cb(error); }
+        const subFolderName = req.body.folderName;
+        const folderName = path.join(fileType,'images', subFolderName)
+
         if (!fs.existsSync(folderName)) {
             fs.mkdirSync(folderName,{recursive: true})
         }
@@ -45,7 +54,7 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: storage }).single('image');
 // ------------------------------------------------------------------------ USE
 server.use((req, res, next) => {
     if (!req.headers['my-header']) {
@@ -104,13 +113,24 @@ server.post('/user/add', (req, res) => {
 });
 
 
-server.post('/upload/trip/', upload.single('image'), (req, res) => {
-    try {
-        res.send('Plik został przesłany');
-    } catch (err) {
-        res.send(400);
-    }
+server.post('/upload', function (req, res) {
+    upload(req, res, function (err) {
+        try {
+            if (err instanceof multer.MulterError) {
+                // Wystąpił błąd Multer podczas przesyłania.
+                throw new Error(err.message);
+            } else if (err && err.code === 'INCORRECT_FOLDER') {
+                // Nasz niestandardowy błąd został zgłoszony.
+                throw new Error(err.message);
+            }
+            res.send('Plik został przesłany');
+        } catch (err) {
+            res.status(400).send(err.message);
+        }
+    });
 });
+
+
 
 server.listen(port, host, () => {
     console.log(`Serwer działa na http://${host}:${port}`);
