@@ -176,6 +176,8 @@ server.patch('/user/:id', (req, res) => {
         res.status(404).send('Nie znaleziono elementu o podanym ID');
     }
 });
+// ----------------------------------------------------------------------------------------- DELETE
+
 
 
 server.listen(port, host, () => {
