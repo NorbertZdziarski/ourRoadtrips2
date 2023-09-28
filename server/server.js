@@ -1,8 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const readDataFromFile = require('./apps/takeData');
 const writeDataToFile = require('./apps/saveData');
 const idGenerator = require('./apps/idGenerator')
+const multer = require('multer');
 // const routes = require('./apps/routes')
 
 const server = express();
@@ -29,7 +31,21 @@ for (let i=0; i<filesPaths.length; i++) {
             console.error('Błąd podczas odczytywania pliku: ', err);
         });
 }
+// ------------------------------------------------------------------------ MULTER - do wgrania plików
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        const folderName = './trips/images/' + req.body.folderName;
+        if (!fs.existsSync(folderName)) {
+            fs.mkdirSync(folderName,{recursive: true})
+        }
+        cb(null, folderName);
+    },
+    filename: function(req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
 
+const upload = multer({ storage: storage });
 // ------------------------------------------------------------------------ USE
 server.use((req, res, next) => {
     if (!req.headers['my-header']) {
@@ -85,6 +101,15 @@ server.post('/user/add', (req, res) => {
     writeDataToFile(filesPaths[0], usersData)
 
     res.status(200).send('Dodano nowy element do bazy danych');
+});
+
+
+server.post('/upload/trip/', upload.single('image'), (req, res) => {
+    try {
+        res.send('Plik został przesłany');
+    } catch (err) {
+        res.send(400);
+    }
 });
 
 server.listen(port, host, () => {
