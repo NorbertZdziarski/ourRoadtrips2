@@ -138,7 +138,44 @@ server.post('/upload', function (req, res) {
         }
     });
 });
+// ----------------------------------------------------------------------------------------- PATCH
+server.patch('/trip/:id', (req, res) => {
+    const id = req.params.id;
+    const newData = req.body;
 
+    let item = tripsArr.trips.find(trip => trip.tripId == id);
+
+    if (item) {
+
+        Object.assign(item, newData);  // Zaktualizuj element
+
+        // console.log(JSON.stringify(item))
+        writeDataToFile(filesPaths[1], tripsArr)
+
+        res.send('Dane zostały zaktualizowane');
+
+    } else {
+        res.status(404).send('Nie znaleziono elementu o podanym ID');
+    }
+});
+
+server.patch('/user/:id', (req, res) => {
+    const id = req.params.id;
+    const newData = req.body;
+
+    let item = usersData.users.find(user => user.id == id);
+
+    if (item) {
+
+        Object.assign(item, newData);
+        writeDataToFile(filesPaths[0], usersData)
+
+        res.send('Dane zostały zaktualizowane');
+
+    } else {
+        res.status(404).send('Nie znaleziono elementu o podanym ID');
+    }
+});
 
 
 server.listen(port, host, () => {
