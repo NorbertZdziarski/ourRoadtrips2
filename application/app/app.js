@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MyForm from './app_form'
-import './../css/app.scss';
+import UserDataEdit from "./app_LoadUserData";
+import '../css/main.scss';
 
 const UsersList = ({ usersData }) => {
     return (
@@ -41,7 +42,7 @@ const DownloadData = () => {
     }, []);
 
     return (
-        <div>
+        <div className="ramka">
             {data ? (
                 <div>
                     <UsersList usersData={data} />
@@ -54,28 +55,37 @@ const DownloadData = () => {
 };
 function App() {
     const [selectedUserData, setSelectedUserData] = useState(null);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const handleChange = (e) => { setSelectedUserData(e.target.value) }
+    const handleSubmit = () => { setIsSubmitted(true) }
     return (
         <div className="App">
             przestrzeń robocza do ourRoadtrips.
             <DownloadData/>
-            {selectedUserData ? (
-                <div>
+            <div className="ramka">
+                {isSubmitted && selectedUserData ? (
+                    <div>
+                        <UserDataEdit userData={selectedUserData} />
+                    </div>
+                ):(
+                    <form>
+                        <label>
+                            Podaj IP użytkownika: (docelowo będzie logowanie - wersja robocza!)
+                            <input type="text" name="userId" value={selectedUserData} onChange={handleChange} />
+                        </label>
 
-                </div>
-            ):(
-                <div>
-                    <label>
-                        Podaj IP użytkownika: (docelowo będzie logowanie - wersja robocza)
-                        <input type="text" name="userId" value={selectedUserData} onChange={setSelectedUserData} />
-                    </label>
-
-                    <button type="submit">Wyślij</button>
-                </div>
-            )}
-            <MyForm/>
+                        <button type="button" onClick={handleSubmit}>Wyślij</button>
+                    </form>
+                )}
+            </div>
+            <div className="ramka">
+                <MyForm/>
+            </div>
         </div>
 
     );
 }
+
+
 
 export default App;

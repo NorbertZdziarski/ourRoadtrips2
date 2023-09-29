@@ -1,3 +1,11 @@
+@import "reset";
+
+:root {
+  font-size: 10px;
+}
+
+// ----------------------------------------co poniżej jest ROBOCZE - do usunięcia ----
+
 .App {
   font-family: sans-serif;
   text-align: center;
@@ -27,4 +35,12 @@ input {
   margin: 5px;
   padding: 5px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.15);
+}
+
+.ramka {
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 183, 0, 0.74);
+  box-shadow: 0 0 0 2px rgba(255, 183, 0, 0.14);
+  padding: 3px;
+  margin: 10px 0 10px 0
 }
