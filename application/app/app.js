@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MyForm from './app_form'
+import {useStoreActions, useStoreState} from "easy-peasy";
 import UserDataEdit from "./app_LoadUserData";
 import '../css/main.scss';
+
+
+// ----------------------------- piaskownica do testowania kodu do produkcji komponentów
 
 const UsersList = ({ usersData }) => {
     return (
@@ -56,6 +60,12 @@ const DownloadData = () => {
 function App() {
     const [selectedUserData, setSelectedUserData] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
+
+
+    // ----------------------- ustalenie stanu globalnego easy-peasy
+    // const setPage = useStoreActions((actions) => actions.setPage);
+
+
     const handleChange = (e) => { setSelectedUserData(e.target.value) }
     const handleSubmit = () => { setIsSubmitted(true) }
     return (
