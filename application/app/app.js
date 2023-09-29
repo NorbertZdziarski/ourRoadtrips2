@@ -19,6 +19,7 @@ const UsersList = ({ usersData }) => {
 const DownloadData = () => {
     const [data, setData] = useState(null);
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -52,10 +53,25 @@ const DownloadData = () => {
     );
 };
 function App() {
+    const [selectedUserData, setSelectedUserData] = useState(null);
     return (
         <div className="App">
             przestrzeń robocza do ourRoadtrips.
             <DownloadData/>
+            {selectedUserData ? (
+                <div>
+
+                </div>
+            ):(
+                <div>
+                    <label>
+                        Podaj IP użytkownika: (docelowo będzie logowanie - wersja robocza)
+                        <input type="text" name="userId" value={selectedUserData} onChange={setSelectedUserData} />
+                    </label>
+
+                    <button type="submit">Wyślij</button>
+                </div>
+            )}
             <MyForm/>
         </div>
 
