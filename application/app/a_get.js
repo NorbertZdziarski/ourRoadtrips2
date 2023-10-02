@@ -7,13 +7,11 @@ const fetchData = async (target) => {
                 'my-header': 'all'
             }
         });
-        const data = response.data;
-        return data;
-        // setData(data);
+        return response.data;
 
     } catch (error) {
         console.error('Błąd podczas pobierania danych:', error);
     }
 };
 
-export default fetchData();
+export default fetchData;

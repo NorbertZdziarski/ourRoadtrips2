@@ -7,7 +7,7 @@ import '../css/main.scss';
 import Header from "./1_header";
 import MainPage from "./1_mainPage";
 import Footer from "./1_footer";
-import {fetchData} from "./a_get"
+import fetchData from "./a_get"
 
 
 // ----------------------------- piaskownica do testowania kodu do produkcji komponentów
@@ -28,25 +28,12 @@ const UsersList = ({ usersData }) => {
 const DownloadData = () => {
     const [data, setData] = useState(null);
 
-
     useEffect(() => {
-        // const fetchData = async () => {
-        //     try {
-        //         const response = await axios.get('http://localhost:9000/users', {
-        //             headers: {
-        //                 'my-header': 'all'
-        //             }
-        //         });
-        //         const data = response.data;
-        //
-        //         setData(data);
-        //
-        //     } catch (error) {
-        //         console.error('Błąd podczas pobierania danych:', error);
-        //     }
-        // };
 
-        fetchData('users');
+        fetchData('users').then(downloadedData => {
+            setData(downloadedData)
+        });
+
     }, []);
 
     return (

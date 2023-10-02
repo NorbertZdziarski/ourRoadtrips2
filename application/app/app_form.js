@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../css/main.scss';
+import transferData from "./a_post";
 
 const MyForm = () => {
     const [formData, setFormData] = useState({
@@ -16,21 +17,9 @@ const MyForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const params = new URLSearchParams();
-            for (const key in formData) {
-                params.append(key, formData[key]);
-            }
-            const response = await axios.post('http://localhost:9000/user/add', params, {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'my-header': 'all'
-                }
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.error('Błąd podczas wysyłania danych:', error);
-        }
+
+        transferData('user/add',formData);
+
     };
 
     return (
