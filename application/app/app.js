@@ -4,6 +4,10 @@ import MyForm from './app_form'
 import {useStoreActions, useStoreState} from "easy-peasy";
 import UserDataEdit from "./app_LoadUserData";
 import '../css/main.scss';
+import Header from "./1_header";
+import MainPage from "./1_mainPage";
+import Footer from "./1_footer";
+import {fetchData} from "./a_get"
 
 
 // ----------------------------- piaskownica do testowania kodu do produkcji komponentów
@@ -26,23 +30,23 @@ const DownloadData = () => {
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:9000/users', {
-                    headers: {
-                        'my-header': 'all'
-                    }
-                });
-                const data = response.data;
+        // const fetchData = async () => {
+        //     try {
+        //         const response = await axios.get('http://localhost:9000/users', {
+        //             headers: {
+        //                 'my-header': 'all'
+        //             }
+        //         });
+        //         const data = response.data;
+        //
+        //         setData(data);
+        //
+        //     } catch (error) {
+        //         console.error('Błąd podczas pobierania danych:', error);
+        //     }
+        // };
 
-                setData(data);
-
-            } catch (error) {
-                console.error('Błąd podczas pobierania danych:', error);
-            }
-        };
-
-        fetchData();
+        fetchData('users');
     }, []);
 
     return (
@@ -70,7 +74,12 @@ function App() {
     const handleSubmit = () => { setIsSubmitted(true) }
     return (
         <div className="App">
-            przestrzeń robocza do ourRoadtrips.
+            <p className="underConstruction">przestrzeń robocza do ourRoadtrips.</p>
+            <Header/>
+            <MainPage/>
+            <Footer/>
+
+            {/*--------------------------------------poniżej do usunięcia */}
             <DownloadData/>
             <div className="ramka">
                 {isSubmitted && selectedUserData ? (

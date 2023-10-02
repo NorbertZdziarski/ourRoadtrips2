@@ -8,6 +8,17 @@
 
 // ----------------------------------------co poniżej jest ROBOCZE - do usunięcia ----
 
+.underConstruction {
+  box-sizing: border-box;
+  border: 2px dashed yellow;
+
+  background-color: #282c34;
+  font-size: 1.6rem;
+  font-family: "BankGothic Lt BT";
+  color: #a2a200;
+  padding: 5px;
+}
+
 .App {
   font-family: sans-serif;
   text-align: center;
