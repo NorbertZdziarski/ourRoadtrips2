@@ -4,6 +4,10 @@ import MyForm from './app_form'
 import {useStoreActions, useStoreState} from "easy-peasy";
 import UserDataEdit from "./app_LoadUserData";
 import '../css/main.scss';
+import Header from "./1_header";
+import MainPage from "./1_mainPage";
+import Footer from "./1_footer";
+import fetchData from "./a_get"
 
 
 // ----------------------------- piaskownica do testowania kodu do produkcji komponentów
@@ -24,25 +28,12 @@ const UsersList = ({ usersData }) => {
 const DownloadData = () => {
     const [data, setData] = useState(null);
 
-
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get('http://localhost:9000/users', {
-                    headers: {
-                        'my-header': 'all'
-                    }
-                });
-                const data = response.data;
 
-                setData(data);
+        fetchData('users').then(downloadedData => {
+            setData(downloadedData)
+        });
 
-            } catch (error) {
-                console.error('Błąd podczas pobierania danych:', error);
-            }
-        };
-
-        fetchData();
     }, []);
 
     return (
@@ -70,7 +61,12 @@ function App() {
     const handleSubmit = () => { setIsSubmitted(true) }
     return (
         <div className="App">
-            przestrzeń robocza do ourRoadtrips.
+            <p className="underConstruction">przestrzeń robocza do ourRoadtrips.</p>
+            <Header/>
+            <MainPage/>
+            <Footer/>
+
+            {/*--------------------------------------poniżej do usunięcia */}
             <DownloadData/>
             <div className="ramka">
                 {isSubmitted && selectedUserData ? (
