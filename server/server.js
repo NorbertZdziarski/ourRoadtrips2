@@ -4,45 +4,22 @@ const fs = require('fs');
 const path = require('path')
 const multer = require('multer');
 const cors = require('cors');
-// const  {MongoClient} = require('mongodb');
-
-const readDataFromFile = require('./apps/takeData');
-const writeDataToFile = require('./apps/saveData');
-const idGenerator = require('./apps/idGenerator')
 
 const manageData = require('./app_mongo')
 
-
 const server = express();
-
-let tripsArr;
-let usersData;
 
 let host = process.env.HOST || 'localhost';
 let port = process.env.PORT || '9000';
+let dbName = process.env.DBNAME || 'ourRoadtrips2';
 
-const filesPaths = ['./users/database/users.db','./trips/database/trips.db']
 
-for (let i=0; i<filesPaths.length; i++) {
-    readDataFromFile(filesPaths[i])
-        .then(data => {
-            try {
-                if (i === 0) usersData = JSON.parse(data);
-                if (i === 1) tripsArr = JSON.parse(data);
-            } catch (err) {
-                console.error('Błąd podczas przetwarzania danych: ', err);
-            }
-        })
-        .catch(err => {
-            console.error('Błąd podczas odczytywania pliku: ', err);
-        });
-}
 
 // ------------------------------------------------------------------------ MULTER - do wgrania plików
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         const fileType = req.body.type;
-        console.log(fileType)
+
         if ((fileType!=='users') && (fileType!=='trips')) {
             const error = new Error('błędna nazwa folderu (typ)');
             error.code = 'INCORRECT_FOLDER';
@@ -72,83 +49,56 @@ server.use((req, res, next) => {
     next();
 });
 
-
 // ------------------------------------------------------------------------ GET
-const getData = async (pathName) => {
-    console.log('1')
-    const sendData1 = await manageData('ourRoadtrips2',pathName,'get');
-    console.log('2' + sendData1)
-    return sendData1;
-}
 
-server.get('/:pathName',(req,res)=>{
+server.get('/:pathName', async (req, res) => {
     const pathName = req.params.pathName;
-    console.log('pathName: ' + pathName)
-    const sendData = getData(pathName,'ourRoadtrips2','get');
-    console.log('sendData');
-    // console.log(sendData);
-
-    if (req.headers['my-header'] === 'all') {
-        res.status(200).json(sendData);
-    } else {
-        res.status(400).send('Brak wymaganego nagłówka');
-    }
-})
-
-//
-// server.get('/users', (req, res) => {
-//     if (req.headers['my-header'] === 'all') {
-//         res.status(200).json(usersData);
-//     } else {
-//         res.status(400).send('Brak wymaganego nagłówka');
-//     }
-// });
-//
-// server.get('/trips', (req, res) => {
-//     if (req.headers['my-header'] === 'all') {
-//         res.status(200).json(tripsArr);
-//     } else {
-//         res.status(400).send('Brak wymaganego nagłówka');
-//     }
-// });
-
-server.get('/trip/:tripIdNr', (req, res) => {
-    if (req.headers['my-header'] === 'all') {
-
-        const tripIdNr = req.params.tripIdNr;
-        const trip = tripsArr.trips.find(trip => trip.tripId == tripIdNr);
-
-        if (trip) {
-            res.status(200).json(trip);
+    let sendData;
+    try {
+        sendData = await manageData(dbName, pathName, 'get');
+        if (req.headers['my-header'] === 'all') {
+            res.status(200).json(sendData);
         } else {
-            res.status(404).send('Nie znaleziono danych o podanym identyfikatorze');
+            res.status(400).send('Brak wymaganego nagłówka');
         }
-    } else {
-        res.status(400).send('Brak wymaganego nagłówka');
+    } catch (err) {
+        console.log('błąd: ' + err);
+        res.status(500).send('Wystąpił błąd podczas pobierania danych');
+    }
+});
+
+
+server.get('/:inquiryType/:idNr', async (req, res) => {
+    const pathName = req.params.inquiryType + 's';
+
+    const id = req.params.idNr;
+    let sendData;
+    try {
+        sendData = await manageData(dbName, pathName, 'get',id);
+        if (req.headers['my-header'] === 'all') {
+            res.status(200).json(sendData);
+        } else {
+            res.status(400).send('Brak wymaganego nagłówka');
+        }
+    } catch (err) {
+        console.log('błąd: ' + err);
+        res.status(500).send('Wystąpił błąd podczas pobierania danych');
     }
 });
 
 // ------------------------------------------------------------------------ POST
 server.use(bodyParser.urlencoded({ extended: true }));
 
-server.post('/user/add', (req, res) => {
-    const newItem = req.body;
-    newItem.id = 'user' + idGenerator;
+server.post('/:inquiryType/add', async (req, res) => {
+    const pathName = req.params.inquiryType + 's';
+    const newItem = await req.body;
+    await manageData(dbName, pathName, 'post',newItem);
 
-    usersData.users.push(newItem);
-    writeDataToFile(filesPaths[0], usersData)
-
-    res.status(200).send('Dodano nowy element do bazy danych');
-});
-server.post('/trip/add', (req, res) => {
-    const newItem = req.body;
-    const userId = req.body.userId;
-    newItem.tripId = 'trip-' + userId + '-' + idGenerator;
-    tripsArr.trips.push(newItem);
-    writeDataToFile(filesPaths[1], tripsArr)
 
     res.status(200).send('Dodano nowy element do bazy danych');
 });
+
+
 
 
 server.post('/upload', function (req, res) {
@@ -168,76 +118,35 @@ server.post('/upload', function (req, res) {
     });
 });
 // ----------------------------------------------------------------------------------------- PATCH
-server.patch('/trip/:id', (req, res) => {
+server.patch('/:inquiryType/:id', async (req, res) => {
     const id = req.params.id;
-    const newData = req.body;
+    const pathName = req.params.inquiryType + 's';
+    const newItem = await req.body;
+    await manageData(dbName, pathName, 'patch',newItem);
+    res.send('Dane zostały zaktualizowane');
 
-    let item = tripsArr.trips.find(trip => trip.tripId == id);
-
-    if (item) {
-
-        Object.assign(item, newData);  // Zaktualizuj element
-
-        // console.log(JSON.stringify(item))
-        writeDataToFile(filesPaths[1], tripsArr)
-
-        res.send('Dane zostały zaktualizowane');
-
-    } else {
-        res.status(404).send('Nie znaleziono elementu o podanym ID');
-    }
 });
 
-server.patch('/user/:id', (req, res) => {
-    const id = req.params.id;
-    const newData = req.body;
-
-    let item = usersData.users.find(user => user.id == id);
-
-    if (item) {
-
-        Object.assign(item, newData);
-        writeDataToFile(filesPaths[0], usersData)
-
-        res.send('Dane zostały zaktualizowane');
-
-    } else {
-        res.status(404).send('Nie znaleziono elementu o podanym ID');
-    }
-});
 // ----------------------------------------------------------------------------------------- DELETE
 
-server.delete('/trip/:id',(req,res)=>{
-    const id = req.params.id;
-    let item = tripsArr.trips.find(trip => trip.tripId == id);
-
-    if (item) {
-        tripsArr.trips = tripsArr.trips.filter(trip => trip.tripId != id)
-
-        writeDataToFile(filesPaths[1],tripsArr);
-
-        res.send('podana trasa została usunięta');
-
-    } else {
-        res.status(404).send('nie znaleziono elementu o podanym ID')
+server.delete('/:inquiryType/:idNr', async (req, res) => {
+    const pathName = req.params.inquiryType;
+    const id = req.params.idNr;
+    let sendData;
+    try {
+        sendData = await manageData(dbName, pathName, 'delete',id);
+        if (req.headers['my-header'] === 'all') {
+            res.status(200).json(sendData);
+        } else {
+            res.status(400).send('Brak wymaganego nagłówka');
+        }
+    } catch (err) {
+        console.log('błąd: ' + err);
+        res.status(500).send('Wystąpił błąd podczas pobierania danych');
     }
-})
+});
 
-server.delete('/user/:id',(req,res)=>{
-    const id = req.params.id;
-    let item = usersData.users.find(user => user.id == id);
 
-    if (item) {
-        usersData.users = usersData.users.filter(user => user.id != id)
-
-        writeDataToFile(filesPaths[0],usersData);
-
-        res.send('podane dane zostały usunięte');
-
-    } else {
-        res.status(404).send('nie znaleziono elementu o podanym ID')
-    }
-})
 
 server.listen(port, host, () => {
     console.log(`Serwer działa na http://${host}:${port}`);

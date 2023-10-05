@@ -1,41 +1,45 @@
-const  {MongoClient} = require('mongodb');
+const  {MongoClient, ObjectId} = require('mongodb');
 
 async function manageData(dbName, collectionName,action,data) {
-    console.log('dbName:' + dbName);
-    console.log('col' + collectionName);
-    console.log('act' + action);
-    console.log('data' + data);
-    console.log('---------------------------')
-    console.log('  manage DATA ')
+
     const url = 'mongodb://127.0.0.1:27017';
     const client = await MongoClient.connect(url);
-jak dane z bazy 
 
 
     try {
         await client.connect();
         const db = client.db(dbName);
-        // console.log(db)
         const collection = db.collection(collectionName);
+        let dataDB;
 
-        // console.log(collection)
-        if (action === 'delete') await collection.deleteOne(data);
-        if (action === 'update') await collection.updateOne({/* your criteria */}, { $set: data }, { upsert: false });
-        if (data && action === 'insert') await collection.insertOne(data);
-        if (action === 'get') {
-            console.log('--1')
-            const dataDB = await collection.find().toArray();
-            console.log('--2' + dataDB)
+        if (action === 'delete') {
+            await collection.deleteOne({_id: new ObjectId(data)});
+            await client.close();
+        } else if (action === 'patch') {
+            await collection.updateOne({_id: new ObjectId(data.id)}, { $set: data }, { upsert: false });
+            await client.close();
+        } else if (data && action === 'post') {
+            await collection.insertOne(data);
+            await client.close();
+        } else if (action === 'get' && !data) {
+            dataDB = await collection.find().toArray();
+            await client.close();
             return dataDB;
-        }
+        } else if (action === 'get' && data) {
+            dataDB = await collection.find({_id: new ObjectId(data)}).toArray();
+            await client.close();
+            return dataDB;
+            }
+        else { console.log('Niepoprawny identyfikator action: ' + action + ' lub data: ' + data);
+                    }
+
+
     } catch (error) {
         console.error(error);
-    } finally {
         await client.close();
     }
 }
 
-// manageData('ourRoadtrips2','trips', 'insert')
 module.exports = manageData;
 
 // {
