@@ -4,10 +4,13 @@ const fs = require('fs');
 const path = require('path')
 const multer = require('multer');
 const cors = require('cors');
+// const  {MongoClient} = require('mongodb');
 
 const readDataFromFile = require('./apps/takeData');
 const writeDataToFile = require('./apps/saveData');
 const idGenerator = require('./apps/idGenerator')
+
+const manageData = require('./app_mongo')
 
 
 const server = express();
@@ -71,21 +74,43 @@ server.use((req, res, next) => {
 
 
 // ------------------------------------------------------------------------ GET
-server.get('/users', (req, res) => {
-    if (req.headers['my-header'] === 'all') {
-        res.status(200).json(usersData);
-    } else {
-        res.status(400).send('Brak wymaganego nagłówka');
-    }
-});
+const getData = async (pathName) => {
+    console.log('1')
+    const sendData1 = await manageData('ourRoadtrips2',pathName,'get');
+    console.log('2' + sendData1)
+    return sendData1;
+}
 
-server.get('/trips', (req, res) => {
+server.get('/:pathName',(req,res)=>{
+    const pathName = req.params.pathName;
+    console.log('pathName: ' + pathName)
+    const sendData = getData(pathName,'ourRoadtrips2','get');
+    console.log('sendData');
+    // console.log(sendData);
+
     if (req.headers['my-header'] === 'all') {
-        res.status(200).json(tripsArr);
+        res.status(200).json(sendData);
     } else {
         res.status(400).send('Brak wymaganego nagłówka');
     }
-});
+})
+
+//
+// server.get('/users', (req, res) => {
+//     if (req.headers['my-header'] === 'all') {
+//         res.status(200).json(usersData);
+//     } else {
+//         res.status(400).send('Brak wymaganego nagłówka');
+//     }
+// });
+//
+// server.get('/trips', (req, res) => {
+//     if (req.headers['my-header'] === 'all') {
+//         res.status(200).json(tripsArr);
+//     } else {
+//         res.status(400).send('Brak wymaganego nagłówka');
+//     }
+// });
 
 server.get('/trip/:tripIdNr', (req, res) => {
     if (req.headers['my-header'] === 'all') {
