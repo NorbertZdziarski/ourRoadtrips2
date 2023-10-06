@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/main.scss';
-import transferData from "./a_post";
+import {fetchData,transferData,updateData,deleteData} from "./a_CRUD_service";
+
 const getInitialFormData = (type) => {
     if (type === 'trip') {
         return {

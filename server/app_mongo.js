@@ -42,14 +42,3 @@ async function manageData(dbName, collectionName,action,data) {
 
 module.exports = manageData;
 
-// {
-//     tripName: dataToSave.tripName,
-//         tripType: dataToSave.tripType,
-//     tripCar: dataToSave.tripCar,
-//     tripDescription: dataToSave.tripDescription,
-//     tripUser: dataToSave.tripUser,
-//     tripDate: dataToSave.tripDate,
-//     tripPhoto: dataToSave.tripPhoto,
-//     tripMap: dataToSave.tripMap,
-//     tripSaveDate: new Date()
-// }

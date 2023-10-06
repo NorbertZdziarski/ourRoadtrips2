@@ -16,7 +16,5 @@ const deleteData = async (target) => {
     return await sendRequest('delete', target);
 };
 
-export default fetchData;
-// export default transferData;
-// export default updateData;
-// export default deleteData;
+export {fetchData,transferData,updateData,deleteData};
+
