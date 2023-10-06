@@ -6,11 +6,11 @@ function Header() {
     const setPage = useStoreActions(actions => actions.setPage);
 
     return (
-        <header >
+        <header className="underConstruction">
             <p >logo</p>
 
             {(page === "userProfile" ? (
-                <div>
+                <div className="underConstruction">
                     <section>
                         <button onClick={()=>setPage("mainPage")}>
                             Main Page
@@ -30,7 +30,7 @@ function Header() {
                     </button>
                 </div>
             ) : (
-                <div>
+                <div className="underConstruction">
                     <section>
                         <button onClick={()=>setPage("mainPage")}>
                             Main Page

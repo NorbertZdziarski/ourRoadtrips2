@@ -22,7 +22,7 @@ const MainPage = () => {
 
             {(page === "editUserData" ? (<EditUserProfile/>):(<></>))}
             {(page === "editCar" ? (<EditCar/>):(<></>))}
-            {(page === "editTrip" ? (<EditTrip/>):(<></>))}
+            {(page === "addTrip" ? (<EditTrip/>):(<></>))}
         </div>
     );
 };

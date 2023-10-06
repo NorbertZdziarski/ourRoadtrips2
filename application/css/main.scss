@@ -11,6 +11,8 @@
 .underConstruction {
   box-sizing: border-box;
   border: 2px dashed yellow;
+  display: flex;
+  justify-content: space-between;
 
   background-color: #282c34;
   font-size: 1.6rem;
