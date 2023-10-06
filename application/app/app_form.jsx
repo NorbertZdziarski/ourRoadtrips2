@@ -2,6 +2,29 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/main.scss';
 import transferData from "./a_post";
+const getInitialFormData = (type) => {
+    if (type === 'trip') {
+        return {
+            tripName: '',
+            tripDescription: '',
+            tripCar: '',
+            tripDate: '',
+            tripCountry: '',
+            tripType: '',
+            tripPhoto: '',
+            tripMap: '',
+            tripUser: '',
+            tripSaveDate: new Date()
+        };
+    } else {
+        return {
+            nick: '',
+            firstName: '',
+            lastName: '',
+            email: ''
+        };
+    }
+}
 
 const PrintForm = ({form,formData,setFormData}) => {
     const handleChange = (e) => {
@@ -29,27 +52,7 @@ const MyForm = ({type}) => {
     const formTrip = ['tripName','tripDescription','tripCar','tripDate','tripCountry','tripType','tripPhoto'];
 
     useEffect(() => {
-        if (type === 'trip') {
-            setFormData({
-                tripName: '',
-                tripDescription: '',
-                tripCar: '',
-                tripDate: '',
-                tripCountry: '',
-                tripType: '',
-                tripPhoto: '',
-                tripMap: '',
-                tripUser: '',
-                tripSaveDate: new Date()
-            });
-        } else {
-            setFormData({
-                nick: '',
-                firstName: '',
-                lastName: '',
-                email: '',
-            });
-        }
+        setFormData(getInitialFormData(type));
     }, [type]);
 
 
@@ -58,27 +61,7 @@ const MyForm = ({type}) => {
         e.preventDefault();
 
         transferData(`${type}/add`,formData);
-        if (type === 'trip') {
-            setFormData({
-                tripName: '',
-                tripDescription: '',
-                tripCar: '',
-                tripDate: '',
-                tripCountry: '',
-                tripType: '',
-                tripPhoto: '',
-                tripMap: '',
-                tripUser: '',
-                tripSaveDate: new Date()
-            });
-        } else {
-            setFormData({
-                nick: '',
-                firstName: '',
-                lastName: '',
-                email: '',
-            });
-        }
+        setFormData(getInitialFormData(type));
     };
 
 
@@ -89,8 +72,6 @@ const MyForm = ({type}) => {
                 formData={formData}
                 setFormData={setFormData}
             />
-            <p>Add new {type}: </p>
-
             <button type="submit">Wyślij</button>
         </form>
     );
