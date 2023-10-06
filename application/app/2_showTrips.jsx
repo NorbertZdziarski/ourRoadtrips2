@@ -3,8 +3,10 @@ import {fetchData,transferData,updateData,deleteData} from "./a_CRUD_service";
 
 
 const UsersList = ({ usersData }) => {
-    console.log(usersData)
     console.log('usersData')
+
+    console.log(usersData)
+
     return (
         <div className="testDataImport">
             <p>kapusta i schabowy</p>
