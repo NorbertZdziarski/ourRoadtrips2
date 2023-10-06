@@ -62,6 +62,8 @@ function App() {
     return (
         <div className="App">
             <p className="underConstruction">przestrzeń robocza do ourRoadtrips.</p>
+            {/*--------------------------------------poniżej do usunięcia */}
+
             <Header/>
             <MainPage/>
             <Footer/>
