@@ -8,6 +8,7 @@ import AboutUs from "./2_aboutUs";
 import EditUserProfile from "./3_editUserData";
 import EditTrip from "./3_editTrip";
 import EditCar from "./3_editCar";
+import ShowTrip from "./3_showTrip";
 
 const MainPage = () => {
 
@@ -19,6 +20,8 @@ const MainPage = () => {
             {(page === "userProfile" ? (<UserProfile/>):(<></>))}
             {(page === "mainPage" ? (<ShowTrips/>):(<></>))}
             {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
+
+            {(page === "showTrip" ? (<ShowTrip/>):(<></>))}
 
             {(page === "editUserData" ? (<EditUserProfile/>):(<></>))}
             {(page === "editCar" ? (<EditCar/>):(<></>))}

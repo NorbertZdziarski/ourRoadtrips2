@@ -1,21 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {fetchData,transferData,updateData,deleteData} from "./a_CRUD_service";
+import TripBox from "./2_tripBox";
+import {action, useStoreActions, useStoreState} from "easy-peasy";
 
 
-const UsersList = ({ usersData }) => {
-    console.log('usersData')
+const TripsList = ({ tripData }) => {
 
-    console.log(usersData)
+    const setPage = useStoreActions(actions => actions.setPage);
+    const setTripId = useStoreActions(actions => actions.setTripId);
 
     return (
         <div className="testDataImport">
-            <p>kapusta i schabowy</p>
-            {/*<p>{usersData.tripName}</p>*/}
-            {usersData.map((user) => (
-                <div key={user._id} className="dataImportLine">
-                    <h2>{user.tripName}</h2>
-                    {/*<p>{user.firstName} {user.lastName}</p>*/}
-                    {/*<p>Email: {user.email}</p>*/}
+            <p className="testForm">trasy pobrane z bazy danych:</p>
+            {tripData.map((trip, i) => (
+                <div key={trip._id} className="dataImportLine">
+                    <button key={`trip${i}`} className="clickPage" onClick={()=> {
+                        setPage("showTrip")
+                        setTripId(trip._id)
+                    } }>
+                       < TripBox trip={trip} />
+                    </button>
+                    {/*<h2>{user.tripName}</h2>*/}
                 </div>
             ))}
         </div>
@@ -32,11 +37,12 @@ const DownloadData = () => {
 
     }, []);
 
+
     return (
         <div className="ramka">
             {data ? (
                 <div>
-                    <UsersList usersData={data} />
+                    <TripsList tripData={data} />
                 </div>
             ) : (
                 <p>Ładowanie danych...</p>
