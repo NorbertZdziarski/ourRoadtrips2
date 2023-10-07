@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../css/main.scss';
 import {fetchData,transferData,updateData,deleteData} from "./a_CRUD_service";
+import {useStoreState} from "easy-peasy";
 
-const getInitialFormData = (type) => {
+const getInitialFormData = (type,loggedUser) => {
+
     if (type === 'trip') {
         return {
             tripName: '',
@@ -14,7 +16,8 @@ const getInitialFormData = (type) => {
             tripType: '',
             tripPhoto: '',
             tripMap: '',
-            tripUser: '',
+            tripUser: loggedUser.nick,
+            tripUserId: loggedUser._id,
             tripSaveDate: new Date()
         };
     } else {
@@ -28,6 +31,7 @@ const getInitialFormData = (type) => {
 }
 
 const PrintForm = ({form,formData,setFormData}) => {
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -51,18 +55,19 @@ const PrintForm = ({form,formData,setFormData}) => {
 const MyForm = ({type}) => {
     const [formData, setFormData] = useState({});
     const formTrip = ['tripName','tripDescription','tripCar','tripDate','tripCountry','tripType','tripPhoto'];
+    const loggedUser = useStoreState(state => state.loggedUser);
 
     useEffect(() => {
-        setFormData(getInitialFormData(type));
+        setFormData(getInitialFormData(type,loggedUser));
     }, [type]);
 
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        transferData(`${type}/add`,formData);
-        setFormData(getInitialFormData(type));
+        console.log(formData)
+        await transferData(`${type}/add`,formData);
+        setFormData(getInitialFormData(type,loggedUser));
     };
 
 

@@ -4,12 +4,12 @@ const fetchData = async (target) => {
     return await sendRequest('get', target);
 };
 
-const transferData = async (target) => {
-    return await sendRequest('post', target);
+const transferData = async (target,data) => {
+    return await sendRequest('post', target,data);
 };
 
 const updateData = async (target) => {
-    return await sendRequest('put', target);
+    return await sendRequest('patch', target);
 };
 
 const deleteData = async (target) => {
