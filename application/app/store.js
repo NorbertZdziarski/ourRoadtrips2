@@ -5,6 +5,8 @@ const store = createStore({
     setPage:  action((state, payload) => { state.page = (payload); }),
     tripId: "",
     setTripId:  action((state, payload) => { state.tripId = (payload); }),
+    loggedUser: "",
+    setLoggedUser:  action((state, payload) => { state.loggedUser = (payload); }),
 })
 
 export default store;

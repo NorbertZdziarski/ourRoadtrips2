@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
+import {fetchData} from "./a_CRUD_service";
 
 function Header() {
     const page = useStoreState(state => state.page);
     const setPage = useStoreActions(actions => actions.setPage);
+    const loggedUser = useStoreState(state => state.loggedUser);
+    const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
+
+    let userId = '651fe6702b474d23c7d1b616'
+
+    useEffect(() => {
+        const target = `user/${userId}`
+        fetchData(target).then(downloadedData => {
+            setLoggedUser(downloadedData[0])
+        });
+    }, []);
+
+
 
     return (
         <header className="underConstruction">
@@ -46,6 +60,9 @@ function Header() {
                 USER PROFILE
                     </button>
                 </div>))}
+            <div className="underConstruction">
+                {loggedUser ? (<p>{loggedUser.nick}</p>):(<p>not logged</p>)}
+            </div>
         </header>
     );
 }

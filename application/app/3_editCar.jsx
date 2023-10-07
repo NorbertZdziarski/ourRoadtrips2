@@ -1,13 +1,17 @@
 import React from 'react';
+import MyForm from "./app_form";
 
 function EditCar() {
 
 
     return (
-        <footer className="underConstruction">
-            <h3 > edit car </h3>
-
-        </footer>
+        <section className="underConstruction">
+            <h3 > add car czy tam edit... </h3>
+            <div className="ramka">
+                <MyForm
+                    type={"car"}/>
+            </div>
+        </section>
     );
 }
 
