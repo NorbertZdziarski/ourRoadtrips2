@@ -34,8 +34,13 @@ input {
   color:darkgrey;
 }
 .dataImportLine {
+  width: 100%;
+  font-size: 15px;
   border-bottom: 1px solid #535353;
   margin-bottom: 5px;
+  &:hover {
+    background-color: rgba(30, 144, 255, 0.35);
+  }
 }
 .testForm {
   width: 100%;
@@ -53,6 +58,7 @@ input {
 }
 
 .ramka {
+  width: 100%;
   box-sizing: border-box;
   border: 1px solid rgba(255, 183, 0, 0.74);
   box-shadow: 0 0 0 2px rgba(255, 183, 0, 0.14);
