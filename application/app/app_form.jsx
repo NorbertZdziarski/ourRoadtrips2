@@ -36,6 +36,9 @@ const getInitialFormData = (type,loggedUser) => {
             nick: '',
             firstName: '',
             lastName: '',
+            userDescription:'',
+            userPersonalComment:'',
+            cars: [],
             email: ''
         };
     }
@@ -70,8 +73,8 @@ const MyForm = ({type}) => {
 
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
-    const vehicleTypes=["all", "car", "bike", "4x4", "camper", "other"];
-    const carsTypes=["all", "daily","classic","forFun"];
+    const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
+    const carsPurposeTypes=["all", "daily","classic","forFun"];
 
 
     useEffect(() => {
@@ -81,10 +84,25 @@ const MyForm = ({type}) => {
     let formArr = Object.keys(formData)
 
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(formData)
-        await transferData(`${type}/add`,formData);
+        let dataToSave;
+        if (type === 'trip') await transferData(`${type}/add`,formData);
+        if (type === 'car') {
+            let carsArr = [...loggedUser.cars];
+
+            carsArr.push(formData);
+            console.log(carsArr);
+            dataToSave = {
+                cars: carsArr,
+            };
+            console.log('Data to save: ' + dataToSave);
+            console.log('typ: ' + typeof dataToSave);
+            console.log(JSON.stringify(dataToSave, null, 2))
+            await updateData(`user/${loggedUser._id}`, dataToSave);
+        }
         setFormData(getInitialFormData(type,loggedUser));
     };
 

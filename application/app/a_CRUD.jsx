@@ -19,15 +19,16 @@ const sendRequest = async (method, target, data) => {
                 for (const key in data) {
                     params.append(key, data[key]);
                 }
-                response = await axios.post(`${apiURL}/${target}`, params, {
+                console.log(data)
+                response = await axios.post(`${apiURL}/${target}`, params,data, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'my-header': 'all'
                     }
                 });
                 break;
-            case 'put':
-                response = await axios.put(`${apiURL}/${target}`, data, {
+            case 'patch':
+                response = await axios.patch(`${apiURL}/${target}`, data,{
                     headers: {
                         'Content-Type': 'application/json',
                         'my-header': 'all'

@@ -8,8 +8,8 @@ const transferData = async (target,data) => {
     return await sendRequest('post', target,data);
 };
 
-const updateData = async (target) => {
-    return await sendRequest('patch', target);
+const updateData = async (target,data) => {
+    return await sendRequest('patch', target,data);
 };
 
 const deleteData = async (target) => {
