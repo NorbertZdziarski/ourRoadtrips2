@@ -68,10 +68,8 @@ server.get('/:pathName', async (req, res) => {
 });
 
 server.get('/userstrips/:idNr', async (req,res) => {
-    // const pathName = req.params.inquiryType + 's';
 
     const id = req.params.idNr;
-    console.log(' server ' + id)
     let sendData;
     let filter = {tripUserId: id}
     try {
@@ -106,7 +104,8 @@ server.get('/:inquiryType/:idNr', async (req, res) => {
 });
 
 // ------------------------------------------------------------------------ POST
-server.use(bodyParser.urlencoded({ extended: true }));
+// server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
 
 server.post('/:inquiryType/add', async (req, res) => {
     const pathName = req.params.inquiryType + 's';
@@ -141,7 +140,7 @@ server.patch('/:inquiryType/:id', async (req, res) => {
     const id = req.params.id;
     const pathName = req.params.inquiryType + 's';
     const newItem = await req.body;
-    await manageData(dbName, pathName, 'patch',newItem);
+    await manageData(dbName, pathName, 'patch',newItem,id);
     res.send('Dane zostały zaktualizowane');
 
 });

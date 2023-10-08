@@ -3,6 +3,7 @@ import {useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
 
 function PrintTrips({trip}) {
+
     let keyData = 'line' + trip._id;
     return (<div key={keyData}>
         {trip.tripName}
@@ -12,7 +13,7 @@ function PrintTrips({trip}) {
 function PrintCars({car}) {
     let keyData = 'lineCar' + car.id;
     return (<div key={keyData}>
-        {car.carName}
+        {car.carBrand}
     </div>)
 }
 
@@ -20,7 +21,7 @@ function PrintCars({car}) {
 function UserProfile() {
     const loggedUser = useStoreState(state => state.loggedUser);
     const [usersTrips, setUsersTrips] = useState({});
-    const [usersCars, setUsersCars] = useState({});
+    const [usersCars, setUsersCars] = useState(loggedUser.cars);
 
     useEffect(() => {
         const target = `userstrips/${loggedUser._id}`
@@ -28,7 +29,6 @@ function UserProfile() {
             setUsersTrips(downloadedData)
         });
     }, []);
-
 
 
     return (
