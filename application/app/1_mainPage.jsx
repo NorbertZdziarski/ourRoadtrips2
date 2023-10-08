@@ -16,7 +16,7 @@ const MainPage = () => {
 
 
     return (
-        <div>
+        <div className="underConstruction-height">
             {(page === "userProfile" ? (<UserProfile/>):(<></>))}
             {(page === "mainPage" ? (<ShowTrips/>):(<></>))}
             {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
@@ -24,7 +24,7 @@ const MainPage = () => {
             {(page === "showTrip" ? (<ShowTrip/>):(<></>))}
 
             {(page === "editUserData" ? (<EditUserProfile/>):(<></>))}
-            {(page === "eddCar" ? (<EditCar/>):(<></>))}
+            {(page === "addCar" ? (<EditCar/>):(<></>))}
             {(page === "addTrip" ? (<EditTrip/>):(<></>))}
         </div>
     );

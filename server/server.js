@@ -67,6 +67,25 @@ server.get('/:pathName', async (req, res) => {
     }
 });
 
+server.get('/userstrips/:idNr', async (req,res) => {
+    // const pathName = req.params.inquiryType + 's';
+
+    const id = req.params.idNr;
+    console.log(' server ' + id)
+    let sendData;
+    let filter = {tripUserId: id}
+    try {
+        sendData = await manageData(dbName, 'trips', 'get',id,filter);
+        if (req.headers['my-header'] === 'all') {
+            res.status(200).json(sendData);
+        } else {
+            res.status(400).send('Brak wymaganego nagłówka');
+        }
+    } catch (err) {
+        console.log('błąd: ' + err);
+        res.status(500).send('Wystąpił błąd podczas pobierania danych');
+    }
+})
 
 server.get('/:inquiryType/:idNr', async (req, res) => {
     const pathName = req.params.inquiryType + 's';
