@@ -1,17 +1,19 @@
 const  {MongoClient, ObjectId} = require('mongodb');
 
-async function manageData(dbName, collectionName,action,data) {
+async function manageData(dbName, collectionName,action,data,filter) {
 
     const url = 'mongodb://127.0.0.1:27017';
     const client = await MongoClient.connect(url);
-
+    console.log(filter)
 
     try {
         await client.connect();
         const db = client.db(dbName);
         const collection = db.collection(collectionName);
         let dataDB;
-
+        if (filter) {dataDB = await collection.find(filter).toArray();
+            await client.close();
+            return dataDB;}
         if (action === 'delete') {
             await collection.deleteOne({_id: new ObjectId(data)});
             await client.close();
