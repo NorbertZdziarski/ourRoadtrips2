@@ -20,6 +20,17 @@ const getInitialFormData = (type,loggedUser) => {
             tripUserId: loggedUser._id,
             tripSaveDate: new Date()
         };
+    } else if (type === 'car') {
+        return {
+            carId: '',
+            carMaker: '',
+            carBrand: '',
+            carEngine: '',
+            carEnginePower: '',
+            carStyleType: '',
+            carPurposeType: '',
+            carPhoto: ''
+        };
     } else {
         return {
             nick: '',
@@ -54,13 +65,20 @@ const PrintForm = ({form,formData,setFormData}) => {
 
 const MyForm = ({type}) => {
     const [formData, setFormData] = useState({});
-    const formTrip = ['tripName','tripDescription','tripCar','tripDate','tripCountry','tripType','tripPhoto'];
+
     const loggedUser = useStoreState(state => state.loggedUser);
+
+    const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
+    const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
+    const vehicleTypes=["all", "car", "bike", "4x4", "camper", "other"];
+    const carsTypes=["all", "daily","classic","forFun"];
+
 
     useEffect(() => {
         setFormData(getInitialFormData(type,loggedUser));
     }, [type]);
 
+    let formArr = Object.keys(formData)
 
 
     const handleSubmit = async (e) => {
@@ -74,7 +92,7 @@ const MyForm = ({type}) => {
     return (
         <form onSubmit={handleSubmit} className="testForm">
             <PrintForm
-                form={formTrip}
+                form={formArr}
                 formData={formData}
                 setFormData={setFormData}
             />

@@ -6,7 +6,10 @@ function EditCar() {
 
     return (
         <section className="underConstruction">
-            <h3 > add car czy tam edit... </h3>
+            <div className="ramka">
+                <h3 > add car czy tam edit... się zobaczy </h3>
+                <h2 > poki co wersja robocza do decyzji pozniej. </h2>
+            </div>
             <div className="ramka">
                 <MyForm
                     type={"car"}/>
