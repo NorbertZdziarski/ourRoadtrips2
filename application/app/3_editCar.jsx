@@ -1,9 +1,10 @@
 import React from 'react';
 import MyForm from "./app_form";
+import {useStoreState} from "easy-peasy";
 
 function EditCar() {
-
-
+    const dataId = useStoreState(state => state.dataId);
+    console.log('edit: ' + dataId)
     return (
         <section className="underConstruction">
             <div className="ramka">
@@ -12,7 +13,8 @@ function EditCar() {
             </div>
             <div className="ramka">
                 <MyForm
-                    type={"car"}/>
+                    type={"car"}
+                  />
             </div>
         </section>
     );

@@ -9,6 +9,7 @@ const TripsList = ({ tripData }) => {
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
 
+
     return (
         <div className="testDataImport">
             <p className="testForm">trasy pobrane z bazy danych:</p>

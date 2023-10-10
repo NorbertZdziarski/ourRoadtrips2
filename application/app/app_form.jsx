@@ -70,7 +70,8 @@ const MyForm = ({type}) => {
     const [formData, setFormData] = useState({});
 
     const loggedUser = useStoreState(state => state.loggedUser);
-
+    const dataId = useStoreState(state => state.dataId);
+    console.log(dataId)
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
@@ -109,6 +110,7 @@ const MyForm = ({type}) => {
 
     return (
         <form onSubmit={handleSubmit} className="testForm">
+
             <PrintForm
                 form={formArr}
                 formData={formData}
