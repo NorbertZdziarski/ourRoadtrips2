@@ -62,19 +62,33 @@ const PrintForm = ({form,formData,setFormData}) => {
                         {value}:
                         {(value === 'tripCountry') ? <select value={formData[value]} name={value} onChange={handleChange} className="">
                             {countriesInEurope.map((country) => (
-                                <option key={country} value={country} className="fnt ">
+                                <option key={country} value={country} className="testDataImport">
                                     {country}
                                 </option>
                             ))}
                         </select> : <></>}
-                        {(value === 'tripType')?(<select value={formData['tripType']} name={value} onChange={handleChange} className="">
+                        {(value === 'tripType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
                             {tripTypes.map((triptype) => (
-                                <option key={triptype} value={triptype} className="fnt ">
+                                <option key={triptype} value={triptype} className="testDataImport">
                                     {triptype}
                                 </option>
                             ))}
                         </select>):(<></>)}
-                        {(value !== 'tripType' && value !== 'tripCountry')?(<input type="text" name={value} value={formData[value]} onChange={handleChange} />):(<></>)}
+                        {(value === 'carStyleType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
+                            {carsStyleTypes.map((carStyle) => (
+                                <option key={carStyle} value={carStyle} className="testDataImport">
+                                    {carStyle}
+                                </option>
+                            ))}
+                        </select>):(<></>)}
+                        {(value === 'carPurposeType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
+                            {carsPurposeTypes.map((carsPurpose) => (
+                                <option key={carsPurpose} value={carsPurpose} className="testDataImport">
+                                    {carsPurpose}
+                                </option>
+                            ))}
+                        </select>):(<></>)}
+                        {(value !== 'tripType' && value !== 'tripCountry' && value !== 'carStyleType' && value !== 'carPurposeType')?(<input type="text" name={value} value={formData[value]} onChange={handleChange} />):(<></>)}
                     </label>
                 </div>)}
         </div>
@@ -100,8 +114,8 @@ const MyForm = ({type}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log('handle submit')
         console.log(formData)
-        console.log('------dataID ' + dataId)
         let dataToSave;
         if (type === 'trip') {
             let targetPath;
@@ -113,7 +127,7 @@ const MyForm = ({type}) => {
         }
 
         if (type === 'car') {
-
+            console.log('type = car')
             let carsArr = [...loggedUser.cars];
             const index = carsArr.findIndex((car) => car.carId === formData.carId);
             if (index !== -1) {
@@ -121,6 +135,7 @@ const MyForm = ({type}) => {
             } else {
                 carsArr.push(formData);
             }
+            console.log('cars Arr:' + carsArr)
             dataToSave = {
                 cars: carsArr,
             };
