@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const apiURL = 'http://localhost:9000';
 
-const sendRequest = async (method, target, data) => {
+const sendRequest = async (method, target, data,folderName, fileName) => {
     try {
         let response;
 
@@ -26,6 +26,37 @@ const sendRequest = async (method, target, data) => {
                         'my-header': 'all'
                     }
                 });
+                break;
+            case 'postfile':
+                console.log('CRUD')
+                const formDatas = new FormData();
+                formDatas.append('type', folderName);
+                formDatas.append('filename', fileName);
+                formDatas.append('image', data);
+
+
+                axios.post(`${apiURL}/upload`, formDatas, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'my-header': 'all'
+                    }
+                })
+                    .then(response => {
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+
+
+
+
+                // response = await axios.post(`${apiURL}/${target}`, formData, {
+                //     headers: {
+                //         'Content-Type': 'multipart/form-data',
+                //         'my-header': 'all'
+                //     }
+                // });
                 break;
             case 'patch':
                 response = await axios.patch(`${apiURL}/${target}`, data,{

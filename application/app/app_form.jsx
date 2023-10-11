@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import '../css/main.scss';
-import {fetchData,transferData,updateData,deleteData} from "./a_CRUD_service";
+import {fetchData,transferData,updateData,deleteData, transferDataFile} from "./a_CRUD_service";
 import {useStoreState} from "easy-peasy";
 
+const MyForm = ({type}) => {
 const getInitialFormData = (type,loggedUser, dataId) => {
 
     if (type === 'trip') {
@@ -45,12 +45,24 @@ const getInitialFormData = (type,loggedUser, dataId) => {
         };
     }
 }
+const [file, setFile] = useState(null);
+const [fileName, setFileName] = useState('');
 
 const PrintForm = ({form,formData,setFormData}) => {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const carsPurposeTypes=["all", "daily","classic","forFun"];
+
+    const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto'];
+
+    function handleFileChange(event) {
+        setFile(event.target.files[0]);
+        let fileName = loggedUser._id + "car" + formData.carId;
+        setFileName(fileName);
+
+    }
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -88,46 +100,42 @@ const PrintForm = ({form,formData,setFormData}) => {
                                 </option>
                             ))}
                         </select>):(<></>)}
-                        {(value !== 'tripType' && value !== 'tripCountry' && value !== 'carStyleType' && value !== 'carPurposeType')?(<input type="text" name={value} value={formData[value]} onChange={handleChange} />):(<></>)}
+                        {(value === 'carPhoto')?(<input type="file" onChange={handleFileChange} />):(<></>)}
+
+                        {(excludedValues.includes(value) ? <></> : <input type="text" name={value} value={formData[value]} onChange={handleChange} />)}
+
                     </label>
                 </div>)}
         </div>
     )
 }
 
-const MyForm = ({type}) => {
-    const [formData, setFormData] = useState({});
 
+    const [formData, setFormData] = useState({});
     const loggedUser = useStoreState(state => state.loggedUser);
     const dataId = useStoreState(state => state.dataId);
-
-
-
 
     useEffect(() => {
         setFormData(getInitialFormData(type,loggedUser,dataId));
     }, [type]);
 
     let formArr = Object.keys(formData)
-
-
+    console.log(file)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('handle submit')
-        console.log(formData)
+
         let dataToSave;
         if (type === 'trip') {
             let targetPath;
-            console.log('------dataID 2: ' + dataId)
+
             if (!dataId) {targetPath = 'add'} else {targetPath = dataId._id};
-            console.log(dataId);
-            console.log(targetPath)
+
             await updateData(`${type}/${targetPath}`,formData);
         }
 
         if (type === 'car') {
-            console.log('type = car')
+
             let carsArr = [...loggedUser.cars];
             const index = carsArr.findIndex((car) => car.carId === formData.carId);
             if (index !== -1) {
@@ -135,15 +143,21 @@ const MyForm = ({type}) => {
             } else {
                 carsArr.push(formData);
             }
-            console.log('cars Arr:' + carsArr)
             dataToSave = {
                 cars: carsArr,
             };
             await updateData(`user/${loggedUser._id}`, dataToSave);
+            if (file) {
+                // await updateData(`user/${loggedUser._id}`, dataToSave);
+                let folderName = 'users'
+                console.log('warunek wysyłki')
+                await transferDataFile(`upload`, file, folderName, fileName);
+                console.log('wysyłka pliku')
+            }
+
         }
         setFormData(getInitialFormData(type,loggedUser));
     };
-
 
     return (
         <div className="underConstruction ramka underConstruction-height">
@@ -159,5 +173,4 @@ const MyForm = ({type}) => {
         </div>
     );
 };
-
 export default MyForm;
