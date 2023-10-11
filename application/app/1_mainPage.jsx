@@ -9,6 +9,7 @@ import EditUserProfile from "./3_editUserData";
 import EditTrip from "./3_editTrip";
 import EditCar from "./3_editCar";
 import ShowTrip from "./3_showTrip";
+import MyForm from "./app_form";
 
 const MainPage = () => {
 
@@ -23,9 +24,12 @@ const MainPage = () => {
 
             {(page === "showTrip" ? (<ShowTrip/>):(<></>))}
 
-            {(page === "editUserData" ? (<EditUserProfile/>):(<></>))}
-            {(page === "addCar" ? (<EditCar/>):(<></>))}
-            {(page === "addTrip" ? (<EditTrip/>):(<></>))}
+            {(page === "editUserData" ? (<MyForm
+                type={"user"}/>):(<></>))}
+            {(page === "addCar" ? (<MyForm
+                type={"car"}/>):(<></>))}
+            {(page === "addTrip" ? (<MyForm
+                type={"trip"}/>):(<></>))}
         </div>
     );
 };

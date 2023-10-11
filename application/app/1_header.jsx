@@ -7,6 +7,7 @@ function Header() {
     const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
+    const setDataId = useStoreActions(actions => actions.setDataId);
 
     let userId = '651fe6702b474d23c7d1b616'
 
@@ -29,10 +30,15 @@ function Header() {
                         <button onClick={()=>setPage("mainPage")}>
                             Main Page
                         </button>
-                        <button onClick={()=>setPage("addTrip")}>
+                        <button onClick={()=>{
+                            setDataId('')
+                            setPage("addTrip")}}>
                             Add trip
                         </button>
-                        <button onClick={()=>setPage("addCar")}>
+                        <button onClick={()=>{
+                            setDataId('')
+                            setPage("addCar")}
+                        }>
                             Add car
                         </button>
                         <button onClick={()=>setPage("editUserData")}>

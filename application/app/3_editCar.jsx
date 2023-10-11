@@ -3,8 +3,9 @@ import MyForm from "./app_form";
 import {useStoreState} from "easy-peasy";
 
 function EditCar() {
-    const dataId = useStoreState(state => state.dataId);
-    console.log('edit: ' + dataId)
+
+    // --------------------------------------------------- plik do usunięcia
+
     return (
         <section className="underConstruction">
             <div className="ramka">

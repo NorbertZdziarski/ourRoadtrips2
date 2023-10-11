@@ -48,7 +48,15 @@ function UserProfile() {
                 User Trips
 
                 {usersTrips ? (
-                    Object.values(usersTrips).map((trip) => <PrintTrips key={`keyline${trip._id}`} trip={trip}/>)
+                    Object.values(usersTrips).map((trip) =>
+                        <div key={`keytrip${trip._id}`} className="dataImportLine">
+                            <button className="clickPage" onClick={()=>{
+                                setPage("addTrip")
+                                setDataId(trip)}
+                            }>
+                                <PrintTrips  trip={trip}/>
+                            </button>
+                        </div>)
                 ) : (
                     <div>loading data....</div>
                 )}
@@ -59,7 +67,7 @@ function UserProfile() {
                 User Cars
                 {usersCars ? (
                     Object.values(usersCars).map((car) =>
-                        <div key={`keyline${car._id}`} className="dataImportLine">
+                        <div key={`keycar${car.carId}`} className="dataImportLine">
                             <button className="clickPage" onClick={()=>{
                                 setPage("addCar")
                                 setDataId(car)}
