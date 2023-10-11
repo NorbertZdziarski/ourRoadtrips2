@@ -22,7 +22,7 @@ function Header() {
 
     return (
         <header className="underConstruction">
-            <p >logo</p>
+            <p >logo {page}</p>
 
             {(page === "userProfile" ? (
                 <div className="underConstruction">
@@ -50,6 +50,8 @@ function Header() {
                     </button>
                 </div>
             ) : (
+                <></>))}
+            {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip"))? (
                 <div className="underConstruction">
                     <section>
                         <button onClick={()=>setPage("mainPage")}>
@@ -63,9 +65,27 @@ function Header() {
                         </button>
                     </section>
                     <button onClick={()=>setPage("userProfile")}>
-                USER PROFILE
+                        USER PROFILE
                     </button>
-                </div>))}
+                </div>
+            ) : ( <></>
+               ))}
+            {(((page === "editUserData") || (page === "addCar") || (page === "addTrip") ) ? (
+                <div className="underConstruction">
+                    <section>
+                        <button onClick={()=>setPage("mainPage")}>
+                            Main Page
+                        </button>
+                        <button onClick={()=>setPage("userProfile")}>
+                            USER PROFILE
+                        </button>
+                    </section>
+                    <button onClick={()=>setPage("mainPage")}>
+                        Log Out
+                    </button>
+                </div>
+            ) : (
+                <></>))}
             <div className="underConstruction">
                 {loggedUser ? (<p>{loggedUser.nick}</p>):(<p>not logged</p>)}
             </div>
