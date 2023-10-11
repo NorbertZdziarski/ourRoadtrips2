@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useStoreState} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
 
 function PrintTrips({trip}) {
@@ -22,6 +22,8 @@ function UserProfile() {
     const loggedUser = useStoreState(state => state.loggedUser);
     const [usersTrips, setUsersTrips] = useState({});
     const [usersCars, setUsersCars] = useState(loggedUser.cars);
+    const setPage = useStoreActions(actions => actions.setPage);
+    const setDataId = useStoreActions(actions => actions.setDataId);
 
     useEffect(() => {
         const target = `userstrips/${loggedUser._id}`
@@ -46,7 +48,15 @@ function UserProfile() {
                 User Trips
 
                 {usersTrips ? (
-                    Object.values(usersTrips).map((trip) => <PrintTrips key={`keyline${trip._id}`} trip={trip}/>)
+                    Object.values(usersTrips).map((trip) =>
+                        <div key={`keytrip${trip._id}`} className="dataImportLine">
+                            <button className="clickPage" onClick={()=>{
+                                setPage("addTrip")
+                                setDataId(trip)}
+                            }>
+                                <PrintTrips  trip={trip}/>
+                            </button>
+                        </div>)
                 ) : (
                     <div>loading data....</div>
                 )}
@@ -56,7 +66,15 @@ function UserProfile() {
             <section>
                 User Cars
                 {usersCars ? (
-                    Object.values(usersCars).map((car) => <PrintCars key={`keyline${car._id}`} car={car}/>)
+                    Object.values(usersCars).map((car) =>
+                        <div key={`keycar${car.carId}`} className="dataImportLine">
+                            <button className="clickPage" onClick={()=>{
+                                setPage("addCar")
+                                setDataId(car)}
+                            }> <PrintCars  car={car}/></button>
+                        </div>
+
+                        )
                 ) : (
                     <div>loading data....</div>
                 )}

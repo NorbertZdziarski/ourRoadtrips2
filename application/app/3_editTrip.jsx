@@ -3,6 +3,7 @@ import MyForm from "./app_form.jsx";
 
 function EditTrip() {
 
+    // --------------------------------------------------- plik do usunięcia
 
     return (
         <section className="underConstruction">

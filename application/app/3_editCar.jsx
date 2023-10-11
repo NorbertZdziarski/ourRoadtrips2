@@ -1,8 +1,10 @@
 import React from 'react';
 import MyForm from "./app_form";
+import {useStoreState} from "easy-peasy";
 
 function EditCar() {
 
+    // --------------------------------------------------- plik do usunięcia
 
     return (
         <section className="underConstruction">
@@ -12,7 +14,8 @@ function EditCar() {
             </div>
             <div className="ramka">
                 <MyForm
-                    type={"car"}/>
+                    type={"car"}
+                  />
             </div>
         </section>
     );
