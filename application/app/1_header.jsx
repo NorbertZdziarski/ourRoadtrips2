@@ -51,7 +51,7 @@ function Header() {
                 </div>
             ) : (
                 <></>))}
-            {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip"))? (
+            {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "mainPageFilter"))? (
                 <div className="underConstruction">
                     <section>
                         <button onClick={()=>setPage("mainPage")}>
