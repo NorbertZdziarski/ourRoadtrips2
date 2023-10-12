@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
+import LoadImage from "./a_loadimage";
 
 function ShowTrip() {
     const page = useStoreState(state => state.page);
@@ -27,6 +28,10 @@ function ShowTrip() {
                 <p>   {data.tripType} </p>
                 <p>   {data.tripUser} </p>
                 <p>   {data.tripCar} </p>
+                {data.tripPhoto ? <LoadImage imageName={data.tripPhoto}
+                                             imagePath='images/trips'
+                                             imageWidth='800px' /> : <p>no photo</p>}
+
             </section>) : (<p>loading data</p>) }
         </section>
     );

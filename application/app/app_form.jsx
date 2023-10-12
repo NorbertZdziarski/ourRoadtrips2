@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../css/main.scss';
 import {fetchData,transferData,updateData,deleteData, transferDataFile} from "./a_CRUD_service";
-import {useStoreState} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 
 const PrintForm = ({form,formData,usersCars,setFormData, setFile}) => {
@@ -80,10 +80,13 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile}) => {
 const MyForm = ({type}) => {
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({});
+    const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
+    const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const dataId = useStoreState(state => state.dataId);
+
     const loggedUsersCars = loggedUser.cars;
-    const usersCars = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`)
+    const usersCarsDisp = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`)
 
     const getInitialFormData = (type,loggedUser, dataId) => {
         if (type === 'trip') {
@@ -139,7 +142,11 @@ const MyForm = ({type}) => {
         return fileName;
     }
 
-
+    function updateUser(key, newData) {
+        const newState = { ...loggedUser };
+        newState[key] = newData;
+        setLoggedUser(newState);
+    }
     useEffect(() => {
         setFormData(getInitialFormData(type,loggedUser,dataId));
     }, [type]);
@@ -175,6 +182,12 @@ const MyForm = ({type}) => {
 
         if (type === 'car') {
 
+            if (!dataId) {
+                let currentDate = new Date();
+                let timestamp = currentDate.getTime();
+                let hexTimestamp = timestamp.toString(16);
+                formData.carId = loggedUser._id + type + hexTimestamp}
+
             let carsArr = [...loggedUser.cars];
             const index = carsArr.findIndex((car) => car.carId === formData.carId);
             if (index !== -1) {
@@ -185,7 +198,7 @@ const MyForm = ({type}) => {
             dataToSave = {
                 cars: carsArr,
             };
-
+            updateUser('cars',carsArr)
 
             if (file)  {
                 console.log(formData.carId)
@@ -198,9 +211,11 @@ const MyForm = ({type}) => {
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku')
             }
+            setPage("userProfile");
 
         }
         setFormData(getInitialFormData(type,loggedUser));
+
     };
 
     return (
@@ -210,7 +225,7 @@ const MyForm = ({type}) => {
             <PrintForm
                 form={formArr}
                 formData={formData}
-                usersCars={usersCars}
+                usersCars={usersCarsDisp}
                 setFormData={setFormData}
                 setFile={setFile}
             />
