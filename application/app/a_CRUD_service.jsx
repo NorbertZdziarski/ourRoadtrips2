@@ -7,6 +7,9 @@ const fetchData = async (target) => {
 const transferData = async (target,data) => {
     return await sendRequest('post', target,data);
 };
+const transferDataFile = async (target,data,  folderName, fileName) => {
+    return await sendRequest('postFile', target,data,folderName, fileName);
+};
 
 const updateData = async (target,data) => {
     return await sendRequest('patch', target,data);
@@ -16,5 +19,7 @@ const deleteData = async (target) => {
     return await sendRequest('delete', target);
 };
 
-export {fetchData,transferData,updateData,deleteData};
+
+
+export {fetchData,transferData,updateData,deleteData, transferDataFile};
 

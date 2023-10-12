@@ -5,9 +5,7 @@ import '../css/main.scss';
 import ShowTrips from "./2_showTrips";
 import UserProfile from "./2_userProfile";
 import AboutUs from "./2_aboutUs";
-import EditUserProfile from "./3_editUserData";
-import EditTrip from "./3_editTrip";
-import EditCar from "./3_editCar";
+
 import ShowTrip from "./3_showTrip";
 import MyForm from "./app_form";
 

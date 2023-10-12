@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
+import LoadImage from "./a_loadimage";
 
 function PrintTrips({trip}) {
 
@@ -14,6 +15,7 @@ function PrintCars({car}) {
     let keyData = 'lineCar' + car.id;
     return (<div key={keyData}>
         {car.carBrand}
+
     </div>)
 }
 
@@ -55,6 +57,9 @@ function UserProfile() {
                                 setDataId(trip)}
                             }>
                                 <PrintTrips  trip={trip}/>
+                                <LoadImage imageName={trip.tripPhoto}
+                                           imagePath='images/trips'
+                                           imageWidth='120px' />
                             </button>
                         </div>)
                 ) : (
@@ -71,7 +76,11 @@ function UserProfile() {
                             <button className="clickPage" onClick={()=>{
                                 setPage("addCar")
                                 setDataId(car)}
-                            }> <PrintCars  car={car}/></button>
+                            }> <PrintCars  car={car}/>
+                                <LoadImage imageName={car.carPhoto}
+                                           imagePath='images/users'
+                                           imageWidth='120px' />
+                            </button>
                         </div>
 
                         )

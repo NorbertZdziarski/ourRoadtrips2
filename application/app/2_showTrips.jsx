@@ -20,6 +20,7 @@ const TripsList = ({ tripData }) => {
                         setTripId(trip._id)
                     } }>
                        < TripBox trip={trip} />
+
                     </button>
                     {/*<h2>{user.tripName}</h2>*/}
                 </div>
