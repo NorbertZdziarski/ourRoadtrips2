@@ -24,8 +24,8 @@ const storage = multer.diskStorage({
             const error = new Error('błędna nazwa folderu (typ)');
             error.code = 'INCORRECT_FOLDER';
             return cb(error); }
-        const subFolderName = req.body.folderName;
-        const folderName = path.join(fileType,'images', subFolderName)
+        // const subFolderName = req.body.folderName;
+        const folderName = path.join('images',fileType)
 
         if (!fs.existsSync(folderName)) {
             fs.mkdirSync(folderName,{recursive: true})
@@ -33,7 +33,9 @@ const storage = multer.diskStorage({
         cb(null, folderName);
     },
     filename: function(req, file, cb) {
-        cb(null, file.originalname);
+        const fileName = req.body.filename;
+        // const extension = path.extname(file.originalname);
+        cb(null, fileName);
     }
 });
 
@@ -42,6 +44,7 @@ const upload = multer({ storage: storage }).single('image');
 // ------------------------------------------------------------------------ USE
 
 server.use(cors());
+server.use(express.static('images'));
 server.use((req, res, next) => {
     if (!req.headers['my-header']) {
         return res.status(400).send('error. Attempt to connect without required permissions');
@@ -49,8 +52,48 @@ server.use((req, res, next) => {
     next();
 });
 
-// ------------------------------------------------------------------------ GET
+// ------------------------------------------------------------------------ upload
+server.post('/upload', function (req, res) {
+    upload(req, res, function (err) {
+        try {
+            if (err instanceof multer.MulterError) {
+                // Wystąpił błąd Multer podczas przesyłania.
+                throw new Error(err.message);
+            } else if (err && err.code === 'INCORRECT_FOLDER') {
+                // Nasz niestandardowy błąd został zgłoszony.
+                throw new Error(err.message);
+            }
+            res.send('Plik został przesłany');
+        } catch (err) {
+            res.status(400).send(err.message);
+        }
+    });
+});
 
+// ------------------------------------------------------------------------ GET
+server.get('/download', async function(req, res){
+    console.log(' download ')
+    // const filePath = req.query.filepath;
+    const filePath = req.query.filepath;
+    const fileName = req.query.filename;
+    console.log('nazwa pliku: ' + fileName)
+    console.log('sciezka: ' + filePath)
+    let fullPath = path.join(filePath.toString(), fileName.toString());
+    console.log(typeof fullPath)
+    console.log(fullPath)
+
+    let file = path.join(__dirname, fullPath);
+
+    console.log('file : ' + file)
+    res.download(fullPath, function (err) {
+        if (err) {
+            console.log("Błąd podczas pobierania pliku: ", err);
+            res.status(400).send("Błąd podczas pobierania pliku");
+        } else {
+            console.log("Plik został pomyślnie pobrany");
+        }
+    });
+});
 server.get('/:pathName', async (req, res) => {
     const pathName = req.params.pathName;
     let sendData;
@@ -119,22 +162,7 @@ server.post('/:inquiryType/add', async (req, res) => {
 
 
 
-server.post('/upload', function (req, res) {
-    upload(req, res, function (err) {
-        try {
-            if (err instanceof multer.MulterError) {
-                // Wystąpił błąd Multer podczas przesyłania.
-                throw new Error(err.message);
-            } else if (err && err.code === 'INCORRECT_FOLDER') {
-                // Nasz niestandardowy błąd został zgłoszony.
-                throw new Error(err.message);
-            }
-            res.send('Plik został przesłany');
-        } catch (err) {
-            res.status(400).send(err.message);
-        }
-    });
-});
+
 // ----------------------------------------------------------------------------------------- PATCH
 server.patch('/:inquiryType/:id', async (req, res) => {
     const id = req.params.id;

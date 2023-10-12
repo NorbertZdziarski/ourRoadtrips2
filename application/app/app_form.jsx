@@ -2,65 +2,80 @@ import React, { useState, useEffect } from 'react';
 import '../css/main.scss';
 import {fetchData,transferData,updateData,deleteData, transferDataFile} from "./a_CRUD_service";
 import {useStoreState} from "easy-peasy";
+import LoadImage from "./a_loadimage";
 
 const MyForm = ({type}) => {
-const getInitialFormData = (type,loggedUser, dataId) => {
+    const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState('');
+    const [formData, setFormData] = useState({});
+    const loggedUser = useStoreState(state => state.loggedUser);
+    const dataId = useStoreState(state => state.dataId);
 
-    if (type === 'trip') {
-        return {
-            tripName: dataId.tripName || '',
-            tripDescription:dataId.tripDescription ||  '',
-            tripCar: dataId.tripCar ||  '',
-            tripDate: dataId.tripDate || '',
-            tripCountry: dataId.tripCountry || '',
-            tripType: dataId.tripType || '',
-            tripPhoto: dataId.tripPhoto || '',
-            tripMap: dataId.tripMap || '',
-            tripUser: loggedUser.nick,
-            tripUserId: loggedUser._id,
-            tripSaveDate: new Date()
-        };
-    } else if (type === 'car') {
-        return {
-            carId: dataId.carId || '',
-            carMaker: dataId.carMaker || '',
-            carBrand: dataId.carBrand || '',
-            carDescription: dataId.carDescription || '',
-            carEngine: dataId.carEngine || '',
-            carEnginePower: dataId.carEnginePower || '',
-            carStyleType: dataId.carStyleType || '',
-            carPurposeType: dataId.carPurposeType || '',
-            carPhoto: dataId.carPhoto || ''
-        };
+    const getInitialFormData = (type,loggedUser, dataId) => {
+        if (type === 'trip') {
+            return {
+                tripName: dataId.tripName || '',
+                tripDescription:dataId.tripDescription ||  '',
+                tripCar: dataId.tripCar ||  '',
+                tripDate: dataId.tripDate || '',
+                tripCountry: dataId.tripCountry || '',
+                tripType: dataId.tripType || '',
+                tripPhoto: dataId.tripPhoto || '',
+                tripMap: dataId.tripMap || '',
+                tripUser: loggedUser.nick,
+                tripUserId: loggedUser._id,
+                tripSaveDate: new Date()
+            };
+        } else if (type === 'car') {
+            return {
+                carId: dataId.carId || '',
+                carMaker: dataId.carMaker || '',
+                carBrand: dataId.carBrand || '',
+                carDescription: dataId.carDescription || '',
+                carEngine: dataId.carEngine || '',
+                carEnginePower: dataId.carEnginePower || '',
+                carStyleType: dataId.carStyleType || '',
+                carPurposeType: dataId.carPurposeType || '',
+                carPhoto: dataId.carPhoto || ''
+            };
 
-    } else {
-        return {
-            nick: loggedUser.nick || '',
-            firstName: loggedUser.firstName || '',
-            lastName: loggedUser.lastName || '',
-            userDescription: loggedUser.userDescription ||'',
-            userPersonalComment: loggedUser.userPersonalComment ||'',
-            cars: [],
-            email: loggedUser.email || ''
-        };
+        } else {
+            return {
+                nick: loggedUser.nick || '',
+                firstName: loggedUser.firstName || '',
+                lastName: loggedUser.lastName || '',
+                userDescription: loggedUser.userDescription ||'',
+                userPersonalComment: loggedUser.userPersonalComment ||'',
+                cars: [],
+                email: loggedUser.email || ''
+            };
+        }
     }
-}
-const [file, setFile] = useState(null);
-const [fileName, setFileName] = useState('');
 
+    const newFileNameGenerator = (idObject) => {
+        let oldFileName = file.name.toLowerCase();
+        let idx = oldFileName.lastIndexOf('.');
+        let fileExtension = oldFileName.slice(idx,oldFileName.length)
+        let currentDate = new Date();
+        let timestamp = currentDate.getTime();
+        let hexTimestamp = timestamp.toString(16);
+        let fileName = loggedUser._id + type + idObject + hexTimestamp + fileExtension;
+        console.log('-- file name generator --')
+        console.log(fileName)
+        return fileName;
+    }
 const PrintForm = ({form,formData,setFormData}) => {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const carsPurposeTypes=["all", "daily","classic","forFun"];
 
-    const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto'];
+    const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto'];
 
     function handleFileChange(event) {
-        setFile(event.target.files[0]);
-        let fileName = loggedUser._id + "car" + formData.carId;
-        setFileName(fileName);
 
+        let fileUpload = (event.target.files[0]);
+        setFile(fileUpload)
     }
 
     const handleChange = (e) => {
@@ -100,20 +115,26 @@ const PrintForm = ({form,formData,setFormData}) => {
                                 </option>
                             ))}
                         </select>):(<></>)}
-                        {(value === 'carPhoto')?(<input type="file" onChange={handleFileChange} />):(<></>)}
+                        {(value === 'carPhoto')?(
+                            <input type="file" onChange={handleFileChange} />
 
+                        ):(<></>)}
+                        {(value === 'tripPhoto')?(
+                            <input type="file" onChange={handleFileChange} />
+
+                        ):(<></>)}
                         {(excludedValues.includes(value) ? <></> : <input type="text" name={value} value={formData[value]} onChange={handleChange} />)}
 
                     </label>
+
                 </div>)}
         </div>
     )
 }
 
 
-    const [formData, setFormData] = useState({});
-    const loggedUser = useStoreState(state => state.loggedUser);
-    const dataId = useStoreState(state => state.dataId);
+
+
 
     useEffect(() => {
         setFormData(getInitialFormData(type,loggedUser,dataId));
@@ -126,12 +147,27 @@ const PrintForm = ({form,formData,setFormData}) => {
         e.preventDefault();
 
         let dataToSave;
+
+        console.log('type : ' + type)
+        let newFileName;
         if (type === 'trip') {
             let targetPath;
 
+            if (file)  {
+                    console.log(dataId._id)
+                newFileName = newFileNameGenerator(dataId._id);
+                formData.tripPhoto = newFileName; }
             if (!dataId) {targetPath = 'add'} else {targetPath = dataId._id};
 
             await updateData(`${type}/${targetPath}`,formData);
+            if (file) {
+
+
+                let folderName = 'trips';
+                console.log('warunek wysyłki')
+                await transferDataFile(`upload`, file, folderName, newFileName);
+                console.log('wysyłka pliku')
+            }
         }
 
         if (type === 'car') {
@@ -146,12 +182,18 @@ const PrintForm = ({form,formData,setFormData}) => {
             dataToSave = {
                 cars: carsArr,
             };
+
+            console.log('file: ' + file)
+
+            if (file)  {
+                console.log(formData.carId)
+                newFileName = newFileNameGenerator(formData.carId);
+                formData.carPhoto = newFileName; }
             await updateData(`user/${loggedUser._id}`, dataToSave);
             if (file) {
-                // await updateData(`user/${loggedUser._id}`, dataToSave);
                 let folderName = 'users'
                 console.log('warunek wysyłki')
-                await transferDataFile(`upload`, file, folderName, fileName);
+                await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku')
             }
 
@@ -170,6 +212,9 @@ const PrintForm = ({form,formData,setFormData}) => {
             />
             <button type="submit">Wyślij</button>
         </form>
+            <LoadImage imageName={formData.carPhoto}
+                       imagePath='images/users'
+                       imageWidth='300px' />
         </div>
     );
 };

@@ -8,9 +8,6 @@ const transferData = async (target,data) => {
     return await sendRequest('post', target,data);
 };
 const transferDataFile = async (target,data,  folderName, fileName) => {
-    console.log('crud service')
-    console.log('target: ' + target)
-    console.log('file: ' + typeof data)
     return await sendRequest('postFile', target,data,folderName, fileName);
 };
 

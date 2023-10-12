@@ -28,12 +28,10 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 });
                 break;
             case 'postfile':
-                console.log('CRUD')
                 const formDatas = new FormData();
                 formDatas.append('type', folderName);
                 formDatas.append('filename', fileName);
                 formDatas.append('image', data);
-
 
                 axios.post(`${apiURL}/upload`, formDatas, {
                     headers: {
@@ -48,15 +46,6 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                         console.error(error);
                     });
 
-
-
-
-                // response = await axios.post(`${apiURL}/${target}`, formData, {
-                //     headers: {
-                //         'Content-Type': 'multipart/form-data',
-                //         'my-header': 'all'
-                //     }
-                // });
                 break;
             case 'patch':
                 response = await axios.patch(`${apiURL}/${target}`, data,{
