@@ -9,6 +9,8 @@ const store = createStore({
     setDataId:  action((state, payload) => { state.dataId = (payload); }),
     loggedUser: "",
     setLoggedUser:  action((state, payload) => { state.loggedUser = (payload); }),
+    reload: 0,
+    setReload:  action((state, payload) => { state.reload = (payload); }),
 })
 
 export default store;

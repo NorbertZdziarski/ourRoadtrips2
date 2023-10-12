@@ -180,8 +180,10 @@ server.patch('/:inquiryType/:id', async (req, res) => {
 // ----------------------------------------------------------------------------------------- DELETE
 
 server.delete('/:inquiryType/:idNr', async (req, res) => {
-    const pathName = req.params.inquiryType;
+    const pathName = req.params.inquiryType + 's';
     const id = req.params.idNr;
+
+
     let sendData;
     try {
         sendData = await manageData(dbName, pathName, 'delete',id);

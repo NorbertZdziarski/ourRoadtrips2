@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import path from 'path';
 
 const LoadImage = ({ imageName, imageWidth, imagePath }) => {
     const [image, setImage] = useState('');
@@ -20,9 +19,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath }) => {
                 },
                 responseType: 'blob',
             }).then((response) => {
-                console.log('zapis zdjęcia')
                 const url = window.URL.createObjectURL(new Blob([response.data]));
-                console.log('url: ' + url)
                 setImage(url);
             }).catch((error) => {
                 console.error('Błąd podczas żądania:', error);
