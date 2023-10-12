@@ -7,7 +7,7 @@ function TripBox({trip}) {
         <div className="underConstruction">
             <h4 className="ramka">{trip.tripName}</h4>
             <p > by: {trip.tripUser}</p>
-            <LoadImage imageName={trip.carPhoto}
+            <LoadImage imageName={trip.tripPhoto}
                        imagePath='images/trips'
                        imageWidth='300px' />
         </div>

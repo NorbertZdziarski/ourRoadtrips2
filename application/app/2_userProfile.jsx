@@ -57,7 +57,7 @@ function UserProfile() {
                                 setDataId(trip)}
                             }>
                                 <PrintTrips  trip={trip}/>
-                                <LoadImage imageName={trip.carPhoto}
+                                <LoadImage imageName={trip.tripPhoto}
                                            imagePath='images/trips'
                                            imageWidth='120px' />
                             </button>

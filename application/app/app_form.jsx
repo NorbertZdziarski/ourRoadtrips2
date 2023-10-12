@@ -4,12 +4,86 @@ import {fetchData,transferData,updateData,deleteData, transferDataFile} from "./
 import {useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 
+const PrintForm = ({form,formData,usersCars,setFormData, setFile}) => {
+    const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
+    const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
+    const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
+    const carsPurposeTypes=["all", "daily","classic","forFun"];
+
+    const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar'];
+
+
+    function handleFileChange(event) {
+        let fileUpload = (event.target.files[0]);
+        setFile(fileUpload)
+    }
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    return(
+        <div>
+            {form.map((value) => <div key={`line${value}`}>
+
+                <label>
+                    <p>{value}:</p>
+                    {(value === 'tripCountry') ? <select value={formData[value]} name={value} onChange={handleChange} className="">
+                        {countriesInEurope.map((country) => (
+                            <option key={country} value={country} className="testDataImport">
+                                {country}
+                            </option>
+                        ))}
+                    </select> : <></>}
+                    {(value === 'tripType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
+                        {tripTypes.map((triptype) => (
+                            <option key={triptype} value={triptype} className="testDataImport">
+                                {triptype}
+                            </option>
+                        ))}
+                    </select>):(<></>)}
+                    {(value === 'carStyleType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
+                        {carsStyleTypes.map((carStyle) => (
+                            <option key={carStyle} value={carStyle} className="testDataImport">
+                                {carStyle}
+                            </option>
+                        ))}
+                    </select>):(<></>)}
+                    {(value === 'tripCar')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
+                        {usersCars.map((tripCar) => (
+                            <option key={tripCar} value={tripCar} className="testDataImport">
+                                {tripCar}
+                            </option>
+                        ))}
+                    </select>):(<></>)}
+                    {(value === 'carPurposeType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
+                        {carsPurposeTypes.map((carsPurpose) => (
+                            <option key={carsPurpose} value={carsPurpose} className="testDataImport">
+                                {carsPurpose}
+                            </option>
+                        ))}
+                    </select>):(<></>)}
+                    {(value === 'carPhoto')?(
+                        <input type="file" onChange={handleFileChange} />
+                    ):(<></>)}
+                    {(value === 'tripPhoto')?(
+                        <input type="file" onChange={handleFileChange} />
+                    ):(<></>)}
+                    {(excludedValues.includes(value) ? <></> : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} />)}
+
+                </label>
+
+            </div>)}
+        </div>
+    )
+}
 const MyForm = ({type}) => {
     const [file, setFile] = useState(null);
-    const [fileName, setFileName] = useState('');
     const [formData, setFormData] = useState({});
     const loggedUser = useStoreState(state => state.loggedUser);
     const dataId = useStoreState(state => state.dataId);
+    const loggedUsersCars = loggedUser.cars;
+    const usersCars = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`)
 
     const getInitialFormData = (type,loggedUser, dataId) => {
         if (type === 'trip') {
@@ -64,76 +138,6 @@ const MyForm = ({type}) => {
         console.log(fileName)
         return fileName;
     }
-const PrintForm = ({form,formData,setFormData}) => {
-    const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
-    const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
-    const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
-    const carsPurposeTypes=["all", "daily","classic","forFun"];
-
-    const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto'];
-
-    function handleFileChange(event) {
-
-        let fileUpload = (event.target.files[0]);
-        setFile(fileUpload)
-    }
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-    return(
-        <div>
-            {form.map((value) => <div key={value}>
-
-                    <label>
-                        {value}:
-                        {(value === 'tripCountry') ? <select value={formData[value]} name={value} onChange={handleChange} className="">
-                            {countriesInEurope.map((country) => (
-                                <option key={country} value={country} className="testDataImport">
-                                    {country}
-                                </option>
-                            ))}
-                        </select> : <></>}
-                        {(value === 'tripType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
-                            {tripTypes.map((triptype) => (
-                                <option key={triptype} value={triptype} className="testDataImport">
-                                    {triptype}
-                                </option>
-                            ))}
-                        </select>):(<></>)}
-                        {(value === 'carStyleType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
-                            {carsStyleTypes.map((carStyle) => (
-                                <option key={carStyle} value={carStyle} className="testDataImport">
-                                    {carStyle}
-                                </option>
-                            ))}
-                        </select>):(<></>)}
-                        {(value === 'carPurposeType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
-                            {carsPurposeTypes.map((carsPurpose) => (
-                                <option key={carsPurpose} value={carsPurpose} className="testDataImport">
-                                    {carsPurpose}
-                                </option>
-                            ))}
-                        </select>):(<></>)}
-                        {(value === 'carPhoto')?(
-                            <input type="file" onChange={handleFileChange} />
-
-                        ):(<></>)}
-                        {(value === 'tripPhoto')?(
-                            <input type="file" onChange={handleFileChange} />
-
-                        ):(<></>)}
-                        {(excludedValues.includes(value) ? <></> : <input type="text" name={value} value={formData[value]} onChange={handleChange} />)}
-
-                    </label>
-
-                </div>)}
-        </div>
-    )
-}
-
-
-
 
 
     useEffect(() => {
@@ -141,30 +145,29 @@ const PrintForm = ({form,formData,setFormData}) => {
     }, [type]);
 
     let formArr = Object.keys(formData)
-    console.log(file)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         let dataToSave;
-
-        console.log('type : ' + type)
         let newFileName;
         if (type === 'trip') {
-            let targetPath;
 
+            let targetPath;
             if (file)  {
-                    console.log(dataId._id)
                 newFileName = newFileNameGenerator(dataId._id);
                 formData.tripPhoto = newFileName; }
-            if (!dataId) {targetPath = 'add'} else {targetPath = dataId._id};
+            if (!dataId) {
+                targetPath = 'add';
+                await transferData(`${type}/${targetPath}`,formData);
+            } else {
+                targetPath = dataId._id;
+                await updateData(`${type}/${targetPath}`,formData);
+            };
 
-            await updateData(`${type}/${targetPath}`,formData);
+
             if (file) {
-
-
                 let folderName = 'trips';
-                console.log('warunek wysyłki')
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku')
             }
@@ -183,7 +186,6 @@ const PrintForm = ({form,formData,setFormData}) => {
                 cars: carsArr,
             };
 
-            console.log('file: ' + file)
 
             if (file)  {
                 console.log(formData.carId)
@@ -208,7 +210,9 @@ const PrintForm = ({form,formData,setFormData}) => {
             <PrintForm
                 form={formArr}
                 formData={formData}
+                usersCars={usersCars}
                 setFormData={setFormData}
+                setFile={setFile}
             />
             <button type="submit">Wyślij</button>
         </form>

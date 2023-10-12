@@ -19,8 +19,9 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 for (const key in data) {
                     params.append(key, data[key]);
                 }
+                console.log(params)
                 console.log(data)
-                response = await axios.post(`${apiURL}/${target}`, params,data, {
+                response = await axios.post(`${apiURL}/${target}`, data, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'my-header': 'all'

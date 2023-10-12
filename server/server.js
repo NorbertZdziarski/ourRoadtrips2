@@ -147,12 +147,16 @@ server.get('/:inquiryType/:idNr', async (req, res) => {
 });
 
 // ------------------------------------------------------------------------ POST
-// server.use(bodyParser.urlencoded({ extended: true }));
-server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+
 
 server.post('/:inquiryType/add', async (req, res) => {
     const pathName = req.params.inquiryType + 's';
     const newItem = await req.body;
+
+    console.log(pathName)
+    console.log(newItem)
+
     await manageData(dbName, pathName, 'post',newItem);
 
 
@@ -160,7 +164,7 @@ server.post('/:inquiryType/add', async (req, res) => {
 });
 
 
-
+server.use(bodyParser.json());
 
 
 // ----------------------------------------------------------------------------------------- PATCH
