@@ -8,7 +8,8 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile}) => {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
-    const carsPurposeTypes=["all", "daily","classic","forFun"];
+    const carsPurposeTypes=["all", "daily", "classic", "forFun"];
+    const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
 
     const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar'];
 
@@ -25,7 +26,7 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile}) => {
     return(
         <div>
             {form.map((value) => <div key={`line${value}`}>
-
+                    {/*// ----------------------------------- rodzaj paliwa, areatext do opisu*/}
                 <label>
                     <p>{value}:</p>
                     {(value === 'tripCountry') ? <select value={formData[value]} name={value} onChange={handleChange} className="">
@@ -137,8 +138,7 @@ const MyForm = ({type}) => {
         let timestamp = currentDate.getTime();
         let hexTimestamp = timestamp.toString(16);
         let fileName = loggedUser._id + type + idObject + hexTimestamp + fileExtension;
-        console.log('-- file name generator --')
-        console.log(fileName)
+
         return fileName;
     }
 

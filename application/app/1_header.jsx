@@ -8,7 +8,8 @@ function Header() {
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const setDataId = useStoreActions(actions => actions.setDataId);
-
+    const setDataFilter = useStoreActions(actions => actions.setDataFilter);
+    const dataFilter = useStoreState(state => state.dataFilter);
     let userId = '651fe6702b474d23c7d1b616'
 
     useEffect(() => {
@@ -17,8 +18,6 @@ function Header() {
             setLoggedUser(downloadedData[0])
         });
     }, []);
-
-
 
     return (
         <header className="underConstruction">
@@ -45,7 +44,7 @@ function Header() {
                             Edit User Data
                         </button>
                     </section>
-                    <button onClick={()=>setPage("mainPage")}>
+                    <button onClick={()=>setPage("login")}>
                     Log Out
                     </button>
                 </div>
@@ -57,7 +56,7 @@ function Header() {
                         <button onClick={()=>setPage("mainPage")}>
                             Main Page
                         </button>
-                        <button onClick={()=>setPage("mainPageFilter")}>
+                        <button onClick={()=>setDataFilter([true,'all','all','all'])}>
                             Filter
                         </button>
                         <button onClick={()=>setPage("aboutUs")}>

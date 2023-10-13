@@ -26,8 +26,6 @@ async function deleteDataFn(target) {
 function UserProfile() {
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
-    const [usersTrips, setUsersTrips] = useState({});
-    const [usersCars, setUsersCars] = useState(loggedUser.cars);
     const setPage = useStoreActions(actions => actions.setPage);
     const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
     const yesOrNot = useStoreState(state => state.yesOrNot);
@@ -35,6 +33,8 @@ function UserProfile() {
     const toDelete = useStoreState(state => state.toDelete);
     const setDataId = useStoreActions(actions => actions.setDataId);
     const setTripId = useStoreActions(actions => actions.setTripId);
+    const [usersTrips, setUsersTrips] = useState({});
+    const [usersCars, setUsersCars] = useState(loggedUser.cars);
 
 
 
@@ -91,9 +91,10 @@ function UserProfile() {
                                 setTripId(trip._id)
                             }}>
                                 <PrintTrips  trip={trip}/>
-                                {trip.tripPhoto ? <LoadImage imageName={trip.tripPhoto}
-                                           imagePath='images/trips'
-                                           imageWidth='120px' />: <p>no photo</p>}
+                                {trip.tripPhoto ?
+                                    <LoadImage imageName={trip.tripPhoto}
+                                               imagePath='images/trips'
+                                               imageWidth='120px' />: <p>no photo</p>}
                             </button>
                             <div>
                                 <button onClick={()=>{

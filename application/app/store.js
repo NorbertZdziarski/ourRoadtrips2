@@ -13,6 +13,8 @@ const store = createStore({
     setYesOrNot:  action((state, payload) => { state.yesOrNot = (payload); }),
     toDelete: ['',''],
     setToDelete:  action((state, payload) => { state.toDelete = (payload); }),
+    dataFilter: [false,'all','all','all'],
+    setDataFilter:  action((state, payload) => { state.dataFilter = (payload); }),
 })
 
 export default store;
