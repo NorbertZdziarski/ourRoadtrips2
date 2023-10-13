@@ -5,8 +5,28 @@
 :root {
   font-size: 10px;
 }
-
+body {
+  position: relative;
+  height: 100vh;
+  margin: 0;
+}
+.yesOrNot {
+  background-color: rgba(248, 248, 2, 0.7);
+  border: 1px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 250px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
 // ----------------------------------------co poniżej jest ROBOCZE - do usunięcia ----
+
+
 
 .underConstruction {
   box-sizing: border-box;

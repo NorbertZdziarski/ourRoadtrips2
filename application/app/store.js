@@ -9,8 +9,10 @@ const store = createStore({
     setDataId:  action((state, payload) => { state.dataId = (payload); }),
     loggedUser: "",
     setLoggedUser:  action((state, payload) => { state.loggedUser = (payload); }),
-    reload: 0,
-    setReload:  action((state, payload) => { state.reload = (payload); }),
+    yesOrNot: [false,0],
+    setYesOrNot:  action((state, payload) => { state.yesOrNot = (payload); }),
+    toDelete: ['',''],
+    setToDelete:  action((state, payload) => { state.toDelete = (payload); }),
 })
 
 export default store;

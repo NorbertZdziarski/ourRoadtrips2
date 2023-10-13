@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {deleteData, fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
+import DisplayCars from "./3_displayCars";
 
 function PrintTrips({trip}) {
 
@@ -11,86 +12,62 @@ function PrintTrips({trip}) {
     </div>)
 }
 
-function PrintCars({car}) {
-    let keyData = 'lineCar' + car.id;
-    return (<div key={keyData}>
-        <p>{car.carMaker} {car.carBrand}</p>
 
-    </div>)
-}
 
 async function deleteDataFn(target) {
 
     // ------------------------------------- dodać pytanie czy aby na pewno !
     await deleteData(target);
 }
-async function deleteDataFnCar(carId,loggedUser,setUsersCars) {
-    // ------------------------------------- dodać pytanie czy aby na pewno !
 
-    let carsArr = [...loggedUser.cars];
-    carsArr = carsArr.filter(ob=>ob.carId !== carId);
-    const dataToSave = {
-        cars: carsArr,
-    };
-    await updateData(`user/${loggedUser._id}`, dataToSave);
-    setUsersCars(carsArr);
 
-}
 
-function DisplayCars({usersCars, setPage, setDataId, loggedUser, setUsersCars}) {
-    // ------------------------------------------------------- - zastąpienie jednym kodem
-    return (
-        <section>
-            User Cars
-            {usersCars ? (
-                Object.values(usersCars).map((car) =>
-
-                    <div key={`keycar${car.carId}`} className="dataImportLine">
-                        <button className="clickPage" >
-                            <PrintCars  car={car}/>
-                            {car.carPhoto ? <LoadImage imageName={car.carPhoto}
-                                                       imagePath='images/users'
-                                                       imageWidth='120px' /> : <p>no photo</p>}
-                        </button>
-                        <div>
-                            <button onClick={()=>{
-                                setPage("addCar")
-                                setDataId(car)}
-                            }>edit</button>
-                            <button onClick={()=>{
-                                deleteDataFnCar(car.carId,loggedUser, setUsersCars)
-                            }
-                            }>delete</button>
-                            <button>visibility</button>
-                        </div>
-                    </div>
-
-                )
-            ) : (
-                <div>loading data....</div>
-            )}
-        </section>
-    )
-}
 
 function UserProfile() {
     const loggedUser = useStoreState(state => state.loggedUser);
+    const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const [usersTrips, setUsersTrips] = useState({});
     const [usersCars, setUsersCars] = useState(loggedUser.cars);
     const setPage = useStoreActions(actions => actions.setPage);
-    const page = useStoreState(state => state.page);
-    const setReload = useStoreActions(actions => actions.setReload);
-    const reload = useStoreState(state => state.reload);
+    const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
+    const yesOrNot = useStoreState(state => state.yesOrNot);
+    const setToDelete = useStoreActions(actions => actions.setToDelete );
+    const toDelete = useStoreState(state => state.toDelete);
     const setDataId = useStoreActions(actions => actions.setDataId);
     const setTripId = useStoreActions(actions => actions.setTripId);
+
+
 
     useEffect(() => {
         const target = `userstrips/${loggedUser._id}`
         fetchData(target).then(downloadedData => {
             setUsersTrips(downloadedData)
         });
-
     }, []);
+
+
+    useEffect(()=> {
+        if (yesOrNot[1] === 2) {
+
+            let carsArr = [...loggedUser.cars];
+            const userCopy = {...loggedUser}
+
+            carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1]);
+            const dataToSave = {
+                cars: carsArr,
+            };
+
+            userCopy.cars = carsArr;
+            setLoggedUser(userCopy);
+
+            updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
+                setUsersCars(carsArr)});
+            setToDelete([``,``])
+
+            }
+        setYesOrNot([false,0])
+    }, [yesOrNot[1]])
+
 
     return (
         <section className="underConstruction">
@@ -141,6 +118,9 @@ function UserProfile() {
             setPage={setPage}
             loggedUser={loggedUser}
             setUsersCars={setUsersCars}
+            setYesOrNot={setYesOrNot}
+            yesOrNot={yesOrNot}
+            setToDelete={setToDelete}
             />
 
         </section>

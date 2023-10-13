@@ -8,11 +8,12 @@ import AboutUs from "./2_aboutUs";
 
 import ShowTrip from "./3_showTrip";
 import MyForm from "./app_form";
+import YesOrNot from "./3_yesOrNot";
 
 const MainPage = () => {
 
     const page = useStoreState(state => state.page);
-
+    const yesOrNot = useStoreState(state => state.yesOrNot);
 
     return (
         <div className="underConstruction-height">
@@ -28,6 +29,7 @@ const MainPage = () => {
                 type={"car"}/>):(<></>))}
             {(page === "addTrip" ? (<MyForm
                 type={"trip"}/>):(<></>))}
+            {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
         </div>
     );
 };
