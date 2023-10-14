@@ -5,6 +5,7 @@ import App from './app/app';
 import {StoreProvider} from "easy-peasy";
 import store from "./app/store.js";
 
+
 ReactDOM.render(
     <React.StrictMode>
         <Router>
