@@ -9,7 +9,10 @@ function Login() {
 
     return (
         <div className="underConstruction">
+            <form>
+                <input type="text" name="inputUserName" ></input>
 
+            </form>
             <button onClick={handleGoogleLogin}> Zaloguj się za pomocą Google </button>
 
 
