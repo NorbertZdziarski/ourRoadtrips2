@@ -11,7 +11,7 @@ function Login() {
         <div className="underConstruction">
             <form>
                 <input type="text" name="inputUserName" ></input>
-
+                <input type="password" name="inputUserPassword" ></input>
             </form>
             <button onClick={handleGoogleLogin}> Zaloguj się za pomocą Google </button>
 
