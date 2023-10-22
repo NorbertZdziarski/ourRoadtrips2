@@ -4,8 +4,8 @@ function Footer() {
     const d = new Date()
     let year = d.getFullYear();
     return (
-        <footer className="underConstruction">
-            <p >(C) {year} _-_ </p>
+        <footer className="footerStyle underConstruction">
+            <p >(C) {year} Norbert Zdziarski. Site under construction. </p>
         </footer>
     );
 }

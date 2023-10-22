@@ -20,7 +20,7 @@ function Header() {
     }, []);
 
     return (
-        <header className="underConstruction">
+        <header className="headerStyle underConstruction">
             <p >logo {page}</p>
 
             {(page === "userProfile" ? (

@@ -1,4 +1,5 @@
 @import "reset";
+@import "variables";
 
 @import "rwd";
 
@@ -9,6 +10,17 @@ body {
   position: relative;
   height: 100vh;
   margin: 0;
+  overflow-y: hidden;
+}
+.headerStyle {
+  height: $header-height;
+}
+.footerStyle {
+  height: $footer-height;
+}
+.mainViewStyle {
+  height: calc(100vh - $footer-height - $header-height);
+  overflow-y: auto;
 }
 .yesOrNot {
   background-color: rgba(248, 248, 2, 0.7);
@@ -39,9 +51,10 @@ body {
   font-family: "BankGothic Lt BT";
   color: #a2a200;
   padding: 5px;
+  //height: 100%;
 }
 .underConstruction-height {
-  height: 100%;
+  //height: 100%;
 }
 
 .App {

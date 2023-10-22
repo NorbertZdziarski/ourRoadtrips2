@@ -20,7 +20,7 @@ const MainPage = () => {
 
 
     return (
-        <div className="underConstruction-height">
+        <div className="mainViewStyle underConstruction-height">
             {(page === "userProfile" ? (<UserProfile/>):(<></>))}
             {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
             {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
