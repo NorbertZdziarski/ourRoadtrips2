@@ -20,24 +20,26 @@ const MainPage = () => {
 
 
     return (
-        <div className="mainViewStyle underConstruction-height">
-            {(page === "userProfile" ? (<UserProfile/>):(<></>))}
-            {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
-            {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
-            {(page === "login" ? (<Login/>):(<></>))}
+        <div className="mainWindowStyle  ">
+            <div className="mainViewStyle ">
+                {(page === "userProfile" ? (<UserProfile/>):(<></>))}
+                {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
+                {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
+                {(page === "login" ? (<Login/>):(<></>))}
 
 
-            {(page === "showTrip" ? (<ShowTrip />):(<></>))}
+                {(page === "showTrip" ? (<ShowTrip />):(<></>))}
 
-            {(page === "editUserData" ? (<MyForm
-                type={"user"}/>):(<></>))}
-            {(page === "addCar" ? (<MyForm
-                type={"car"}/>):(<></>))}
-            {(page === "addTrip" ? (<MyForm
-                type={"trip"}/>):(<></>))}
+                {(page === "editUserData" ? (<MyForm
+                    type={"user"}/>):(<></>))}
+                {(page === "addCar" ? (<MyForm
+                    type={"car"}/>):(<></>))}
+                {(page === "addTrip" ? (<MyForm
+                    type={"trip"}/>):(<></>))}
 
-            {(dataFilter[0] ? (<DataFilter/>):(<></>))}
-            {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
+                {(dataFilter[0] ? (<DataFilter/>):(<></>))}
+                {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
+            </div>
         </div>
     );
 };

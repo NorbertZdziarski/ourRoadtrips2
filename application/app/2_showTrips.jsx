@@ -4,15 +4,11 @@ import TripBox from "./2_tripBox";
 
 const TripsList = ({ tripData, dataFilter }) => {
     return (
-
-        <div className="testDataImport">
-
+        <div className="">
             {tripData.map((trip) => (
-                <div key={trip._id} className="dataImportLine">
-                       < TripBox trip={trip}
-                                dataFilter={dataFilter}/>
-
-                </div>
+                       < TripBox key={trip._id}
+                                 trip={trip}
+                                 dataFilter={dataFilter}/>
             ))}
         </div>
     );
@@ -29,18 +25,13 @@ function ShowTrips({dataFilter}) {
     }, []);
 
     return (
-        <section className="underConstruction">
-            <h2 > Show trips  </h2>
-            <div className="ramka">
-                {data ? (
-                    <div>
-                        <TripsList tripData={data}
-                                   dataFilter={dataFilter} />
-                    </div>
-                ) : (
-                    <p>Ładowanie danych...</p>
-                )}
-            </div>
+        <section className="underConstruction mainViewStyle ">
+            {data ? (
+                    <TripsList tripData={data}
+                               dataFilter={dataFilter} />
+            ) : (
+                <p>Ładowanie danych...</p>
+            )}
         </section>
     );
 }

@@ -4,8 +4,11 @@ function Footer() {
     const d = new Date()
     let year = d.getFullYear();
     return (
-        <footer className="footerStyle underConstruction">
-            <p >(C) {year} Norbert Zdziarski. Site under construction. </p>
+        <footer className=" footerStyle ">
+            <div className="underConstruction mainViewStyle">
+                <p >(C) {year} Norbert Zdziarski. </p>
+                <p>Site under construction. </p>
+            </div>
         </footer>
     );
 }

@@ -70,7 +70,7 @@ function UserProfile() {
 
 
     return (
-        <section className="underConstruction">
+        <section className="underConstruction mainViewStyle">
             <h3 > user profile </h3>
             <section>
                 User Data

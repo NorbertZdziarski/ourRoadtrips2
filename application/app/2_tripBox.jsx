@@ -15,7 +15,7 @@ function TripBox({trip, dataFilter}) {
 
     return (
         <div className="clickPage">
-            <button className="clickPage" onClick={()=> {
+            <button className="" onClick={()=> {
                 setPage("showTrip")
                 setTripId(trip._id)
                 } }>
@@ -23,7 +23,7 @@ function TripBox({trip, dataFilter}) {
                 <p className="ramka"> by: {trip.tripUser}</p>
                 {trip.tripPhoto ? <LoadImage imageName={trip.tripPhoto}
                        imagePath='images/trips'
-                       imageWidth='300px' /> : <p className="ramka">no photo.</p>}
+                       imageWidth='850px' /> : <p className="ramka">no photo.</p>}
             </button>
         </div>
     );

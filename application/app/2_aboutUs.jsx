@@ -4,7 +4,7 @@ function AboutUs() {
 
 
     return (
-        <section className="underConstruction">
+        <section className="underConstruction mainViewStyle">
             <p > about Us </p>
         </section>
     );
