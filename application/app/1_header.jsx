@@ -12,12 +12,12 @@ function Header() {
     const dataFilter = useStoreState(state => state.dataFilter);
     let userId = '651fe6702b474d23c7d1b616'
 
-    useEffect(() => {
-        const target = `user/${userId}`
-        fetchData(target).then(downloadedData => {
-            setLoggedUser(downloadedData[0])
-        });
-    }, []);
+    // useEffect(() => {
+    //     const target = `user/${userId}`
+    //     fetchData(target).then(downloadedData => {
+    //         setLoggedUser(downloadedData[0])
+    //     });
+    // }, []);
 
     return (
         <header className="headerStyle ">
@@ -45,7 +45,11 @@ function Header() {
                                 Edit User Data
                             </button>
                         </section>
-                        <button onClick={()=>setPage("login")}>
+                        <button onClick={()=>{
+                            setLoggedUser();
+                            setPage("mainPage");
+
+                        }}>
                         Log Out
                         </button>
                     </div>
@@ -64,9 +68,11 @@ function Header() {
                                 About Us
                             </button>
                         </section>
-                        <button onClick={()=>setPage("userProfile")}>
+                        {loggedUser ? <button onClick={()=>setPage("userProfile")}>
                             USER PROFILE
-                        </button>
+                        </button> : <button onClick={()=>setPage("login")}>
+                            LOGIN
+                        </button>}
                     </div>
                 ) : ( <></>
                    ))}

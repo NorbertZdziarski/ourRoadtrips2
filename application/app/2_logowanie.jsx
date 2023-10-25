@@ -1,9 +1,24 @@
 import React, { useState } from 'react';
 import {useStoreActions} from "easy-peasy";
+import {fetchData} from "./a_CRUD_service";
 
 function Login() {
     const setPage = useStoreActions(actions => actions.setPage);
-    const handleGoogleLogin = async () => {
+    const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
+    const [userName, setUserName] = useState()
+    const [userPassword, setUserPassword] = useState()
+    const [fetchError, setFetchError] = useState()
+    const handleLogin = async (e) => {
+        e.preventDefault()
+        const target = `?user=${encodeURIComponent(userName)}&password=${encodeURIComponent(userPassword)}`
+        await fetchData('login' + target).then(downloadedData => {
+            if (!downloadedData) {
+                setFetchError('wrong password or login');
+            } else {
+                setLoggedUser(downloadedData)
+                setPage("mainPage")
+            }
+        });
     };
     // inputy login hasło
     // serwer weryfikuje zaszyfrowane ? - osobna baza dla haseł
@@ -12,13 +27,18 @@ function Login() {
         <div className="underConstruction mainViewStyle">
             <div>
                 <form>
-                    <input type="text" name="inputUserName" className="dataImportLine"></input>
-                    <input type="password" name="inputUserPassword" className="dataImportLine"></input>
-                </form>
-                <button onClick={handleGoogleLogin} disabled> Login </button>
+                    <input type="text" name="inputUserName" className="dataImportLine" value={userName}
+                           onChange={(e) => setUserName(e.target.value)}></input>
+                    <input type="password" name="inputUserPassword" className="dataImportLine" value={userPassword}
+                           onChange={(e) => setUserPassword(e.target.value)}></input>
+
+                <button onClick={handleLogin} > Login </button>
                 <button onClick={()=>setPage("mainPage")}> Cancel </button>
+                </form>
+                {fetchError ? <p>{fetchError}</p> : <></>}
             </div>
             {/*<button onClick={handleGoogleLogin}> Zaloguj się za pomocą Google </button>*/}
+            <button onClick={()=>setPage("editUserData")}> Create an account </button>
 
 
         </div>

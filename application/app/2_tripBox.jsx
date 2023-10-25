@@ -6,7 +6,9 @@ function TripBox({trip, dataFilter}) {
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
 
-    // if (!trip.tripPublic) return;
+
+    // if (!trip.tripPublic) console.log('trip: ' + trip.tripPublic + ' - name: ' + trip.tripName);
+    if (!trip.tripPublic) return null;
 
     if (dataFilter[1] !== "all" && dataFilter[1] !== trip.tripCountry ) return null;
     if (dataFilter[2] !== "all" && dataFilter[2] !== trip.tripType) return null;

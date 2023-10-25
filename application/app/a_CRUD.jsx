@@ -8,7 +8,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
 
         switch (method.toLowerCase()) {
             case 'get':
-                response = await axios.get(`${apiURL}/${target}`, {
+                    response = await axios.get(`${apiURL}/${target}`, {
                     headers: {
                         'my-header': 'all'
                     }

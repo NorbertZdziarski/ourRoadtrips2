@@ -105,7 +105,7 @@ function UserProfile() {
                                     deleteDataFn(`trip/${trip._id}`)
                                 }
                                 }>delete</button>
-                                <button>visibility</button>
+                                {trip.tripPublic ?<p> public </p> : <p>hidden</p>}
                             </div>
                         </div>)
                 ) : (

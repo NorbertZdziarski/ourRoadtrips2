@@ -11,9 +11,18 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile}) => {
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
 
-    const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar'];
+    const excludedValues = ['tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic', 'cars'];
+    const [stan, setStan] = useState(true);
+
+    const zmienStan = () => {
+        console.log('1 ' + stan)
+        setStan(!stan);
+        console.log('2 ' + stan)
+        setFormData({ ...formData, tripPublic: stan })
 
 
+    };
+    // setFormData({ ...formData, tripPublic: true })
     function handleFileChange(event) {
         let fileUpload = (event.target.files[0]);
         setFile(fileUpload)
@@ -64,12 +73,19 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile}) => {
                             </option>
                         ))}
                     </select>):(<></>)}
+                    {(value === 'tripPublic')?(
+                        <div>
+                            <p>Aktualny stan: {stan ? 'will not be displayed' : 'visible on main page'}</p>
+                            <button onClick={zmienStan}>change visibility</button>
+                        </div>
+                    ):(<></>)}
                     {(value === 'carPhoto')?(
                         <input type="file" onChange={handleFileChange} />
                     ):(<></>)}
                     {(value === 'tripPhoto')?(
                         <input type="file" onChange={handleFileChange} />
                     ):(<></>)}
+
                     {(excludedValues.includes(value) ? <></> : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} />)}
 
                 </label>
@@ -85,9 +101,12 @@ const MyForm = ({type}) => {
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const dataId = useStoreState(state => state.dataId);
-
-    const loggedUsersCars = loggedUser.cars;
-    const usersCarsDisp = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`)
+    let usersCarsDisp;
+    let newUser = true;
+    if (loggedUser) {
+        newUser = false;
+        const loggedUsersCars = loggedUser.cars;
+        let usersCarsDisp = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`)}
 
     const getInitialFormData = (type,loggedUser, dataId) => {
         if (type === 'trip') {
@@ -102,7 +121,9 @@ const MyForm = ({type}) => {
                 tripMap: dataId.tripMap || '',
                 tripUser: loggedUser.nick,
                 tripUserId: loggedUser._id,
-                tripSaveDate: new Date()
+                tripSaveDate: new Date(),
+                tripPublic: dataId.tripPublic || false
+
             };
         } else if (type === 'car') {
             return {
@@ -125,7 +146,8 @@ const MyForm = ({type}) => {
                 userDescription: loggedUser.userDescription ||'',
                 userPersonalComment: loggedUser.userPersonalComment ||'',
                 cars: [],
-                email: loggedUser.email || ''
+                email: loggedUser.email || '',
+                password: ''
             };
         }
     }
@@ -217,7 +239,7 @@ const MyForm = ({type}) => {
         setFormData(getInitialFormData(type,loggedUser));
 
     };
-
+    console.log('newuser: ' + newUser)
     return (
         <div className="underConstruction ramka underConstruction-height">
         <form onSubmit={handleSubmit} className="testForm">
@@ -229,11 +251,13 @@ const MyForm = ({type}) => {
                 setFormData={setFormData}
                 setFile={setFile}
             />
+            {newUser ? <p> akceptacja regulaminu </p> :  <></>}
             <button type="submit">Wyślij</button>
         </form>
-            <LoadImage imageName={formData.carPhoto}
-                       imagePath='images/users'
-                       imageWidth='300px' />
+            {newUser ? <></> :  <LoadImage imageName={formData.carPhoto}
+                                  imagePath='images/users'
+                                  imageWidth='300px' />  }
+
         </div>
     );
 };
