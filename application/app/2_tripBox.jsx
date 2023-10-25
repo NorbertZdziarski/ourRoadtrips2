@@ -21,11 +21,18 @@ function TripBox({trip, dataFilter}) {
                 setPage("showTrip")
                 setTripId(trip._id)
                 } }>
-                <h4 className="ramka">{trip.tripName}</h4>
-                <p className="ramka"> by: {trip.tripUser}</p>
+                <div className="tripInfo_mainpage_box">
+                    <h4 className="tripInfo_mainpage_title">{trip.tripName}</h4>
+                    <p className="tripInfo_mainpage_author"> by: {trip.tripUser}</p>
+                    <p className="tripInfo_mainpage_Info-country"> {trip.tripCountry}</p>
+                    <p className="tripInfo_mainpage_Info-tripType"> {trip.tripType}</p>
+                </div>
+
                 {trip.tripPhoto ? <LoadImage imageName={trip.tripPhoto}
                        imagePath='images/trips'
-                       imageWidth='850px' /> : <p className="ramka">no photo.</p>}
+                       imageWidth='400px'
+                       photoClass="photoStyle"
+                /> : <p className="ramka">no photo.</p>}
             </button>
         </div>
     );

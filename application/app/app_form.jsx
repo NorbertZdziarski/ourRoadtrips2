@@ -105,8 +105,11 @@ const MyForm = ({type}) => {
     let newUser = true;
     if (loggedUser) {
         newUser = false;
-        const loggedUsersCars = loggedUser.cars;
-        let usersCarsDisp = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`)}
+        if (loggedUser.cars) {
+            const loggedUsersCars = loggedUser.cars;
+            let usersCarsDisp = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`)
+        }
+    }
 
     const getInitialFormData = (type,loggedUser, dataId) => {
         if (type === 'trip') {
@@ -145,7 +148,7 @@ const MyForm = ({type}) => {
                 lastName: loggedUser.lastName || '',
                 userDescription: loggedUser.userDescription ||'',
                 userPersonalComment: loggedUser.userPersonalComment ||'',
-                cars: [],
+                cars: loggedUser.cars || [],
                 email: loggedUser.email || '',
                 password: ''
             };
@@ -180,6 +183,7 @@ const MyForm = ({type}) => {
 
         let dataToSave;
         let newFileName;
+        console.log('type: ' + type)
         if (type === 'trip') {
 
             let targetPath;
@@ -223,7 +227,6 @@ const MyForm = ({type}) => {
             updateUser('cars',carsArr)
 
             if (file)  {
-                console.log(formData.carId)
                 newFileName = newFileNameGenerator(formData.carId);
                 formData.carPhoto = newFileName; }
             await updateData(`user/${loggedUser._id}`, dataToSave);
@@ -236,10 +239,20 @@ const MyForm = ({type}) => {
             setPage("userProfile");
 
         }
+        if (type === 'user') {
+            let targetPath;
+
+            if (!dataId) {
+                await setFormData(prevState => ({ ...formData, cars:[...prevState.cars, {}]}));
+                targetPath = 'add';
+                await transferData(`${type}/${targetPath}`, formData);
+                setPage("mainPage");
+            }
+        }
         setFormData(getInitialFormData(type,loggedUser));
 
     };
-    console.log('newuser: ' + newUser)
+
     return (
         <div className="underConstruction ramka underConstruction-height">
         <form onSubmit={handleSubmit} className="testForm">
@@ -256,7 +269,8 @@ const MyForm = ({type}) => {
         </form>
             {newUser ? <></> :  <LoadImage imageName={formData.carPhoto}
                                   imagePath='images/users'
-                                  imageWidth='300px' />  }
+                                  imageWidth='300px'
+                                />  }
 
         </div>
     );

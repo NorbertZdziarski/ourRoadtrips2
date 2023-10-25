@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const LoadImage = ({ imageName, imageWidth, imagePath }) => {
+const LoadImage = ({ imageName, imageWidth, imagePath, photoClass  }) => {
     const [image, setImage] = useState('');
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath }) => {
     }, [imageName, imagePath]);
     return (
         <div>
-            {image ? <img src={image} alt={'foto'} width={imageWidth}/> : <>...loading</>}
+            {image ? <img src={image} alt={'foto'} width={imageWidth} className={photoClass}/> : <>...loading</>}
         </div>
     );
 };

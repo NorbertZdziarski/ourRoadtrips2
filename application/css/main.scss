@@ -18,7 +18,7 @@ body {
   height: 100vh;
   margin: 0;
   overflow-y: hidden;
-  background-color: #282c34;
+  background-color: $color-background-main;
 }
 .headerStyle {
   @include mainStyle($header-height);
@@ -39,10 +39,10 @@ body {
   }
   &::-webkit-scrollbar-thumb{
     border-radius: 5px;
-  background: #faed02
+  background: $color-blink-color;
   }
   &::-webkit-scrollbar-thumb:hover{
-  background: #555}
+  background: $color-background-secondary}
 }
 
 .mainViewStyle {
@@ -53,7 +53,7 @@ body {
   background-color: #282c34;
 }
 .yesOrNot {
-  background-color: rgba(248, 248, 2, 0.7);
+  background-color: $color-blink-color;
   border: 1px solid black;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
   position: absolute;
@@ -66,20 +66,168 @@ body {
   justify-content: space-around;
   align-items: center;
 }
+
+
+.photoStyle {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.clickPage {
+  overflow: hidden;
+  width: 100%;
+  height: 35rem;
+  border: 2px solid $color-background-main;
+  margin-bottom: 2rem;
+  position: relative;
+  &:hover {
+    z-index: 2;
+    border: 2px solid $color-blink-color;
+    //&:after {
+    //  content: "";
+    //
+    //  background-color: rgba(255, 255, 255, 0.15);
+    //  width: 100%;
+    //  height: 100%;
+    //  position: absolute;
+    //  top: 0;
+    //  left: 0;
+    //  z-index: 25;
+    //}
+
+
+  }
+
+}
+
+@mixin tripInfo_mainpage($left,$top,$size) {
+  font-size: $size;
+  font-family: "Century Gothic";
+  color: $color-txt-main;
+  position: absolute;
+  left: $left;
+  top: $top;
+  z-index: 10;
+}
+.tripInfo_mainpage_box {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.26);
+  width: 200px;
+  height: 100%;
+  z-index: 9;
+  &:hover {
+    transition-duration: 0.2s;
+    background-color: rgba(0, 0, 0, 0.66);
+  }
+}
+.tripInfo_mainpage_title {
+@include tripInfo_mainpage(10px,5px,$tripTitle)
+}
+.tripInfo_mainpage_author {
+  @include tripInfo_mainpage(10px,35px,$tripAuthor)
+}
+.tripInfo_mainpage_Info-country {
+  @include tripInfo_mainpage(10px,295px,$tripAuthor)
+}
+.tripInfo_mainpage_Info-tripType {
+  @include tripInfo_mainpage(10px,315px,$tripAuthor)
+}
+
+
+//-----------------show trip
+.showtrip_photoStyle {
+  //position: absolute;
+  //left: 0;
+  //top: 50%;
+  //width: 80px;
+  //transform: translateY(-50%);
+  //z-index: 0;
+}
+.showtrip_header {
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 7rem;
+  background-color: $color-background-secondary;
+  padding: 1rem;
+  font-family: Abel;
+  font-size: 30px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.showtrip_main {
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  background-color: $color-background-secondary;
+  padding: 1rem;
+  font-family: Abel;
+  font-size: 20px;
+  //box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  z-index: 50;
+}
+.showtrip_description {
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  text-align: justify;
+
+  background-color: $color-background-secondary;
+  padding: 1rem;
+  font-family: Abel;
+  font-size: 20px;
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+}
+.showtrip_footer {
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 7rem;
+  background-color: $color-background-secondary;
+  padding: 1rem;
+  font-family: Abel;
+  font-size: 20px;
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+}
+
 // ----------------------------------------co poniżej jest ROBOCZE - do usunięcia ----
+
+
+.blabla {
+    width: 100%;
+}
 
 
 
 .underConstruction {
   box-sizing: border-box;
-  border: 2px dashed yellow;
+  border: 2px dashed #ffa600;
   display: flex;
   //justify-content: space-between;
 
 
   font-size: 1.6rem;
   font-family: "BankGothic Lt BT";
-  color: #a2a200;
+  color: #6b441c;
   padding: 5px;
   //height: 100%;
 }
@@ -99,7 +247,7 @@ input {
 .dataImportLine {
   width: 100%;
   font-size: 15px;
-  border-bottom: 1px solid #535353;
+  border-bottom: 1px solid #b53a3a;
   margin-bottom: 5px;
   &:hover {
     z-index: 10;
@@ -114,7 +262,7 @@ input {
 }
 
 .testForm > * {
-  border: 1px solid gray;
+  border: 1px solid #ef0000;
   border-radius: 3px;
   margin: 5px;
   padding: 5px;
@@ -124,7 +272,7 @@ input {
 .ramka {
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid rgba(255, 183, 0, 0.74);
+  border: 1px solid rgba(31, 232, 0, 0.74);
   box-shadow: 0 0 0 2px rgba(255, 183, 0, 0.14);
   padding: 3px;
   margin: 10px 0 10px 0

@@ -64,7 +64,7 @@ function Header() {
                             <button onClick={()=>setDataFilter([true,'all','all','all'])}>
                                 Filter
                             </button>
-                            <button onClick={()=>setPage("aboutUs")}>
+                            <button onClick={()=>setPage("aboutUs")} disabled>
                                 About Us
                             </button>
                         </section>

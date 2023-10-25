@@ -4,7 +4,7 @@ import TripBox from "./2_tripBox";
 
 const TripsList = ({ tripData, dataFilter }) => {
     return (
-        <div className="">
+        <div className="blabla">
             {tripData.map((trip) => (
                        < TripBox key={trip._id}
                                  trip={trip}
