@@ -96,17 +96,42 @@ server.get('/download', async function(req, res){
 });
 server.get('/:pathName', async (req, res) => {
     const pathName = req.params.pathName;
-    let sendData;
-    try {
-        sendData = await manageData(dbName, pathName, 'get');
-        if (req.headers['my-header'] === 'all') {
-            res.status(200).json(sendData);
-        } else {
-            res.status(400).send('Brak wymaganego nagłówka');
+    const user = req.query.user;
+    const password = req.query.password;
+
+    if (pathName === 'login') {
+        console.log('server ____________');
+        let userData;
+        try {
+
+            console.log(userData)
+            if (req.headers['my-header'] === 'all') {
+                userData = await manageData(dbName,'users','login',password, user)
+
+                res.status(200).json(userData[0]);
+            } else {
+                res.status(400).send('Brak wymaganego nagłówka');
+            }
+        } catch (err) {
+            console.log('błąd: ' + err);
+            res.status(500).send('Wystąpił błąd podczas pobierania danych');
         }
-    } catch (err) {
-        console.log('błąd: ' + err);
-        res.status(500).send('Wystąpił błąd podczas pobierania danych');
+
+
+
+    } else {
+        let sendData;
+        try {
+            sendData = await manageData(dbName, pathName, 'get');
+            if (req.headers['my-header'] === 'all') {
+                res.status(200).json(sendData);
+            } else {
+                res.status(400).send('Brak wymaganego nagłówka');
+            }
+        } catch (err) {
+            console.log('błąd: ' + err);
+            res.status(500).send('Wystąpił błąd podczas pobierania danych');
+        }
     }
 });
 

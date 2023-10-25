@@ -4,9 +4,9 @@ async function manageData(dbName, collectionName,action,data,filter) {
 
     const url = 'mongodb://127.0.0.1:27017';
     const client = await MongoClient.connect(url);
-    console.log('Filter: '+ filter)
-    console.log('data: '+ data)
-    console.log('action: '+ action)
+    // console.log('Filter: '+ filter)
+    // console.log('data: '+ data)
+    // console.log('action: '+ action)
 
     try {
         await client.connect();
@@ -14,7 +14,7 @@ async function manageData(dbName, collectionName,action,data,filter) {
         const collection = db.collection(collectionName);
         let dataDB;
 
-        console.log(collectionName)
+        // console.log(collectionName)
 
         if (action === 'delete') {
             await collection.deleteOne({_id: new ObjectId(data)});
@@ -25,11 +25,15 @@ async function manageData(dbName, collectionName,action,data,filter) {
         } else if (data && action === 'post') {
             await collection.insertOne(data);
             await client.close();
+        } else if (action === 'login') {
+        dataDB = await collection.find({nick: filter} && {password: data}, { projection: { password: 0 } }).toArray();
+        await client.close();
+        return dataDB;
         } else if (action === 'get' && filter) {
-            dataDB = await collection.find(filter).toArray();
+           dataDB = await collection.find(filter).toArray();
             await client.close();
             return dataDB;
-        } else if (action === 'get' && !data) {
+        } else if (action === 'get' && !data ) {
             dataDB = await collection.find().toArray();
             await client.close();
             return dataDB;
