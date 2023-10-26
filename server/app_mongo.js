@@ -26,7 +26,7 @@ async function manageData(dbName, collectionName,action,data,filter) {
             await collection.insertOne(data);
             await client.close();
         } else if (action === 'login') {
-        dataDB = await collection.find({nick: filter} && {password: data}, { projection: { password: 0 } }).toArray();
+        dataDB = await collection.find({nick: filter, password: data}, { projection: { password: 0 } }).toArray();
         await client.close();
         return dataDB;
         } else if (action === 'get' && filter) {
