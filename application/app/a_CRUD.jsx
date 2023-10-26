@@ -21,9 +21,11 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 }
                 console.log(params)
                 console.log(data)
-                response = await axios.post(`${apiURL}/${target}`, data, {
+                // data = JSON.stringify(data)
+
+                response = await axios.post(`${apiURL}/${target}`,JSON.stringify(data), {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json',
                         'my-header': 'all'
                     }
                 });

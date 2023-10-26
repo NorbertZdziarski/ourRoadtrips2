@@ -10,14 +10,7 @@ function Header() {
     const setDataId = useStoreActions(actions => actions.setDataId);
     const setDataFilter = useStoreActions(actions => actions.setDataFilter);
     const dataFilter = useStoreState(state => state.dataFilter);
-    let userId = '651fe6702b474d23c7d1b616'
 
-    // useEffect(() => {
-    //     const target = `user/${userId}`
-    //     fetchData(target).then(downloadedData => {
-    //         setLoggedUser(downloadedData[0])
-    //     });
-    // }, []);
 
     return (
         <header className="headerStyle ">
@@ -25,7 +18,7 @@ function Header() {
                 <p >logo {page}</p>
 
                 {(page === "userProfile" ? (
-                    <div className="underConstruction">
+                    <div className="">
                         <section>
                             <button onClick={()=>setPage("mainPage")}>
                                 Main Page
@@ -56,7 +49,7 @@ function Header() {
                 ) : (
                     <></>))}
                 {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "mainPageFilter"))? (
-                    <div className="underConstruction">
+                    <div className="">
                         <section>
                             <button onClick={()=>setPage("mainPage")}>
                                 Main Page
@@ -92,7 +85,7 @@ function Header() {
                     </div>
                 ) : (
                     <></>))}
-                <div className="underConstruction">
+                <div className="">
                     {loggedUser ? (<p>{loggedUser.nick}</p>):(<p>not logged</p>)}
                 </div>
             </div>

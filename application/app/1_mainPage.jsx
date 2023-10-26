@@ -34,7 +34,8 @@ const MainPage = () => {
                     type={"user"}/>):(<></>))}
                 {(page === "addCar" ? (<MyForm
                     type={"car"}/>):(<></>))}
-                {(page === "addTrip" ? (<MyForm
+                {(page === "addTrip" ? (
+                    <MyForm
                     type={"trip"}/>):(<></>))}
 
                 {(dataFilter[0] ? (<DataFilter/>):(<></>))}

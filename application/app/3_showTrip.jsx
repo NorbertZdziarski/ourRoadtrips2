@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
+import ShowRate from "./4_showRate";
+
 
 function ShowTrip() {
     const page = useStoreState(state => state.page);
@@ -23,7 +25,8 @@ function ShowTrip() {
             {data ? (<section className="">
                 <header className="showtrip_header">
                     <h3>   {data.tripName} </h3>
-                    <p>****</p>
+                    <ShowRate
+                    rateArr={data.tripRate}/>
                 </header>
                 <div className="showtrip_main">
                     <p>   {data.tripType} </p>
