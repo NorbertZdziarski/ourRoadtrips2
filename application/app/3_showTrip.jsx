@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
-import {fetchData} from "./a_CRUD_service";
+import {fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
 import ShowRate from "./4_showRate";
+import RateModule from "./4_rateModule";
 
 
 function ShowTrip() {
     const page = useStoreState(state => state.page);
     const tripId = useStoreState(state => state.tripId);
+    const loggedUser = useStoreState(state => state.loggedUser);
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
 
@@ -19,14 +21,40 @@ function ShowTrip() {
             setData(downloadedData[0])
         });
     }, []);
+    async function saveDataFn(saveData) {
+        let rateArr = [];
+        if (!data.tripRate) {data.tripRate = {}};
 
+        if (Object.keys(data.tripRate).length !== 0) {
+            rateArr = [...data.tripRate] };
+        const index = rateArr.findIndex((rateObj) => rateObj.user === loggedUser._id);
+        if (index !== -1) {
+            rateArr[index] = saveData
+        } else {
+            rateArr.push(saveData);
+        }
+        const dataToSave = {
+            tripRate: rateArr,
+            };
+        const target = `trip/${tripId}`
+        await updateData(target,dataToSave);
+        //     .then(downloadedData => {
+        //     setData(downloadedData[0])
+        // });
+    }
     return (
         <section className="mainViewStyle">
             {data ? (<section className="">
                 <header className="showtrip_header">
                     <h3>   {data.tripName} </h3>
-                    <ShowRate
-                    rateArr={data.tripRate}/>
+                    {loggedUser._id ? <RateModule
+                        tripId = {data._id}
+                        tripRate = {data.tripRate}
+                        onRatingChange={(value) => saveDataFn({rate: value, user:loggedUser._id})}/> :  <ShowRate
+                        rateArr={data.tripRate}/> }
+
+                        {/*onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
+
                 </header>
                 <div className="showtrip_main">
                     <p>   {data.tripType} </p>

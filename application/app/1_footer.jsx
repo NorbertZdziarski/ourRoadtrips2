@@ -1,4 +1,5 @@
 import React from 'react';
+import RateModule from "./4_rateModule";
 
 function Footer() {
     const d = new Date()

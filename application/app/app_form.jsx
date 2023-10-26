@@ -56,6 +56,7 @@ const MyForm = ({type}) => {
         let dataToSave;
         let newFileName;
         console.log('type: ' + type)
+
         if (type === 'trip') {
 
             let targetPath;
@@ -93,6 +94,7 @@ const MyForm = ({type}) => {
             } else {
                 carsArr.push(formData);
             }
+
             dataToSave = {
                 cars: carsArr,
             };
@@ -108,21 +110,19 @@ const MyForm = ({type}) => {
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku')
             }
-            setPage("userProfile");
 
         }
         if (type === 'user') {
             let targetPath;
-
+            console.log('data id: ' + dataId)
             if (!dataId) {
-
                 targetPath = 'add';
                 await transferData(`${type}/${targetPath}`, formData);
                 setPage("mainPage");
             }
         }
         setFormData(getInitialFormData(type,loggedUser));
-
+        setPage("userProfile");
     };
 
     return (
@@ -137,12 +137,12 @@ const MyForm = ({type}) => {
                 setFile={setFile}
             />
             {newUser ? <p> akceptacja regulaminu </p> :  <></>}
-            <button type="submit" onClick={()=>setPage("userProfile")}>Wyślij</button>
+            <button type="submit">Wyślij</button>
         </form>
-            {newUser ? <></> :  <LoadImage imageName={formData.carPhoto}
-                                  imagePath='images/users'
-                                  imageWidth='300px'
-                                />  }
+            {/*{newUser ? <></> :  <LoadImage imageName={formData.carPhoto}*/}
+            {/*                      imagePath='images/users'*/}
+            {/*                      imageWidth='300px'*/}
+            {/*                    />  }*/}
 
         </div>
     );
