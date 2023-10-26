@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import LoadImage from "./a_loadimage";
 import {useStoreActions} from "easy-peasy";
+import RateModule from "./4_rateModule";
+import ShowRate from "./4_showRate";
 
 function TripBox({trip, dataFilter}) {
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
+    const [rate1, setRate1] = useState(0);
 
 
     // if (!trip.tripPublic) console.log('trip: ' + trip.tripPublic + ' - name: ' + trip.tripName);
@@ -17,6 +20,7 @@ function TripBox({trip, dataFilter}) {
 
     return (
         <div className="clickPage">
+            <div>{rate1}</div>
             <button className="" onClick={()=> {
                 setPage("showTrip")
                 setTripId(trip._id)
@@ -26,6 +30,11 @@ function TripBox({trip, dataFilter}) {
                     <p className="tripInfo_mainpage_author"> by: {trip.tripUser}</p>
                     <p className="tripInfo_mainpage_Info-country"> {trip.tripCountry}</p>
                     <p className="tripInfo_mainpage_Info-tripType"> {trip.tripType}</p>
+                    <div className="tripInfo_mainpage_Info-tripRate">
+                        <ShowRate
+                            rateArr={trip.tripRate}/>
+                    </div>
+
                 </div>
 
                 {trip.tripPhoto ? <LoadImage imageName={trip.tripPhoto}

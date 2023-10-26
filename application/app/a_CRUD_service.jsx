@@ -14,6 +14,7 @@ const transferDataFile = async (target,data,  folderName, fileName) => {
 };
 
 const updateData = async (target,data) => {
+    console.log('sdw')
     return await sendRequest('patch', target,data);
 };
 

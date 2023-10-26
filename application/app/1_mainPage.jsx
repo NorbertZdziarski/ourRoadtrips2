@@ -18,7 +18,6 @@ const MainPage = () => {
     const yesOrNot = useStoreState(state => state.yesOrNot);
     const dataFilter = useStoreState(state => state.dataFilter);
 
-
     return (
         <div className="mainWindowStyle  ">
             <div className="mainViewStyle ">
@@ -26,7 +25,6 @@ const MainPage = () => {
                 {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
                 {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
                 {(page === "login" ? (<Login/>):(<></>))}
-
 
                 {(page === "showTrip" ? (<ShowTrip />):(<></>))}
 

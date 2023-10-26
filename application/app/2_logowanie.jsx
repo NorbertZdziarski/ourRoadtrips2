@@ -10,11 +10,14 @@ function Login() {
     const [fetchError, setFetchError] = useState()
     const handleLogin = async (e) => {
         e.preventDefault()
+        console.log('user name: ' + userName);
+        console.log();
         const target = `?user=${encodeURIComponent(userName)}&password=${encodeURIComponent(userPassword)}`
         await fetchData('login' + target).then(downloadedData => {
             if (!downloadedData) {
                 setFetchError('wrong password or login');
             } else {
+                console.log(downloadedData)
                 setLoggedUser(downloadedData)
                 setPage("mainPage")
             }
