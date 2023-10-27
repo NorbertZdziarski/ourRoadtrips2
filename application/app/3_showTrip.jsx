@@ -6,7 +6,7 @@ import ShowRate from "./4_showRate";
 import RateModule from "./4_rateModule";
 import {calculateTheAverage} from "./calculateTheAverage";
 import ShowComments from "./4_showComments";
-import {a} from "../dist/application.61265efd";
+
 
 
 function ShowTrip() {
