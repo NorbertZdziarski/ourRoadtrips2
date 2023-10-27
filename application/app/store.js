@@ -15,6 +15,8 @@ const store = createStore({
     setToDelete:  action((state, payload) => { state.toDelete = (payload); }),
     dataFilter: [false,'all','all','all'],
     setDataFilter:  action((state, payload) => { state.dataFilter = (payload); }),
+    chosen: "",
+    setChosen:  action((state, payload) => { state.chosen = (payload); }),
 })
 
 export default store;

@@ -19,3 +19,20 @@
   }
 
 }
+
+.showtrip_main button {
+  background-color: rgba(0,0,0,0) ;
+  color: $color-background-main;
+  border: 0;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  height: 3rem;
+  padding: 1rem;
+  margin-left: 0.8rem;
+  &:hover {
+    color: $color-background-main;
+    background-color: $color-blink-color;
+    box-shadow: 0 0 0.8rem 0.2rem $color-blink-color;
+  }
+
+}
