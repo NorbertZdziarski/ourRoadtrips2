@@ -56,7 +56,7 @@ function chosenFn(user) {
                 <header className="showtrip_header">
                     <div>
                         <h3>   {data.tripName} </h3>
-                        <p>{data.tripType}</p>
+                        <p className="fnt_subtitle">{data.tripType} in {data.tripCountry || 'unknown'}</p>
                     </div>
 
                     {loggedUser._id ? <RateModule

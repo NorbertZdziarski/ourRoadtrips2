@@ -4,11 +4,15 @@ import {fetchData} from "./a_CRUD_service";
 import { useEffect, useState } from 'react';
 import path from 'path';
 import LoadImage from "./a_loadimage";
+import PrintTrips from "./4_printTrips";
 
 function AboutMe() {
     const setChosen = useStoreActions(actions => actions.setChosen);
     const chosen = useStoreState(state => state.chosen);
+    const setPage = useStoreActions(actions => actions.setPage);
+    const setTripId = useStoreActions(actions => actions.setTripId);
     const [userData, setUserData] = useState(null);
+    const [userTrips, setUserTrips] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -26,7 +30,12 @@ function AboutMe() {
                 });
         }
     }, []);
-
+    useEffect(() => {
+        const target = `userstrips/${chosen}`
+        fetchData(target).then(downloadedData => {
+            setUserTrips(downloadedData)
+        });
+    }, []);
     if (error) {
         return <div>Error: {error}</div>;
     }
@@ -34,19 +43,62 @@ function AboutMe() {
     // console.log(userData.cars)
     return (
         <section className="underConstruction mainViewStyle">
-            <p>about Me {chosen} pathe: </p>
+            {/*<p>about Me {chosen} pathe: </p>*/}
             {userData ?
-                <section className="mainViewStyle">
-                    <div>photo</div>
-                    <div>
-                        <h4>nick:{userData.nick}</h4>
-                        <p>name:{userData.firstName} {userData.lastName}</p>
-                        <p>comment{userData.userPersonalComment}</p>
-                        <p>opis{userData.userDescription}</p>
+                <div className="aboutme_conteiner">
+                    <section className="aboutme_main">
+                        <div className="aboutme_photo">
+                            photo
+                            <h4>nick:{userData.nick}</h4>
+                            <p>comment{userData.userPersonalComment}</p>
+                        </div>
+                        <div className="aboutme_column">
 
-                    </div>
-                    {/*<LoadImage imageName={userData.}*/}
-                </section> : <>ghj</> }
+                            <p>name:{userData.firstName} {userData.lastName}</p>
+
+                            <p>opis{userData.userDescription}</p>
+
+                        </div>
+                        {/*<LoadImage imageName={userData.}*/}
+                    </section>
+                    <section className="aboutme_cars">
+                        <p>my cars</p>
+
+                        {userData.cars ? (
+                            Object.values(userData.cars).map((car) =>
+                                <div key={`keytrip${car.id}`} className="aboutme_showCar">
+                                    <button className="clickPage" onClick={()=> {
+                                        setPage("showTrip")
+                                        setTripId(car.id)
+                                    }}>
+                                        <LoadImage imageName={car.carPhoto}
+                                                   imagePath='images/users'
+                                                   imageWidth='600px' />
+                                    </button>
+                                </div>)
+                        ) : (
+                            <div>loading data....</div>
+                        )}
+                    </section>
+                    <section className="aboutme_trips">
+                        my trips
+                        {userTrips ? (
+                            Object.values(userTrips).map((trip) =>
+                                <div key={`keytrip${trip._id}`} className="aboutme_showTrip">
+                                    <button className="clickPage" onClick={()=> {
+                                        setPage("showTrip")
+                                        setTripId(trip._id)
+                                    }}>
+                                        <PrintTrips  trip={trip}/>
+                                    </button>
+
+                                </div>)
+                        ) : (
+                            <div>loading data....</div>
+                        )}
+                                    </section>
+
+                </div>: <>...no data...</> }
 
         </section>
     );

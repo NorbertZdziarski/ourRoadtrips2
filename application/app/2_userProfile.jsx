@@ -3,14 +3,9 @@ import {useStoreActions, useStoreState} from "easy-peasy";
 import {deleteData, fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
 import DisplayCars from "./3_displayCars";
+import PrintTrips from "./4_printTrips";
 
-function PrintTrips({trip}) {
 
-    let keyData = 'line' + trip._id;
-    return (<div key={keyData}>
-        {trip.tripName}
-    </div>)
-}
 
 
 
@@ -91,10 +86,6 @@ function UserProfile() {
                                 setTripId(trip._id)
                             }}>
                                 <PrintTrips  trip={trip}/>
-                                {trip.tripPhoto ?
-                                    <LoadImage imageName={trip.tripPhoto}
-                                               imagePath='images/trips'
-                                               imageWidth='120px' />: <p>no photo</p>}
                             </button>
                             <div>
                                 <button onClick={()=>{
