@@ -35,8 +35,6 @@ const MainPage = () => {
                 {(page === "addTrip" ? (
                     <MyForm
                     type={"trip"}/>):(<></>))}
-
-                {(dataFilter[0] ? (<DataFilter/>):(<></>))}
                 {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
             </div>
         </div>

@@ -1,7 +1,15 @@
 @import "reset";
+:root {
+  font-size: 10px;
+}
+
 @import "variables";
 
 @import "rwd";
+@import "buttons";
+
+
+@import "tripInfo";
 @mixin mainStyle($heightValue) {
   height: $heightValue ;
   display: flex;
@@ -9,9 +17,7 @@
 }
 
 
-:root {
-  font-size: 10px;
-}
+
 body {
   position: relative;
   box-sizing: border-box;
@@ -22,6 +28,17 @@ body {
 }
 .headerStyle {
   @include mainStyle($header-height);
+  padding-top: 0.3rem;
+  border-bottom: 2px solid $color-background-main;
+  //background-color: rgba(169, 169, 169, 0.4);
+
+
+}
+.headerButtons {
+  display: flex;
+  align-items: end;
+  height: 100%;
+
 }
 .footerStyle {
   @include mainStyle($footer-height);
@@ -104,40 +121,8 @@ body {
 
 }
 
-@mixin tripInfo_mainpage($left,$top,$size) {
-  font-size: $size;
-  font-family: "Century Gothic";
-  color: $color-txt-main;
-  position: absolute;
-  left: $left;
-  top: $top;
-  z-index: 10;
-}
-.tripInfo_mainpage_box {
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  background-color: rgba(0, 0, 0, 0.26);
-  width: 200px;
-  height: 100%;
-  z-index: 9;
-  &:hover {
-    transition-duration: 0.2s;
-    background-color: rgba(0, 0, 0, 0.66);
-  }
-}
-.tripInfo_mainpage_title {
-@include tripInfo_mainpage(10px,5px,$tripTitle)
-}
-.tripInfo_mainpage_author {
-  @include tripInfo_mainpage(10px,35px,$tripAuthor)
-}
-.tripInfo_mainpage_Info-country {
-  @include tripInfo_mainpage(10px,295px,$tripAuthor)
-}
-.tripInfo_mainpage_Info-tripType {
-  @include tripInfo_mainpage(10px,315px,$tripAuthor)
-}
+
+
 
 
 //-----------------show trip
@@ -216,11 +201,15 @@ body {
     width: 100%;
 }
 
-
+.tymczasowy_header {
+  font-size: 1.6rem;
+  font-family: "BankGothic Lt BT";
+  color: #1da072;
+}
 
 .underConstruction {
   box-sizing: border-box;
-  border: 2px dashed #ffa600;
+  //border: 2px dashed #ffa600;
   display: flex;
   //justify-content: space-between;
 

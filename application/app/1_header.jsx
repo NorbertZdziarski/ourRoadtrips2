@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
+import DataFilter from "./3_filter";
 
 function Header() {
     const page = useStoreState(state => state.page);
@@ -14,12 +15,24 @@ function Header() {
 
     return (
         <header className="headerStyle ">
-            <div className="underConstruction mainViewStyle">
-                <p >logo {page}</p>
+            <div className="mainViewStyle tymczasowy_header">
+
+
+                {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "mainPageFilter"))? (
+
+                        <section className="headerButtons ">
+                            {page !== "mainPage" ? <button onClick={()=>setPage("mainPage")}>
+                                Main Page
+                            </button> : <>
+                                {dataFilter[0] ? <DataFilter/> : <button onClick={()=>setDataFilter([true,'all','all','all'])}>
+                                Filter
+                                </button>}</>}
+                        </section>
+
+                ) : ( <></> ))}
 
                 {(page === "userProfile" ? (
-                    <div className="">
-                        <section>
+                        <section className="headerButtons">
                             <button onClick={()=>setPage("mainPage")}>
                                 Main Page
                             </button>
@@ -38,40 +51,11 @@ function Header() {
                                 Edit User Data
                             </button>
                         </section>
-                        <button onClick={()=>{
-                            setLoggedUser();
-                            setPage("mainPage");
-
-                        }}>
-                        Log Out
-                        </button>
-                    </div>
                 ) : (
                     <></>))}
-                {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "mainPageFilter"))? (
-                    <div className="">
-                        <section>
-                            <button onClick={()=>setPage("mainPage")}>
-                                Main Page
-                            </button>
-                            <button onClick={()=>setDataFilter([true,'all','all','all'])}>
-                                Filter
-                            </button>
-                            <button onClick={()=>setPage("aboutUs")} disabled>
-                                About Us
-                            </button>
-                        </section>
-                        {loggedUser ? <button onClick={()=>setPage("userProfile")}>
-                            USER PROFILE
-                        </button> : <button onClick={()=>setPage("login")}>
-                            LOGIN
-                        </button>}
-                    </div>
-                ) : ( <></>
-                   ))}
+
                 {(((page === "editUserData") || (page === "addCar") || (page === "addTrip") ) ? (
-                    <div className="underConstruction">
-                        <section>
+                        <section className="headerButtons">
                             <button onClick={()=>setPage("mainPage")}>
                                 Main Page
                             </button>
@@ -79,15 +63,23 @@ function Header() {
                                 USER PROFILE
                             </button>
                         </section>
-                        <button onClick={()=>setPage("mainPage")}>
-                            Log Out
-                        </button>
-                    </div>
                 ) : (
                     <></>))}
-                <div className="">
+                <p >logo {page}</p>
+                <div className="headerButtons">
                     {loggedUser ? (<p>{loggedUser.nick}</p>):(<p>not logged</p>)}
+                    {loggedUser ?    <button onClick={()=>setPage("userProfile")}>
+                        USER PROFILE
+                    </button> : <></>}
+                    {loggedUser ? <button onClick={()=>{
+                        setLoggedUser();
+                        setPage("mainPage");
+                    }}> Log Out
+                    </button> : <button onClick={()=>setPage("login")}>
+                        LOGIN </button>}
+
                 </div>
+
             </div>
         </header>
     );

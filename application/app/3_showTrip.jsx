@@ -4,6 +4,7 @@ import {fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
 import ShowRate from "./4_showRate";
 import RateModule from "./4_rateModule";
+import {calculateTheAverage} from "./calculateTheAverage";
 
 
 function ShowTrip() {
@@ -42,24 +43,32 @@ function ShowTrip() {
         //     setData(downloadedData[0])
         // });
     }
+
+
     return (
         <section className="mainViewStyle">
             {data ? (<section className="">
                 <header className="showtrip_header">
-                    <h3>   {data.tripName} </h3>
+                    <div>
+                        <h3>   {data.tripName} </h3>
+                        <p>{data.tripType}</p>
+                    </div>
+
                     {loggedUser._id ? <RateModule
                         tripId = {data._id}
                         tripRate = {data.tripRate}
                         onRatingChange={(value) => saveDataFn({rate: value, user:loggedUser._id})}/> :  <ShowRate
                         rateArr={data.tripRate}/> }
-
+                    {/*<p>like: {rateValue} of {quantity} </p>*/}
                         {/*onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
 
                 </header>
                 <div className="showtrip_main">
-                    <p>   {data.tripType} </p>
-                    <p>   {data.tripUser} </p>
-                    <p>   {data.tripCar} </p>
+                    <button>   photo </button>
+                    <button>   story </button>
+                    <button>   map </button>
+                    <button>   {data.tripUser} </button>
+                    <button>   {data.tripCar} </button>
                 </div>
 
                 {data.tripPhoto ? <LoadImage imageName={data.tripPhoto}

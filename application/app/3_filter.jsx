@@ -20,7 +20,8 @@ const DataFilter = () => {
     }
 
     return (
-        <div className="yesOrNot">
+        <div className="">
+        {/*<div className="yesOrNot">*/}
             <p>filtrowanie wyświetlanych tras</p>
             <form>
                  <select value={selectCountry} name={selectCountry} onChange={() => setSelectCountry(event.target.value)} className="">

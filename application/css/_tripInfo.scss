@@ -1,0 +1,40 @@
+
+
+@mixin tripInfo_mainpage($left,$top,$size) {
+  font-size: $size;
+  font-family: "Century Gothic";
+  color: $color-txt-main;
+  position: absolute;
+  left: $left;
+  top: $top;
+  z-index: 10;
+}
+.tripInfo_mainpage_box {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background-color: rgba(0, 0, 0, 0.26);
+  width: 200px;
+  height: 100%;
+  z-index: 9;
+  &:hover {
+    transition-duration: 0.2s;
+    background-color: rgba(0, 0, 0, 0.66);
+  }
+}
+.tripInfo_mainpage_title {
+  @include tripInfo_mainpage(10px,5px,$tripTitle)
+}
+.tripInfo_mainpage_author {
+  @include tripInfo_mainpage(10px,35px,$tripAuthor)
+}
+.tripInfo_mainpage_Info-tripRate {
+  @include tripInfo_mainpage(10px,60px,16px);
+  z-index: 100;
+}
+.tripInfo_mainpage_Info-country {
+  @include tripInfo_mainpage(10px,295px,$tripAuthor)
+}
+.tripInfo_mainpage_Info-tripType {
+  @include tripInfo_mainpage(10px,315px,$tripAuthor)
+}
