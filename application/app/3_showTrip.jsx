@@ -13,6 +13,7 @@ function ShowTrip() {
     const loggedUser = useStoreState(state => state.loggedUser);
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
+    const setChosen = useStoreActions(actions => actions.setChosen);
 
     const [data, setData] = useState(null);
 
@@ -45,13 +46,17 @@ function ShowTrip() {
     }
 
 
+function chosenFn(user) {
+    setChosen(user);
+    setPage("aboutMe");
+}
     return (
         <section className="mainViewStyle">
             {data ? (<section className="">
                 <header className="showtrip_header">
                     <div>
                         <h3>   {data.tripName} </h3>
-                        <p>{data.tripType}</p>
+                        <p className="fnt_subtitle">{data.tripType} in {data.tripCountry || 'unknown'}</p>
                     </div>
 
                     {loggedUser._id ? <RateModule
@@ -65,9 +70,9 @@ function ShowTrip() {
                 </header>
                 <div className="showtrip_main">
                     <button>   photo </button>
-                    <button>   story </button>
                     <button>   map </button>
-                    <button>   {data.tripUser} </button>
+                    <button onClick={()=> window.location.href = '#tripDescription'}>   story </button>
+                    <button onClick={()=> chosenFn(data.tripUserId)}>   {data.tripUser} </button>
                     <button>   {data.tripCar} </button>
                 </div>
 
@@ -77,7 +82,7 @@ function ShowTrip() {
                                              photoClass="showtrip_photoStyle"
                 /> : <p>no photo</p>}
 
-                <div className="showtrip_description">
+                <div id="tripDescription" className="showtrip_description">
                     <p>   {data.tripDescription} </p>
                 </div>
                 <div className="showtrip_main">

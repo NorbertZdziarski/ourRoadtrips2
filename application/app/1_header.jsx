@@ -24,9 +24,15 @@ function Header() {
                             {page !== "mainPage" ? <button onClick={()=>setPage("mainPage")}>
                                 Main Page
                             </button> : <>
-                                {dataFilter[0] ? <DataFilter/> : <button onClick={()=>setDataFilter([true,'all','all','all'])}>
-                                Filter
-                                </button>}</>}
+                                {dataFilter[0] ? <DataFilter/> : <>
+                                    <button onClick={()=>setDataFilter([true,'all','all','all'])}>
+                                        Filter
+                                    </button>
+                                    <button disabled onClick={()=>setDataFilter([true,'all','all','all'])}>
+                                        Sort
+                                    </button>
+                                </>}
+                            </>}
                         </section>
 
                 ) : ( <></> ))}
@@ -65,6 +71,22 @@ function Header() {
                         </section>
                 ) : (
                     <></>))}
+
+                {(((page === "aboutMe")) ? (
+                        <section className="headerButtons">
+                            <button onClick={()=>setPage("mainPage")}>
+                                Main Page
+                            </button>
+                            <button onClick={()=>{setPage("showTrip")}}>
+                                Back
+                            </button>
+                        </section>
+                ) : (
+                    <></>))}
+
+
+
+
                 <p >logo {page}</p>
                 <div className="headerButtons">
                     {loggedUser ? (<p>{loggedUser.nick}</p>):(<p>not logged</p>)}
