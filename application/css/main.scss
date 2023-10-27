@@ -11,6 +11,7 @@
 
 @import "tripInfo";
 @import "aboutMe";
+@import "comments";
 
 @mixin mainStyle($heightValue) {
   height: $heightValue ;

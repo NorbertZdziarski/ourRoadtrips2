@@ -12,6 +12,7 @@ import YesOrNot from "./3_yesOrNot";
 import DataFilter from "./3_filter";
 import Login from "./2_logowanie";
 import AboutMe from "./2_aboutMe";
+import ShowCar from "./3_showCar";
 
 const MainPage = () => {
 
@@ -29,6 +30,7 @@ const MainPage = () => {
 
                 {(page === "showTrip" ? (<ShowTrip />):(<></>))}
                 {(page === "aboutMe" ? (<AboutMe />):(<></>))}
+                {(page === "showcar" ? (<ShowCar />):(<></>))}
 
                 {(page === "editUserData" ? (<MyForm
                     type={"user"}/>):(<></>))}

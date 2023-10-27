@@ -47,3 +47,6 @@ q:before, q:after {
 blockquote, q {
   quotes: "" "";
 }
+textarea {
+  all: unset;
+}

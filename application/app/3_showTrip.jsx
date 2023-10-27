@@ -5,6 +5,8 @@ import LoadImage from "./a_loadimage";
 import ShowRate from "./4_showRate";
 import RateModule from "./4_rateModule";
 import {calculateTheAverage} from "./calculateTheAverage";
+import ShowComments from "./4_showComments";
+import {a} from "../dist/application.61265efd";
 
 
 function ShowTrip() {
@@ -16,6 +18,7 @@ function ShowTrip() {
     const setChosen = useStoreActions(actions => actions.setChosen);
 
     const [data, setData] = useState(null);
+    const [addComm, setAddComm] = useState(null);
 
     useEffect(() => {
         const target = `trip/${tripId}`
@@ -73,7 +76,8 @@ function chosenFn(user) {
                     <button>   map </button>
                     <button onClick={()=> window.location.href = '#tripDescription'}>   story </button>
                     <button onClick={()=> chosenFn(data.tripUserId)}>   {data.tripUser} </button>
-                    <button>   {data.tripCar} </button>
+                    <button onClick={()=>{setChosen(data.tripCar);
+                        setPage("showcar");}}>   {data.tripCar} </button>
                 </div>
 
                 {data.tripPhoto ? <LoadImage imageName={data.tripPhoto}
@@ -87,9 +91,13 @@ function chosenFn(user) {
                 </div>
                 <div className="showtrip_main">
                     <button disabled>Like It</button>
-                    <button disabled>Comment</button>
+                    <button onClick={()=>setAddComm(true)}>Comment</button>
                     <button disabled>Share</button>
 
+                </div>
+                {addComm ? <div>dodaj komentarz</div> : <></>}
+                <div id="tripComm" className="showtrip_description">
+                    {data.tripComments ? <><ShowComments tripComments={data.tripComments}/></> : <p>no comments</p>}
                 </div>
             </section>) : (<p>loading data</p>) }
         </section>

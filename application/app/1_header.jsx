@@ -18,7 +18,7 @@ function Header() {
             <div className="mainViewStyle tymczasowy_header">
 
 
-                {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "mainPageFilter"))? (
+                {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "showcar") || (page === "mainPageFilter"))? (
 
                         <section className="headerButtons ">
                             {page !== "mainPage" ? <button onClick={()=>setPage("mainPage")}>

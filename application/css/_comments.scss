@@ -1,0 +1,36 @@
+.comment_conteiner {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  box-shadow: $shadow-comment;
+  border-radius: 1rem;
+}
+
+.comment_photo {
+  background-color: rgba(0, 0, 0, 0.82);
+  border-top-left-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+  width: 8rem;
+
+// do usuniecia
+  color: #9feaea;
+
+}
+.comment_cloud {
+  background-color: $color-background-comment;
+  border: 0;
+  border-top-right-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  padding: 0.8rem;
+
+}
+.comment_message {
+  font-size: 1.7rem;
+}
+.comment_author {
+  text-align: right;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: dodgerblue;
+  font-family: "Lucida Handwriting";
+}

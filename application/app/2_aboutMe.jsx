@@ -68,12 +68,12 @@ function AboutMe() {
                             Object.values(userData.cars).map((car) =>
                                 <div key={`keytrip${car.id}`} className="aboutme_showCar">
                                     <button className="clickPage" onClick={()=> {
-                                        setPage("showTrip")
-                                        setTripId(car.id)
+                                        setPage("showcar")
+                                        setChosen(car)
                                     }}>
                                         <LoadImage imageName={car.carPhoto}
                                                    imagePath='images/users'
-                                                   imageWidth='600px' />
+                                                   imageWidth='200px' />
                                     </button>
                                 </div>)
                         ) : (
