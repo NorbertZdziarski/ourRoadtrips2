@@ -4,12 +4,14 @@
 }
 
 @import "variables";
+@import "fonts";
 
 @import "rwd";
 @import "buttons";
 
-
 @import "tripInfo";
+@import "aboutMe";
+
 @mixin mainStyle($heightValue) {
   height: $heightValue ;
   display: flex;
@@ -69,6 +71,7 @@ body {
   justify-content: space-between;
   background-color: #282c34;
 }
+
 .yesOrNot {
   background-color: $color-blink-color;
   border: 1px solid black;

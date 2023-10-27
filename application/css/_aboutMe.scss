@@ -1,0 +1,61 @@
+@mixin aboutmeShowMixin($colorBG) {
+  border: 1px solid $colorBG;
+  overflow: hidden;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  &:hover {
+    border: 1px solid $color-blink-color;
+  }
+}
+
+.aboutme_conteiner {
+  width: $main-view-width;
+  height: 100%;
+}
+
+.aboutme_main {
+  width: $main-view-width;
+  display: flex;
+  justify-content: space-between;
+}
+.aboutme_photo {
+  border: 1px dotted darkolivegreen;
+  width: 20rem;
+  height: 20rem;
+}
+.aboutme_column {
+  //background-color: darkgoldenrod;
+  border: 1px dotted darkgrey;
+  width: 100%;
+}
+.aboutme_cars {
+  border: 1px dotted darkgrey;
+  background-color: #433e3e;
+  width: 100%;
+  height: 15rem;
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.aboutme_trips {
+  border: 1px dotted darkgrey;
+  background-color: #535353;
+  width: 100%;
+}
+.aboutme_showCar {
+  @include aboutmeShowMixin($color-background-main);
+  width: 10rem;
+  height: 10rem;
+  margin: 2rem;
+  border-radius: 50%;
+}
+.aboutme_showTrip {
+  @include aboutmeShowMixin($color-background-main);
+  box-sizing: border-box;
+  background-color: #9feaea;
+  width: calc(100% - 4rem);
+  height: 15rem;
+  margin: 2rem;
+  border-radius: 1rem;
+}
