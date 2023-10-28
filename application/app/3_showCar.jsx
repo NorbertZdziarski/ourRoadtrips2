@@ -8,17 +8,18 @@ function ShowCar() {
     const setPage = useStoreActions(actions => actions.setPage);
     console.log(chosen)
     return (
-        <section className="underConstruction mainViewStyle">
-            <div>
+        <section className="showCar_conteiner">
+            <div className="showtrip_header">
                 <p > {chosen.carMaker} {chosen.carBrand} </p>
-                <p className="fnt_subtitle"> {chosen.carStyleType} {chosen.carPurposeType}</p>
-                <LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users'  />
+                <p className="fnt_subtitle"> {chosen.carStyleType} | {chosen.carPurposeType}</p>
+
             </div>
-            <div>
+            <LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users' photoClass="showtrip_photoStyle" />
+            <div className="showtrip_main">
                 <p>technical stuff</p>
                 <p className="fnt_subtitle">{chosen.carEngine} with {chosen.carEnginePower}</p>
             </div>
-            <div>
+            <div className="showtrip_description">
                 <p>about my car:</p>
                 <p className="fnt_subtitle">{chosen.carDescription}</p>
             </div>

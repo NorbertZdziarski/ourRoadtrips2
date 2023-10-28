@@ -5,9 +5,9 @@ function ShowComments({tripComments}) {
 
     return (
         <section>
-            {Object.values(tripComments).map((comm)=><Comment
-                key={comm.id}
-                message={comm.commTxt}
+            {Object.values(tripComments).map((comm, index)=><Comment
+                key={comm.id + index}
+                comment={comm}
                 author={comm.commUser}
             />)}
         </section>

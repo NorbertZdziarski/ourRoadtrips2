@@ -21,7 +21,6 @@ function AboutMe() {
             fetchData(urlPath)
                 .then(data => {
                     setUserData(data[0]);
-                    console.log(urlPath)
 
                 })
                 .catch(err => {
@@ -39,8 +38,6 @@ function AboutMe() {
     if (error) {
         return <div>Error: {error}</div>;
     }
-    console.log(userData)
-    // console.log(userData.cars)
     return (
         <section className="underConstruction mainViewStyle">
             {/*<p>about Me {chosen} pathe: </p>*/}
@@ -67,13 +64,14 @@ function AboutMe() {
                         {userData.cars ? (
                             Object.values(userData.cars).map((car) =>
                                 <div key={`keytrip${car.id}`} className="aboutme_showCar">
-                                    <button className="clickPage" onClick={()=> {
+                                    <button className="aboutme_button" onClick={()=> {
                                         setPage("showcar")
                                         setChosen(car)
                                     }}>
                                         <LoadImage imageName={car.carPhoto}
                                                    imagePath='images/users'
-                                                   imageWidth='200px' />
+                                                   imageWidth='200px'
+                                                   photoClass='aboutme_PhotoCar'/>
                                     </button>
                                 </div>)
                         ) : (
@@ -85,7 +83,7 @@ function AboutMe() {
                         {userTrips ? (
                             Object.values(userTrips).map((trip) =>
                                 <div key={`keytrip${trip._id}`} className="aboutme_showTrip">
-                                    <button className="clickPage" onClick={()=> {
+                                    <button className="aboutme_button" onClick={()=> {
                                         setPage("showTrip")
                                         setTripId(trip._id)
                                     }}>

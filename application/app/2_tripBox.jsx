@@ -29,6 +29,7 @@ function TripBox({trip, dataFilter}) {
                     <h4 className="tripInfo_mainpage_title">{trip.tripName}</h4>
                     <p className="tripInfo_mainpage_author"> by: {trip.tripUser}</p>
                     <p className="tripInfo_mainpage_Info-country"> {trip.tripCountry}</p>
+                    {trip.tripComments ? <p className="tripInfo_mainpage_Info-tripComm">comments</p> : <></>}
                     <p className="tripInfo_mainpage_Info-tripType"> {trip.tripType}</p>
                     <div className="tripInfo_mainpage_Info-tripRate">
                         <ShowRate

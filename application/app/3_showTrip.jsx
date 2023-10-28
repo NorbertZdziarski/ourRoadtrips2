@@ -6,6 +6,7 @@ import ShowRate from "./4_showRate";
 import RateModule from "./4_rateModule";
 import {calculateTheAverage} from "./calculateTheAverage";
 import ShowComments from "./4_showComments";
+import AddComment from "./5_addComment";
 
 
 
@@ -73,7 +74,7 @@ function chosenFn(user) {
                 </header>
                 <div className="showtrip_main">
                     <button>   photo </button>
-                    <button>   map </button>
+                    <button disabled>   map </button>
                     <button onClick={()=> window.location.href = '#tripDescription'}>   story </button>
                     <button onClick={()=> chosenFn(data.tripUserId)}>   {data.tripUser} </button>
                     <button onClick={()=>{setChosen(data.tripCar);
@@ -90,12 +91,17 @@ function chosenFn(user) {
                     <p>   {data.tripDescription} </p>
                 </div>
                 <div className="showtrip_main">
-                    <button disabled>Like It</button>
-                    <button onClick={()=>setAddComm(true)}>Comment</button>
+                    {loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}
+                    {loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}
+
                     <button disabled>Share</button>
 
                 </div>
-                {addComm ? <div>dodaj komentarz</div> : <></>}
+                {addComm ? <>
+                    <AddComment
+                        author={loggedUser}
+                        tripId={data._id}/>
+                    </>: <></>}
                 <div id="tripComm" className="showtrip_description">
                     {data.tripComments ? <><ShowComments tripComments={data.tripComments}/></> : <p>no comments</p>}
                 </div>

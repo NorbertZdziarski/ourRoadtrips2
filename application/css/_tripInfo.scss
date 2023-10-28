@@ -21,6 +21,7 @@
     transition-duration: 0.2s;
     background-color: rgba(0, 0, 0, 0.66);
   }
+
 }
 .tripInfo_mainpage_title {
   @include tripInfo_mainpage(10px,5px,$tripTitle)
@@ -30,6 +31,10 @@
 }
 .tripInfo_mainpage_Info-tripRate {
   @include tripInfo_mainpage(10px,60px,16px);
+  z-index: 100;
+}
+.tripInfo_mainpage_Info-tripComm {
+  @include tripInfo_mainpage(10px,80px,14px);
   z-index: 100;
 }
 .tripInfo_mainpage_Info-country {

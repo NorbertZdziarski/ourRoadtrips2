@@ -8,7 +8,7 @@
 
 @import "rwd";
 @import "buttons";
-
+@import "showCar";
 @import "tripInfo";
 @import "aboutMe";
 @import "comments";
@@ -35,22 +35,32 @@ body {
   border-bottom: 2px solid $color-background-main;
   //background-color: rgba(169, 169, 169, 0.4);
 
+  @media screen and (max-width: 950px) {
+    //@content
+    background-color: #9feaea;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+    height: auto;
+    padding-top: 1rem;
+  }
 
 }
 .headerButtons {
   display: flex;
   align-items: end;
   height: 100%;
-
 }
 .footerStyle {
   @include mainStyle($footer-height);
 }
 .mainWindowStyle {
   @include mainStyle(calc(100vh - $footer-height - $header-height));
+
   width: calc( 100vw - 10px);
   margin-left: 10px;
   overflow-y: scroll;
+  @include rwd;
 
   &::-webkit-scrollbar {
   width: 10px }
@@ -71,6 +81,7 @@ body {
   display: flex;
   justify-content: space-between;
   background-color: #282c34;
+  @include rwd;
 }
 
 .yesOrNot {
@@ -137,6 +148,7 @@ body {
   //width: 80px;
   //transform: translateY(-50%);
   //z-index: 0;
+
 }
 .showtrip_header {
 
@@ -183,6 +195,23 @@ body {
   font-size: 20px;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
 }
+.showtrip_addComment {
+
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+
+  background-color: $color-background-main;
+  padding: 1rem;
+  font-family: Abel;
+  font-size: 20px;
+  color: $color-background-secondary;
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+}
+
 .showtrip_footer {
 
   box-sizing: border-box;
@@ -209,6 +238,15 @@ body {
   font-size: 1.6rem;
   font-family: "BankGothic Lt BT";
   color: #1da072;
+  @media screen and (max-width: 950px) {
+    //@content
+    background-color: #283535;
+    max-width: 100%;
+    margin: 0;
+    display: block;
+    height: auto;
+    padding-top: 1rem;
+  }
 }
 
 .underConstruction {
