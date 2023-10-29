@@ -20,7 +20,7 @@ function TripBox({trip, dataFilter}) {
 
     return (
         <div className="clickPage">
-            <div>{rate1}</div>
+
             <button className="" onClick={()=> {
                 setPage("showTrip")
                 setTripId(trip._id)

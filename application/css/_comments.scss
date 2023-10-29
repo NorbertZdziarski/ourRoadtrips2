@@ -1,4 +1,6 @@
 .comment_conteiner {
+  @include rwd(flex);
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -9,6 +11,10 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   transition-duration: 0.2s;
+  width: 50rem;
+  background-color: rgba(0,0,0,0);
+
+
   &:hover {
     transition-duration: 0.5s;
     scale: 103%;
@@ -26,17 +32,22 @@
 
 }
 .comment_cloud {
+  box-sizing: border-box;
   background-color: $color-background-comment;
   border: 0;
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  min-height: 8rem;
+
   padding: 0.8rem;
+  @include rwd;
 
 }
 .comment_message {
   font-size: 1.7rem;
   width: 100%;
-  height: calc(100% - 1.8rem);
+  text-align: justify;
+
 }
 .comment_author {
   text-align: right;
@@ -54,8 +65,5 @@
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
   padding: 0.8rem;
-
+  @include rwd;
 }
-//.addComment_message {
-//  font-size: 1.7rem;
-//}

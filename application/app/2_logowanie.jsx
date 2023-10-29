@@ -27,8 +27,8 @@ function Login() {
     // serwer weryfikuje zaszyfrowane ? - osobna baza dla haseł
 
     return (
-        <div className="underConstruction mainViewStyle">
-            <div>
+        <div className=" mainViewStyle">
+
                 <form>
                     <input type="text" name="inputUserName" className="dataImportLine" value={userName}
                            onChange={(e) => setUserName(e.target.value)}></input>
@@ -39,9 +39,10 @@ function Login() {
                 <button onClick={()=>setPage("mainPage")}> Cancel </button>
                 </form>
                 {fetchError ? <p>{fetchError}</p> : <></>}
-            </div>
+                <button onClick={()=>setPage("editUserData")}> Create an account </button>
+
             {/*<button onClick={handleGoogleLogin}> Zaloguj się za pomocą Google </button>*/}
-            <button onClick={()=>setPage("editUserData")}> Create an account </button>
+
 
 
         </div>

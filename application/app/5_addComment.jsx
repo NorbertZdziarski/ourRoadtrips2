@@ -1,22 +1,50 @@
 import React, {useState} from 'react';
+import {updateData} from "./a_CRUD_service";
+import {useStoreState} from "easy-peasy";
 
-function AddComment({author, tripId}) {
-    console.log(author)
-const [enterComment, setEnterComment] = useState();
+function AddComment({author, trip, setAddComm}) {
+    const loggedUser = useStoreState(state => state.loggedUser);
+
+    const [enterComment, setEnterComment] = useState();
+
+
+    async function sendComm() {
+        if (loggedUser) {
+                console.log(trip.tripComments)
+               const dataToSave = {
+                    id: trip.tripComments.length,
+                    commTxt:enterComment,
+                    commUser:loggedUser.nick,
+                    commUserId:loggedUser._id,
+                    commDate:new Date(),
+                    commLike:[]
+                }
+                let newData = [...trip.tripComments, dataToSave];
+
+                const target = `trip/comment/${trip._id}`;
+                await updateData(target, newData);
+        }
+
+        setEnterComment('');
+
+        setAddComm(false);
+
+    }
+
     return (
         <div className="showtrip_addComment">
             <div className="comment_conteiner">
-                <div className="comment_photo">
-                    photo
-                </div>
-                <div className="addComment_cloud">
-                    <textarea className="comment_message" Value={enterComment} onChange={(e)=>{setEnterComment(e)}}/>
+                <img className="comment_photo" src="../images/user.png" alt='foto' >
 
-                    <p className="comment_author"> wrewrwe {author.nick}</p>
+                </img>
+                <div className="addComment_cloud">
+                    <textarea className="comment_message" Value={enterComment} onChange={(e)=>{setEnterComment(e.target.value)}}/>
+
+                    <p className="comment_author"> {author.nick}</p>
                 </div>
             </div>
-            <button>send</button>
-            <button>cancel</button>
+            <button onClick={()=>{sendComm()}}>send</button>
+            <button >cancel</button>
         </div>
 
     )

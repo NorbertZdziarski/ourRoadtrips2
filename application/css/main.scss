@@ -24,43 +24,57 @@
 body {
   position: relative;
   box-sizing: border-box;
-  height: 100vh;
+  //height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   margin: 0;
   overflow-y: hidden;
   background-color: $color-background-main;
 }
+.App {
+  height: calc(var(--vh, 1vh) * 100);
+}
 .headerStyle {
+  box-sizing: border-box;
   @include mainStyle($header-height);
-  padding-top: 0.3rem;
+  //padding-top: 0.3rem;
   border-bottom: 2px solid $color-background-main;
   //background-color: rgba(169, 169, 169, 0.4);
 
   @media screen and (max-width: 950px) {
     //@content
-    background-color: #9feaea;
+    //background-color: #9feaea;
     max-width: 100%;
     margin: 0;
     display: block;
-    height: auto;
-    padding-top: 1rem;
+    height: $mobile_header-height;
+
   }
 
 }
 .headerButtons {
   display: flex;
   align-items: end;
-  height: 100%;
+  //height: 100%;
 }
 .footerStyle {
   @include mainStyle($footer-height);
 }
 .mainWindowStyle {
-  @include mainStyle(calc(100vh - $footer-height - $header-height));
+  box-sizing: border-box;
+  @include mainStyle($main-view-height);
 
   width: calc( 100vw - 10px);
   margin-left: 10px;
   overflow-y: scroll;
-  @include rwd;
+  @include rwd();
+  //height: calc(100vh - $footer-height - $header-height) ;
+  //rwd zmienia wysokość. Należy na nowo przeliczyć H nagłóka oraz stopki!
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+  height: $main-view-height;
+  @media screen and (max-width: 950px) {
+    height: $mobile_main-view-height;
+  }
 
   &::-webkit-scrollbar {
   width: 10px }
@@ -77,11 +91,12 @@ body {
 
 .mainViewStyle {
   width: $main-view-width;
-  height: 100%;
+
   display: flex;
   justify-content: space-between;
   background-color: #282c34;
-  @include rwd;
+  @include rwd(flex);
+
 }
 
 .yesOrNot {
@@ -107,6 +122,7 @@ body {
   width: 100%;
   transform: translateY(-50%);
   z-index: 1;
+
 }
 
 .clickPage {
@@ -194,6 +210,7 @@ body {
   font-family: Abel;
   font-size: 20px;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+  @include rwd;
 }
 .showtrip_addComment {
 
@@ -210,6 +227,7 @@ body {
   font-size: 20px;
   color: $color-background-secondary;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+  @include rwd;
 }
 
 .showtrip_footer {
@@ -241,10 +259,10 @@ body {
   @media screen and (max-width: 950px) {
     //@content
     background-color: #283535;
-    max-width: 100%;
+    //max-width: 100%;
     margin: 0;
-    display: block;
-    height: auto;
+    //display: block;
+    //height: auto;
     padding-top: 1rem;
   }
 }

@@ -1,6 +1,16 @@
+$viewHeight: calc(var(--vh, 1vh) * 100);
 $header-height: 5rem;
+$mobile_header-height: 5rem;
 $footer-height: 2.5rem;
 $main-view-width: 90rem;
+//$main-view-height: calc($viewHeight - ($header-height + $footer-height));
+
+//@media screen and (max-width: 950px) {
+//  $header-height: 9rem;
+//  $footer-height: 5rem;
+//}
+$main-view-height: calc($viewHeight - ($header-height + $footer-height));
+$mobile_main-view-height: calc($viewHeight - ($mobile_header-height + $footer-height));
 
 $tripTitle: 2rem;
 $tripAuthor: 1.4rem;

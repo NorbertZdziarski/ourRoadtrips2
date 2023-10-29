@@ -51,6 +51,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
 
                 break;
             case 'patch':
+                console.log('CRUD: patch')
                 response = await axios.patch(`${apiURL}/${target}`, data,{
                     headers: {
                         'Content-Type': 'application/json',

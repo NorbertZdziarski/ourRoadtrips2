@@ -1,12 +1,14 @@
 const  {MongoClient, ObjectId} = require('mongodb');
 
-async function manageData(dbName, collectionName,action,data,filter) {
+async function manageData(dbName, collectionName,action,data,filter, idCom) {
 
     const url = 'mongodb://127.0.0.1:27017';
     const client = await MongoClient.connect(url);
-    // console.log('Filter: '+ filter)
-    // console.log('data: '+ data)
-    // console.log('action: '+ action)
+    console.log('Filter: '+ filter)
+    console.log('data: '+ data)
+    console.log('data: '+ JSON.stringify(data))
+    console.log('idCom: '+ idCom)
+    console.log('action: '+ action)
 
     try {
         await client.connect();
@@ -21,6 +23,32 @@ async function manageData(dbName, collectionName,action,data,filter) {
             await client.close();
         } else if (action === 'patch') {
             await collection.updateOne({_id: new ObjectId(filter)}, { $set: data }, { upsert: false });
+            await client.close();
+        } else if (action === 'patchComm') {
+            await collection.updateOne(
+                {_id: new ObjectId(filter)},
+                { $set: { tripComments: data } },
+            //     function(err, result) {
+            //         if (err) throw err;
+            //
+            //         console.log("Dokument został zaktualizowany!");
+            //
+            //         client.close();
+            //     }
+            );
+            await client.close();return
+        }  else if (action === 'patchCommLike') {
+            await collection.updateOne(
+                { "tripComments": { $elemMatch: { id: idCom, "commLike": { $exists: true } } } },
+                { $set: { "tripComments.$.commLike": data } },
+                function(err, result) {
+                    if (err) throw err;
+
+                    console.log("Dokument został zaktualizowany!");
+
+                    client.close();
+                }
+            );
             await client.close();
         } else if (data && action === 'post') {
             await collection.insertOne(data);

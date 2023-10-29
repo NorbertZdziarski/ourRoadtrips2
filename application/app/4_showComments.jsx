@@ -1,7 +1,7 @@
 import React from 'react';
 import Comment from "./5_comment";
 
-function ShowComments({tripComments}) {
+function ShowComments({tripComments, tripId}) {
 
     return (
         <section>
@@ -9,6 +9,7 @@ function ShowComments({tripComments}) {
                 key={comm.id + index}
                 comment={comm}
                 author={comm.commUser}
+                tripId={tripId}
             />)}
         </section>
     )

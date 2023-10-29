@@ -26,7 +26,7 @@ function ShowTrip() {
         fetchData(target).then(downloadedData => {
             setData(downloadedData[0])
         });
-    }, []);
+    }, [addComm]);
     async function saveDataFn(saveData) {
         let rateArr = [];
         if (!data.tripRate) {data.tripRate = {}};
@@ -100,10 +100,11 @@ function chosenFn(user) {
                 {addComm ? <>
                     <AddComment
                         author={loggedUser}
-                        tripId={data._id}/>
+                        trip={data}
+                        setAddComm={setAddComm}/>
                     </>: <></>}
                 <div id="tripComm" className="showtrip_description">
-                    {data.tripComments ? <><ShowComments tripComments={data.tripComments}/></> : <p>no comments</p>}
+                    {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}
                 </div>
             </section>) : (<p>loading data</p>) }
         </section>

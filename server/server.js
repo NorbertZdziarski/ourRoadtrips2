@@ -9,7 +9,7 @@ const manageData = require('./app_mongo')
 
 const server = express();
 
-let host = process.env.HOST || 'localhost';
+let host = process.env.HOST || '192.168.40.4';
 let port = process.env.PORT || '9000';
 let dbName = process.env.DBNAME || 'ourRoadtrips2';
 
@@ -172,7 +172,7 @@ server.get('/:inquiryType/:idNr', async (req, res) => {
 });
 
 // ------------------------------------------------------------------------ POST
-// server.use(bodyParser.urlencoded({ extended: true }));
+
 
 server.use(bodyParser.json());
 server.post('/:inquiryType/add', async (req, res) => {
@@ -190,18 +190,54 @@ server.post('/:inquiryType/add', async (req, res) => {
 
 
 
-
-
+// server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
 // ----------------------------------------------------------------------------------------- PATCH
+console.log('patch')
 server.patch('/:inquiryType/:id', async (req, res) => {
     const id = req.params.id;
     const pathName = req.params.inquiryType + 's';
     const newItem = await req.body;
     await manageData(dbName, pathName, 'patch',newItem,id);
     res.send('Dane zostały zaktualizowane');
-
 });
+server.patch('/:inquiryType/comment/:id', async (req, res) => {
+    const id = req.params.id;
+    console.log('patch comment id: ' + id)
+    const pathName = req.params.inquiryType + 's';
+    // const idCom = req.params.idCom;
+    let newItem = await req.body;
+    // if (id.includes('/comment/')) {
+    //     let parts = id.split('/comment/');
+    //     let beforeComment = parts[0];
+    //     let afterComment = parts[1];
+    //     console.log(beforeComment); // wyświetla 'trip/${tripId}'
+    //     console.log(afterComment);  // wyświetla '${comment._id}'}
+    // }
 
+
+    await manageData(dbName, pathName, 'patchComm',newItem,id);
+
+    res.send('Dane zostały zaktualizowane');
+});
+server.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
+    const id = req.params.id;
+    console.log('v2: ' + id)
+    const pathName = req.params.inquiryType + 's';
+    const idCom = req.params.idCom;
+    const newItem = await req.body;
+    // if (id.includes('/comment/')) {
+    //     let parts = id.split('/comment/');
+    //     let beforeComment = parts[0];
+    //     let afterComment = parts[1];
+    //     console.log(beforeComment); // wyświetla 'trip/${tripId}'
+    //     console.log(afterComment);  // wyświetla '${comment._id}'}
+    // }
+
+
+    await manageData(dbName, pathName, 'patchCommLike',newItem,id, idCom);
+    res.send('Dane zostały zaktualizowane');
+});
 // ----------------------------------------------------------------------------------------- DELETE
 
 server.delete('/:inquiryType/:idNr', async (req, res) => {
