@@ -9,7 +9,7 @@ const manageData = require('./app_mongo')
 
 const server = express();
 
-let host = process.env.HOST || '192.168.40.4';
+let host = process.env.HOST || 'localhost';
 let port = process.env.PORT || '9000';
 let dbName = process.env.DBNAME || 'ourRoadtrips2';
 
