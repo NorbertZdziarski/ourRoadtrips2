@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {fetchData,transferData,updateData,deleteData} from "./a_CRUD_service";
 import TripBox from "./2_tripBox";
+import Gmap from "./5_map";
 
 const TripsList = ({ tripData, dataFilter }) => {
     return (
@@ -26,6 +27,7 @@ function ShowTrips({dataFilter}) {
 
     return (
         <section className="underConstruction mainViewStyle ">
+            <Gmap />
             {data ? (
                     <TripsList tripData={data}
                                dataFilter={dataFilter} />
