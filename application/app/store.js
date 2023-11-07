@@ -1,6 +1,7 @@
 import {createStore, action} from "easy-peasy";
 
 const store = createStore({
+    // page: "map",
     page: "mainPage",
     setPage:  action((state, payload) => { state.page = (payload); }),
     tripId: "",

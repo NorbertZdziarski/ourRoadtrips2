@@ -1,71 +1,111 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import React, { useState } from 'react';
+import { GoogleMap, DirectionsRenderer } from '@googlemaps/react-wrapper';
 
 const Gmap = () => {
-    const [origin, setOrigin] = useState({ lat: 50.088094, lng: 19.937210 });
-    const [destination, setDestination] = useState({ lat: 50.086386, lng: 19.936210 });
-    const [response, setResponse] = useState(null);
-    const directionsCallback = (res) => {
-        if (res !== null) {
-            if (res.status === 'OK') {
-                setResponse(res);
-            } else {
-                console.log('response: ', res);
-            }
-        }
-    };
-
+//     const [origin, setOrigin] = useState({ lat: 50.088094, lng: 19.937210 });
+//     const [destination, setDestination] = useState({ lat: 50.086386, lng: 19.936210 });
+//
+//         const map = new GoogleMap({
+//         center: { lat: 50.088094, lng: 19.937210 },
+//         zoom: 12,
+//     });
+//
+//
+//     const handleClick = (event) => {
+//         const { lat, lng } = event.latLng;
+//
+//         // Dodaj nową pozycję do trasy.
+//         if (lat !== origin.lat || lng !== origin.lng) {
+//             directionsRenderer.directions.push({
+//                 origin,
+//                 destination: { lat, lng },
+//             });
+//         }
+//
+//         // Wyrenderuj trasę.
+//         directionsRenderer.render();
+//     };
+//
     return (
-        <LoadScript
-            id="script-loader"
-            googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY_GOES_HERE"
-        >
-            <GoogleMap
-                id='direction-example'
-                mapContainerStyle={{
-                    height: "400px",
-                    width: "800px"
-                }}
-                zoom={2}
-                center={{
-                    lat: 0,
-                    lng: -180
-                }}
-            >
-                {
-                    (
-                        destination !== '' &&
-                        origin !== ''
-                    ) && (
-                        <DirectionsService
-                            options={{
-                                destination: destination,
-                                origin: origin,
-                                travelMode: 'DRIVING'
-                            }}
-                            callback={directionsCallback}
-                        />
-                    )
-                }
+        <div>
 
-                {
-                    response !== null && (
-                        <DirectionsRenderer
-                            options={{
-                                directions: response
-                            }}
-                        />
-                    )
-                }
-            </GoogleMap>
-            <button onClick={() => setOrigin({ lat: 50.086386, lng: 19.936210 })}>
-                Zmień punkt początkowy
-            </button>
-            <button onClick={() => setDestination({ lat: 50.088094, lng: 19.937210 })}>
-                Zmień punkt końcowy
-            </button>
-        </LoadScript>
+        </div>
     );
 };
 
 export default Gmap;
+
+//             G map
+//             <GoogleMap
+//                 ref={map}
+//                 center={{ lat: 50.088094, lng: 19.937210 }}
+//                 zoom={12}
+//             />
+//             <DirectionsRenderer ref={directionsRenderer} />
+//
+//             <button onClick={() => setOrigin({ lat: 50.086386, lng: 19.936210 })}>
+//                 Zmień punkt początkowy
+//             </button>
+//             <button onClick={() => setDestination({ lat: 50.088094, lng: 19.937210 })}>
+//                 Zmień punkt końcowy
+//             </button>
+
+// import React, { useState } from 'react';
+// import { GoogleMap, DirectionsRenderer } from '@googlemaps/react-wrapper';
+//
+// const Gmap = () => {
+//     const [origin, setOrigin] = useState({ lat: 50.088094, lng: 19.937210 });
+//     const [destination, setDestination] = useState({ lat: 50.086386, lng: 19.936210 });
+//     console.log('g map');
+//
+//
+//     const map = new GoogleMap({
+//         center: { lat: 50.088094, lng: 19.937210 },
+//         zoom: 12,
+//     });
+//
+//     const directionsRenderer = new DirectionsRenderer({
+//         map,
+//         directions: [],
+//     });
+//
+//     const handleClick = (event) => {
+//         const { lat, lng } = event.latLng;
+//
+//         // Dodaj nową pozycję do trasy.
+//         if (lat !== origin.lat || lng !== origin.lng) {
+//             directionsRenderer.directions.push({
+//                 origin,
+//                 destination: { lat, lng },
+//             });
+//         }
+//
+//         // Wyrenderuj trasę.
+//         directionsRenderer.render();
+//     };
+//     map.addEventListener('click', handleClick);
+//
+//
+//     return (
+//         <div>
+//             G map
+//             <GoogleMap
+//                 ref={map}
+//                 center={{ lat: 50.088094, lng: 19.937210 }}
+//                 zoom={12}
+//             />
+//             <DirectionsRenderer ref={directionsRenderer} />
+//
+//             <button onClick={() => setOrigin({ lat: 50.086386, lng: 19.936210 })}>
+//                 Zmień punkt początkowy
+//             </button>
+//             <button onClick={() => setDestination({ lat: 50.088094, lng: 19.937210 })}>
+//                 Zmień punkt końcowy
+//             </button>
+//         </div>
+//     );
+// };
+//
+//
+//
+// export default Gmap;
