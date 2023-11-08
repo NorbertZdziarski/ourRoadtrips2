@@ -8,7 +8,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass  }) => {
         if (imagePath && imageName) {
 
             axios({
-                url: `http://localhost:9000/download`,
+                url: `http://192.168.40.2:9000/download`,
                 method: 'GET',
                 headers: {
                     'my-header': 'all'

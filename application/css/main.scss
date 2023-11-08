@@ -12,6 +12,7 @@
 @import "tripInfo";
 @import "aboutMe";
 @import "comments";
+@import "login";
 
 @mixin mainStyle($heightValue) {
   height: $heightValue ;
@@ -300,7 +301,7 @@ input {
   margin-bottom: 5px;
   &:hover {
     z-index: 10;
-    background-color: rgba(30, 144, 255, 0.35);
+    background-color: rgba(30, 144, 255, 0.05);
   }
 }
 .testForm {
