@@ -12,20 +12,19 @@ function DisplayCars({usersCars, setPage, setDataId, setYesOrNot, setToDelete })
     }
 
     return (
-    <section>
-        User Cars
-
+    <section className="userPanel_trips">
         {usersCars ? (
             Object.values(usersCars).map((car) =>
 
-                <div key={`keycar${car.carId}`} className="dataImportLine">
+                <div key={`keycar${car.carId}`} className="userPanelItem">
                     <button className="clickPage" >
                         <PrintCars  car={car}/>
                         {car.carPhoto ? <LoadImage imageName={car.carPhoto}
                                                    imagePath='images/users'
-                                                   imageWidth='120px' /> : <p>no photo</p>}
+                                                   // imageWidth='120px'
+                                                   photoClass='aboutme_PhotoTrip'/> : <p>no photo</p>}
                     </button>
-                    <div>
+                    <div className="showtrip_main">
                         <button onClick={()=>{
                             setPage("addCar")
                             setDataId(car)}
@@ -37,7 +36,7 @@ function DisplayCars({usersCars, setPage, setDataId, setYesOrNot, setToDelete })
 
                         }
                         }>delete</button>
-                        <button>visibility</button>
+                        {car.carPublic ?<p> public </p> : <p>hidden</p>}
                     </div>
                 </div>
 

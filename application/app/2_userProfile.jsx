@@ -63,31 +63,61 @@ function UserProfile() {
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
 
+    console.log(loggedUser)
 
     return (
-        <section className="underConstruction mainViewStyle">
-            <h3 > user profile </h3>
-            <section>
-                User Data
-                <p>{loggedUser.firstName}</p>
-                <p>{loggedUser.lastName}</p>
-                <p>{loggedUser.nick}</p>
-                <p>{loggedUser.email}</p>
+        <section className="userPanel_main">
 
+            <header className="userPanel_mainpage_box">
+                <div>
+                    <LoadImage imageName={loggedUser.photo || 'user.png'}
+                               imagePath='images/users'
+                               photoClass="userPanel_userPhoto"
+                    />
+                </div>
+                <div>
+                    <h3 className="userPanel_mainpage_title"> Cześć {loggedUser.firstName || loggedUser.nick}!</h3>
+                    {/*<p className="fnt_subtitle"> {loggedUser.userPersonalComment}</p>*/}
+                    <div className="userPanel_mainpage_content">
+                        <p> to jest Twoja przestrzeń. </p>
+                        <p> tutaj możesz zarządzać swoimi podróżami, samochodami oraz danymi osobistymi. Od Ciebie zależy co będzie widoczne, a co nie dla innych użytkowników.</p>
+                        <p> Miłej zabawy! </p>
+
+                    </div>
+                </div>
+
+            </header>
+            <section className="showtrip_main">
+                <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
+                <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>
+                <button disabled onClick={()=> window.location.href = '#userData'}>   my map </button>
             </section>
-            <section>
-                User Trips
+            <section id="userData" className="userPanel_mainpage_box">
+                <div>
+                    About me:
+                </div>
+                <div className="userPanel_trips">
+                    <p>{loggedUser.firstName}</p>
+                    <p>{loggedUser.lastName}</p>
+                    <p>{loggedUser.nick}</p>
+                    <p>{loggedUser.email}</p>
+                    <p>{loggedUser.userDescription}</p>
+                    <p> Twoja najlepiej oceniana podróż: </p>
+
+                </div>
+            </section>
+            <section className="userPanel_trips" id="userTrips">
 
                 {usersTrips ? (
                     Object.values(usersTrips).map((trip) =>
-                        <div key={`keytrip${trip._id}`} className="dataImportLine ramka">
+                        <div key={`keytrip${trip._id}`} className="userPanelItem">
                             <button className="clickPage" onClick={()=> {
                                 setPage("showTrip")
                                 setTripId(trip._id)
                             }}>
                                 <PrintTrips  trip={trip}/>
                             </button>
-                            <div>
+                            <div className="showtrip_main">
                                 <button onClick={()=>{
                                     setPage("addTrip")
                                     setDataId(trip)}
@@ -104,16 +134,18 @@ function UserProfile() {
                 )}
 
             </section>
-            <DisplayCars
-            usersCars={usersCars}
-            setDataId={setDataId}
-            setPage={setPage}
-            loggedUser={loggedUser}
-            setUsersCars={setUsersCars}
-            setYesOrNot={setYesOrNot}
-            yesOrNot={yesOrNot}
-            setToDelete={setToDelete}
-            />
+            <section id="userCars">
+                <DisplayCars
+                usersCars={usersCars}
+                setDataId={setDataId}
+                setPage={setPage}
+                loggedUser={loggedUser}
+                setUsersCars={setUsersCars}
+                setYesOrNot={setYesOrNot}
+                yesOrNot={yesOrNot}
+                setToDelete={setToDelete}
+                />
+            </section>
 
         </section>
     );

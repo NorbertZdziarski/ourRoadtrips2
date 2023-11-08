@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
 import DataFilter from "./3_filter";
+import LoadImage from "./a_loadimage";
 
 function Header() {
     const page = useStoreState(state => state.page);
@@ -124,8 +125,14 @@ function Header() {
                     {/*<p >logo {page}</p>*/}
                     {/*<p> >>>>>>>> {screenWidth}</p>*/}
                     <div className="headerButtons">
-                        {loggedUser ? (<p>{loggedUser.nick}</p>):(<p>not logged</p>)}
-                        {loggedUser ?    <button onClick={()=>setPage("userProfile")}>
+                        {(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>
+                            {/*<p>{loggedUser.nick}</p>*/}
+                            <LoadImage imageName={loggedUser.photo || 'user.png'}
+                                       imagePath='images/users'
+                                       photoClass="header_photo"
+                            />
+                        </button>):(<></>)}
+                        {(loggedUser && page!=='userProfile') ?    <button onClick={()=>setPage("userProfile")}>
                             USER PROFILE
                         </button> : <></>}
                         {loggedUser ? <button onClick={()=>{

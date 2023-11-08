@@ -16,6 +16,7 @@ function AboutMe() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        // dodac żę jak nie ma chosen to chosen jest loggedUser.
         if(chosen) {
             const urlPath = path.join('user',chosen)
             fetchData(urlPath)

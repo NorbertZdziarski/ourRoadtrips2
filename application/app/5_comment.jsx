@@ -24,9 +24,9 @@ function Comment({comment, author, photo, tripId}) {
     return (
         <button className="comment_conteiner" onClick={()=>{addLike()}}>
 
-            <LoadImage imageName={'user.png'}
+            <LoadImage imageName={photo || 'user.png'}
                        imagePath='images/users'
-                       imageWidth='100%'
+
                        photoClass="comment_photo"
             />
 

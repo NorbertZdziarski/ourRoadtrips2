@@ -1,0 +1,61 @@
+.userPanel_main {
+  box-sizing: border-box;
+  padding: 5px;
+  display: block;
+  width: $main-view-width;
+  background-color: #282c34;
+  @include rwd(flex);
+  color: green;
+}
+
+.userPanel_mainpage_box {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 7rem;
+  height: auto;
+  padding: 1rem;
+  font-family: Abel;
+  font-size: 30px;
+  background-color: $color-background-secondary;
+  color: $color-background-main;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  display: flex;
+}
+
+.userPanel_mainpage_title {
+  font-size: $tripTitle;
+}
+.userPanel_mainpage_content {
+  margin-top: 0.5rem;
+  font-size: $txtNormal;
+  line-height: calc($txtNormal + 0.5rem);
+}
+.userPanelItem {
+
+    width: 100%;
+    //font-size: 15px;
+    border: 2px solid $color-background-secondary;
+    margin-bottom: 5px;
+    &:hover {
+      transition-duration: 0.2s;
+      z-index: 90;
+      border: 2px solid $color-background-main;
+      //background-color: rgba(1, 2, 4, 0.25);
+    }
+}
+.userPanel_trips {
+  background-color: $color-background-secondary;
+  display: flex;
+  color: $color-background-main;
+
+}
+.userPanel_cars {
+
+}
+
+.userPanel_userPhoto {
+
+  width: 7rem;
+  margin-right: 1rem;
+
+}
