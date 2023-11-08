@@ -27,22 +27,27 @@ function Login() {
     // serwer weryfikuje zaszyfrowane ? - osobna baza dla haseł
 
     return (
-        <div className=" mainViewStyle">
-
+        <div className="mainViewStyle login_main">
+            <div className="login_box">
+                {fetchError ? <p className="login_error">{fetchError}</p> : <></>}
                 <form>
-                    <input type="text" name="inputUserName" className="dataImportLine" value={userName}
+                    <input placeholder='login' type="text" name="inputUserName" className="login_input" value={userName}
                            onChange={(e) => setUserName(e.target.value)}></input>
-                    <input type="password" name="inputUserPassword" className="dataImportLine" value={userPassword}
+                    <input placeholder='password' type="password" name="inputUserPassword" className="login_input" value={userPassword}
                            onChange={(e) => setUserPassword(e.target.value)}></input>
+                <div className="login_buttons">
+                    <button onClick={handleLogin} className="main_button "> Login </button>
+                    <button onClick={()=>setPage("mainPage")} className="main_button "> Cancel </button>
 
-                <button onClick={handleLogin} > Login </button>
-                <button onClick={()=>setPage("mainPage")}> Cancel </button>
+                </div>
                 </form>
-                {fetchError ? <p>{fetchError}</p> : <></>}
-                <button onClick={()=>setPage("editUserData")}> Create an account </button>
 
-            {/*<button onClick={handleGoogleLogin}> Zaloguj się za pomocą Google </button>*/}
+                <div className="login_newaccount">
+                    <button onClick={()=>setPage("editUserData")} className=" button-important"> Create an account </button>
 
+                    {/*<button onClick={handleGoogleLogin}> Zaloguj się za pomocą Google </button>*/}
+                </div>
+            </div>
 
 
         </div>

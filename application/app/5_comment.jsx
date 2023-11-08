@@ -31,9 +31,11 @@ function Comment({comment, author, photo, tripId}) {
             />
 
             <div className="comment_cloud">
+                <div className="comment_like">{like}</div>
                 {/*<textarea className="comment_message" defaultValue={comment.commTxt}/>*/}
                 <p className="comment_message" >{comment.commTxt}</p>
-                <p className="comment_author">{author} {like}</p>
+                <p className="comment_author">{author}</p>
+
             </div>
         </button>
     )

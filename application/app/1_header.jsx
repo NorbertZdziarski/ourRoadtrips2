@@ -97,13 +97,22 @@ function Header() {
                     ) : (
                         <></>))}
 
-                    {(((page === "aboutMe")) ? (
+                    {((page === "aboutMe") ? (
                             <section className="headerButtons">
                                 <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button>
                                 <button onClick={()=>{setPage("showTrip")}}>
                                     Back
+                                </button>
+                            </section>
+                    ) : (
+                        <></>))}
+
+                    {((page === "login") ? (
+                            <section className="headerButtons">
+                                <button onClick={()=>setPage("mainPage")}>
+                                    Main Page
                                 </button>
                             </section>
                     ) : (

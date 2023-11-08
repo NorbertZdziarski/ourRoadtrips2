@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiURL = 'http://localhost:9000';
+const apiURL = 'http://192.168.40.2:9000';
 
 const sendRequest = async (method, target, data,folderName, fileName) => {
     try {

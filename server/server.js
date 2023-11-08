@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const path = require('path')
 const multer = require('multer');
-const cors = require('cors');
+const cors = require('cors')
+require('dotenv').config();
 
 const manageData = require('./app_mongo')
 
