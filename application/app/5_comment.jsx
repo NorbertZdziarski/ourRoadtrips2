@@ -24,14 +24,34 @@ function Comment({comment, author, photo, tripId}) {
             if (!comment.commLike.includes(loggedUser._id)) {
                 let nowa_wartosc = [...comment.commLike, loggedUser._id];
                 setLike(prevLike => prevLike + 1);
+                setVoteState('loggedInVoted'); // Aktualizacja stanu voteState
                 const target = `trip/${tripId}/commlike/${comment.id}`;
+
                 console.log('nowa wartosc' + nowa_wartosc);
                 console.log('target' + target);
+                comment.commLike.push(loggedUser._id);
+
                 await updateData(target, nowa_wartosc);
+
             }
         }
     }
-    console.log(voteState);
+
+
+
+    // async function addLike() {
+    //     if (loggedUser) {
+    //         if (!comment.commLike.includes(loggedUser._id)) {
+    //             let nowa_wartosc = [...comment.commLike, loggedUser._id];
+    //             setLike(prevLike => prevLike + 1);
+    //             const target = `trip/${tripId}/commlike/${comment.id}`;
+    //             console.log('nowa wartosc' + nowa_wartosc);
+    //             console.log('target' + target);
+    //             await updateData(target, nowa_wartosc);
+    //         }
+    //     }
+    // }
+    console.log(voteState + ' | ' + comment.id);
     return (
         <button className="comment_conteiner" onClick={()=>{addLike()}}>
 
