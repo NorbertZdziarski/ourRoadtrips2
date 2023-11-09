@@ -223,7 +223,8 @@ server.patch('/:inquiryType/comment/:id', async (req, res) => {
 });
 server.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     const id = req.params.id;
-    console.log('v2: ' + id)
+    console.log('----------------------comm like.');
+    console.log(' id: ' + id)
     const pathName = req.params.inquiryType + 's';
     const idCom = req.params.idCom;
     const newItem = await req.body;
@@ -235,6 +236,9 @@ server.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     //     console.log(afterComment);  // wyświetla '${comment._id}'}
     // }
 
+    console.log('new item: ' + newItem);
+    console.log('idCOm: ' + idCom);
+    console.log('----------------------');
 
     await manageData(dbName, pathName, 'patchCommLike',newItem,id, idCom);
     res.send('Dane zostały zaktualizowane');

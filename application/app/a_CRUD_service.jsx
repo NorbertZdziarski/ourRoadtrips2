@@ -15,7 +15,7 @@ const transferDataFile = async (target,data,  folderName, fileName) => {
 
 const updateData = async (target,data) => {
     console.log('CRUD update')
-    console.log('t: ' + target)
+    console.log('target: ' + target)
     console.log('data: ' + data)
     console.log('data: ' + JSON.stringify(data))
     return await sendRequest('patch', target,data);

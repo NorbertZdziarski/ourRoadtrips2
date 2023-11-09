@@ -87,17 +87,13 @@ function UserProfile() {
                 </div>
 
             </header>
-            <section className="showtrip_main">
-                <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
-                <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>
-                <button disabled onClick={()=> window.location.href = '#userData'}>   my map </button>
-            </section>
-            <section id="userData" className="userPanel_mainpage_box">
+
+            <section id="userData" className="">
                 <div>
                     About me:
                 </div>
-                <div className="userPanel_trips">
-                    <p>{loggedUser.firstName}</p>
+                <div className="userPanel_mainpage_content">
+                    <p>Name: {loggedUser.firstName}</p>
                     <p>{loggedUser.lastName}</p>
                     <p>{loggedUser.nick}</p>
                     <p>{loggedUser.email}</p>
@@ -106,6 +102,13 @@ function UserProfile() {
 
                 </div>
             </section>
+
+            <section className="showtrip_main">
+                <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
+                <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>
+                <button disabled onClick={()=> window.location.href = '#userData'}>   my map </button>
+            </section>
+
             <section className="userPanel_trips" id="userTrips">
 
                 {usersTrips ? (

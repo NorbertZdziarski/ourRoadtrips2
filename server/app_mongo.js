@@ -1,12 +1,15 @@
 const  {MongoClient, ObjectId} = require('mongodb');
 
-async function manageData(dbName, collectionName,action,data,filter, idCom) {
+async function manageData(dbName, collectionName,action,data,filter, idComString ) {
 
-    const url = 'mongodb://127.0.0.1:27017';
+    let idCom = parseInt(idComString);
+    // const url = 'mongodb://127.0.0.1:27017';
+    const url = 'mongodb://0.0.0.0:27017';
     const client = await MongoClient.connect(url);
+    console.log('---------------------- APP MONGO');
     console.log('Filter: '+ filter)
     console.log('data: '+ data)
-    console.log('data: '+ JSON.stringify(data))
+    console.log('data JSON: '+ JSON.stringify(data))
     console.log('idCom: '+ idCom)
     console.log('action: '+ action)
 
@@ -16,7 +19,7 @@ async function manageData(dbName, collectionName,action,data,filter, idCom) {
         const collection = db.collection(collectionName);
         let dataDB;
 
-        // console.log(collectionName)
+        console.log('nazwa kolekcji: ' + collectionName)
 
         if (action === 'delete') {
             await collection.deleteOne({_id: new ObjectId(data)});
@@ -38,18 +41,29 @@ async function manageData(dbName, collectionName,action,data,filter, idCom) {
             );
             await client.close();return
         }  else if (action === 'patchCommLike') {
-            await collection.updateOne(
-                { "tripComments": { $elemMatch: { id: idCom, "commLike": { $exists: true } } } },
-                { $set: { "tripComments.$.commLike": data } },
-                function(err, result) {
-                    if (err) throw err;
+            console.log('----------------------app mongo: patch comm like.');
 
-                    console.log("Dokument został zaktualizowany!");
+            console.log('filter: ' + filter)
+            console.log('id: ' + idCom)
+            console.log(typeof idCom);
+            console.log('like: ' + data)
 
-                    client.close();
-                }
-            );
-            await client.close();
+            //
+            try {
+                const result = await collection.updateOne(
+                    {"_id": new ObjectId(filter), "tripComments": { $elemMatch: { id: idCom } } },
+                    { $set: { "tripComments.$.commLike": data } }
+                );
+                console.log('Result: ');
+                console.log(result);
+                console.log("Dokument został zaktualizowany!");
+            } catch (err) {
+                console.error(err);
+            } finally {
+                await client.close();
+            }
+
+
         } else if (data && action === 'post') {
             await collection.insertOne(data);
             await client.close();
