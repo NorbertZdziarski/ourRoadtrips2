@@ -105,7 +105,6 @@ server.get('/:pathName', async (req, res) => {
         let userData;
         try {
 
-            console.log(userData)
             if (req.headers['my-header'] === 'all') {
                 userData = await manageData(dbName,'users','login',password, user)
 
