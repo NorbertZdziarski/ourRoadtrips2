@@ -15,6 +15,7 @@
 @import "aboutMe";
 @import "comments";
 @import "login";
+@import "formStyle";
 
 @mixin mainStyle($heightValue) {
   height: $heightValue ;
@@ -248,12 +249,15 @@ body {
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
 }
 
+.trips_container {
+  width: 100%;
+}
+
+
 // ----------------------------------------co poniżej jest ROBOCZE - do usunięcia ----
 
 
-.blabla {
-    width: 100%;
-}
+
 
 .tymczasowy_header {
   font-size: 1.6rem;

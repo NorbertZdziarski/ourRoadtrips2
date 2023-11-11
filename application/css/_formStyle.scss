@@ -1,0 +1,82 @@
+.imputForm {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding: 5rem 7rem 1rem 7rem;
+}
+
+.imputForm_container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  border-bottom: 1px dotted $color-txt-secondary;
+  margin-bottom: 0.5rem;
+}
+
+.imputForm_box {
+  display: flex;
+  justify-content: left;
+  align-items: end;
+
+  height: 2.5rem;
+  margin-bottom: 1.5rem;
+  p {
+    color: white;
+    font-family: $fontStyleMain;
+    font-size: $txtLarge;
+    width: 15rem;
+  }
+  select {
+    width: calc(100% - 15rem);
+    background-color: $color-background-main;
+    color: $color-background-secondary;
+    font-size: $txtNormal;
+    padding: 0.1rem;
+    border: 0;
+  }
+  option {
+    width: calc(100% - 15rem);
+    background-color: $color-background-userProfile;
+    font-size: $txtNormal;
+    padding: 0.1rem;
+    border: 0;
+  }
+  input {
+    width: calc(100% - 15rem);
+    height: 100%;
+    background-color: $color-background-main ;
+    color: $color-background-secondary;
+  }
+  div {
+    display: flex;
+    align-items: end;
+    font-family: $fontStyleMain;
+    font-size: $txtLarge;
+    width: calc(100% - 15rem);
+  }
+}
+
+.imputForm_visibility {
+  width: calc(100% - 15rem);
+  display: flex;
+}
+.imputForm_visibility_txt {
+  color: $color-blink-color;
+}
+.imputForm_txt {
+  color: $color-background-secondary;
+}
+
+.imputForm_inputData {
+
+  border-bottom: 1px dotted $color-txt-secondary;
+}
+.imputForm_inputFile {
+  border:0;
+}
+
+.imputForm_sendButtonPlace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

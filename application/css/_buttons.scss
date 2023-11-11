@@ -9,8 +9,8 @@
     border: 0;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
-    height: 3rem;
-    padding: 1rem;
+    height: 3.2rem;
+    padding: 0 1.2rem 0 1.2rem;
   margin-left: 0.8rem;
   &:hover {
     color: $color-background-main;
@@ -64,7 +64,7 @@
   height: 3rem;
   padding: 1rem;
   margin-left: 0.8rem;
-  width: 10rem;
+  width: 18rem;
   &:hover {
     color: $color-background-main;
     background-color: $color-blink-color;
@@ -87,7 +87,7 @@
   height: 3rem;
   padding: 1rem;
   margin-left: 0.8rem;
-  width: auto;
+  width: 20rem;
   &:hover {
     color: $color-background-main;
     background-color: $color-blink-color;
