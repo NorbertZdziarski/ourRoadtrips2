@@ -70,7 +70,7 @@ function UserProfile() {
 
             <header className="userPanel_mainpage_box">
                 <div>
-                    <LoadImage imageName={loggedUser.photo || 'user.png'}
+                    <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
                                imagePath='images/users'
                                photoClass="userPanel_userPhoto"
                     />

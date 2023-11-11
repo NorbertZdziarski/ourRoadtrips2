@@ -59,6 +59,11 @@ function Header() {
                                         <button disabled onClick={()=>setDataFilter([true,'all','all','all'])}>
                                             Sort
                                         </button>
+                                        {(page === "mainPage") ? <button disabled >
+                                            Map
+                                        </button> : <button disabled >
+                                            List
+                                        </button>}
                                     </>}
                                 </>}
 
@@ -127,7 +132,7 @@ function Header() {
                     <div className="headerButtons">
                         {(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>
                             {/*<p>{loggedUser.nick}</p>*/}
-                            <LoadImage imageName={loggedUser.photo || 'user.png'}
+                            <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
                                        imagePath='images/users'
                                        photoClass="header_photo"
                             />

@@ -16,7 +16,6 @@ import ShowCar from "./3_showCar";
 import Gmap from "./5_map";
 
 const MainPage = () => {
-    console.log('main page');
     const page = useStoreState(state => state.page);
     const yesOrNot = useStoreState(state => state.yesOrNot);
     const dataFilter = useStoreState(state => state.dataFilter);

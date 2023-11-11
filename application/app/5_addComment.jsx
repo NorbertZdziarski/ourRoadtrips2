@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {updateData} from "./a_CRUD_service";
 import {useStoreState} from "easy-peasy";
+import LoadImage from "./a_loadimage";
 
 function AddComment({author, trip, setAddComm}) {
     const loggedUser = useStoreState(state => state.loggedUser);
@@ -34,9 +35,17 @@ function AddComment({author, trip, setAddComm}) {
     return (
         <div className="showtrip_addComment">
             <div className="comment_conteiner">
-                <img className="comment_photo" src="../images/user.png" alt='foto' >
+                <div className="comment_photo_container">
+                    <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
+                               imagePath='images/users'
+                               photoClass={"comment_photo" }
+                    />
+                </div>
+                {/*<img className="comment_photo" src="../images/user.png" alt='foto' >*/}
 
-                </img>
+                {/*</img>*/}
+
+
                 <div className="addComment_cloud">
                     <textarea className="comment_message" Value={enterComment} onChange={(e)=>{setEnterComment(e.target.value)}}/>
 

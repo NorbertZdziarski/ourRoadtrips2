@@ -9,6 +9,7 @@ function ShowComments({tripComments, tripId}) {
                 key={comm.id + index}
                 comment={comm}
                 author={comm.commUser}
+                userId={comm.commUserId}
                 tripId={tripId}
             />)}
         </section>

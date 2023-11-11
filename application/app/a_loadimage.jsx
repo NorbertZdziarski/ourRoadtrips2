@@ -3,12 +3,15 @@ import axios from 'axios';
 
 const LoadImage = ({ imageName, imageWidth, imagePath, photoClass  }) => {
     const [image, setImage] = useState('');
+    const host = 'localhost';
+    const port = 9000
+    const apiURL = `http://${host}:${port}/download`;
 
     useEffect(() => {
         if (imagePath && imageName) {
 
             axios({
-                url: `http://192.168.40.2:9000/download`,
+                url: apiURL,
                 method: 'GET',
                 headers: {
                     'my-header': 'all'

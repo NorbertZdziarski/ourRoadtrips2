@@ -46,7 +46,10 @@ function AboutMe() {
                 <div className="aboutme_conteiner">
                     <section className="aboutme_main">
                         <div className="aboutme_photo">
-                            photo
+                            <LoadImage imageName={userData.userPhoto || 'user.png'}
+                                       imagePath='images/users'
+                                       photoClass="header_photo"
+                            />
                             <h4>nick:{userData.nick}</h4>
                             <p>comment{userData.userPersonalComment}</p>
                         </div>

@@ -1,19 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {fetchData,transferData,updateData,deleteData} from "./a_CRUD_service";
-import TripBox from "./2_tripBox";
-import Gmap from "./5_map";
+import {fetchData} from "./a_CRUD_service";
+import SortingTrips from "./3_sortingTrips";
+// import Gmap from "./5_map";
 
-const TripsList = ({ tripData, dataFilter }) => {
-    return (
-        <div className="blabla">
-            {tripData.map((trip) => (
-                       < TripBox key={trip._id}
-                                 trip={trip}
-                                 dataFilter={dataFilter}/>
-            ))}
-        </div>
-    );
-};
 
 function ShowTrips({dataFilter}) {
     const [data, setData] = useState(null);
@@ -27,12 +16,12 @@ function ShowTrips({dataFilter}) {
 
     return (
         <section className="underConstruction mainViewStyle ">
-            <Gmap />
+            {/*<Gmap />*/}
             {data ? (
-                    <TripsList tripData={data}
+                    <SortingTrips tripData={data}
                                dataFilter={dataFilter} />
             ) : (
-                <p>Ładowanie danych...</p>
+                <p>data loading...</p>
             )}
         </section>
     );

@@ -55,7 +55,8 @@ function chosenFn(user) {
     setPage("aboutMe");
 }
     return (
-        <section className="mainViewStyle">
+        <section className="userPanel_main">
+        {/*<section className="mainViewStyle">*/}
             {data ? (<section className="">
                 <header className="showtrip_header">
                     <div>

@@ -1,6 +1,7 @@
 export const getInitialFormData = (type,loggedUser, dataId) => {
     if (type === 'trip') {
         return {
+            tripUserId: loggedUser._id,
             tripName: dataId.tripName || '',
             tripDescription:dataId.tripDescription ||  '',
             tripCar: dataId.tripCar ||  '',
@@ -10,7 +11,6 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             tripPhoto: dataId.tripPhoto || '',
             tripMap: dataId.tripMap || '',
             tripUser: loggedUser.nick,
-            tripUserId: loggedUser._id,
             tripSaveDate: new Date(),
             tripRate: dataId.tripRate || [],
             tripComments: dataId.tripComments || [],
@@ -37,9 +37,10 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             lastName: loggedUser.lastName || '',
             userDescription: loggedUser.userDescription ||'',
             userPersonalComment: loggedUser.userPersonalComment ||'',
-            cars: loggedUser.cars || [],
             email: loggedUser.email || '',
-            password: ''
+            password: '',
+            userPhoto: loggedUser.userPhoto || '',
+            cars: loggedUser.cars || []
         };
     }
 }

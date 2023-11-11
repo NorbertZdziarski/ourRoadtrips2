@@ -9,7 +9,9 @@ const fetchData = async (target) => {
 const transferData = async (target,data) => {
     return await sendRequest('post', target,data);
 };
-const transferDataFile = async (target,data,  folderName, fileName) => {
+const transferDataFile = async (target,data, folderName, fileName) => {
+    console.log(fileName);
+    console.log(target);
     return await sendRequest('postFile', target,data,folderName, fileName);
 };
 
