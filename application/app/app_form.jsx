@@ -119,8 +119,6 @@ const MyForm = ({type}) => {
         }
         if (type === 'user') {
             let targetPath;
-            console.log('data id: ' + dataId)
-            console.log('user id: ' + loggedUser._id)
 
             // if (file)  {
             //     newFileName = newFileNameGenerator('profile');
@@ -131,16 +129,14 @@ const MyForm = ({type}) => {
                 let tempUser = formData.nick;
                 let tempPass = formData.password;
                 let userId;
-                console.log('appForm. 1 - update data');
                 await transferData(`${type}/${targetPath}`, formData);
-                console.log('appForm. 2 - take ID');
 
                 const target = `?user=${encodeURIComponent(tempUser)}&password=${encodeURIComponent(tempPass)}`
                 await fetchData('login' + target).then(downloadedData => {
                     if (!downloadedData) {
                         console.log('wrong password or login');
                     } else {
-                        console.log(downloadedData)
+                        // console.log(downloadedData)
                         setLoggedUser(downloadedData);
                     }
                 });
@@ -156,26 +152,21 @@ const MyForm = ({type}) => {
                 newFileName = newFileNameGenerator('profile');
                 formData.userPhoto = newFileName;
                 let folderName = 'users';
-                console.log('159')
-                console.log(newFileName);
-                console.log(folderName);
+
                 await updateData(`${type}/${loggedUser._id}`, formData);
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku');
                 setPage('userProfile')
             }
-            console.log('linia 164 :)')
+
             console.log(formData)
             console.log(`${type}/${targetPath}`)
             await updateData(`${type}/${loggedUser._id}`, formData);
 
             setPage("mainPage");
         }
-        console.log(' test linia 122')
         // setFormData(getInitialFormData(type,loggedUser));
-        console.log(' test linia 124')
         setPage("userProfile");
-        console.log(' test linia 126')
     };
 
     return (

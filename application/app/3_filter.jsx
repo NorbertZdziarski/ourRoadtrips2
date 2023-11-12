@@ -22,25 +22,24 @@ const DataFilter = () => {
     return (
         <div className="">
         {/*<div className="yesOrNot">*/}
-            <p>filtrowanie wyświetlanych tras</p>
             <form>
-                 <select value={selectCountry} name={selectCountry} onChange={() => setSelectCountry(event.target.value)} className="">
+                 <select value={selectCountry} name={selectCountry} onChange={() => setSelectCountry(event.target.value)} className="header_dropdown_menu">
                     {countriesInEurope.map((country) => (
-                        <option key={country} value={country} className="testDataImport">
+                        <option key={country} value={country} >
                             {country}
                         </option>
                     ))}
                 </select>
-                <select value={choiceTripType} name={choiceTripType} onChange={()=>setChoiceTripType(event.target.value)} className="">
+                <select value={choiceTripType} name={choiceTripType} onChange={()=>setChoiceTripType(event.target.value)} className="header_dropdown_menu">
                     {tripTypes.map((triptype) => (
-                        <option key={triptype} value={triptype} className="testDataImport">
+                        <option key={triptype} value={triptype} >
                             {triptype}
                         </option>
                     ))}
                 </select>
-                <select value={choiceStyleTypes} name={choiceStyleTypes} onChange={()=>setChoiceStyleTypes(event.target.value)} className="">
+                <select value={choiceStyleTypes} name={choiceStyleTypes} onChange={()=>setChoiceStyleTypes(event.target.value)} className="header_dropdown_menu">
                     {carsStyleTypes.map((carStyle) => (
-                        <option key={carStyle} value={carStyle} className="testDataImport">
+                        <option key={carStyle} value={carStyle} >
                             {carStyle}
                         </option>
                     ))}

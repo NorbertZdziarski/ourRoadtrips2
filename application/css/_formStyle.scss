@@ -80,3 +80,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.date-input {
+  background-color: $color-background-comment;
+  border: 0;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: $txtNormal;
+  line-height: calc($txtNormal * 1.5);
+  color: #495057;
+
+  &:focus {
+    border-color: $color-blink-color;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(250, 237, 2, 0.25);
+  }
+}

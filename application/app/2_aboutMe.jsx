@@ -45,19 +45,25 @@ function AboutMe() {
             {userData ?
                 <div className="aboutme_conteiner">
                     <section className="aboutme_main">
-                        <div className="aboutme_photo">
+                        <div className="aboutme_photoBox">
                             <LoadImage imageName={userData.userPhoto || 'user.png'}
                                        imagePath='images/users'
-                                       photoClass="header_photo"
+                                       photoClass="aboutme_photo"
                             />
-                            <h4>nick:{userData.nick}</h4>
-                            <p>comment{userData.userPersonalComment}</p>
+                            <LoadImage imageName={userData.userPhoto || 'user.png'}
+                                       imagePath='images/users'
+                                       photoClass="aboutme_photo_reflex"
+                                       perspectiveStyle="perspectiveStyle"
+                                       imgProporcion={false}
+
+                            />
                         </div>
                         <div className="aboutme_column">
 
-                            <p>name:{userData.firstName} {userData.lastName}</p>
-
-                            <p>opis{userData.userDescription}</p>
+                            <h4>I`m: {userData.firstName} {userData.lastName}</h4>
+                            <p>{userData.nick}</p>
+                            <p>{userData.userPersonalComment}</p>
+                            <p>about me: {userData.userDescription}</p>
 
                         </div>
                         {/*<LoadImage imageName={userData.}*/}

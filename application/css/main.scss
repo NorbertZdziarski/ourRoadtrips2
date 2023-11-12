@@ -2,7 +2,19 @@
 :root {
   font-size: 10px;
 }
-
+@mixin sidebarstyle {
+  &::-webkit-scrollbar {
+    width: 10px }
+  &::-webkit-scrollbar-track {
+    background: rgba(23, 23, 23, 0)
+  }
+  &::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background: $color-blink-color;
+  }
+  &::-webkit-scrollbar-thumb:hover{
+    background: $color-background-secondary}
+}
 @import "variables";
 @import "fonts";
 
@@ -80,17 +92,7 @@ body {
     height: $mobile_main-view-height;
   }
 
-  &::-webkit-scrollbar {
-  width: 10px }
-  &::-webkit-scrollbar-track {
-  background: rgba(23, 23, 23, 0)
-  }
-  &::-webkit-scrollbar-thumb{
-    border-radius: 5px;
-  background: $color-blink-color;
-  }
-  &::-webkit-scrollbar-thumb:hover{
-  background: $color-background-secondary}
+  @include sidebarstyle;
 }
 
 .mainViewStyle {
@@ -332,4 +334,18 @@ input {
   box-shadow: 0 0 0 2px rgba(255, 183, 0, 0.14);
   padding: 3px;
   margin: 10px 0 10px 0
+}
+
+$stripe-width: 10px;
+$stripe-color1: $color-background-main;
+$stripe-color2: rgba(255, 255, 0, 0.8);
+
+.footer_underconstruction {
+  background: repeating-linear-gradient(
+                  45deg,
+                  $stripe-color1,
+                  $stripe-color1 $stripe-width,
+                  $stripe-color2 $stripe-width,
+                  $stripe-color2 $stripe-width * 2
+  );
 }

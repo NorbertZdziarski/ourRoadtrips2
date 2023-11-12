@@ -1,22 +1,33 @@
 
 
-@mixin tripInfo_mainpage($left,$top,$size) {
+@mixin tripInfo_mainpage($size) {
   font-size: $size;
-  font-family: "Century Gothic";
-  color: $color-txt-main;
-  position: absolute;
-  left: $left;
-  top: $top;
   z-index: 10;
 }
+
+.tripInfo_mainpage_container {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+
+}
+
 .tripInfo_mainpage_box {
+  box-sizing: border-box;
   position: absolute;
   left: 0px;
   top: 0px;
   background-color: rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+  text-align: left;
   width: 200px;
   height: 100%;
   z-index: 9;
+  font-family: "Century Gothic";
+  color: $color-txt-main;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   &:hover {
     transition-duration: 0.2s;
     background-color: rgba(0, 0, 0, 0.66);
@@ -24,22 +35,25 @@
 
 }
 .tripInfo_mainpage_title {
-  @include tripInfo_mainpage(10px,5px,$tripTitle)
+  @include tripInfo_mainpage($tripTitle);
+  text-align: left;
+  border-bottom: 1px dotted $color-txt-main;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.6rem;
 }
+
 .tripInfo_mainpage_author {
-  @include tripInfo_mainpage(10px,35px,$tripAuthor)
+  @include tripInfo_mainpage($tripAuthor)
 }
 .tripInfo_mainpage_Info-tripRate {
-  @include tripInfo_mainpage(10px,60px,16px);
-  z-index: 100;
+  @include tripInfo_mainpage(16px);
 }
 .tripInfo_mainpage_Info-tripComm {
-  @include tripInfo_mainpage(10px,80px,14px);
-  z-index: 100;
+  @include tripInfo_mainpage(14px);
 }
 .tripInfo_mainpage_Info-country {
-  @include tripInfo_mainpage(10px,295px,$tripAuthor)
+  @include tripInfo_mainpage($tripAuthor)
 }
 .tripInfo_mainpage_Info-tripType {
-  @include tripInfo_mainpage(10px,315px,$tripAuthor)
+  @include tripInfo_mainpage($tripAuthor)
 }
