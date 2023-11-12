@@ -3,3 +3,31 @@
   width: 3.5rem;
   box-shadow: inset 0.3rem 0.3rem 0.3rem $color-background-userProfile;
 }
+
+.header_dropdown_menu {
+  margin-left: 0.5rem;
+  margin-bottom: 0.4rem;
+  padding: 0.2rem;
+  background-color: $color-background-main;
+  color: $color-txt-main;
+  font-size: $txtNormal;
+  option {
+    background-color: $color-background-dropdown;
+    padding: 0.2rem;
+  }
+}
+
+
+//&:hover {
+//  background-color: yellow;
+//  ::selection {
+//    background: $color-blink-color;
+//    color: $color-background-main;
+//  }
+//
+//  /* Dla Firefox */
+//  ::-moz-selection {
+//    background: $color-blink-color;
+//    color: $color-background-main;
+//  }
+//}

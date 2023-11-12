@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
-import {fetchData} from "./a_CRUD_service";
+
 import DataFilter from "./3_filter";
 import LoadImage from "./a_loadimage";
+import DataSort from "./4_sort";
 
 function Header() {
     const page = useStoreState(state => state.page);
@@ -11,8 +12,15 @@ function Header() {
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const setDataId = useStoreActions(actions => actions.setDataId);
     const setDataFilter = useStoreActions(actions => actions.setDataFilter);
+
+
     const dataFilter = useStoreState(state => state.dataFilter);
+    const dataSortOn = useStoreState(state => state.dataSortOn);
+    const setDataSortOn = useStoreActions(actions => actions.setDataSortOn);
+
     const [screenWidth, setScreenWidth] = useState();
+
+
 
     const resizeOps = () => {
         document.documentElement.style.setProperty("--vh", window.innerHeight * 0.01 + "px");
@@ -33,8 +41,8 @@ function Header() {
         }
     }, []);
 
+    // console.log('Header - screen: '+ screenWidth + dataSortOn)
 
-    console.log('Header - screen: '+ screenWidth)
     return (
         <header className="headerStyle ">
             <div className="mainViewStyle tymczasowy_heade">
@@ -52,21 +60,26 @@ function Header() {
                                 {page !== "mainPage" ? <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button> : <>
-                                    {dataFilter[0] ? <DataFilter/> : <>
-                                        <button onClick={()=>setDataFilter([true,'all','all','all'])}>
-                                            Filter
-                                        </button>
-                                        <button disabled onClick={()=>setDataFilter([true,'all','all','all'])}>
-                                            Sort
-                                        </button>
-                                        {(page === "mainPage") ? <button disabled >
-                                            Map
-                                        </button> : <button disabled >
-                                            List
-                                        </button>}
-                                    </>}
-                                </>}
+                                    {(dataFilter[0] ) ? <DataFilter/> : <></>}
+                                    {(dataSortOn) ? <DataSort />:<></>}
 
+                                    {((!dataSortOn) && (!dataFilter[0])) ? <>
+                                            <button onClick={()=>setDataFilter([true,'all','all','all'])}>
+                                                Filter
+                                            </button>
+                                            <button onClick={()=>setDataSortOn(true)}>
+                                                Sort
+                                            </button>
+                                            {(page === "mainPage") ?
+                                                <button disabled >
+                                                    Map
+                                                </button> : <button disabled >
+                                                    List
+                                                </button>
+                                            }
+                                        </> : <></>}
+
+                                </>}
                             </section>
 
                     ) : ( <></> ))}

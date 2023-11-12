@@ -7,7 +7,7 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
 
-    const excludedValues = ['userPhoto', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
+    const excludedValues = ['userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
     const excludedValuesTitle = ['carId', 'tripUserId'];
     const [stan, setStan] = useState(true);
 
@@ -93,6 +93,8 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
                             <button type="button" className="main_button" onClick={zmienStan}>change visibility</button>
                         </div>
                     ):(<></>)}
+                    {(value === 'tripDate')?(<input type="date" className="date-input" />):(<></>)}
+
                     {(value === 'carPhoto')?(
                         <input type="file" onChange={handleFileChange} className="imputForm_inputFile"/>
                     ):(<></>)}

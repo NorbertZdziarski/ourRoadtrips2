@@ -63,8 +63,6 @@ function UserProfile() {
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
 
-    console.log(loggedUser)
-
     return (
         <section className="userPanel_main">
 

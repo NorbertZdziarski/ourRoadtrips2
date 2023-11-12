@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const LoadImage = ({ imageName, imageWidth, imagePath, photoClass  }) => {
+const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveStyle ,imgProporcion=true }) => {
     const [image, setImage] = useState('');
     const host = 'localhost';
     const port = 9000
@@ -29,20 +29,24 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass  }) => {
             });}
     }, [imageName, imagePath]);
 
-    window.onload = function() {
-        var img = document.querySelector(photoClass);
-        if (img.naturalWidth > img.naturalHeight) {
-            img.style.width = '100%';
-            img.style.height = 'auto';
-        } else {
-            img.style.height = '100%';
-            img.style.width = 'auto';
-        }
-    };
-
+    if (imgProporcion) {
+        window.onload = function() {
+            var img = document.querySelector(photoClass);
+            if (img.naturalWidth > img.naturalHeight) {
+                img.style.width = '100%';
+                img.style.height = 'auto';
+            } else {
+                img.style.height = '100%';
+                img.style.width = 'auto';
+            }
+        };}
+console.log(imgProporcion)
     return (
-        <div>
-            {image ? <img src={image} alt={'foto'} width={imageWidth} className={photoClass}/> : <>...loading</>}
+        <div className={perspectiveStyle}>
+            {image ? <>
+                <img src={image} alt={'foto'} width={imageWidth} className={photoClass}/>
+            </>: <>...loading</>}
+
         </div>
     );
 };

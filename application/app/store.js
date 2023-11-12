@@ -18,6 +18,10 @@ const store = createStore({
     setDataFilter:  action((state, payload) => { state.dataFilter = (payload); }),
     chosen: "",
     setChosen:  action((state, payload) => { state.chosen = (payload); }),
+    tripSort: "",
+    setTripSort:  action((state, payload) => { state.tripSort = (payload); }),
+    dataSortOn: false,
+    setDataSortOn:  action((state, payload) => { state.dataSortOn = (payload); }),
 })
 
 export default store;
