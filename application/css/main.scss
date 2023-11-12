@@ -1,6 +1,7 @@
 @import "reset";
 :root {
   font-size: 10px;
+  //cursor: none;
 }
 @mixin sidebarstyle {
   &::-webkit-scrollbar {

@@ -45,11 +45,23 @@ function AboutMe() {
             {userData ?
                 <div className="aboutme_conteiner">
                     <section className="aboutme_main">
-                        <div className="aboutme_photoBox">
-                            <LoadImage imageName={userData.userPhoto || 'user.png'}
-                                       imagePath='images/users'
-                                       photoClass="aboutme_photo"
-                            />
+                        <div className="aboutme_info">
+                            <div className="aboutme_photoBox">
+                                <LoadImage imageName={userData.userPhoto || 'user.png'}
+                                           imagePath='images/users'
+                                           photoClass="aboutme_photo"
+                                />
+                            </div>
+                            <div className="aboutme_column fnt_subtitle">
+
+                                <h4 className="fnt_Title">I`m: {userData.firstName} {userData.lastName} vel {userData.nick}</h4>
+                                {/*<p></p>*/}
+                                <p className="aboutme_column_title">{userData.userPersonalComment}</p>
+                                <p>about me: {userData.userDescription}</p>
+
+                            </div>
+                        </div>
+                        <div className="aboutme_underHeader">
                             <LoadImage imageName={userData.userPhoto || 'user.png'}
                                        imagePath='images/users'
                                        photoClass="aboutme_photo_reflex"
@@ -58,29 +70,21 @@ function AboutMe() {
 
                             />
                         </div>
-                        <div className="aboutme_column">
-
-                            <h4>I`m: {userData.firstName} {userData.lastName}</h4>
-                            <p>{userData.nick}</p>
-                            <p>{userData.userPersonalComment}</p>
-                            <p>about me: {userData.userDescription}</p>
-
-                        </div>
                         {/*<LoadImage imageName={userData.}*/}
                     </section>
-                    <section className="aboutme_cars">
-                        <p>my cars</p>
+                    <section className="aboutme_show-container">
+                        {/*<p>my cars</p>*/}
 
                         {userData.cars ? (
                             Object.values(userData.cars).map((car) =>
-                                <div key={`keytrip${car.id}`} className="aboutme_showCar">
+                                <div key={`keytrip${car.id}`} className="aboutme_show">
                                     <button className="aboutme_button" onClick={()=> {
                                         setPage("showcar")
                                         setChosen(car)
                                     }}>
                                         <LoadImage imageName={car.carPhoto}
                                                    imagePath='images/users'
-                                                   imageWidth='200px'
+                                                   imageWidth='600px'
                                                    photoClass='aboutme_PhotoCar'/>
                                     </button>
                                 </div>)
@@ -88,11 +92,12 @@ function AboutMe() {
                             <div>loading data....</div>
                         )}
                     </section>
-                    <section className="aboutme_trips">
-                        my trips
+                    <section className="aboutme_show-container {
+">
+                        {/*my trips*/}
                         {userTrips ? (
                             Object.values(userTrips).map((trip) =>
-                                <div key={`keytrip${trip._id}`} className="aboutme_showTrip">
+                                <div key={`keytrip${trip._id}`} className="aboutme_show">
                                     <button className="aboutme_button" onClick={()=> {
                                         setPage("showTrip")
                                         setTripId(trip._id)

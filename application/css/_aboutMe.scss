@@ -11,6 +11,7 @@
 }
 
 .aboutme_conteiner {
+  margin-top: 2rem;
   width: $main-view-width;
   height: 100%;
   margin-bottom: 1rem;
@@ -18,55 +19,87 @@
 }
 
 .aboutme_main {
+  //position: absolute;
   box-sizing: border-box;
-  width: $main-view-width;
-  display: flex;
-  justify-content: space-between;
-  height: 20rem;
+  width: 100%;
+  //display: flex;
+  //justify-content: space-between;
+  //height: 20rem;
 
   @include rwd;
 }
+.aboutme_info {
 
-.aboutme_column {
-  //background-color: darkgoldenrod;
-  box-sizing: border-box;
-  padding-left: 22rem;
-  //border: 1px dotted darkgrey;
-  width: 100%;
+    width: 100%;
+    //border: 1px solid green;
+    margin: 0;
+    background-size: cover;
+    background-image: radial-gradient(circle at 50% 680%, $color-background-comment, $color-background-main 88%);
+    display: flex;
 }
-.aboutme_cars {
-  //border: 1px dotted darkgrey;
+.aboutme_column {
+  box-sizing: border-box;
+  padding-left: 1rem;
+  width: 100%;
+  color: $color-txt-main;
+
+}
+.aboutme_underHeader {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: start;
+  position: relative;
+
+  :after {
+    content: "";
+    position: relative;
+    display: block;
+    top: -300%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    //border: 1px solid red;
+    z-index: 20;
+
+    background: linear-gradient(to top, rgba(40, 44, 52, 0.1), $color-background-main);
+  }
+}
+.aboutme_show-container {
 
   box-sizing: border-box;
   padding-top: 3rem;
   padding-bottom: 3rem;
   width: 100%;
-  height: 20rem;
+  height: 40rem;
   display: flex;
   overflow-x: scroll;
   overflow-y: hidden;
   @include sidebarstyle;
 }
-.aboutme_trips {
-  width: 100%;
+
+.aboutme_column_title {
+  border-bottom: 1px dotted $color-txt-secondary;
+  margin-bottom: 0.8rem;
+  font-size: $tripInfo;
 }
-.aboutme_showCar {
+
+.aboutme_show {
   @include aboutmeShowMixin($color-background-main);
+  transition-duration: 0.3s;
   position: relative;
-  width: 10rem;
-  height: 10rem;
-  margin: 2rem;
-  border-radius: 50%;
-}
-.aboutme_showTrip {
-  @include aboutmeShowMixin($color-background-main);
-  position: relative;
-  box-sizing: border-box;
-  width: calc(100% - 4rem);
-  height: 25rem;
+  width: 15rem;
+  height: 30rem;
   margin: 2rem;
   border-radius: 1rem;
+  &:hover {
+    transition-duration: 0.4s;
+    width: 60rem;
+  }
+
+  //border-radius: 50%;
 }
+
 .aboutme_button {
   width: 100%;
   border: 0;
@@ -74,6 +107,7 @@
 .aboutme_PhotoCar {
   //background-color: #b53a3a;
   position: absolute;
+  height: 100%;
   left: 50%;
   top: 50%;
 
@@ -116,50 +150,45 @@
 .aboutme_photoBox {
   //border: 1px dotted darkolivegreen;
   width: 20rem;
-  height: 20rem;
-  position: absolute;
+  //height: 30rem;
+  //position: absolute;
   //border: 1px solid #ffcc00;
 
 }
 .perspectiveStyle {
-  height: 100%;
-  perspective: 300px;
-  //border: 1px solid red;
 
-  &:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, $color-background-main, rgba(40, 44, 52, 0.1),rgba(40, 44, 52, 0));
-  }
+  height: 6rem;
+
 }
 .aboutme_photo {
-  width: 90%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
+  width: 18rem;
 
-  transform: translate(-50%, -50%);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
 
 }
 .aboutme_photo_reflex {
   z-index: 2;
-  position: absolute;
-  width: 100%;
-  left: 50%;
-  top: 90%;
-  box-shadow: inset 0 0 20px $color-background-dropdown;
-
+  object-fit: contain;
+  width: 18rem;
   opacity: 0.3;
-  transform: scaleZ(-1) translate(-50%, -50%) rotateX(82deg);
-
-
+  transform:  translateY(-36%) scaleY(0.25) scaleX(-1)  rotateZ(180deg) ;
 }
 
+
+
+
+
+
+
+//.aboutme_showTrip {
+//  @include aboutmeShowMixin($color-background-main);
+//  position: relative;
+//  box-sizing: border-box;
+//  width: calc(100% - 4rem);
+//  height: 25rem;
+//  margin: 2rem;
+//  border-radius: 1rem;
+//}
+
+//.aboutme_trips {
+//  width: 100%;
+//}
