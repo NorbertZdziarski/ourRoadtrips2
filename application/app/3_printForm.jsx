@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import '../css/main.scss';
+import {useStoreState} from "easy-peasy";
 const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
-
+    const loggedUser = useStoreState(state => state.loggedUser);
     const excludedValues = ['userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
     const excludedValuesTitle = ['carId', 'tripUserId'];
     const [stan, setStan] = useState(true);
@@ -28,6 +29,11 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+
+
+    console.log('form data w print formie: ' + formData._id)
+    console.log(formData)
+    console.log(loggedUser._id)
 
     if (type === 'user') slicePoint = 0;
     if (type === 'trip') slicePoint = 4;

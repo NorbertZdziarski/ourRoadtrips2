@@ -350,3 +350,33 @@ $stripe-color2: rgba(255, 255, 0, 0.8);
                   $stripe-color2 $stripe-width * 2
   );
 }
+
+.userPanel_first {
+
+  box-sizing: border-box;
+  width: 15rem;
+  height: 15rem;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: $color-blink-color;
+  box-shadow: 1rem 1rem 1rem $color-background-userProfile;
+  padding: 2rem;
+  margin: 2rem;
+
+  p {
+    color:$color-background-main;
+    font-size: $tripTitle;
+    font-weight: 600;
+    margin-inline: auto;
+    text-align: center;
+    transition-duration: 0.1s;
+    transform: rotate(0deg);
+    &:hover {
+      transition-duration: 0.3s;
+      transform: rotate(-30deg);
+    }
+  }
+
+}
