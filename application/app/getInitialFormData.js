@@ -38,7 +38,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             userDescription: loggedUser.userDescription ||'',
             userPersonalComment: loggedUser.userPersonalComment ||'',
             email: loggedUser.email || '',
-            password: '',
+
             userPhoto: loggedUser.userPhoto || '',
             cars: loggedUser.cars || []
         };

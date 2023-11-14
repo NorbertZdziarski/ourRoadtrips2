@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveStyle ,imgProporcion=true }) => {
+const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveStyle ,imgProportions=true }) => {
     const [image, setImage] = useState('');
     const host = 'localhost';
     const port = 9000
@@ -29,7 +29,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
             });}
     }, [imageName, imagePath]);
 
-    if (imgProporcion) {
+    if (imgProportions) {
         window.onload = function() {
             var img = document.querySelector(photoClass);
             if (img.naturalWidth > img.naturalHeight) {
@@ -40,7 +40,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
                 img.style.width = 'auto';
             }
         };}
-console.log(imgProporcion)
+console.log(imgProportions)
     return (
         <div className={perspectiveStyle}>
             {image ? <>

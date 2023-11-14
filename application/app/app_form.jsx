@@ -15,6 +15,7 @@ const MyForm = ({type}) => {
     const dataId = useStoreState(state => state.dataId);
     let newUser = true;
     let usersCarsDisp = [];
+
     if (loggedUser) {
         newUser = false;
         if (loggedUser.cars) {
@@ -53,8 +54,6 @@ const MyForm = ({type}) => {
 
         let dataToSave;
         let newFileName;
-        console.log('type: ' + type)
-        console.log('dataId: ' + dataId)
 
         if (type === 'trip') {
 
@@ -72,6 +71,7 @@ const MyForm = ({type}) => {
                 // console.log('trip - if else');
                 targetPath = dataId._id;
                 await updateData(`${type}/${targetPath}`,formData);
+                setPage('userProfile')
             };
 
 
@@ -79,9 +79,11 @@ const MyForm = ({type}) => {
                 let folderName = 'trips';
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku')
+                setPage('userProfile')
             }
 
             console.log('trip - koniec warunku.')
+            setPage("mainPage");
         }
 
         if (type === 'car') {
@@ -114,8 +116,9 @@ const MyForm = ({type}) => {
                 console.log('warunek wysyłki')
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku')
+                setPage('userProfile')
             }
-
+            setPage("mainPage");
         }
         if (type === 'user') {
             let targetPath;
@@ -145,6 +148,7 @@ const MyForm = ({type}) => {
                     formData.userPhoto = newFileName; }
                 await transferDataFile(`upload`, file, 'users', newFileName);
                 console.log('150')
+                console.log('zmiana strony: ');
                 setPage("mainPage");
             }
 
@@ -156,13 +160,14 @@ const MyForm = ({type}) => {
                 await updateData(`${type}/${loggedUser._id}`, formData);
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku');
+                console.log('zmiana strony: ');
                 setPage('userProfile')
             }
 
             console.log(formData)
             console.log(`${type}/${targetPath}`)
             await updateData(`${type}/${loggedUser._id}`, formData);
-
+            console.log('zmiana strony: ');
             setPage("mainPage");
         }
         // setFormData(getInitialFormData(type,loggedUser));

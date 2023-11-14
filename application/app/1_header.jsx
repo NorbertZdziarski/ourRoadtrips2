@@ -45,7 +45,7 @@ function Header() {
 
     return (
         <header className="headerStyle ">
-            <div className="mainViewStyle tymczasowy_heade">
+            <div className="mainViewStyle tymczasowy_header">
                 {screenWidth < 950 ? <>
                     <button onClick={()=>setPage("mainPage")}>
                         =
@@ -140,8 +140,6 @@ function Header() {
 
                 </>}
 
-                    {/*<p >logo {page}</p>*/}
-                    {/*<p> >>>>>>>> {screenWidth}</p>*/}
                     <div className="headerButtons">
                         {(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>
                             {/*<p>{loggedUser.nick}</p>*/}

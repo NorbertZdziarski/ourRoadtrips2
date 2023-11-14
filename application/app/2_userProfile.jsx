@@ -63,6 +63,10 @@ function UserProfile() {
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
 
+
+    console.log(usersTrips.length)
+    console.log(usersCars.length)
+
     return (
         <section className="userPanel_main">
 
@@ -131,9 +135,11 @@ function UserProfile() {
                             </div>
                         </div>)
                 ) : (
-                    <div>loading data....</div>
+                    <div>
+                        loading data....
+                    </div>
                 )}
-
+                {(usersTrips.length === 0) ? <div className="userPanel_first"><p>add your first route! </p></div> : <></>}
             </section>
             <section id="userCars">
                 <DisplayCars
@@ -146,6 +152,7 @@ function UserProfile() {
                 yesOrNot={yesOrNot}
                 setToDelete={setToDelete}
                 />
+                {(usersCars.length === 0) ? <div className="userPanel_first"><p>add your first car! </p></div> : <></>}
             </section>
 
         </section>
