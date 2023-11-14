@@ -8,8 +8,8 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
     const loggedUser = useStoreState(state => state.loggedUser);
-    const excludedValues = ['userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
-    const excludedValuesTitle = ['carId', 'tripUserId'];
+    const excludedValues = ['userPhoto', 'cars', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
+    const excludedValuesTitle = ['cars','carId', 'tripUserId'];
     const [stan, setStan] = useState(true);
 
     let slicePoint;
