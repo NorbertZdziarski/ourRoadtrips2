@@ -35,10 +35,9 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             nick: loggedUser.nick || '',
             firstName: loggedUser.firstName || '',
             lastName: loggedUser.lastName || '',
-            userDescription: loggedUser.userDescription ||'',
             userPersonalComment: loggedUser.userPersonalComment ||'',
+            userDescription: loggedUser.userDescription ||'',
             email: loggedUser.email || '',
-
             userPhoto: loggedUser.userPhoto || '',
             cars: loggedUser.cars || []
         };

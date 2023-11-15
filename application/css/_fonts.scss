@@ -9,3 +9,21 @@
   font-size: $tripTitle;
   line-height: calc($tripTitle * 1.1);
 }
+.fnt_error {
+  margin-top: 1.5rem;
+  font-family: Abel;
+  margin-inline: auto;
+  color: $color-error-color;
+  font-size: $tripTitle;
+  line-height: calc($tripTitle * 1.1);
+  border: 1px solid $color-error-color;
+  padding: 0.7rem 2rem ;
+}
+.fnt_tertiary {
+  font-family: Abel;
+  color: $color-txt-tertiary;
+  font-size: $tripInfo;
+  text-wrap: wrap;
+  text-align: justify;
+  line-height: calc($tripTitle * 1.05);
+}

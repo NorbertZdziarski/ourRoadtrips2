@@ -33,7 +33,7 @@
   line-height: calc($txtNormal + 0.5rem);
 }
 .userPanelItem {
-    width: 100%;
+  flex: 1 0 20rem;
     //font-size: 15px;
     border: 2px solid $color-background-secondary;
     margin-bottom: 5px;
@@ -45,9 +45,10 @@
 }
 .userPanel_trips {
   display: flex;
+  flex-wrap: wrap;
 }
 .userPanel_cars {
-
+  flex-wrap: wrap;
 }
 
 .userPanel_userPhoto {

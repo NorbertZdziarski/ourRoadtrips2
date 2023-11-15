@@ -4,16 +4,17 @@ import {deleteData, fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
 import DisplayCars from "./3_displayCars";
 import PrintTrips from "./4_printTrips";
+// import {a} from "../dist/application.61265efd";
 
 
 
 
 
-async function deleteDataFn(target) {
-
-    // ------------------------------------- dodać pytanie czy aby na pewno !
-    await deleteData(target);
-}
+// async function deleteDataFn(target) {
+//
+//     // ------------------------------------- dodać pytanie czy aby na pewno !
+//     await deleteData(target);
+// }
 
 
 
@@ -41,31 +42,36 @@ function UserProfile() {
     }, []);
 
 
-    useEffect(()=> {
+    useEffect(async ()=> {
         if (yesOrNot[1] === 2) {
+            if (toDelete[0] === 'car') {
+                let carsArr = [...loggedUser.cars];
+                const userCopy = {...loggedUser}
 
-            let carsArr = [...loggedUser.cars];
-            const userCopy = {...loggedUser}
+                carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1]);
+                const dataToSave = {
+                    cars: carsArr,
+                };
 
-            carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1]);
-            const dataToSave = {
-                cars: carsArr,
-            };
+                userCopy.cars = carsArr;
+                setLoggedUser(userCopy);
 
-            userCopy.cars = carsArr;
-            setLoggedUser(userCopy);
-
-            updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
-                setUsersCars(carsArr)});
-            setToDelete([``,``])
-
+                await updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
+                    setUsersCars(carsArr)});
+                setToDelete([``,``])
             }
+            if (toDelete[0] === 'trip') {
+                await deleteData(`trip/${toDelete[1]}`);
+                const target = `userstrips/${loggedUser._id}`
+                fetchData(target).then(downloadedData => {
+                    setUsersTrips(downloadedData)
+                });
+                setToDelete([``,``])
+            }
+        }
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
 
-
-    console.log(usersTrips.length)
-    console.log(usersCars.length)
 
     return (
         <section className="userPanel_main">
@@ -128,8 +134,14 @@ function UserProfile() {
                                     setDataId(trip)}
                                 }>edit</button>
                                 <button onClick={()=>{
-                                    deleteDataFn(`trip/${trip._id}`)
+
+                                    setToDelete(['trip',trip._id])
+                                    setYesOrNot([true,0])
+
                                 }
+                                // onClick={()=>{
+                                //     deleteDataFn(`trip/${trip._id}`)
+                                // }
                                 }>delete</button>
                                 {trip.tripPublic ?<p> public </p> : <p>hidden</p>}
                             </div>

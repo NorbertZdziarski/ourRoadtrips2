@@ -4,6 +4,11 @@ const port = 9000
 const apiURL = `http://${host}:${port}`;
 
 const sendRequest = async (method, target, data,folderName, fileName) => {
+    console.log('data: ' + data)
+    console.log('method: ' + method)
+    console.log('target: ' + target)
+    console.log('folder name: ' + folderName)
+    console.log('file name: ' + fileName)
     try {
         let response;
 
@@ -36,7 +41,6 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 formDatas.append('type', folderName);
                 formDatas.append('filename', fileName);
                 formDatas.append('image', data);
-
                 axios.post(`${apiURL}/upload`, formDatas, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -50,7 +54,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                         console.error(error);
                     });
 
-                break;
+                return;
             case 'patch':
                 console.log('CRUD: patch')
                 response = await axios.patch(`${apiURL}/${target}`, data,{

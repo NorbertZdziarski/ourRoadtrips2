@@ -40,7 +40,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
                 img.style.width = 'auto';
             }
         };}
-console.log(imgProportions)
+// console.log(imgProportions)
     return (
         <div className={perspectiveStyle}>
             {image ? <>

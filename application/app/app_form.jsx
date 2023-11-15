@@ -9,10 +9,12 @@ import {getInitialFormData} from "./getInitialFormData";
 const MyForm = ({type}) => {
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({});
+    const [formError, setFormError] = useState(null);
     const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const dataId = useStoreState(state => state.dataId);
+    const rules = useStoreState(state => state.rules);
     let newUser = true;
     let usersCarsDisp = [];
 
@@ -51,7 +53,18 @@ const MyForm = ({type}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (newUser) {
+            if (type === 'user') {
+                let error = '';
+                if (formData.regulations !== 'you accept the regulations') error += 'brak akceptacji regulaminu \n';
+                if (!formData.nick) error += 'podaj swój nick \n';
+                if (!formData.firstName) error += 'podaj swoje imię \n';
+                if (!formData.password) error += 'podaj hasło \n';
+                setFormError(error);
 
+            }
+        }
+        if (formError) return;
         let dataToSave;
         let newFileName;
 
@@ -67,6 +80,7 @@ const MyForm = ({type}) => {
                 // console.log('trip - if !dataId');
                 targetPath = 'add';
                 await transferData(`${type}/${targetPath}`,formData);
+                setPage("userProfile");
             } else {
                 // console.log('trip - if else');
                 targetPath = dataId._id;
@@ -100,13 +114,14 @@ const MyForm = ({type}) => {
                 carsArr[index] = formData
             } else {
                 carsArr.push(formData);
+                console.log('add formData puh cars Arr')
             }
 
             dataToSave = {
                 cars: carsArr,
             };
             updateUser('cars',carsArr)
-
+            console.log(' update - 124')
             if (file)  {
                 newFileName = newFileNameGenerator(formData.carId);
                 formData.carPhoto = newFileName; }
@@ -114,9 +129,11 @@ const MyForm = ({type}) => {
             if (file) {
                 let folderName = 'users'
                 console.log('warunek wysyłki')
-                await transferDataFile(`upload`, file, folderName, newFileName);
-                console.log('wysyłka pliku')
-                setPage('userProfile')
+                /// błąd z czytaniem "data" w CRUD linia 76, 74
+                await transferDataFile(`upload`, file, folderName, newFileName).then(()=>{
+                    console.log('wysyłka pliku')
+                    setPage('userProfile')});
+
             }
             setPage("mainPage");
         }
@@ -139,7 +156,7 @@ const MyForm = ({type}) => {
                     if (!downloadedData) {
                         console.log('wrong password or login');
                     } else {
-                        // console.log(downloadedData)
+                        console.log('update na stronie')
                         setLoggedUser(downloadedData);
                     }
                 });
@@ -167,6 +184,8 @@ const MyForm = ({type}) => {
             console.log(formData)
             console.log(`${type}/${targetPath}`)
             await updateData(`${type}/${loggedUser._id}`, formData);
+            const tempVar = {...loggedUser,...formData}
+            setLoggedUser(tempVar)
             console.log('zmiana strony: ');
             setPage("mainPage");
         }
@@ -187,8 +206,13 @@ const MyForm = ({type}) => {
                     type={type}
                 />
                 <section className="imputForm_sendButtonPlace">
-                {newUser ? <p> akceptacja regulaminu </p> :  <></>}
-                <button type="submit" className="button-important">Wyślij</button>
+                    <button type="submit" className="button-important">it's ok, I'm sending it.</button>
+                    {(formError) ? <pre className="fnt_error">{formError}</pre> : <></>}
+                    {(newUser) ?  <div className="imputForm_regulations ">
+                        <p className="fnt_Title">regulations:</p>
+                        <pre className="fnt_tertiary">{rules}</pre>
+                    </div> : <></>}
+
                 </section>
             </form>
                 {/*{newUser ? <></> :  <LoadImage imageName={formData.carPhoto}*/}
