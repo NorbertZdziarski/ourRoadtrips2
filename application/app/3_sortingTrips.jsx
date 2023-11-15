@@ -29,6 +29,8 @@ const SortingTrips = ({ tripData, dataFilter }) => {
         sortAvg();
         tripData.sort((a, b) => a.averageRate - b.averageRate);
     }
+    if (tripSort === "data dodania") tripData.sort((a, b) => new Date(a.tripSaveDate) - new Date(b.tripSaveDate));
+
 
 
 // // Posortuj tablicę na podstawie średniej

@@ -41,7 +41,8 @@ function Header() {
         }
     }, []);
 
-    // console.log('Header - screen: '+ screenWidth + dataSortOn)
+    console.log('Header - screen: '+ screenWidth + " data sort: " + dataSortOn)
+
 
     return (
         <header className="headerStyle ">

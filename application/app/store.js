@@ -4,6 +4,8 @@ const store = createStore({
     // page: "map",
     page: "mainPage",
     setPage:  action((state, payload) => { state.page = (payload); }),
+    dataSortOn: false,
+    setDataSortOn:  action((state, payload) => { state.dataSortOn = (payload); }),
     tripId: "",
     setTripId:  action((state, payload) => { state.tripId = (payload); }),
     dataId: "",
@@ -20,8 +22,6 @@ const store = createStore({
     setChosen:  action((state, payload) => { state.chosen = (payload); }),
     tripSort: "",
     setTripSort:  action((state, payload) => { state.tripSort = (payload); }),
-    dataSortOn: false,
-    setDataSortOn:  action((state, payload) => { state.dataSortOn = (payload); }),
 })
 
 export default store;
