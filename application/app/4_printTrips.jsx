@@ -10,8 +10,8 @@ function PrintTrips({trip}) {
         {trip.tripPhoto ?
         <LoadImage imageName={trip.tripPhoto}
                    imagePath='images/trips'
-                   imageWidth='900px'
-                   photoClass='aboutme_PhotoTrip' />: <p>no photo</p>}
+
+                   photoClass='aboutme_PhotoCar' />: <p>no photo</p>}
     </div>)
 }
 

@@ -71,9 +71,9 @@ body {
 
 .yesOrNot {
   z-index: 200;
-  background-color: $color-blink-color;
-  border: 1px solid black;
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+  background-color: $color-background-yesornot;
+  border: 2px solid black;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.85);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -101,6 +101,7 @@ body {
   width: 100%;
   height: 35rem;
   border: 2px solid $color-background-main;
+  border-radius: 1.5rem;
   margin-bottom: 2rem;
   position: relative;
   &:hover {

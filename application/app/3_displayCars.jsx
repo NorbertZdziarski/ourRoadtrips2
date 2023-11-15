@@ -24,7 +24,7 @@ function DisplayCars({usersCars, setPage, setDataId, setYesOrNot, setToDelete })
                                                    // imageWidth='120px'
                                                    photoClass='aboutme_PhotoTrip'/> : <p>no photo</p>}
                     </button>
-                    <div className="showtrip_main">
+                    <div className="userPanel-buttons">
                         <button onClick={()=>{
                             setPage("addCar")
                             setDataId(car)}

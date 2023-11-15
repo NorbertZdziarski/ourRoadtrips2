@@ -29,7 +29,8 @@ const SortingTrips = ({ tripData, dataFilter }) => {
         sortAvg();
         tripData.sort((a, b) => a.averageRate - b.averageRate);
     }
-    if (tripSort === "data dodania") tripData.sort((a, b) => new Date(a.tripSaveDate) - new Date(b.tripSaveDate));
+    if (tripSort === "new last") tripData.sort((a, b) => new Date(a.tripSaveDate) - new Date(b.tripSaveDate));
+    if (tripSort === "new first") tripData.sort((a, b) => new Date(b.tripSaveDate) - new Date(a.tripSaveDate));
 
 
 

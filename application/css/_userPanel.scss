@@ -9,6 +9,7 @@
   @include rwd(flex);
 
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
 }
 
 .userPanel_mainpage_box {
@@ -34,13 +35,18 @@
 }
 .userPanelItem {
   flex: 1 0 20rem;
+  background-color: $color-background-main;
+  overflow: hidden;
     //font-size: 15px;
-    border: 2px solid $color-background-secondary;
-    margin-bottom: 5px;
+    //border: 2px solid $color-background-secondary;
+    //border: 2px solid $color-background-main;
+  border-radius: 1.5rem;
+  margin: 0.3rem;
+    //margin-bottom: 5px;
     &:hover {
       transition-duration: 0.2s;
       z-index: 90;
-      border: 2px solid $color-background-main;
+      //border: 2px solid $color-background-main;
     }
 }
 .userPanel_trips {
@@ -56,4 +62,54 @@
   width: 7rem;
   margin-right: 1rem;
 
+}
+
+.userPanel_itemPhoto {
+
+
+}
+
+.userPanel-buttons {
+    color: $color-background-secondary;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 3rem;
+    padding: 1rem;
+    font-family: Abel;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    z-index: 50;
+  p {
+    width: 33%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  button {
+    margin: 0;
+    padding: 0;
+    border-radius: 1rem 1rem 0 0;
+    background-color: rgba(0,0,0,0) ;
+    width: 33%;
+    color: $color-txt-main;
+    height: 3rem;
+    font-size: $txtNormal;
+    border: 0;
+    &:hover {
+      color: $color-background-main;
+      background-color: $color-blink-color;
+    }
+    &:disabled {
+      color: rgba(92, 93, 95, 0.49);
+      cursor: not-allowed;
+
+      &:hover {
+        color: rgba(40, 44, 52, 0.49);
+        box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+      }
+    }
+  }
 }

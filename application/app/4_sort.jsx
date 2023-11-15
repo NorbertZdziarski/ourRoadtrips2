@@ -4,7 +4,7 @@ const DataSort = () => {
     const setTripSort = useStoreActions(actions => actions.setTripSort);
     const setDataSortOn = useStoreActions(actions => actions.setDataSortOn);
     const tripSort = useStoreState(state => state.tripSort);
-    const sortTypes = ["data dodania",  "BEST first", "best last", "A - Z", "Z - A"];
+    const sortTypes = ["new first", "new last",  "BEST first", "best last", "A - Z", "Z - A"];
 
     const handleChange = (e) => {
         setTripSort(e.target.value);

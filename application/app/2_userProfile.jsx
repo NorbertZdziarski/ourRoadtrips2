@@ -128,12 +128,12 @@ function UserProfile() {
                             }}>
                                 <PrintTrips  trip={trip}/>
                             </button>
-                            <div className="showtrip_main">
-                                <button onClick={()=>{
+                            <div className="userPanel-buttons">
+                                <button  onClick={()=>{
                                     setPage("addTrip")
                                     setDataId(trip)}
                                 }>edit</button>
-                                <button onClick={()=>{
+                                <button  onClick={()=>{
 
                                     setToDelete(['trip',trip._id])
                                     setYesOrNot([true,0])

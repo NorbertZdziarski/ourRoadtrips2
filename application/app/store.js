@@ -20,7 +20,7 @@ const store = createStore({
     setDataFilter:  action((state, payload) => { state.dataFilter = (payload); }),
     chosen: "",
     setChosen:  action((state, payload) => { state.chosen = (payload); }),
-    tripSort: "",
+    tripSort: "new first",
     setTripSort:  action((state, payload) => { state.tripSort = (payload); }),
     rules: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tellus nulla, ornare vitae tellus vel, interdum interdum nunc. Aenean vitae vehicula leo, vitae convallis eros. Vestibulum ac lectus eu tellus consectetur dapibus. In eros enim, luctus sit amet gravida vitae, semper eget risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam vitae vulputate ante. Morbi sit amet risus ligula. Ut diam est, efficitur sed justo at, finibus dapibus est. Integer ac sodales ipsum. Nam non quam elit. Mauris tellus lacus, auctor sit amet est et, sagittis faucibus ex. Suspendisse potenti. Phasellus vestibulum, mi a placerat fringilla, dui urna vestibulum nisl, id egestas ipsum felis id lectus. Donec a nisi vel leo cursus ornare.\n" +
         "\n" +
