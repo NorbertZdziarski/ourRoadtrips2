@@ -74,11 +74,21 @@
 .imputForm_inputFile {
   border:0;
 }
+.imputForm_regulations {
+  border:0;
+  width: 100%;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  color: $color-txt-secondary;
+}
 
 .imputForm_sendButtonPlace {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .date-input {

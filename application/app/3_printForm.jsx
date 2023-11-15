@@ -8,7 +8,7 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
     const loggedUser = useStoreState(state => state.loggedUser);
-    const excludedValues = ['userPhoto', 'cars', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
+    const excludedValues = ['regulations', 'userPhoto', 'cars', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
     const excludedValuesTitle = ['cars','carId', 'tripUserId'];
     const [stan, setStan] = useState(true);
 
@@ -19,6 +19,10 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const zmienStan = () => {
         setStan(!stan);
         setFormData({ ...formData, tripPublic: stan })
+    };
+    const rullesStan = () => {
+        setStan(!stan);
+        setFormData({ ...formData, regulations: stan })
     };
 
     function handleFileChange(event) {
@@ -32,14 +36,23 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
 
 
     console.log('form data w print formie: ' + formData._id)
-    console.log(formData)
+
     console.log(loggedUser._id)
 
-    if (type === 'user') slicePoint = 0;
+    if (type === 'user') {
+        slicePoint = 0;
+        if (!loggedUser._id && (!form.includes('password' && 'regulations'))) {
+            form.push('password');
+            form.push('regulations');
+            formData.password = '';
+            formData.regulations = '';
+        }
+    }
     if (type === 'trip') slicePoint = 4;
     if (type === 'car') slicePoint = 3;
 
-
+    console.log(formData)
+    console.log(form)
 
 
     if (formData.tripComments) commentsValue = formData.tripComments.length;
@@ -55,7 +68,7 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     return(
         <div className="imputForm_container">
             {form.map((value) => <div key={`line${value}`}>
-                {/*// ----------------------------------- rodzaj paliwa, areatext do opisu*/}
+                {/*// ------------------------- ------ ----!!!!!!! TO DO !!!!!!!!!!!!!------- rodzaj paliwa, areatext do opisu*/}
                 <label className="imputForm_box">
                     {(excludedValuesTitle.includes(value) ? null : <p >{value.slice(slicePoint,value.length)}:</p>)}
                     {(value === 'tripCountry') ? <select value={formData[value]} name={value} onChange={handleChange} className="">
@@ -97,6 +110,12 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
                         <div className="imputForm_visibility">
                             <div className="imputForm_visibility_txt">{stan ? 'will not be displayed' : 'visible on main page'}</div>
                             <button type="button" className="main_button" onClick={zmienStan}>change visibility</button>
+                        </div>
+                    ):(<></>)}
+                    {(value === 'regulations')?(
+                        <div className="imputForm_visibility">
+                            <div className="imputForm_visibility_txt">{stan ? 'you do not accept the regulations' : 'you accept the regulations'}</div>
+                            <button type="button" className="main_button" onClick={rullesStan}>change</button>
                         </div>
                     ):(<></>)}
                     {(value === 'tripDate')?(<input type="date" className="date-input" />):(<></>)}
