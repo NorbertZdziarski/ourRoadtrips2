@@ -4,19 +4,6 @@ import {deleteData, deleteFile, fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
 import DisplayCars from "./3_displayCars";
 import PrintTrips from "./4_printTrips";
-// import {a} from "../dist/application.61265efd";
-
-
-
-
-
-// async function deleteDataFn(target) {
-//
-//     // ------------------------------------- dodać pytanie czy aby na pewno !
-//     await deleteData(target);
-// }
-
-
 
 
 function UserProfile() {

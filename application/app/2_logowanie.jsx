@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {useStoreActions} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
-// import { GoogleOAuthProvider } from '@react-oauth/google';
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+
 function Login() {
     const setPage = useStoreActions(actions => actions.setPage);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
@@ -27,8 +27,7 @@ function Login() {
         });
     };
 
-
-    const handleSuccess = (response) => {
+    const handleSuccess = async (response) => {
         const decodedToken = jwtDecode(response.credential);
 
         // zapytanie do serwera czy użytkownik o zadanym ID istnieje. Jeżeli tak - zwraca jego dane - jeżeli nie
@@ -46,6 +45,8 @@ function Login() {
         console.log("Given Name: ", decodedToken.given_name);
         console.log("Locale: ", decodedToken.locale);
         console.log("User Family Name: ", decodedToken.family_name);
+
+        await fetchData('gle',decodedToken.sub).then((r)=>{console.log(r)})
 
     };
 

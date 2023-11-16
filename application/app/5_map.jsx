@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleMap, DirectionsRenderer } from '@googlemaps/react-wrapper';
+// import { GoogleMap, DirectionsRenderer } from '@googlemaps/react-wrapper';
 
 const Gmap = () => {
 //     const [origin, setOrigin] = useState({ lat: 50.088094, lng: 19.937210 });

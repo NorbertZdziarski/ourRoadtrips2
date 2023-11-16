@@ -44,9 +44,8 @@ const MyForm = ({type}) => {
         let currentDate = new Date();
         let timestamp = currentDate.getTime();
         let hexTimestamp = timestamp.toString(16);
-        let fileName = loggedUser._id + type + idObject + hexTimestamp + fileExtension;
 
-        return fileName;
+        return loggedUser._id + type + idObject + hexTimestamp + fileExtension;
     }
 
     function updateUser(key, newData) {

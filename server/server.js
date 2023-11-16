@@ -61,7 +61,7 @@ server.post('/upload', function (req, res) {
                 // Wystąpił błąd Multer podczas przesyłania.
                 throw new Error(err.message);
             } else if (err && err.code === 'INCORRECT_FOLDER') {
-                // Nasz niestandardowy błąd został zgłoszony.
+
                 throw new Error(err.message);
             }
             res.send('Plik został przesłany');
@@ -189,6 +189,25 @@ server.post('/:inquiryType/add', async (req, res) => {
 });
 
 
+server.post('/gle', async (req, res) => {
+
+    const googleId = await req.body;
+
+
+    console.log(newItem)
+
+    // await manageData(dbName, pathName, 'post',newItem);
+
+
+    res.status(200).send('Dodano nowy element do bazy danych');
+});
+
+
+
+
+
+
+
 
 // server.use(bodyParser.urlencoded({ extended: true }));
 server.use(bodyParser.json());
@@ -243,6 +262,23 @@ server.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     res.send('Dane zostały zaktualizowane');
 });
 // ----------------------------------------------------------------------------------------- DELETE
+
+server.delete('/file', async (req, res) => {
+    console.log('============================= server.js')
+    console.log('SERVER: komenda: delete File')
+    const filename =  req.body.target;
+
+    console.log('file name: ' + filename)
+    try {
+        fs.unlinkSync(filename);
+        console.log('Plik został pomyślnie usunięty');
+        res.status(200).send('Plik został pomyślnie usunięty');
+    } catch (err) {
+        console.error(`Wystąpił błąd podczas usuwania pliku: ${err}`);
+        res.status(500).send(`Wystąpił błąd podczas usuwania pliku: ${err}`)
+    }
+
+});
 
 server.delete('/:inquiryType/:idNr', async (req, res) => {
     const pathName = req.params.inquiryType + 's';

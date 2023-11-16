@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-// import {useStoreActions, useStoreState} from "easy-peasy";
-
 import '../css/main.scss';
 import Header from "./1_header";
 import MainPage from "./1_mainPage";

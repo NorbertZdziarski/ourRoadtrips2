@@ -16,7 +16,7 @@ function ShowTrips({dataFilter}) {
 
     return (
         <section className="underConstruction mainViewStyle ">
-            {/*<Gmap />*/}
+
             {data ? (
                     <SortingTrips tripData={data}
                                dataFilter={dataFilter} />

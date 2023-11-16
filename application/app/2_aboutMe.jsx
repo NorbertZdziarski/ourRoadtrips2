@@ -39,9 +39,8 @@ function AboutMe() {
     if (error) {
         return <div>Error: {error}</div>;
     }
-    return (
+    return (<>
         <section className="underConstruction mainViewStyle">
-            {/*<p>about Me {chosen} pathe: </p>*/}
             {userData ?
                 <div className="aboutme_conteiner">
                     <section className="aboutme_main">
@@ -73,7 +72,6 @@ function AboutMe() {
                         {/*<LoadImage imageName={userData.}*/}
                     </section>
                     <section className="aboutme_show-container">
-                        {/*<p>my cars</p>*/}
 
                         {userData.cars ? (
                             Object.values(userData.cars).map((car) =>
@@ -92,8 +90,7 @@ function AboutMe() {
                             <div>loading data....</div>
                         )}
                     </section>
-                    <section className="aboutme_show-container {
-">
+                    <section className="aboutme_show-container">
                         {/*my trips*/}
                         {userTrips ? (
                             Object.values(userTrips).map((trip) =>
@@ -114,6 +111,7 @@ function AboutMe() {
                 </div>: <>...no data...</> }
 
         </section>
+        </>
     );
 }
 
