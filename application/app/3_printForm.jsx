@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../css/main.scss';
-import {useStoreState} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
@@ -8,9 +8,14 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
     const loggedUser = useStoreState(state => state.loggedUser);
-    const excludedValues = ['regulations', 'userPhoto', 'cars', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
+    const excludedValues = ['password', 'repeat password','regulations', 'userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
     const excludedValuesTitle = ['cars','carId', 'tripUserId'];
     const [stan, setStan] = useState(true);
+
+    const temporaryPass1 = useStoreState(state => state.temporaryPass1);
+    const setTemporaryPass1 = useStoreActions(actions => actions.setTemporaryPass1);
+    const temporaryPass2 = useStoreState(state => state.temporaryPass2);
+    const setTemporaryPass2 = useStoreActions(actions => actions.setTemporaryPass2);
 
     let slicePoint;
     let commentsValue;
@@ -31,13 +36,14 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     }
 
     const handleChange = (e) => {
+
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
 
-    console.log('form data w print formie: ' + formData._id)
+    // console.log('form data w print formie: ' + formData._id)
 
-    console.log(loggedUser._id)
+    // console.log(loggedUser._id)
 
     if (type === 'user') {
         slicePoint = 0;
@@ -46,6 +52,10 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
             form.push('regulations');
             formData.password = '';
             formData.regulations = '';
+        }
+        if ((loggedUser._id) && (!form.includes('password' && 'repeat password'))) {
+            form.push('password');
+            form.push('repeat password');
         }
     }
     if (type === 'trip') slicePoint = 4;
@@ -134,7 +144,12 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
                     ):(<></>)}
                     {(value === 'tripComments')?(<p>{commentsValue}</p>
                     ):(<></>)}
-
+                    {(value === 'password')?(
+                    <input type="text" name={value} value={temporaryPass1 || ''} onChange={(e)=> {setTemporaryPass1(e.target.value)} } className="imputForm_inputData"/>
+                    ):(<></>)}
+                    {(value === 'repeat password')?(
+                        <input type="text" name={value} value={temporaryPass2 || ''} onChange={(e)=> {setTemporaryPass2(e.target.value)} } className="imputForm_inputData"/>
+                    ):(<></>)}
                     {(excludedValues.includes(value) ? null : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>)}
                 </label>
             </div>)}

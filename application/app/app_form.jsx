@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../css/main.scss';
-import {fetchData,transferData,updateData,deleteData, transferDataFile} from "./a_CRUD_service";
+import {fetchData, transferData, updateData, deleteData, transferDataFile, deleteFile} from "./a_CRUD_service";
 import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 import PrintForm from "./3_printForm";
@@ -9,12 +9,21 @@ import {getInitialFormData} from "./getInitialFormData";
 const MyForm = ({type}) => {
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({});
-    const [formError, setFormError] = useState(null);
+
     const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const dataId = useStoreState(state => state.dataId);
     const rules = useStoreState(state => state.rules);
+
+    const temporaryPass1 = useStoreState(state => state.temporaryPass1);
+    const setTemporaryPass1 = useStoreActions(actions => actions.setTemporaryPass1);
+    const temporaryPass2 = useStoreState(state => state.temporaryPass2);
+    const setTemporaryPass2 = useStoreActions(actions => actions.setTemporaryPass2);
+
+    const [formError, setFormError] = useState(null);
+
+
     let newUser = true;
     let usersCarsDisp = [];
 
@@ -53,18 +62,42 @@ const MyForm = ({type}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let error = '';
+        console.log('-------------------------------------------')
+        if (temporaryPass1) {
+            console.log(' handle change temp 1')
+            if (temporaryPass1 === temporaryPass2) {
+                console.log(' handle change temp 2 |||||||||||||||||||||||||||||||||||||||||||')
+                console.log('pas 1 ' + temporaryPass1 + ' | pas 2 ' + temporaryPass2)
+                console.log(formData)
+                setFormData({...formData, password: temporaryPass1})
+            } else {
+                console.log(' handle change err')
+                error += 'błąd hasła!';
+
+                }}
         if (newUser) {
             if (type === 'user') {
-                let error = '';
+
                 if (formData.regulations !== 'you accept the regulations') error += 'brak akceptacji regulaminu \n';
                 if (!formData.nick) error += 'podaj swój nick \n';
                 if (!formData.firstName) error += 'podaj swoje imię \n';
                 if (!formData.password) error += 'podaj hasło \n';
-                setFormError(error);
+
+
+            }
+        } else {
+            if (type === 'user') {
+
 
             }
         }
-        if (formError) return;
+
+        setFormError(error)
+        if (error) return;
+
+        console.log('______ ' + formData.password)
+
         let dataToSave;
         let newFileName;
 
@@ -138,6 +171,7 @@ const MyForm = ({type}) => {
             setPage("mainPage");
         }
         if (type === 'user') {
+
             let targetPath;
 
             // if (file)  {
@@ -176,17 +210,19 @@ const MyForm = ({type}) => {
 
                 await updateData(`${type}/${loggedUser._id}`, formData);
                 await transferDataFile(`upload`, file, folderName, newFileName);
-                console.log('wysyłka pliku');
-                console.log('zmiana strony: ');
+                await deleteFile(`images/users/${loggedUser.userPhoto}`);
+
+                // console.log('wysyłka pliku');
+                // console.log('zmiana strony: ');
                 setPage('userProfile')
             }
 
-            console.log(formData)
-            console.log(`${type}/${targetPath}`)
+            // console.log(formData)
+            // console.log(`${type}/${targetPath}`)
             await updateData(`${type}/${loggedUser._id}`, formData);
             const tempVar = {...loggedUser,...formData}
             setLoggedUser(tempVar)
-            console.log('zmiana strony: ');
+
             setPage("mainPage");
         }
         // setFormData(getInitialFormData(type,loggedUser));

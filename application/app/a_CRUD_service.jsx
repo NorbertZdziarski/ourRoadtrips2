@@ -25,8 +25,12 @@ const updateData = async (target,data) => {
 const deleteData = async (target) => {
     return await sendRequest('delete', target);
 };
+const deleteFile = async (target) => {
+    console.log('crud service delete file');
+    return await sendRequest('deletefile', target);
+};
 
 
 
-export {fetchData,transferData,updateData,deleteData, transferDataFile};
+export {fetchData,transferData,updateData,deleteData, deleteFile,transferDataFile};
 

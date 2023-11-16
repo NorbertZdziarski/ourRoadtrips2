@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
-import {deleteData, fetchData, updateData} from "./a_CRUD_service";
+import {deleteData, deleteFile, fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
 import DisplayCars from "./3_displayCars";
 import PrintTrips from "./4_printTrips";
@@ -48,7 +48,7 @@ function UserProfile() {
                 let carsArr = [...loggedUser.cars];
                 const userCopy = {...loggedUser}
 
-                carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1]);
+                carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1].carId);
                 const dataToSave = {
                     cars: carsArr,
                 };
@@ -58,14 +58,16 @@ function UserProfile() {
 
                 await updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
                     setUsersCars(carsArr)});
+                if (toDelete[1].carPhoto) await deleteFile(`images/users/${toDelete[1].carPhoto}`);
                 setToDelete([``,``])
             }
             if (toDelete[0] === 'trip') {
-                await deleteData(`trip/${toDelete[1]}`);
+                await deleteData(`trip/${toDelete[1]._id}`);
                 const target = `userstrips/${loggedUser._id}`
                 fetchData(target).then(downloadedData => {
                     setUsersTrips(downloadedData)
                 });
+                if (toDelete[1].tripPhoto) await deleteFile(`images/trips/${toDelete[1].tripPhoto}`);
                 setToDelete([``,``])
             }
         }
@@ -134,14 +136,9 @@ function UserProfile() {
                                     setDataId(trip)}
                                 }>edit</button>
                                 <button  onClick={()=>{
-
-                                    setToDelete(['trip',trip._id])
+                                    setToDelete(['trip',trip])
                                     setYesOrNot([true,0])
-
                                 }
-                                // onClick={()=>{
-                                //     deleteDataFn(`trip/${trip._id}`)
-                                // }
                                 }>delete</button>
                                 {trip.tripPublic ?<p> public </p> : <p>hidden</p>}
                             </div>

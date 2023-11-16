@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import {useStoreActions} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
-
+// import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin, GoogleUser } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 function Login() {
     const setPage = useStoreActions(actions => actions.setPage);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const [userName, setUserName] = useState()
     const [userPassword, setUserPassword] = useState()
     const [fetchError, setFetchError] = useState()
+
     const handleLogin = async (e) => {
         e.preventDefault()
         console.log('user name: ' + userName);
@@ -23,8 +26,32 @@ function Login() {
             }
         });
     };
-    // inputy login hasło
-    // serwer weryfikuje zaszyfrowane ? - osobna baza dla haseł
+
+
+    const handleSuccess = (response) => {
+        const decodedToken = jwtDecode(response.credential);
+
+        // zapytanie do serwera czy użytkownik o zadanym ID istnieje. Jeżeli tak - zwraca jego dane - jeżeli nie
+        // system dodaje nowego użytkownika i wypełnia pozyskanymi od googla danymi
+
+        console.log("User Name: ", decodedToken.name);
+        console.log("User Email: ", decodedToken.email);
+        console.log("Issued At: ", new Date(decodedToken.iat * 1000));
+        console.log("Expiration Time: ", new Date(decodedToken.exp * 1000));
+        console.log("User Profile Pic: ", decodedToken.picture);
+        console.log("user ID: ", decodedToken.sub);
+        console.log("Issuer: ", decodedToken.iss);
+        console.log("Audience: ", decodedToken.aud);
+        console.log("Authorized party: ", decodedToken.azp);
+        console.log("Given Name: ", decodedToken.given_name);
+        console.log("Locale: ", decodedToken.locale);
+        console.log("User Family Name: ", decodedToken.family_name);
+
+    };
+
+    const handleFailure = (response) => {
+        console.log('Logowanie nie powiodło się:', response);
+    };
 
     return (
         <div className="mainViewStyle login_main">
@@ -44,11 +71,17 @@ function Login() {
 
                 <div className="login_newaccount">
                     <button onClick={()=>setPage("editUserData")} className=" button-important"> Create an account </button>
+                    <div>
+                        <GoogleLogin
+                            clientId="708085340019-karrgte5hed5fcobjn0ja6t8oitstagb.apps.googleusercontent.com"
+                            onSuccess={handleSuccess}
+                            onFailure={handleFailure}
+                        />
 
-                    {/*<button onClick={handleGoogleLogin}> Zaloguj się za pomocą Google </button>*/}
+                    </div>
+
                 </div>
             </div>
-
 
         </div>
     );

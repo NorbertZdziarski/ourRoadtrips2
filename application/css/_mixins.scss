@@ -16,3 +16,15 @@
   display: flex;
   justify-content: center;
 }
+
+@mixin aboutmeShowMixin($colorBG) {
+  border: 2px solid $colorBG;
+  overflow: hidden;
+  display: flex;
+
+  align-content: center;
+  justify-content: center;
+  &:hover {
+    border: 2px solid $color-blink-color;
+  }
+}

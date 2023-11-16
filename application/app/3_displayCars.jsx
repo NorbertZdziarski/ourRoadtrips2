@@ -31,7 +31,7 @@ function DisplayCars({usersCars, setPage, setDataId, setYesOrNot, setToDelete })
                         }>edit</button>
                         <button onClick={()=>{
 
-                            setToDelete(['car',car.carId])
+                            setToDelete(['car',car])
                             setYesOrNot([true,0])
 
                         }

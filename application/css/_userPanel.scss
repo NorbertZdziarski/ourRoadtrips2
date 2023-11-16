@@ -37,16 +37,13 @@
   flex: 1 0 20rem;
   background-color: $color-background-main;
   overflow: hidden;
-    //font-size: 15px;
-    //border: 2px solid $color-background-secondary;
-    //border: 2px solid $color-background-main;
   border-radius: 1.5rem;
   margin: 0.3rem;
-    //margin-bottom: 5px;
+
     &:hover {
       transition-duration: 0.2s;
       z-index: 90;
-      //border: 2px solid $color-background-main;
+
     }
 }
 .userPanel_trips {

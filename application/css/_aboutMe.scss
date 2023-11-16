@@ -1,14 +1,4 @@
-@mixin aboutmeShowMixin($colorBG) {
-  border: 2px solid $colorBG;
-  overflow: hidden;
-  display: flex;
 
-  align-content: center;
-  justify-content: center;
-  &:hover {
-    border: 2px solid $color-blink-color;
-  }
-}
 
 .aboutme_conteiner {
   margin-top: 2rem;
@@ -103,7 +93,7 @@
   border: 0;
 }
 .aboutme_PhotoCar {
-  //background-color: #b53a3a;
+
   position: absolute;
   height: 100%;
   left: 50%;

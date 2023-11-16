@@ -53,8 +53,8 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                     .catch(error => {
                         console.error(error);
                     });
-
                 return;
+                // break;
             case 'patch':
                 console.log('CRUD: patch')
                 response = await axios.patch(`${apiURL}/${target}`, data,{
@@ -66,6 +66,14 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 break;
             case 'delete':
                 response = await axios.delete(`${apiURL}/${target}`, {
+                    headers: {
+                        'my-header': 'all'
+                    }
+                });
+                break;
+            case 'deletefile':
+                response = await axios.delete(`${apiURL}/file`, {
+                    data: {target},
                     headers: {
                         'my-header': 'all'
                     }
