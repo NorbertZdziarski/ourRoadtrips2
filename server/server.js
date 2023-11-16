@@ -188,15 +188,18 @@ server.post('/:inquiryType/add', async (req, res) => {
     res.status(200).send('Dodano nowy element do bazy danych');
 });
 
-
+// server.use(bodyParser.json());
 server.post('/gle', async (req, res) => {
+    console.log('---- Google ----')
+    const inputData = await req.body;
 
-    const googleId = await req.body;
 
+    console.log('gle: ' + inputData)
+    console.log('google id : ' + inputData.googleId)
 
-    console.log(newItem)
-
-    // await manageData(dbName, pathName, 'post',newItem);
+    await manageData(dbName, 'users', 'get',null,inputData).then((r)=>{
+        console.log(r)
+    });
 
 
     res.status(200).send('Dodano nowy element do bazy danych');

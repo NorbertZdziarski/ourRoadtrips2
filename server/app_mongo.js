@@ -72,6 +72,7 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
         await client.close();
         return dataDB;
         } else if (action === 'get' && filter) {
+            console.log('app mongo _ filter ->  ' + filter)
            dataDB = await collection.find(filter).toArray();
             await client.close();
             return dataDB;

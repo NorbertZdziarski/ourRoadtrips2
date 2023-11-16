@@ -27,7 +27,8 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 }
                 console.log(params)
                 console.log(data)
-                // data = JSON.stringify(data)
+                console.log(JSON.stringify(data))
+                console.log(typeof data)
 
                 response = await axios.post(`${apiURL}/${target}`,JSON.stringify(data), {
                     headers: {

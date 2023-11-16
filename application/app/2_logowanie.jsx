@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useStoreActions} from "easy-peasy";
-import {fetchData} from "./a_CRUD_service";
+import {fetchData, transferData} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 
@@ -45,8 +45,8 @@ function Login() {
         console.log("Given Name: ", decodedToken.given_name);
         console.log("Locale: ", decodedToken.locale);
         console.log("User Family Name: ", decodedToken.family_name);
-
-        await fetchData('gle',decodedToken.sub).then((r)=>{console.log(r)})
+        let sendData = { googleId: decodedToken.sub }
+        await transferData('gle',sendData).then((r)=>{console.log(r)})
 
     };
 
