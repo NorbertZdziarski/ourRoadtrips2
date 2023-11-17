@@ -3,6 +3,7 @@ import {useStoreActions} from "easy-peasy";
 import {fetchData, transferData} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import {getInitialFormData} from "./getInitialFormData";
 
 function Login() {
     const setPage = useStoreActions(actions => actions.setPage);
@@ -11,10 +12,38 @@ function Login() {
     const [userPassword, setUserPassword] = useState()
     const [fetchError, setFetchError] = useState()
 
+
+    async function createUser(data) {
+        console.log('funckja async - brak użytkownika o takim ID, zakładam nowe konto.');
+
+        let saveData = {};
+        // saveData = getInitialFormData('user','');
+
+        saveData = {
+            googleId: data.sub,
+            nick: data.name || data.sub,
+            firstName: data.name || '',
+            lastName: data.family_name || '',
+            userPersonalComment: data.locale ||'',
+            email: data.email || '',
+            userPhoto: data.picture || '',
+            userDescription: '',
+            dateOfAccountCreation: new Date(),
+            cars: []
+        }
+
+        console.log('save data: ' + saveData)
+        console.log('JSON data: ' + JSON.stringify(saveData));
+
+        await transferData(`user/add`, saveData);
+        setLoggedUser(saveData);
+
+    }
+
     const handleLogin = async (e) => {
         e.preventDefault()
         console.log('user name: ' + userName);
-        console.log();
+        console.log('-=-=-=-=-=-= handle login -=-=-=-=-=-=');
         const target = `?user=${encodeURIComponent(userName)}&password=${encodeURIComponent(userPassword)}`
         await fetchData('login' + target).then(downloadedData => {
             if (!downloadedData) {
@@ -46,7 +75,50 @@ function Login() {
         console.log("Locale: ", decodedToken.locale);
         console.log("User Family Name: ", decodedToken.family_name);
         let sendData = { googleId: decodedToken.sub }
-        await transferData('gle',sendData).then((r)=>{console.log(r)})
+        await transferData('gle',sendData)
+            .then((downloadedData)=>{
+                console.log('udało się pobrać dane googleID')
+                if (downloadedData) {
+                    if (downloadedData === 'noUser') {
+                        console.log('brak użytkownika o takim ID, zakładam nowe konto.')
+                        createUser(decodedToken);
+                        setPage("mainPage")
+                    } else {
+                        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~')
+
+                        console.log(downloadedData)
+                        setLoggedUser(downloadedData)
+                        setPage("mainPage")
+                    }
+
+                } else {
+
+
+                    console.log('błąd.')
+                    //
+                    // let saveData = (getInitialFormData('user',''));
+                    //
+                    // saveData = {
+                    //     nick: decodedToken.name || decodedToken.sub,
+                    //     firstName: decodedToken.name || '',
+                    //     lastName: decodedToken.family_name || '',
+                    //     userPersonalComment: decodedToken.locale ||'',
+                    //     email: decodedToken.email || '',
+                    //     userPhoto: decodedToken.picture || '',
+                    // }
+                    //
+                    // console.log('save data: ' + saveData)
+                    // console.log('JSON data: ' + JSON.stringify(saveData));
+                    //
+                    // await transferData(`users/add`, saveData);
+
+                }
+
+
+        })
+            .catch((err)=>{
+                console.log('błąd pobierania danych google ID: ' + err)
+            });
 
     };
 

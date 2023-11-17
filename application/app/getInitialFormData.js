@@ -1,4 +1,5 @@
 export const getInitialFormData = (type,loggedUser, dataId) => {
+    console.log('  get Initial Form Data')
     if (type === 'trip') {
         return {
             tripUserId: loggedUser._id,
@@ -39,6 +40,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             userDescription: loggedUser.userDescription ||'',
             email: loggedUser.email || '',
             userPhoto: loggedUser.userPhoto || '',
+            dateOfAccountCreation: loggedUser.dateOfAccountCreation || new Date(),
             cars: loggedUser.cars || []
         };
     }

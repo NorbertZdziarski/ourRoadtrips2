@@ -63,6 +63,16 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
                 await client.close();
             }
 
+        } else if (action === 'googleId') {
+            console.log('-{ mongo: poszukiwanie po googleID }-')
+            console.log('-{ filter: ' + filter + ' }-')
+            dataDB = await collection.findOne(filter)
+            // await collection.insertOne(data);
+            await client.close();
+            if (!dataDB) {
+                return 'noUser';
+            }
+            return dataDB;
 
         } else if (data && action === 'post') {
             await collection.insertOne(data);

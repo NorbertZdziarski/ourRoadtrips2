@@ -8,6 +8,13 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     const apiURL = `http://${host}:${port}/download`;
 
     useEffect(() => {
+        console.log('image name: ' + imageName + ' | '  );
+        console.log(typeof imageName );
+        console.log('image path: ' + imagePath)
+        if (imageName.substring(0,4) === 'http') {
+            imagePath=null;
+            setImage(imageName);
+        }
         if (imagePath && imageName) {
 
             axios({
@@ -40,6 +47,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
                 img.style.width = 'auto';
             }
         };}
+
 // console.log(imgProportions)
     return (
         <div className={perspectiveStyle}>

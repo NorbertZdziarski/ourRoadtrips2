@@ -197,12 +197,17 @@ server.post('/gle', async (req, res) => {
     console.log('gle: ' + inputData)
     console.log('google id : ' + inputData.googleId)
 
-    await manageData(dbName, 'users', 'get',null,inputData).then((r)=>{
+    await manageData(dbName, 'users', 'googleId',null,inputData).then((r)=>{
+        console.log('-------------- serverJS --- odpowiedz z mongo --')
         console.log(r)
-    });
+        res.status(200).send(r);
+    })
+        .catch((err)=>{
+            res.status(400).send(`błąd: ${err}`);
+        });
 
 
-    res.status(200).send('Dodano nowy element do bazy danych');
+
 });
 
 
