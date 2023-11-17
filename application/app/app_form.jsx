@@ -57,6 +57,93 @@ const MyForm = ({type}) => {
         setFormData(getInitialFormData(type,loggedUser,dataId));
     }, [type]);
 
+
+async function addDataToMongo(dataToSave) {
+    let targetPath;
+    if (!dataId) {
+        console.log('------------- trip database !!!')
+        console.log('nowe MONGO ' + dataToSave);
+        targetPath = 'add';
+        await transferData(`${type}/${targetPath}`,dataToSave);
+        setPage("userProfile");
+    } else {
+        console.log('------------- trip database !!!')
+        console.log('update MONGO ' + dataToSave);
+        targetPath = dataId._id;
+        await updateData(`${type}/${targetPath}`,dataToSave);
+        setPage('userProfile')
+    };
+}
+    async function addMultiFiles() {
+        let newFileName;
+            console.log('------------- trip file !!!')
+            // console.log('trip - if file ')
+            // ----------------- tu jest błąd logiczny z data_id . Jeżeli go nie ma to nie można go przypożądkować.
+            const tempFileNameArr = [];
+
+            console.log(file)
+            console.log(file.length)
+            let folderName = 'trips';
+
+            for (let i=0; i<file.length; i++) {
+                console.log('---- petla -{ ' + i)
+                console.log(file[i])
+                let name = file[i].name
+                console.log(name)
+                console.log(typeof name)
+                console.log(name.toString())
+                console.log(typeof name.toString())
+                newFileName = newFileNameGenerator(dataId._id, name);
+                tempFileNameArr.push(newFileName);
+                console.log('wysyłka pliku nr: ' + i + ' o nazwie: ' + newFileName )
+                await transferDataFile(`upload`, file[i], folderName, newFileName);
+
+
+
+
+
+
+            }
+            console.log('------ po pętli ---')
+            console.log(tempFileNameArr);
+
+            const toSave = {
+                tripPhoto: tempFileNameArr
+            };
+
+            console.log('to save: ' + toSave)
+            console.log('json: ' + JSON.stringify(toSave));
+
+            // setFormData(prevState => ({
+            //     ...prevState,
+            //     ...toSave
+            // }));
+            console.log('------- teraz była wywołana setFormData w func.')
+
+            // setFormData((prev) => ({
+            //     ...prev,
+            //     tripPhoto: tempFileNameArr
+            // }));
+            const toReturn = {
+                    ...formData,
+                    tripPhoto: tempFileNameArr
+                }
+            // formData['tripPhoto'] = tempFileNameArr;
+            // setFormData([...formData,toSave]);
+            // file.map((f)=>{
+            //     console.log('--------------' + f)
+            // })
+// pobrać data id - zrobić pętlę od ilości zdjęć - każdemu nadać nazwę i zapisać
+
+            // newFileName = newFileNameGenerator(dataId._id);
+            // formData.tripPhoto = newFileName;
+            // let folderName = 'trips';
+            // await transferDataFile(`upload`, file, folderName, newFileName);
+            // console.log('wysyłka pliku')
+            // setPage('userProfile')
+            return toReturn;
+    }
+
     let formArr = Object.keys(formData)
 
     const handleSubmit = async (e) => {
@@ -97,79 +184,17 @@ const MyForm = ({type}) => {
 
         console.log('______ ' + formData.password)
 
-        let dataToSave;
+
         let newFileName;
 
         if (type === 'trip') {
-
-            let targetPath;
-
-            if (!dataId) {
-                // console.log('trip - if !dataId');
-                targetPath = 'add';
-                await transferData(`${type}/${targetPath}`,formData);
-                setPage("userProfile");
+            if (file) {
+                await addMultiFiles().then((responseData)=> {
+                    addDataToMongo(responseData)
+                });
             } else {
-                // console.log('trip - if else');
-                targetPath = dataId._id;
-                await updateData(`${type}/${targetPath}`,formData);
-                setPage('userProfile')
-            };
-console.log('------------- trip file ?')
-            if (file)  {
-                console.log('------------- trip file !!!')
-                // console.log('trip - if file ')
-                // ----------------- tu jest błąd logiczny z data_id . Jeżeli go nie ma to nie można go przypożądkować.
-                const tempFileNameArr = [];
-
-console.log(file)
-console.log(file.length)
-                let folderName = 'trips';
-
-                for (let i=0; i<file.length; i++) {
-                    console.log('---- petla -{ ' + i)
-                    console.log(file[i])
-                    let name = file[i].name
-                    console.log(name)
-                    console.log(typeof name)
-                    console.log(name.toString())
-                    console.log(typeof name.toString())
-                    newFileName = newFileNameGenerator(dataId._id, name);
-                    tempFileNameArr.push(newFileName);
-                    console.log('wysyłka pliku nr: ' + i + ' o nazwie: ' + newFileName )
-                    await transferDataFile(`upload`, file[i], folderName, newFileName);
-
-
-
-
-
-
-                }
-                console.log('------ po pętli ---')
-                console.log(tempFileNameArr);
-
-                const toSave = {
-                    tripPhoto: tempFileNameArr
-                };
-
-                console.log('to save: ' + toSave)
-                console.log('json: ' + JSON.stringify(toSave));
-
-                setFormData([...formData,toSave]);
-                // file.map((f)=>{
-                //     console.log('--------------' + f)
-                // })
-// pobrać data id - zrobić pętlę od ilości zdjęć - każdemu nadać nazwę i zapisać
-
-                // newFileName = newFileNameGenerator(dataId._id);
-                // formData.tripPhoto = newFileName;
-                // let folderName = 'trips';
-                await transferDataFile(`upload`, file, folderName, newFileName);
-                console.log('wysyłka pliku')
-                setPage('userProfile')
+                await addDataToMongo(formData)
             }
-
-            console.log('trip - koniec warunku.')
             setPage("mainPage");
         }
 
