@@ -3,6 +3,7 @@ import LoadImage from "./a_loadimage";
 import {useStoreActions} from "easy-peasy";
 import RateModule from "./4_rateModule";
 import ShowRate from "./4_showRate";
+import ShowPhoto from "./5_showPhoto";
 
 function TripBox({trip, dataFilter}) {
     const setPage = useStoreActions(actions => actions.setPage);
@@ -56,11 +57,14 @@ function TripBox({trip, dataFilter}) {
                     </div>
                 </div>
 
-                {trip.tripPhoto ? <LoadImage imageName={trip.tripPhoto}
-                       imagePath='images/trips'
-                       imageWidth='400px'
-                       photoClass="photoStyle"
-                /> : <p className="ramka">no photo.</p>}
+                {trip.tripPhoto ? <>
+                {/*    <LoadImage imageName={trip.tripPhoto}*/}
+                {/*       imagePath='images/trips'*/}
+                {/*       imageWidth='400px'*/}
+                {/*       photoClass="photoStyle"*/}
+                {/*/>*/}
+                    <ShowPhoto photo={trip.tripPhoto} style={"photoStyle"} />
+                </> : <p className="ramka">no photo.</p>}
             </button>
         </div>
     );

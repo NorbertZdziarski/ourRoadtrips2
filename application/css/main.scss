@@ -37,6 +37,8 @@ body {
 }
 
 .footerStyle {
+  border: 1px solid $color-blink-color;
+
   @include mainStyle($footer-height);
 }
 .mainWindowStyle {
@@ -85,7 +87,25 @@ body {
   align-items: center;
 }
 
+.imageBox {
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  width: 100%;
+  height: 70svh;
+  position: relative;
+  //border: 2px solid red;
+  overflow: hidden;
+}
 
+.imageBox_btn_L {
+@include imageBox_btn();
+  left: 0;
+}
+.imageBox_btn_R {
+  @include imageBox_btn();
+  right: 0;
+}
 .photoStyle {
   position: absolute;
   left: 0;

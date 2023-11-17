@@ -1,6 +1,7 @@
 import React from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
+import ShowPhotoSlide from "./5_showPhoto-slide";
 
 function ShowCar() {
     const setChosen = useStoreActions(actions => actions.setChosen);
@@ -14,7 +15,11 @@ function ShowCar() {
                 <p className="fnt_subtitle"> {chosen.carStyleType} | {chosen.carPurposeType}</p>
 
             </div>
-            <LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users' photoClass="showtrip_photoStyle" />
+            {/*<LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users' photoClass="showtrip_photoStyle" />*/}
+
+            <ShowPhotoSlide photo={chosen.carPhoto} style={'showtrip_photoStyle'} />
+
+
             <div className="showtrip_main">
                 <p>technical stuff</p>
                 <p className="fnt_subtitle">{chosen.carEngine} with {chosen.carEnginePower}</p>

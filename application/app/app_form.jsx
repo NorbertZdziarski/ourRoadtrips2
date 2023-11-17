@@ -199,7 +199,7 @@ async function addDataToMongo(dataToSave) {
         }
 
         if (type === 'car') {
-
+            let dataToSave;
             if (!dataId) {
                 let currentDate = new Date();
                 let timestamp = currentDate.getTime();

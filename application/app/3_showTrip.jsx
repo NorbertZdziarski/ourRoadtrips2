@@ -7,6 +7,7 @@ import RateModule from "./4_rateModule";
 import {calculateTheAverage} from "./calculateTheAverage";
 import ShowComments from "./4_showComments";
 import AddComment from "./5_addComment";
+import ShowPhotoSlide from "./5_showPhoto-slide";
 
 
 
@@ -49,11 +50,10 @@ function ShowTrip() {
         // });
     }
 
-
-function chosenFn(user) {
-    setChosen(user);
-    setPage("aboutMe");
-}
+    function chosenFn(user) {
+        setChosen(user);
+        setPage("aboutMe");
+    }
     return (
         <section className="userPanel_main">
         {/*<section className="mainViewStyle">*/}
@@ -82,11 +82,9 @@ function chosenFn(user) {
                         setPage("showcar");}}>   {data.tripCar} </button>
                 </div>
 
-                {data.tripPhoto ? <LoadImage imageName={data.tripPhoto}
-                                             imagePath='images/trips'
-                                             imageWidth='100%'
-                                             photoClass="showtrip_photoStyle"
-                /> : <p>no photo</p>}
+                {data.tripPhoto ? <ShowPhotoSlide
+                                photo={data.tripPhoto}
+                                style={'aboutme_PhotoCar'}/> : <p>no photo</p>}
 
                 <div id="tripDescription" className="showtrip_description">
                     <p>   {data.tripDescription} </p>

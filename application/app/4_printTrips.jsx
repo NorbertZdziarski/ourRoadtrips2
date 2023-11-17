@@ -1,5 +1,6 @@
-import LoadImage from "./a_loadimage";
+
 import React from "react";
+import ShowPhoto from "./5_showPhoto";
 
 function PrintTrips({trip}) {
 
@@ -7,11 +8,11 @@ function PrintTrips({trip}) {
     return (
     <div key={keyData}>
         <p className="aboutme_InfoTrip">{trip.tripName}</p>
-        {trip.tripPhoto ?
-        <LoadImage imageName={trip.tripPhoto}
-                   imagePath='images/trips'
+        {trip.tripPhoto ? <ShowPhoto
+                            photo={trip.tripPhoto}
+                            style='aboutme_PhotoCar'
+        />: <p>no photo</p>}
 
-                   photoClass='aboutme_PhotoCar' />: <p>no photo</p>}
     </div>)
 }
 

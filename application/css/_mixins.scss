@@ -28,3 +28,21 @@
     border: 2px solid $color-blink-color;
   }
 }
+@mixin imageBox_btn {
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  display: flex;
+  width: 4rem;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: $color-txt-tertiary;
+  height: 100%;
+  background-color: $color-background-photobutton;
+  z-index: 101;
+  &:hover {
+    background-color: $color-background-photobutton_hover;
+    color: $color-txt-main;
+  }
+}
