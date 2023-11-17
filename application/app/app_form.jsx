@@ -37,8 +37,8 @@ const MyForm = ({type}) => {
 
 
 
-    const newFileNameGenerator = (idObject) => {
-        let oldFileName = file.name.toLowerCase();
+    const newFileNameGenerator = (idObject, filename) => {
+        let oldFileName = filename.toLowerCase();
         let idx = oldFileName.lastIndexOf('.');
         let fileExtension = oldFileName.slice(idx,oldFileName.length)
         let currentDate = new Date();
@@ -103,11 +103,7 @@ const MyForm = ({type}) => {
         if (type === 'trip') {
 
             let targetPath;
-            if (file)  {
-                // console.log('trip - if file ')
-                // ----------------- tu jest błąd logiczny z data_id . Jeżeli go nie ma to nie można go przypożądkować.
-                newFileName = newFileNameGenerator(dataId._id);
-                formData.tripPhoto = newFileName; }
+
             if (!dataId) {
                 // console.log('trip - if !dataId');
                 targetPath = 'add';
@@ -119,10 +115,55 @@ const MyForm = ({type}) => {
                 await updateData(`${type}/${targetPath}`,formData);
                 setPage('userProfile')
             };
+console.log('------------- trip file ?')
+            if (file)  {
+                console.log('------------- trip file !!!')
+                // console.log('trip - if file ')
+                // ----------------- tu jest błąd logiczny z data_id . Jeżeli go nie ma to nie można go przypożądkować.
+                const tempFileNameArr = [];
 
-
-            if (file) {
+console.log(file)
+console.log(file.length)
                 let folderName = 'trips';
+
+                for (let i=0; i<file.length; i++) {
+                    console.log('---- petla -{ ' + i)
+                    console.log(file[i])
+                    let name = file[i].name
+                    console.log(name)
+                    console.log(typeof name)
+                    console.log(name.toString())
+                    console.log(typeof name.toString())
+                    newFileName = newFileNameGenerator(dataId._id, name);
+                    tempFileNameArr.push(newFileName);
+                    console.log('wysyłka pliku nr: ' + i + ' o nazwie: ' + newFileName )
+                    await transferDataFile(`upload`, file[i], folderName, newFileName);
+
+
+
+
+
+
+                }
+                console.log('------ po pętli ---')
+                console.log(tempFileNameArr);
+
+                const toSave = {
+                    tripPhoto: tempFileNameArr
+                };
+
+                console.log('to save: ' + toSave)
+                console.log('json: ' + JSON.stringify(toSave));
+
+                setFormData([...formData,toSave]);
+                // file.map((f)=>{
+                //     console.log('--------------' + f)
+                // })
+// pobrać data id - zrobić pętlę od ilości zdjęć - każdemu nadać nazwę i zapisać
+
+                // newFileName = newFileNameGenerator(dataId._id);
+                // formData.tripPhoto = newFileName;
+                // let folderName = 'trips';
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 console.log('wysyłka pliku')
                 setPage('userProfile')

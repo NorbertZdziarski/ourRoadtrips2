@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
+import { googleLogout } from '@react-oauth/google';
 
 import DataFilter from "./3_filter";
 import LoadImage from "./a_loadimage";
@@ -154,8 +155,9 @@ function Header() {
                         </button> : <></>}
                         {loggedUser ? <button onClick={()=>{
                             setLoggedUser();
+                            googleLogout();
                             setPage("mainPage");
-                        }}> Log Out
+                        }}> Logout
                         </button> : <button onClick={()=>setPage("login")}>
                             LOGIN </button>}
 

@@ -9,7 +9,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             tripDate: dataId.tripDate || '',
             tripCountry: dataId.tripCountry || '',
             tripType: dataId.tripType || '',
-            tripPhoto: dataId.tripPhoto || '',
+            tripPhoto: dataId.tripPhoto || [],
             tripMap: dataId.tripMap || '',
             tripUser: loggedUser.nick,
             tripSaveDate: new Date(),

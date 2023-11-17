@@ -28,7 +28,7 @@ function TripBox({trip, dataFilter}) {
 
     useEffect(() => {
         var divHeight = document.getElementById('tripbox_title').offsetHeight;
-        console.log('div height: ' + divHeight)
+        // console.log('div height: ' + divHeight)
         document.documentElement.style.setProperty('--tripbox_title-height', divHeight + 'px');
     }, [trip.tripName, trip.tripUser]);
 

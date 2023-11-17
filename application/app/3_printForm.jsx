@@ -31,19 +31,25 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     };
 
     function handleFileChange(event) {
-        let fileUpload = (event.target.files[0]);
-        setFile(fileUpload)
+        console.log(event.target.files)
+        console.log(typeof event.target.files)
+        let filesArr = event.target.files;
+        console.log(filesArr)
+
+        setFile(filesArr)
+
+        // filesArr.map((file) => {
+        //     console.log(file)
+        // })
+
+        // let fileUpload = (event.target.files[0]);
+        // setFile(fileUpload)
     }
 
     const handleChange = (e) => {
 
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-
-
-    // console.log('form data w print formie: ' + formData._id)
-
-    // console.log(loggedUser._id)
 
     if (type === 'user') {
         slicePoint = 0;
@@ -134,7 +140,7 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
                         <input type="file" onChange={handleFileChange} className="imputForm_inputFile"/>
                     ):(<></>)}
                     {(value === 'tripPhoto')?(
-                        <input type="file" onChange={handleFileChange} className="imputForm_inputFile"/>
+                        <input type="file" onChange={handleFileChange} className="imputForm_inputFile" multiple/>
                     ):(<></>)}
                     {(value === 'userPhoto')?(
                         <input type="file" onChange={handleFileChange} className="imputForm_inputFile"/>
