@@ -64,7 +64,11 @@ function UserProfile() {
 
     return (
         <section className="userPanel_main">
-
+            <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
+                       imagePath='images/users'
+                       // photoClass="userPanel_userPhoto"
+                       photoClass="userPanel_bgphoto"
+            />
             <header className="userPanel_mainpage_box">
                 <div>
                     <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
@@ -135,7 +139,12 @@ function UserProfile() {
                         loading data....
                     </div>
                 )}
-                {(usersTrips.length === 0) ? <div className="userPanel_first"><p>add your first route! </p></div> : <></>}
+                {(usersTrips.length === 0) ? <button onClick={()=>{
+                                                    setDataId('')
+                                                    setPage("addTrip")}
+                                            }
+                                            className="userPanel_first">
+                    <p>add your first route! </p></button> : <></>}
             </section>
             <section id="userCars">
                 <DisplayCars
@@ -148,7 +157,13 @@ function UserProfile() {
                 yesOrNot={yesOrNot}
                 setToDelete={setToDelete}
                 />
-                {(usersCars.length === 0) ? <div className="userPanel_first"><p>add your first car! </p></div> : <></>}
+                {(usersCars.length === 0) ? <button onClick={()=>{
+                                                setDataId('')
+                                                setPage("addCar")}
+                                            }
+                                            className="userPanel_first">
+                    <p>add your first car! </p>
+                </button> : <></>}
             </section>
 
         </section>

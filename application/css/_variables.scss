@@ -20,7 +20,9 @@ $txtLarge: 1.8rem;
 
 $fontStyleMain: Abel;
 
+
 $color-background-main: #282c34;
+$color-background-reflex: rgba(204, 204, 204, 0.3);
 $color-background-dropdown: rgba(40, 44, 52, 0.65);
 $color-background-userProfile: rgba(15, 15, 16, 0.5);
 $color-background-secondary: #d1d5e1;
@@ -35,5 +37,6 @@ $color-error-color: #ff4c00;
 $color-txt-main: rgba(255, 255, 255, 0.93);
 $color-txt-secondary:rgba(255, 255, 255, 0.83);
 $color-txt-tertiary: rgba(204, 204, 204, 0.68);
+
 
 $shadow-comment: .5rem .5rem 1rem rgba(0,0,0,0.2)

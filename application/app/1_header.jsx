@@ -5,6 +5,8 @@ import { googleLogout } from '@react-oauth/google';
 import DataFilter from "./3_filter";
 import LoadImage from "./a_loadimage";
 import DataSort from "./4_sort";
+import {fetchData} from "./a_CRUD_service";
+import {checkIfItExists} from "./app_check";
 
 function Header() {
     const page = useStoreState(state => state.page);
@@ -44,6 +46,12 @@ function Header() {
 
     console.log('Header - screen: '+ screenWidth + " data sort: " + dataSortOn)
 
+    function tymczasowa() {
+        // await checkIfItExists('rom1').then((r)=>{
+        //     console.log('tymczaowa wynik: ' + r)
+        // })
+
+    }
 
     return (
         <header className="headerStyle ">
@@ -73,7 +81,7 @@ function Header() {
                                                 Sort
                                             </button>
                                             {(page === "mainPage") ?
-                                                <button disabled >
+                                                <button disabled onClick={()=>tymczasowa()}>
                                                     Map
                                                 </button> : <button disabled >
                                                     List

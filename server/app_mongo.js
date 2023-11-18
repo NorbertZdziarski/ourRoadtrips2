@@ -54,8 +54,8 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
                     {"_id": new ObjectId(filter), "tripComments": { $elemMatch: { id: idCom } } },
                     { $set: { "tripComments.$.commLike": data } }
                 );
-                console.log('Result: ');
-                console.log(result);
+                    console.log('Result: ');
+                    console.log(result);
                 console.log("Dokument został zaktualizowany!");
             } catch (err) {
                 console.error(err);
@@ -64,8 +64,8 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
             }
 
         } else if (action === 'googleId') {
-            console.log('-{ mongo: poszukiwanie po googleID }-')
-            console.log('-{ filter: ' + filter + ' }-')
+                console.log('-{ mongo: poszukiwanie po googleID }-')
+                console.log('-{ filter: ' + filter + ' }-')
             dataDB = await collection.findOne(filter)
             // await collection.insertOne(data);
             await client.close();
@@ -81,8 +81,16 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
         dataDB = await collection.find({nick: filter, password: data}, { projection: { password: 0 } }).toArray();
         await client.close();
         return dataDB;
+        } else if (action === 'getNicks') {
+                console.log('app mongo _ get Nicks ')
+            let filter = {nick: {$exists: true}};
+            let projection = {nick: 1};
+                console.log('filter ' + JSON.stringify(filter));
+            let dataDB = await collection.find(filter).project(projection).toArray();
+            await client.close();
+            return dataDB;
         } else if (action === 'get' && filter) {
-            console.log('app mongo _ filter ->  ' + filter)
+                console.log('app mongo _ filter ->  ' + filter)
            dataDB = await collection.find(filter).toArray();
             await client.close();
             return dataDB;

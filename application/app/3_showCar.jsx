@@ -9,7 +9,7 @@ function ShowCar() {
     const setPage = useStoreActions(actions => actions.setPage);
     console.log(chosen)
     return (
-        <section className="showCar_conteiner">
+        <section className="userPanel_main">
             <div className="showtrip_header">
                 <p > {chosen.carMaker} {chosen.carBrand} </p>
                 <p className="fnt_subtitle"> {chosen.carStyleType} | {chosen.carPurposeType}</p>
@@ -17,10 +17,16 @@ function ShowCar() {
             </div>
             {/*<LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users' photoClass="showtrip_photoStyle" />*/}
 
-            <ShowPhotoSlide photo={chosen.carPhoto} style={'showtrip_photoStyle'} />
+            <ShowPhotoSlide photo={chosen.carPhoto} style={'showtrip_photoStyle'} photoPath='images/users'/>
 
+
+            <div className="showtrip_description">
+                <p>about my car:</p>
+                <p className="fnt_subtitle">{chosen.carDescription}</p>
+            </div>
 
             <div className="showtrip_main">
+               {/*poprawić className ^^^*/}
                 <p>technical stuff</p>
                 <p className="fnt_subtitle">{chosen.carEngine} with {chosen.carEnginePower}</p>
             </div>

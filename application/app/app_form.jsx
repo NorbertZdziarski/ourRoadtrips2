@@ -157,6 +157,7 @@ async function addDataToMongo(dataToSave) {
                 console.log('pas 1 ' + temporaryPass1 + ' | pas 2 ' + temporaryPass2)
                 console.log(formData)
                 setFormData({...formData, password: temporaryPass1})
+
             } else {
                 console.log(' handle change err')
                 error += 'błąd hasła!';

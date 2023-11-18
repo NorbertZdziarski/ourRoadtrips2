@@ -1,11 +1,11 @@
 import LoadImage from "./a_loadimage";
 import React, {useState} from "react";
 
-function ShowPhotoSlide({photo, style}) {
+function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
 
     if (typeof photo === 'string') return (<div className="imageBox" >
         <LoadImage imageName={photo}
-                   imagePath='images/trips'
+                   imagePath={photoPath}
                    photoClass={style} />
         </div>)
 
@@ -22,7 +22,7 @@ function ShowPhotoSlide({photo, style}) {
     return (<div className="imageBox" >
         <button onClick={fnBtnLeft} className="imageBox_btn_L"> lewo </button>
         <LoadImage imageName={photo[photoNr]}
-                   imagePath='images/trips'
+                   imagePath={photoPath}
                    photoClass={style} />
         <button onClick={fnBtnRight} className="imageBox_btn_R"> prawo</button>
     </div>)

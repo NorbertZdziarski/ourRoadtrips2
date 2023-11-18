@@ -4,6 +4,7 @@ import {fetchData, transferData} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import {getInitialFormData} from "./getInitialFormData";
+import {checkIfItExists} from "./app_check";
 
 function Login() {
     const setPage = useStoreActions(actions => actions.setPage);
@@ -13,15 +14,23 @@ function Login() {
     // const [fetchError, setFetchError] = useState()
 
 
+
     async function createUser(data) {
+        let user = data.name;
         console.log('funckja async - brak użytkownika o takim ID, zakładam nowe konto.');
+
+        await checkIfItExists(user).then((r)=>{
+            console.log('tymczaowa wynik: ' + r)
+            if (r) user+= new Date();
+        })
+
 
         let saveData = {};
         // saveData = getInitialFormData('user','');
 
         saveData = {
             googleId: data.sub,
-            nick: data.name || data.sub,
+            nick: user || data.sub,
             firstName: data.name || '',
             lastName: data.family_name || '',
             userPersonalComment: data.locale ||'',

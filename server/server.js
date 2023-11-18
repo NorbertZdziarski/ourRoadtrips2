@@ -155,19 +155,38 @@ server.get('/userstrips/:idNr', async (req,res) => {
 
 server.get('/:inquiryType/:idNr', async (req, res) => {
     const pathName = req.params.inquiryType + 's';
-
-    const id = req.params.idNr;
+    let filter = null;
+    let id = req.params.idNr;
     let sendData;
-    try {
-        sendData = await manageData(dbName, pathName, 'get',id);
-        if (req.headers['my-header'] === 'all') {
-            res.status(200).json(sendData);
-        } else {
-            res.status(400).send('Brak wymaganego nagłówka');
+    if (id === "allNicks") {
+            console.log('--------------> allNicks')
+        id = null;
+
+        try {
+            sendData = await manageData(dbName, pathName, 'getNicks');
+            if (req.headers['my-header'] === 'all') {
+                res.status(200).json(sendData);
+            } else {
+                res.status(400).send('Brak wymaganego nagłówka');
+            }
+        } catch (err) {
+            console.log('błąd: ' + err);
+            res.status(500).send('Wystąpił błąd podczas pobierania danych');
         }
-    } catch (err) {
-        console.log('błąd: ' + err);
-        res.status(500).send('Wystąpił błąd podczas pobierania danych');
+
+    } else {
+
+        try {
+            sendData = await manageData(dbName, pathName, 'get', id, filter);
+            if (req.headers['my-header'] === 'all') {
+                res.status(200).json(sendData);
+            } else {
+                res.status(400).send('Brak wymaganego nagłówka');
+            }
+        } catch (err) {
+            console.log('błąd: ' + err);
+            res.status(500).send('Wystąpił błąd podczas pobierania danych');
+        }
     }
 });
 
