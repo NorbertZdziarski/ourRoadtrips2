@@ -5,9 +5,10 @@
   display: block;
   width: $main-view-width;
   //background-color: $color-background-secondary;
-
+  height: max-content;
   background: linear-gradient(-45deg, $color-background-main 40%, $color-background-reflex 50%, $color-background-main 60%);
-
+  //background: red;
+  //border: 1px solid red;
 
   //color: $color-background-main;
   color: $color-txt-main;

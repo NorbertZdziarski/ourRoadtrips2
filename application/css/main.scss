@@ -159,7 +159,7 @@ body {
 
 }
 .showtrip_header {
-
+  border-top: 2px ridge $color-background-reflex;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -198,6 +198,7 @@ body {
   text-align: justify;
 
   //background-color: $color-background-secondary;
+  background-color: rgba(0,0,0,0);
   padding: 1rem;
   font-family: Abel;
   font-size: 20px;

@@ -26,17 +26,20 @@
 
 
 .showtrip_main button {
+  box-sizing: border-box;
   background-color: rgba(0,0,0,0) ;
   //color: $color-background-main;
   color: $color-txt-main;
   border: 0;
-
+  border-radius: 0.5rem;
+  width: 31%;
   height: 3rem;
   padding: 1rem;
   margin-left: 0.8rem;
+
   &:hover {
     color: $color-background-main;
-    background-color: $color-blink-color;
+    background-color: $color-background-yesornot;
 
   }
   &:disabled {
@@ -123,4 +126,11 @@
       box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
     }
   }
+}
+
+.btnarrow {
+  width: 80%;
+  filter: invert(100%);
+
+
 }
