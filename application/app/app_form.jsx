@@ -31,11 +31,11 @@ const MyForm = ({type}) => {
         newUser = false;
         if (loggedUser.cars) {
             const loggedUsersCars = loggedUser.cars;
-            usersCarsDisp = Object.values(loggedUsersCars).map(car => `${car.carMaker} ${car.carBrand}`);
+            usersCarsDisp = Object.values(loggedUsersCars).map(car => [`${car.carMaker} ${car.carBrand}`,car.carId, car.carStyleType]);
         }
     }
 
-
+console.log(usersCarsDisp)
 
     const newFileNameGenerator = (idObject, filename) => {
         let oldFileName = filename.toLowerCase();
@@ -153,9 +153,9 @@ async function addDataToMongo(dataToSave) {
         if (temporaryPass1) {
             console.log(' handle change temp 1')
             if (temporaryPass1 === temporaryPass2) {
-                console.log(' handle change temp 2 |||||||||||||||||||||||||||||||||||||||||||')
-                console.log('pas 1 ' + temporaryPass1 + ' | pas 2 ' + temporaryPass2)
-                console.log(formData)
+                // console.log(' handle change temp 2 |||||||||||||||||||||||||||||||||||||||||||')
+                // console.log('pas 1 ' + temporaryPass1 + ' | pas 2 ' + temporaryPass2)
+                // console.log(formData)
                 setFormData({...formData, password: temporaryPass1})
 
             } else {

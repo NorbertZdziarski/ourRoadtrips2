@@ -18,7 +18,7 @@ function TripBox({trip, dataFilter}) {
 
     if (dataFilter[1] !== "all" && dataFilter[1] !== trip.tripCountry ) return null;
     if (dataFilter[2] !== "all" && dataFilter[2] !== trip.tripType) return null;
-    // if (dataFilter[3] !== "all" && dataFilter[3] !== trip.tripCar.carType) return;
+    if (trip.tripCar && Array.isArray(trip.tripCar) && trip.tripCar[2] && dataFilter[3] !== "all" &&  dataFilter[3] !== trip.tripCar[2]) return;
     // if (choiceVehicleType !== "all" && choiceVehicleType !== trip.tripCar.vehicle) return;
 
     // window.onload = function() {

@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import '../css/main.scss';
 import {useStoreActions, useStoreState} from "easy-peasy";
-const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
+const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
+
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
+
     const loggedUser = useStoreState(state => state.loggedUser);
-    const excludedValues = ['password', 'repeat password','regulations', 'userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
-    const excludedValuesTitle = ['cars','carId', 'tripUserId'];
+
+    const excludedValues = ['password', 'repeat password','regulations', 'tripCarStyleType','userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
+    const excludedValuesTitle = ['cars','carId', 'tripUserId','tripCarStyleType'];
     const [stan, setStan] = useState(true);
     const [choseCar, setChoseCar] = useState(false);
 
@@ -21,7 +24,9 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     let slicePoint;
     let commentsValue;
     let tripRateData;
-
+    console.log(usersCars)
+    // console.log(usersCarId)
+    // console.log(usersCarStyleType)
     const zmienStan = () => {
         setStan(!stan);
         setFormData({ ...formData, tripPublic: stan })
@@ -48,8 +53,7 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     }
 
     const handleChange = (e) => {
-
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+                setFormData({ ...formData, [e.target.name]: JSON.parse(e.target.value) });
     };
 
     if (type === 'user') {
@@ -102,6 +106,9 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
                             </option>
                         ))}
                     </select>):(<></>)}
+
+                    {/*---------------------------------------------------------------------------------------*/}
+
                     {(value === 'carStyleType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
                         {carsStyleTypes.map((carStyle) => (
                             <option key={carStyle} value={carStyle} >
@@ -111,10 +118,10 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
                     </select>):(<></>)}
                     {value === 'tripCar' ? <>
                     {choseCar ?
-                            (<select value={formData[value]} name={value} onChange={handleChange} className="">
+                            (<select value={formData[value[0]]} name={value} onChange={handleChange} className="">
                                 {usersCars.map((tripCar) => (
-                                    <option key={tripCar} value={tripCar} >
-                                        {tripCar}
+                                    <option key={tripCar[0]} value={JSON.stringify(tripCar)} >
+                                        {tripCar[0]} - {tripCar[2]}
                                     </option>
                                 ))}
                             </select>) : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>}

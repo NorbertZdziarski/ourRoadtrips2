@@ -6,6 +6,8 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             tripName: dataId.tripName || '',
             tripDescription:dataId.tripDescription ||  '',
             tripCar: dataId.tripCar ||  '',
+            tripCarId: dataId.tripCarId ||  '',
+            tripCarStyleType: dataId.tripCarStyleType ||  '',
             tripDate: dataId.tripDate || '',
             tripCountry: dataId.tripCountry || '',
             tripType: dataId.tripType || '',
