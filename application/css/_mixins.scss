@@ -50,3 +50,7 @@
     opacity: 1;
   }
 }
+@mixin tripInfo_mainpage($size) {
+  font-size: $size;
+  z-index: 10;
+}

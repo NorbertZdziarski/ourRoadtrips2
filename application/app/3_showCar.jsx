@@ -16,14 +16,14 @@ function ShowCar() {
 
             </div>
             {/*<LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users' photoClass="showtrip_photoStyle" />*/}
-
-            <ShowPhotoSlide photo={chosen.carPhoto} style={'showtrip_photoStyle'} photoPath='images/users'/>
-
-
-            <div className="showtrip_description">
-                <p>about my car:</p>
-                <p className="fnt_subtitle">{chosen.carDescription}</p>
+            <div>
+                <ShowPhotoSlide photo={chosen.carPhoto} style={'showtrip_photoStyle'} photoPath='images/users'/>
             </div>
+
+            {/*<div className="showtrip_description">*/}
+                {/*<p>about my car:</p>*/}
+                {/*<p className="fnt_subtitle">{chosen.carDescription}</p>*/}
+            {/*</div>*/}
 
             <div className="showtrip_main">
                {/*poprawić className ^^^*/}

@@ -4,6 +4,7 @@ import {useStoreActions} from "easy-peasy";
 import RateModule from "./4_rateModule";
 import ShowRate from "./4_showRate";
 import ShowPhoto from "./5_showPhoto";
+import icoChat from "../images/ico/chat.png"
 
 function TripBox({trip, dataFilter}) {
     const setPage = useStoreActions(actions => actions.setPage);
@@ -51,11 +52,15 @@ function TripBox({trip, dataFilter}) {
                             <ShowRate
                                 rateArr={trip.tripRate}/>
                         </div>
-                        {trip.tripComments ? <p className="tripInfo_mainpage_Info-tripComm">comments</p> : <></>}
+                        {/*<p className="tripInfo_mainpage_Info-tripComm">comments</p>*/}
+                        {(trip.tripComments && trip.tripComments.length > 0) ? <img src={icoChat} className="icoStyleTripBox"/> : <></>}
                         <p className="tripInfo_mainpage_Info-tripType"> {trip.tripType}</p>
 
                     </div>
                 </div>
+
+
+
 
                 {trip.tripPhoto ? <>
                 {/*    <LoadImage imageName={trip.tripPhoto}*/}

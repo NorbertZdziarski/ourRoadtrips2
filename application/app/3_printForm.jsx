@@ -11,6 +11,7 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
     const excludedValues = ['password', 'repeat password','regulations', 'userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
     const excludedValuesTitle = ['cars','carId', 'tripUserId'];
     const [stan, setStan] = useState(true);
+    const [choseCar, setChoseCar] = useState(false);
 
     const temporaryPass1 = useStoreState(state => state.temporaryPass1);
     const setTemporaryPass1 = useStoreActions(actions => actions.setTemporaryPass1);
@@ -108,13 +109,18 @@ const PrintForm = ({form,formData,usersCars,setFormData, setFile, type}) => {
                             </option>
                         ))}
                     </select>):(<></>)}
-                    {(value === 'tripCar')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
-                        {usersCars.map((tripCar) => (
-                            <option key={tripCar} value={tripCar} >
-                                {tripCar}
-                            </option>
-                        ))}
-                    </select>):(<></>)}
+                    {value === 'tripCar' ? <>
+                    {choseCar ?
+                            (<select value={formData[value]} name={value} onChange={handleChange} className="">
+                                {usersCars.map((tripCar) => (
+                                    <option key={tripCar} value={tripCar} >
+                                        {tripCar}
+                                    </option>
+                                ))}
+                            </select>) : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>}
+                        <button type="button" className="main_button" onClick={() => setChoseCar(!choseCar)}>change</button>
+                        </>
+                        :(<></>)}
                     {(value === 'carPurposeType')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
                         {carsPurposeTypes.map((carsPurpose) => (
                             <option key={carsPurpose} value={carsPurpose} >

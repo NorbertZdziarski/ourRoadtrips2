@@ -23,9 +23,9 @@ function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
 
     return (<div className="imageBox" >
         <button onClick={fnBtnLeft} className="imageBox_btn_L"> <img src={btnImgL} className="btnarrow"/> </button>
-        <LoadImage imageName={photo[photoNr]}
-                   imagePath={photoPath}
-                   photoClass={style} />
+            <LoadImage imageName={photo[photoNr]}
+                       imagePath={photoPath}
+                       photoClass={style} />
         <button onClick={fnBtnRight} className="imageBox_btn_R"> <img src={btnImgR} className="btnarrow"/> </button>
     </div>)
 }

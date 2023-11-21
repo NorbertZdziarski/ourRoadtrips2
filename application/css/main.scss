@@ -6,6 +6,7 @@
 @import "variables";
 @import "mixins";
 
+@import "ico";
 @import "fonts";
 @import "rwd";
 @import "buttons";
@@ -150,12 +151,15 @@ body {
 
 //-----------------show trip
 .showtrip_photoStyle {
-  //position: absolute;
-  //left: 0;
-  //top: 50%;
-  //width: 80px;
-  //transform: translateY(-50%);
-  //z-index: 0;
+    position: absolute;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
 
 }
 .showtrip_header {
