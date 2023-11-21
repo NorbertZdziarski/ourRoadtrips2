@@ -7,19 +7,29 @@ import ShowPhoto from "./5_showPhoto";
 import icoChat from "../images/ico/chat.png"
 
 function TripBox({trip, dataFilter}) {
+    console.log('trip: ' + trip)
+    console.log('trip json: ' + JSON.stringify(trip))
+    // console.log('data filter: ' + dataFilter)
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
-    const [rate1, setRate1] = useState(0);
-
-
 
     // if (!trip.tripPublic) console.log('trip: ' + trip.tripPublic + ' - name: ' + trip.tripName);
     if (!trip.tripPublic) return null;
 
-    if (dataFilter[1] !== "all" && dataFilter[1] !== trip.tripCountry ) return null;
-    if (dataFilter[2] !== "all" && dataFilter[2] !== trip.tripType) return null;
-    if (trip.tripCar && Array.isArray(trip.tripCar) && trip.tripCar[2] && dataFilter[3] !== "all" &&  dataFilter[3] !== trip.tripCar[2]) return;
-    // if (choiceVehicleType !== "all" && choiceVehicleType !== trip.tripCar.vehicle) return;
+    if ((dataFilter[1] !== "all" && dataFilter[1] !== "choose a country") && dataFilter[1] !== trip.tripCountry) {
+        return null;
+    }
+    if ((dataFilter[2] !== "all" && dataFilter[2] !== "select the type of trip")&& dataFilter[2] !== trip.tripType) {return null;}
+    if (!Array.isArray(trip.tripCar)) {return <p>brak tablicy</p>} else {console.log(trip.tripCar)}
+    if (trip.tripCar && Array.isArray(trip.tripCar)) {
+        console.log('warunek 1')
+        console.log('tripcar 2: ' + trip.tripCar[2])
+        console.log('data filter 3: ' + dataFilter[3])
+        if (trip.tripCar[2] && (dataFilter[3] !== "all" && dataFilter[3] !=="select vehicle type" ) &&  dataFilter[3] !== trip.tripCar[2]) return null;
+    }
+
+
+    // if (choiceVehicleType !== "all" && choiceVehicleType !== trip.tripCar.vehicle) return null;
 
     // window.onload = function() {
     //     var divHeight = document.getElementById('tripbox_title').offsetHeight;
