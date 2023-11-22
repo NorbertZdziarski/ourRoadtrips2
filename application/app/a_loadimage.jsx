@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import express from "express";
+require('dotenv').config();
+
 
 const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveStyle ,imgProportions=true }) => {
     const [image, setImage] = useState('');
-    const host = 'localhost';
-    const port = 9000
+    const host = process.env.SERVER_HOST || 'localhost';
+    const port = process.env.SERVER_PORT || 9000
     const apiURL = `http://${host}:${port}/download`;
 
     // console.log('---------- LOAD IMAGE ---------')

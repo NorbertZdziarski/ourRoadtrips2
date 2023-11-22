@@ -1,6 +1,8 @@
 import axios from 'axios';
-const host = 'localhost';
-const port = 9000
+require('dotenv').config();
+
+const host = process.env.SERVER_HOST || 'localhost';
+const port = process.env.SERVER_PORT || 9000
 const apiURL = `http://${host}:${port}`;
 
 const sendRequest = async (method, target, data,folderName, fileName) => {

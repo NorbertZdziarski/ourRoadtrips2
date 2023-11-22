@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const manageData = require('./app_mongo')
 
-const server = express();
+const app = express();
 
 let host = process.env.HOST || 'localhost';
 let port = process.env.PORT || '9000';
@@ -44,9 +44,9 @@ const upload = multer({ storage: storage }).single('image');
 
 // ------------------------------------------------------------------------ USE
 
-server.use(cors());
-server.use(express.static('images'));
-server.use((req, res, next) => {
+app.use(cors());
+app.use(express.static('images'));
+app.use((req, res, next) => {
     if (!req.headers['my-header']) {
         return res.status(400).send('error. Attempt to connect without required permissions');
     }
@@ -54,7 +54,7 @@ server.use((req, res, next) => {
 });
 
 // ------------------------------------------------------------------------ upload
-server.post('/upload', function (req, res) {
+app.post('/upload', function (req, res) {
     upload(req, res, function (err) {
         try {
             if (err instanceof multer.MulterError) {
@@ -72,7 +72,7 @@ server.post('/upload', function (req, res) {
 });
 
 // ------------------------------------------------------------------------ GET
-server.get('/download', async function(req, res){
+app.get('/download', async function(req, res){
     console.log(' download ')
     // const filePath = req.query.filepath;
     const filePath = req.query.filepath;
@@ -95,13 +95,13 @@ server.get('/download', async function(req, res){
         }
     });
 });
-server.get('/:pathName', async (req, res) => {
+app.get('/:pathName', async (req, res) => {
     const pathName = req.params.pathName;
     const user = req.query.user;
     const password = req.query.password;
 
     if (pathName === 'login') {
-        console.log('server ____________');
+        console.log('app ____________');
         let userData;
         try {
 
@@ -135,7 +135,7 @@ server.get('/:pathName', async (req, res) => {
     }
 });
 
-server.get('/userstrips/:idNr', async (req,res) => {
+app.get('/userstrips/:idNr', async (req, res) => {
 
     const id = req.params.idNr;
     let sendData;
@@ -153,7 +153,7 @@ server.get('/userstrips/:idNr', async (req,res) => {
     }
 })
 
-server.get('/:inquiryType/:idNr', async (req, res) => {
+app.get('/:inquiryType/:idNr', async (req, res) => {
     const pathName = req.params.inquiryType + 's';
     let filter = null;
     let id = req.params.idNr;
@@ -193,8 +193,8 @@ server.get('/:inquiryType/:idNr', async (req, res) => {
 // ------------------------------------------------------------------------ POST
 
 
-server.use(bodyParser.json());
-server.post('/:inquiryType/add', async (req, res) => {
+app.use(bodyParser.json());
+app.post('/:inquiryType/add', async (req, res) => {
     const pathName = req.params.inquiryType + 's';
     const newItem = await req.body;
 
@@ -207,8 +207,8 @@ server.post('/:inquiryType/add', async (req, res) => {
     res.status(200).send('Dodano nowy element do bazy danych');
 });
 
-// server.use(bodyParser.json());
-server.post('/gle', async (req, res) => {
+// app.use(bodyParser.json());
+app.post('/gle', async (req, res) => {
     console.log('---- Google ----')
     const inputData = await req.body;
 
@@ -236,18 +236,18 @@ server.post('/gle', async (req, res) => {
 
 
 
-// server.use(bodyParser.urlencoded({ extended: true }));
-server.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // ----------------------------------------------------------------------------------------- PATCH
 console.log('patch')
-server.patch('/:inquiryType/:id', async (req, res) => {
+app.patch('/:inquiryType/:id', async (req, res) => {
     const id = req.params.id;
     const pathName = req.params.inquiryType + 's';
     const newItem = await req.body;
     await manageData(dbName, pathName, 'patch',newItem,id);
     res.send('Dane zostały zaktualizowane');
 });
-server.patch('/:inquiryType/comment/:id', async (req, res) => {
+app.patch('/:inquiryType/comment/:id', async (req, res) => {
     const id = req.params.id;
     console.log('patch comment id: ' + id)
     const pathName = req.params.inquiryType + 's';
@@ -266,7 +266,7 @@ server.patch('/:inquiryType/comment/:id', async (req, res) => {
 
     res.send('Dane zostały zaktualizowane');
 });
-server.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
+app.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     const id = req.params.id;
     console.log('----------------------comm like.');
     console.log(' id: ' + id)
@@ -290,8 +290,8 @@ server.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
 });
 // ----------------------------------------------------------------------------------------- DELETE
 
-server.delete('/file', async (req, res) => {
-    console.log('============================= server.js')
+app.delete('/file', async (req, res) => {
+    console.log('============================= app.js')
     console.log('SERVER: komenda: delete File')
     const filename =  req.body.target;
 
@@ -307,7 +307,7 @@ server.delete('/file', async (req, res) => {
 
 });
 
-server.delete('/:inquiryType/:idNr', async (req, res) => {
+app.delete('/:inquiryType/:idNr', async (req, res) => {
     const pathName = req.params.inquiryType + 's';
     const id = req.params.idNr;
 
@@ -328,6 +328,6 @@ server.delete('/:inquiryType/:idNr', async (req, res) => {
 
 
 
-server.listen(port, host, () => {
+app.listen(port, host, () => {
     console.log(`Serwer działa na http://${host}:${port}`);
 });
