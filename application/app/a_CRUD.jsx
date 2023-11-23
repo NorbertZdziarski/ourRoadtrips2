@@ -4,18 +4,21 @@ require('dotenv').config();
 const host = process.env.SERVER_HOST || 'localhost';
 const port = process.env.SERVER_PORT || 9000
 const apiURL = `http://${host}:${port}`;
-
+console.log('server HOST: ' + host);
+console.log('server PORT: ' + port);
+console.log('api url: ' + apiURL);
 const sendRequest = async (method, target, data,folderName, fileName) => {
-    console.log('data: ' + data)
-    console.log('method: ' + method)
-    console.log('target: ' + target)
-    console.log('folder name: ' + folderName)
-    console.log('file name: ' + fileName)
+    // console.log('data: ' + data)
+    // console.log('method: ' + method)
+    // console.log('target: ' + target)
+    // console.log('folder name: ' + folderName)
+    // console.log('file name: ' + fileName)
     try {
         let response;
 
         switch (method.toLowerCase()) {
             case 'get':
+                console.log('get ' + `${apiURL}/${target}`)
                     response = await axios.get(`${apiURL}/${target}`, {
                     headers: {
                         'my-header': 'all'

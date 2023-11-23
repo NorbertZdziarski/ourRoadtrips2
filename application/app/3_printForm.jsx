@@ -53,7 +53,8 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     }
 
     const handleChange = (e) => {
-                setFormData({ ...formData, [e.target.name]: JSON.parse(e.target.value) });
+                setFormData({ ...formData, [e.target.name]: e.target.value });
+        // JSON.parse(e.target.value)
     };
 
     if (type === 'user') {
@@ -163,8 +164,9 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
                     ):(<></>)}
                     {(value === 'tripComments')?(<p>{commentsValue}</p>
                     ):(<></>)}
-                    {(value === 'password')?(
+                    {(value === 'password')?(<>
                     <input type="text" name={value} value={temporaryPass1 || ''} onChange={(e)=> {setTemporaryPass1(e.target.value)} } className="imputForm_inputData"/>
+                        <input type="text" name={value} value={temporaryPass2 || ''} onChange={(e)=> {setTemporaryPass2(e.target.value)} } className="imputForm_inputData"/></>
                     ):(<></>)}
                     {(value === 'repeat password')?(
                         <input type="text" name={value} value={temporaryPass2 || ''} onChange={(e)=> {setTemporaryPass2(e.target.value)} } className="imputForm_inputData"/>

@@ -5,6 +5,7 @@ import { googleLogout } from '@react-oauth/google';
 import DataFilter from "./3_filter";
 import LoadImage from "./a_loadimage";
 import DataSort from "./4_sort";
+import logourl from "../images/logo_m.png"
 import {fetchData} from "./a_CRUD_service";
 import {checkIfItExists} from "./app_check";
 
@@ -168,7 +169,7 @@ function Header() {
                         }}> Logout
                         </button> : <button onClick={()=>setPage("login")}>
                             LOGIN </button>}
-
+                        <img src={logourl} className="header_photo" />
                     </div>
 
             </div>

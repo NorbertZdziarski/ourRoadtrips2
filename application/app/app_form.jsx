@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../css/main.scss';
 import {fetchData, transferData, updateData, deleteData, transferDataFile, deleteFile} from "./a_CRUD_service";
 import {useStoreActions, useStoreState} from "easy-peasy";
-import LoadImage from "./a_loadimage";
 import PrintForm from "./3_printForm";
 import {getInitialFormData} from "./getInitialFormData";
 
@@ -181,7 +180,7 @@ async function addDataToMongo(dataToSave) {
         }
 
         setFormError(error)
-        if (error) return;
+        // if (error) return;
 
         console.log('______ ' + formData.password)
 

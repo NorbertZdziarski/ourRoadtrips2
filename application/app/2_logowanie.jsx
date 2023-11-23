@@ -5,15 +5,15 @@ import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import {getInitialFormData} from "./getInitialFormData";
 import {checkIfItExists} from "./app_check";
-
+require('dotenv').config();
 function Login() {
     const setPage = useStoreActions(actions => actions.setPage);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
-    // const [userName, setUserName] = useState()
-    // const [userPassword, setUserPassword] = useState()
-    // const [fetchError, setFetchError] = useState()
+    const [userName, setUserName] = useState()
+    const [userPassword, setUserPassword] = useState()
+    const [fetchError, setFetchError] = useState()
 
-
+    const clientId = process.env.CLIENT_ID || '';
 
     async function createUser(data) {
         let user = data.name;
@@ -49,20 +49,20 @@ function Login() {
 
     }
 
-//     const handleLogin = async (e) => {
-//         e.preventDefault()
-// // funkcja logowania przy logowaniu za pomocą email - moje logowanie.
-//         const target = `?user=${encodeURIComponent(userName)}&password=${encodeURIComponent(userPassword)}`
-//         await fetchData('login' + target).then(downloadedData => {
-//             if (!downloadedData) {
-//                 setFetchError('wrong password or login');
-//             } else {
-//                 console.log(downloadedData)
-//                 setLoggedUser(downloadedData)
-//                 setPage("mainPage")
-//             }
-//         });
-//     };
+    const handleLogin = async (e) => {
+        e.preventDefault()
+// funkcja logowania przy logowaniu za pomocą email - moje logowanie.
+        const target = `?user=${encodeURIComponent(userName)}&password=${encodeURIComponent(userPassword)}`
+        await fetchData('login' + target).then(downloadedData => {
+            if (!downloadedData) {
+                setFetchError('wrong password or login');
+            } else {
+                console.log(downloadedData)
+                setLoggedUser(downloadedData)
+                setPage("mainPage")
+            }
+        });
+    };
 
     const handleSuccess = async (response) => {
         const decodedToken = jwtDecode(response.credential);
@@ -101,31 +101,31 @@ function Login() {
     return (
         <div className="mainViewStyle login_main">
             <div className="login_box">
-                {/*{fetchError ? <p className="login_error">{fetchError}</p> : <></>}*/}
-                {/*<form >*/}
-                {/*    <input disabled placeholder='login' type="text" name="inputUserName" className="login_input" value={userName}*/}
-                {/*           onChange={(e) => setUserName(e.target.value)}></input>*/}
-                {/*    <input disabled placeholder='password' type="password" name="inputUserPassword" className="login_input" value={userPassword}*/}
-                {/*           onChange={(e) => setUserPassword(e.target.value)}></input>*/}
-                {/*<div className="login_buttons">*/}
-                {/*    <button disabled onClick={handleLogin} className="main_button "> Login </button>*/}
-                {/*    <button onClick={()=>setPage("mainPage")} className="main_button "> Cancel </button>*/}
+                {fetchError ? <p className="login_error">{fetchError}</p> : <></>}
+                <form >
+                    <input placeholder='login' type="text" name="inputUserName" className="login_input" value={userName}
+                           onChange={(e) => setUserName(e.target.value)}></input>
+                    <input  placeholder='password' type="password" name="inputUserPassword" className="login_input" value={userPassword}
+                           onChange={(e) => setUserPassword(e.target.value)}></input>
+                <div className="login_buttons">
+                    <button onClick={handleLogin} className="main_button "> Login </button>
+                    <button onClick={()=>setPage("mainPage")} className="main_button "> Cancel </button>
 
-                {/*</div>*/}
-                {/*</form>*/}
+                </div>
+                </form>
 
-                {/*<div className="login_newaccount">*/}
-                {/*    <button disabled onClick={()=>setPage("editUserData")} className=" button-important"> Create an account </button>*/}
+                <div className="login_newaccount">
+                    <button onClick={()=>setPage("editUserData")} className=" button-important"> Create an account </button>
                     <div className="login_newaccount">
                         <GoogleLogin
-                            clientId="708085340019-karrgte5hed5fcobjn0ja6t8oitstagb.apps.googleusercontent.com"
+                            clientId={clientId}
                             onSuccess={handleSuccess}
                             onFailure={handleFailure}
                         />
 
                     </div>
 
-                {/*</div>*/}
+                </div>
             </div>
 
         </div>
