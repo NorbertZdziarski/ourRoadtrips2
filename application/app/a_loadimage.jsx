@@ -7,7 +7,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     const [image, setImage] = useState('');
     const host = process.env.SERVER_HOST || 'localhost';
     const port = process.env.SERVER_PORT || 9000
-    const apiURL = `http://${host}:${port}/download`;
+    const apiURL = `https://${host}:${port}/download`;
 
     // console.log('---------- LOAD IMAGE ---------')
     // console.log('image name: ' + imageName)

@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const host = process.env.SERVER_HOST || 'localhost';
 const port = process.env.SERVER_PORT || 9000
-const apiURL = `http://${host}:${port}`;
+const apiURL = `https://${host}:${port}`;
 console.log('server HOST: ' + host);
 console.log('server PORT: ' + port);
 console.log('api url: ' + apiURL);
@@ -21,6 +21,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 console.log('get ' + `${apiURL}/${target}`)
                     response = await axios.get(`${apiURL}/${target}`, {
                     headers: {
+                        'Access-Control-Allow-Origin': '*',
                         'my-header': 'all'
                     }
                 });
@@ -37,8 +38,9 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
 
                 response = await axios.post(`${apiURL}/${target}`,JSON.stringify(data), {
                     headers: {
-                        'Content-Type': 'application/json',
-                        'my-header': 'all'
+                        'Access-Control-Allow-Origin': '*',
+                        'my-header': 'all',
+                        'Content-Type': 'application/json'
                     }
                 });
                 break;
@@ -49,6 +51,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 formDatas.append('image', data);
                 axios.post(`${apiURL}/upload`, formDatas, {
                     headers: {
+                        'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'multipart/form-data',
                         'my-header': 'all'
                     }
@@ -66,14 +69,16 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 response = await axios.patch(`${apiURL}/${target}`, data,{
                     headers: {
                         'Content-Type': 'application/json',
-                        'my-header': 'all'
+                        'my-header': 'all',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 });
                 break;
             case 'delete':
                 response = await axios.delete(`${apiURL}/${target}`, {
                     headers: {
-                        'my-header': 'all'
+                        'my-header': 'all',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 });
                 break;
@@ -81,7 +86,8 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 response = await axios.delete(`${apiURL}/file`, {
                     data: {target},
                     headers: {
-                        'my-header': 'all'
+                        'my-header': 'all',
+                        'Access-Control-Allow-Origin': '*'
                     }
                 });
                 break;
