@@ -55,8 +55,8 @@ function Header() {
     }
 
     return (
-        <header className="headerStyle ">
-            <div className="mainViewStyle tymczasowy_header">
+        <header className="headerStyle  ">
+            <div className="layout_main layout_flex-sb tymczasowy_header">
                 {screenWidth < 950 ? <>
                     <button onClick={()=>setPage("mainPage")}>
                         =

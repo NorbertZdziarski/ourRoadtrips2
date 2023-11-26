@@ -16,7 +16,7 @@ function App() {
     // const setPage = useStoreActions((actions) => actions.setPage);
 
     return (
-        <div className="App">
+        <div className="App colorstyle_dark">
             <Header/>
             <MainPage/>
             <Footer/>

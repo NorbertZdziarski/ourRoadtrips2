@@ -6,8 +6,8 @@ function Footer() {
     const d = new Date()
     let year = d.getFullYear();
     return (
-        <footer className=" footerStyle footer_underconstruction">
-            <div className="underConstruction mainViewStyle">
+        <footer className="mainWindowStyle  footer_underconstruction">
+            <div className="layout_main layout_flex-sb footerStyle">
                 <p >(C) {year} Norbert Zdziarski. </p>
                 <button onClick={()=>setPage("aboutUs")} disabled>
                     about project

@@ -11,6 +11,9 @@
 @import "rwd";
 @import "buttons";
 
+@import "colors";
+@import "layout";
+
 @import "header";
 @import "userPanel";
 @import "showCar";
@@ -31,17 +34,23 @@ body {
   height: calc(var(--vh, 1vh) * 100);
   margin: 0;
   overflow-y: hidden;
-  background-color: $color-background-main;
+
 }
 .App {
   height: calc(var(--vh, 1vh) * 100);
 }
 
 .footerStyle {
-  border: 1px solid $color-blink-color;
-
-  @include mainStyle($footer-height);
+  background-color: rgba(34, 37, 40, 0.9);
+  //border: 1px solid $color-blink-color;
+  font-size: 1.6rem;
+  font-family: "BankGothic Lt BT";
+  color: #1da072;
+  padding: 5px;
+  height: 100%;
+  //@include mainStyle($footer-height);
 }
+
 .mainWindowStyle {
   box-sizing: border-box;
   @include mainStyle($main-view-height);
@@ -50,9 +59,6 @@ body {
   margin-left: 10px;
   overflow-y: scroll;
   @include rwd();
-  //height: calc(100vh - $footer-height - $header-height) ;
-  //rwd zmienia wysokość. Należy na nowo przeliczyć H nagłóka oraz stopki!
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   height: $main-view-height;
   @media screen and (max-width: 950px) {
@@ -63,12 +69,11 @@ body {
 }
 
 .mainViewStyle {
-  width: $main-view-width;
 
-  display: flex;
-  justify-content: space-between;
-  background-color: #282c34;
-  @include rwd(flex);
+
+
+  //background-color: #282c34;
+
 
 }
 
@@ -218,12 +223,11 @@ body {
   width: 100%;
   text-align: left;
 
-  background-color: $color-background-main;
+
   padding: 1rem;
   font-family: Abel;
   font-size: 20px;
-  color: $color-background-secondary;
-  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+
   @include rwd;
 }
 
@@ -268,16 +272,16 @@ body {
 }
 
 .underConstruction {
-  box-sizing: border-box;
-  //border: 2px dashed #ffa600;
-  display: flex;
-  //justify-content: space-between;
-
-
-  font-size: 1.6rem;
-  font-family: "BankGothic Lt BT";
-  color: #1da072;
-  padding: 5px;
+  //box-sizing: border-box;
+  ////border: 2px dashed #ffa600;
+  //display: flex;
+  ////justify-content: space-between;
+  //
+  //
+  //font-size: 1.6rem;
+  //font-family: "BankGothic Lt BT";
+  //color: #1da072;
+  //padding: 5px;
   //height: 100%;
 }
 .underConstruction-height {

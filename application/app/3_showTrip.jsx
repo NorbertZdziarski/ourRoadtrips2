@@ -55,7 +55,7 @@ function ShowTrip() {
         setPage("aboutMe");
     }
     return (
-        <section className="userPanel_main">
+        <section className="userPanel_main colorstyle_reflex_dark">
         {/*<section className="mainViewStyle">*/}
             {data ? (<section className="">
                 <header className="showtrip_header">

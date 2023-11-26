@@ -93,7 +93,7 @@ function UserProfile() {
                 <div>
                     About me:
                 </div>
-                <div className="userPanel_mainpage_content">
+                <div className="userPanel_mainpage_content colorstyle_button_dark">
                     <p>Name: {loggedUser.firstName}</p>
                     <p>{loggedUser.lastName}</p>
                     <p>{loggedUser.nick}</p>
@@ -104,13 +104,13 @@ function UserProfile() {
                 </div>
             </section>
 
-            <section className="showtrip_main">
+            <section className="showtrip_main colorstyle_button_dark">
                 <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
                 <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>
                 <button disabled onClick={()=> window.location.href = '#userData'}>   my map </button>
             </section>
 
-            <section className="userPanel_trips" id="userTrips">
+            <section className="userPanel_trips colorstyle_button_dark" id="userTrips">
 
                 {usersTrips ? (
                     Object.values(usersTrips).map((trip) =>
@@ -121,7 +121,7 @@ function UserProfile() {
                             }}>
                                 <PrintTrips  trip={trip}/>
                             </button>
-                            <div className="userPanel-buttons">
+                            <div className="userPanel-buttons ">
                                 <button  onClick={()=>{
                                     setPage("addTrip")
                                     setDataId(trip)}
@@ -146,7 +146,7 @@ function UserProfile() {
                                             className="userPanel_first">
                     <p>add your first route! </p></button> : <></>}
             </section>
-            <section id="userCars">
+            <section id="userCars ">
                 <DisplayCars
                 usersCars={usersCars}
                 setDataId={setDataId}

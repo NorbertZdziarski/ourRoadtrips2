@@ -40,11 +40,11 @@ function AboutMe() {
         return <div>Error: {error}</div>;
     }
     return (<>
-        <section className="underConstruction mainViewStyle">
+        <section className="layout_main layout_flex-sb">
             {userData ?
                 <div className="aboutme_conteiner">
                     <section className="aboutme_main">
-                        <div className="aboutme_info">
+                        <div className="aboutme_info colorstyle_glow_dark">
                             <div className="aboutme_photoBox">
                                 <LoadImage imageName={userData.userPhoto || 'user.png'}
                                            imagePath='images/users'
@@ -71,7 +71,7 @@ function AboutMe() {
                         </div>
                         {/*<LoadImage imageName={userData.}*/}
                     </section>
-                    <section className="aboutme_show-container">
+                    <section className="aboutme_show-container colorstyle_button_dark">
 
                         {userData.cars ? (
                             Object.values(userData.cars).map((car) =>
@@ -90,7 +90,7 @@ function AboutMe() {
                             <div>loading data....</div>
                         )}
                     </section>
-                    <section className="aboutme_show-container">
+                    <section className="aboutme_show-container colorstyle_button_dark">
                         {/*my trips*/}
                         {userTrips ? (
                             Object.values(userTrips).map((trip) =>

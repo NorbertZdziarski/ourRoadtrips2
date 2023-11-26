@@ -15,7 +15,7 @@ function ShowTrips({dataFilter}) {
     }, []);
 
     return (
-        <section className="underConstruction mainViewStyle ">
+        <section className="layout_main layout_flex-sb ">
 
             {data ? (
                     <SortingTrips tripData={data}

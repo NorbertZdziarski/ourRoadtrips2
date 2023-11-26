@@ -4,14 +4,10 @@
   padding: 5px;
   display: block;
   width: $main-view-width;
-  //background-color: $color-background-secondary;
-  height: max-content;
-  background: linear-gradient(-45deg, $color-background-main 40%, $color-background-reflex 50%, $color-background-main 60%);
-  //background: red;
-  //border: 1px solid red;
 
-  //color: $color-background-main;
-  color: $color-txt-main;
+  height: max-content;
+
+
   font-family: Abel;
   @include rwd(flex);
   z-index: 1;
@@ -106,15 +102,14 @@
     margin: 0;
     padding: 0;
     border-radius: 1rem 1rem 0 0;
-    background-color: rgba(0,0,0,0) ;
+
     width: 33%;
-    color: $color-txt-main;
+
     height: 3rem;
     font-size: $txtNormal;
     border: 0;
     &:hover {
-      color: $color-background-main;
-      background-color: $color-blink-color;
+
     }
     &:disabled {
       color: rgba(92, 93, 95, 0.49);

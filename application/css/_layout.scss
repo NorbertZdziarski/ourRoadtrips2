@@ -1,0 +1,21 @@
+//.layout_container {
+//  width: 100%;
+//
+//}
+.layout_main {
+  width: $main-view-width;
+  box-sizing: border-box;
+}
+.layout_flex-sb {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
+  @include rwd(flex);
+}
+
+.layout_flex-sc {
+  display: flex;
+  justify-content: center;
+  border: 1px solid blue;
+  @include rwd(flex);
+}

@@ -21,13 +21,10 @@
 .headerStyle {
   box-sizing: border-box;
   @include mainStyle($header-height);
-  //padding-top: 0.3rem;
+
   border-bottom: 2px solid $color-background-main;
-  //background-color: rgba(169, 169, 169, 0.4);
 
   @media screen and (max-width: 950px) {
-    //@content
-    //background-color: #9feaea;
     max-width: 100%;
     margin: 0;
     display: block;
