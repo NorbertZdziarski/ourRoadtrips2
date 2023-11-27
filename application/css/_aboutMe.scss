@@ -31,7 +31,7 @@
   box-sizing: border-box;
   padding-left: 1rem;
   width: 100%;
-  color: $color-txt-main;
+
 
 }
 .aboutme_underHeader {
@@ -39,21 +39,9 @@
   display: flex;
   justify-content: left;
   align-items: start;
-  position: relative;
-  //border: 1px solid red;
-
-  :after {
-    content: "";
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
     //border: 1px solid red;
-    z-index: 20;
-    background: linear-gradient(to top, rgba(40, 44, 52, 0), $color-background-main);
-  }
+
+
 }
 .aboutme_show-container {
   box-sizing: border-box;
@@ -73,7 +61,7 @@
 }
 
 .aboutme_show {
-  @include aboutmeShowMixin($color-background-main);
+
   transition-duration: 0.3s;
   position: relative;
   width: 15rem;

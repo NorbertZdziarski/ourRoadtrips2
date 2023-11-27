@@ -1,6 +1,8 @@
 $viewHeight: calc(var(--vh, 1vh) * 100);
 $header-height: 5rem;
+
 $mobile_header-height: 5rem;
+
 $footer-height: 2.5rem;
 $main-view-width: 90rem;
 //$main-view-height: calc($viewHeight - ($header-height + $footer-height));
@@ -39,4 +41,24 @@ $color-txt-secondary:rgba(255, 255, 255, 0.83);
 $color-txt-tertiary: rgba(204, 204, 204, 0.68);
 
 
-$shadow-comment: .5rem .5rem 1rem rgba(0,0,0,0.2)
+$shadow-comment: .5rem .5rem 1rem rgba(0,0,0,0.2);
+
+// light mode;
+$light-background-main: #efefef;
+$light-background-reflex: rgba(255, 255, 255, 0.9);
+$light-background-dropdown: rgba(40, 44, 52, 0.65);
+$light-background-userProfile: rgba(15, 15, 16, 0.5);
+$light-background-secondary: #d1d5e1;
+$light-background-comment: #b3b3b3;
+$light-background-yesornot: rgba(2, 73, 123, 0.75);
+$light-background-photobutton: rgba(0, 0, 0, 0);
+$light-background-photobutton_hover: rgba(0, 0, 0, 0.3);
+
+$light-blink-color: #02497b;
+$light-error-color: #ff4c00;
+
+$light-txt-main: rgba(32, 32, 32, 0.93);
+$light-txt-secondary:rgba(32, 32, 32, 0.83);
+$light-txt-tertiary: rgba(32, 32, 32, 0.68);
+
+

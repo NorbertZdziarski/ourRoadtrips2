@@ -9,13 +9,19 @@
 .layout_flex-sb {
   display: flex;
   justify-content: space-between;
-  border: 1px solid red;
+  //border: 1px solid red;
   @include rwd(flex);
 }
 
 .layout_flex-sc {
   display: flex;
   justify-content: center;
-  border: 1px solid blue;
+  //border: 1px solid blue;
   @include rwd(flex);
+}
+
+.layout_flex-sb-directColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

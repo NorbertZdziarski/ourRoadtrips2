@@ -1,27 +1,14 @@
 .headerStyle button {
   background-color: rgba(0,0,0,0) ;
-  color: $color-blink-color;
+  //color: $color-blink-color;
+
     border: 0;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     height: 3.2rem;
     padding: 0 1.2rem 0 1.2rem;
   margin-left: 0.8rem;
-  &:hover {
-    color: $color-background-main;
-    background-color: $color-blink-color;
-    box-shadow: 0 0 0.8rem 0.2rem $color-blink-color;
-  }
-  &:disabled {
-    color: rgba(250, 237, 2, 0.39);
-    cursor: not-allowed;
 
-    &:hover {
-      color: $color-background-main;
-      background-color: rgba(250, 237, 2, 0.17);
-      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
-    }
-  }
 }
 
 
@@ -29,7 +16,7 @@
   box-sizing: border-box;
   background-color: rgba(0,0,0,0) ;
   //color: $color-background-main;
-  color: $color-txt-main;
+    //color: $color-txt-main;
   border: 0;
   border-radius: 0.5rem;
   width: 31%;
@@ -38,17 +25,17 @@
   margin-left: 0.8rem;
 
   &:hover {
-    color: $color-background-main;
-    background-color: $color-background-yesornot;
+    //color: $color-background-main;
+    //background-color: $color-background-yesornot;
 
   }
   &:disabled {
-    color: rgba(251, 251, 251, 0.30);
-    cursor: not-allowed;
+    //color: rgba(251, 251, 251, 0.30);
+    //cursor: not-allowed;
 
     &:hover {
-      color: rgba(40, 44, 52, 0.49);
-      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+      //color: rgba(40, 44, 52, 0.49);
+      //box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
     }
   }
 }
@@ -61,43 +48,43 @@
   padding: 1rem;
   margin-left: 0.8rem;
   width: 18rem;
-  &:hover {
-    color: $color-background-main;
-    background-color: $color-blink-color;
-  }
-  &:disabled {
-    color: rgba(92, 93, 95, 0.49);
-    cursor: not-allowed;
-
-    &:hover {
-      color: rgba(40, 44, 52, 0.49);
-      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
-    }
-  }
+  //&:hover {
+  //  color: $color-background-main;
+  //  background-color: $color-blink-color;
+  //}
+  //&:disabled {
+  //  color: rgba(92, 93, 95, 0.49);
+  //  cursor: not-allowed;
+  //
+  //  &:hover {
+  //    color: rgba(40, 44, 52, 0.49);
+  //    box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+  //  }
+  //}
 }
 
 
 .button-important {
   background-color: rgba(0,0,0,0) ;
-  color: $color-blink-color;
+  //color: $color-blink-color;
   border: 0;
   height: 3rem;
   padding: 1rem;
   margin-left: 0.8rem;
   width: 20rem;
-  &:hover {
-    color: $color-background-main;
-    background-color: $color-blink-color;
-  }
-  &:disabled {
-    color: rgba(92, 93, 95, 0.49);
-    cursor: not-allowed;
-
-    &:hover {
-      color: rgba(40, 44, 52, 0.49);
-      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
-    }
-  }
+  //&:hover {
+  //  color: $color-background-main;
+  //  background-color: $color-blink-color;
+  //}
+  //&:disabled {
+  //  color: rgba(92, 93, 95, 0.49);
+  //  cursor: not-allowed;
+  //
+  //  &:hover {
+  //    color: rgba(40, 44, 52, 0.49);
+  //    box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+  //  }
+  //}
 }
 
 .button_yesornot {

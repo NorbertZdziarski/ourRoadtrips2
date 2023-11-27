@@ -1,0 +1,224 @@
+
+.colorstyle_light {
+  background-color: $light-background-main;
+  color: $light-txt-main;
+
+}
+.colorstyle_reverse_light {
+  background-color: $light-txt-main;
+  color: $light-background-main;
+
+}
+.colorstyle_reflex_light {
+  background: linear-gradient(-45deg, $light-background-main 40%, $light-background-reflex 50%, $light-background-main 60%);
+
+}
+
+.colorstyle_glow_light {
+  background-image: radial-gradient(circle at 50% 680%, $light-background-comment, $light-background-main 88%);
+
+}
+.colorStyle_slideShow_light {
+  @include aboutmeShowMixin($light-background-main);
+  //@include aboutmeShowMixin(red);
+}
+
+.colorStyle_shading_light {
+
+  position: relative;
+  :after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    //border: 1px solid red;
+    z-index: 20;
+    background: linear-gradient(to top, rgba(40, 44, 52, 0), $light-background-comment);
+
+  }
+}
+
+.colorStyle_headerBtn_light button {
+  color: $light-blink-color;
+
+  &:hover {
+    color: $light-background-main;
+    background-color: $light-blink-color;
+    box-shadow: 0 0 0.8rem 0.2rem $light-blink-color;
+
+  }
+  &:disabled {
+    //color: rgba(250, 237, 2, 0.39);
+    //cursor: not-allowed;
+    color: rgba(150, 17, 112, 0.39);
+    cursor: not-allowed;
+
+    &:hover {
+      //color: $light-background-main;
+
+      background-color: rgba(34, 56, 65, 0.17);
+      box-shadow: 0 0 0.8rem 0.2rem rgba(50, 57, 2, 0.15);
+    }
+  }
+}
+.colorstyle_button_light button {
+  background-color: rgba(0,0,0,0) ;
+  color: $light-txt-main;
+
+  &:hover {
+    color: $light-background-main;
+    background-color: $light-blink-color;
+
+  }
+  &:disabled {
+    color: rgba(92, 93, 95, 0.49);
+
+    cursor: not-allowed;
+
+    &:hover {
+      color: $light-background-reflex;
+      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+
+    }
+  }
+}
+
+
+
+
+.colorStyle_btn_important_light  {
+
+  color: $light-blink-color;
+  &:hover {
+    color: $light-background-main;
+    background-color: $light-blink-color;
+  }
+  &:disabled {
+    color: rgba(92, 93, 95, 0.49);
+    cursor: not-allowed;
+
+    &:hover {
+      color: rgba(40, 44, 52, 0.49);
+      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+    }
+  }
+}
+
+.colorstyle_tripInfoBox_light {
+  background-color: rgba(0, 0, 0, 0.26);
+  color: $light-background-main;
+  &:hover {
+    transition-duration: 0.2s;
+    background-color: rgba(0, 0, 0, 0.66);
+  }
+
+
+}
+
+.colorstyle_borderB_light {
+  border-bottom: 1px dotted $light-txt-main;
+
+}
+
+.colorStyle_clickPage_light {
+  border: 2px solid $light-background-main;
+  &:hover {
+    border: 2px solid $light-blink-color;
+  }
+
+}
+
+.colorStyle_comment_light {
+  background-color: $light-background-reflex;
+  color: $light-background-secondary;
+  box-shadow: 0 10px 5px $shadow-comment;
+
+}
+
+.colorStyle_commentCloud_light {
+  background-color: $light-background-comment;
+
+  color: $light-txt-secondary;
+}
+
+.colorStyle_commentAuthor_light {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: $light-txt-tertiary;
+  font-family: "Lucida Handwriting";
+
+}
+
+.colorStyle_slideShow_light {
+  @include aboutmeShowMixin($light-background-main);
+
+}
+
+.colorStyle_footer_light {
+  background-color: rgba(34, 37, 40, 0.9);
+  color: #1da072;
+  border: 1px solid $light-blink-color;
+}
+
+.colorStyle_input_light {
+   p {
+    color: $light-txt-main;
+
+  }
+  select {
+    background-color: $light-background-main;
+    color: $light-txt-main;
+
+  }
+  option {
+
+    background-color: $light-background-userProfile;
+
+
+  }
+  input {
+
+    background-color: $light-background-main ;
+    color: $light-txt-secondary;
+
+  }
+
+
+}
+
+.colorStyle_inputLogin_light {
+  background-color: $light-background-dropdown;
+
+}
+
+.colorStyle_error_light {
+  color: red;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.notLoggedIn_light {
+  background-color: $light-background-main;
+  color: $light-background-userProfile;
+
+
+}
+.loggedInVoted_light {
+  background-color: $light-background-main;
+  color: $light-blink-color;
+
+
+}
+.loggedDidNotVote_light {
+  background-color: $light-blink-color;
+  color: $light-background-main;
+
+
+}
+
+.logo_light {
+  filter: invert(100%);
+
+}

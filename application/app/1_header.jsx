@@ -16,7 +16,7 @@ function Header() {
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const setDataId = useStoreActions(actions => actions.setDataId);
     const setDataFilter = useStoreActions(actions => actions.setDataFilter);
-
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     const dataFilter = useStoreState(state => state.dataFilter);
     const dataSortOn = useStoreState(state => state.dataSortOn);
@@ -55,7 +55,7 @@ function Header() {
     }
 
     return (
-        <header className="headerStyle  ">
+        <header className={`headerStyle colorStyle_headerBtn_${displayStyles} `}>
             <div className="layout_main layout_flex-sb tymczasowy_header">
                 {screenWidth < 950 ? <>
                     <button onClick={()=>setPage("mainPage")}>
@@ -169,7 +169,7 @@ function Header() {
                         }}> Logout
                         </button> : <button onClick={()=>setPage("login")}>
                             LOGIN </button>}
-                        <img src={logourl} className="header_photo" />
+                        <img src={logourl} className={`header_logo logo_${displayStyles}`} />
                     </div>
 
             </div>

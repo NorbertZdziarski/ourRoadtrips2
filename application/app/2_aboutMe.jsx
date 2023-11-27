@@ -14,6 +14,7 @@ function AboutMe() {
     const [userData, setUserData] = useState(null);
     const [userTrips, setUserTrips] = useState(null);
     const [error, setError] = useState(null);
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     useEffect(() => {
         // dodac żę jak nie ma chosen to chosen jest loggedUser.
@@ -44,7 +45,7 @@ function AboutMe() {
             {userData ?
                 <div className="aboutme_conteiner">
                     <section className="aboutme_main">
-                        <div className="aboutme_info colorstyle_glow_dark">
+                        <div className={`aboutme_info colorstyle_glow_${displayStyles}`}>
                             <div className="aboutme_photoBox">
                                 <LoadImage imageName={userData.userPhoto || 'user.png'}
                                            imagePath='images/users'
@@ -60,7 +61,7 @@ function AboutMe() {
 
                             </div>
                         </div>
-                        <div className="aboutme_underHeader">
+                        <div className={`aboutme_underHeader colorStyle_shading_${displayStyles}`}>
                             <LoadImage imageName={userData.userPhoto || 'user.png'}
                                        imagePath='images/users'
                                        photoClass="aboutme_photo_reflex"
@@ -71,11 +72,11 @@ function AboutMe() {
                         </div>
                         {/*<LoadImage imageName={userData.}*/}
                     </section>
-                    <section className="aboutme_show-container colorstyle_button_dark">
+                    <section className={`aboutme_show-container colorstyle_button_${displayStyles}`}>
 
                         {userData.cars ? (
                             Object.values(userData.cars).map((car) =>
-                                <div key={`keytrip${car.id}`} className="aboutme_show">
+                                <div key={`keytrip${car.id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
                                     <button className="aboutme_button" onClick={()=> {
                                         setPage("showcar")
                                         setChosen(car)
@@ -83,18 +84,18 @@ function AboutMe() {
                                         <LoadImage imageName={car.carPhoto}
                                                    imagePath='images/users'
                                                    imageWidth='600px'
-                                                   photoClass='aboutme_PhotoCar'/>
+                                                   photoClass={`aboutme_PhotoCar colorStyle_clickPage_${displayStyles}`}/>
                                     </button>
                                 </div>)
                         ) : (
                             <div>loading data....</div>
                         )}
                     </section>
-                    <section className="aboutme_show-container colorstyle_button_dark">
+                    <section className={`aboutme_show-container colorstyle_button_${displayStyles}`}>
                         {/*my trips*/}
                         {userTrips ? (
                             Object.values(userTrips).map((trip) =>
-                                <div key={`keytrip${trip._id}`} className="aboutme_show">
+                                <div key={`keytrip${trip._id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
                                     <button className="aboutme_button" onClick={()=> {
                                         setPage("showTrip")
                                         setTripId(trip._id)

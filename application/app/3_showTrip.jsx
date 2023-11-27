@@ -21,6 +21,7 @@ function ShowTrip() {
 
     const [data, setData] = useState(null);
     const [addComm, setAddComm] = useState(null);
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     useEffect(() => {
         const target = `trip/${tripId}`
@@ -55,7 +56,7 @@ function ShowTrip() {
         setPage("aboutMe");
     }
     return (
-        <section className="userPanel_main colorstyle_reflex_dark">
+        <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
         {/*<section className="mainViewStyle">*/}
             {data ? (<section className="">
                 <header className="showtrip_header">
@@ -73,7 +74,7 @@ function ShowTrip() {
                         {/*onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
 
                 </header>
-                <div className="showtrip_main">
+                <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
                     <button>   photo </button>
                     <button disabled>   map </button>
                     <button onClick={()=> window.location.href = '#tripDescription'}>   story </button>
@@ -89,7 +90,7 @@ function ShowTrip() {
                 <div id="tripDescription" className="showtrip_description">
                     <p>   {data.tripDescription} </p>
                 </div>
-                <div className="showtrip_main">
+                <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
                     {loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}
                     {loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}
 

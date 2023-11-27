@@ -1,0 +1,217 @@
+.colorstyle_main {
+
+}
+.colorstyle_modern {
+  //background-color: $color-background-main;
+  //color: $color-txt-main;
+
+}
+.colorstyle_dark {
+  background-color: $color-background-main;
+  color: $color-txt-main;
+
+}
+.colorstyle_reflex_dark {
+  background: linear-gradient(-45deg, $color-background-main 40%, $color-background-reflex 50%, $color-background-main 60%);
+
+}
+
+.colorstyle_glow_dark {
+  background-image: radial-gradient(circle at 50% 680%, $color-background-comment, $color-background-main 88%);
+
+}
+.colorStyle_slideShow_dark {
+  @include aboutmeShowMixin($color-background-main);
+
+}
+
+.colorStyle_shading_dark {
+
+  position: relative;
+  :after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    //border: 1px solid red;
+    z-index: 20;
+    background: linear-gradient(to top, rgba(40, 44, 52, 0), $color-background-main);
+
+  }
+}
+
+.colorStyle_headerBtn_dark button {
+  color: $color-blink-color;
+
+  &:hover {
+    color: $color-background-main;
+    background-color: $color-blink-color;
+    box-shadow: 0 0 0.8rem 0.2rem $color-blink-color;
+
+  }
+  &:disabled {
+    color: rgba(250, 237, 2, 0.39);
+    cursor: not-allowed;
+
+
+    &:hover {
+      color: $color-background-main;
+
+      background-color: rgba(250, 237, 2, 0.17);
+      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+    }
+  }
+}
+
+
+
+
+.colorstyle_button_dark button {
+  background-color: rgba(0,0,0,0) ;
+  color: $color-txt-main;
+
+  &:hover {
+    color: $color-background-main;
+    background-color: $color-blink-color;
+  }
+  &:disabled {
+    color: rgba(92, 93, 95, 0.49);
+    cursor: not-allowed;
+
+    &:hover {
+      color: rgba(40, 44, 52, 0.49);
+      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+    }
+  }
+}
+
+
+.colorStyle_btn_important_dark  {
+
+  color: $color-blink-color;
+  &:hover {
+    color: $color-background-main;
+    background-color: $color-blink-color;
+  }
+  &:disabled {
+    color: rgba(92, 93, 95, 0.49);
+    cursor: not-allowed;
+
+    &:hover {
+      color: rgba(40, 44, 52, 0.49);
+      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+    }
+  }
+}
+
+.colorstyle_tripInfoBox_dark {
+  background-color: rgba(0, 0, 0, 0.26);
+  color: $color-txt-main;
+  &:hover {
+    transition-duration: 0.2s;
+    background-color: rgba(0, 0, 0, 0.66);
+  }
+
+}
+
+.colorstyle_borderB_dark {
+  border-bottom: 1px dotted $color-txt-main;
+
+}
+
+.colorStyle_clickPage_dark {
+  border: 2px solid $color-background-main;
+  &:hover {
+    border: 2px solid $color-blink-color;
+  }
+
+}
+
+.colorStyle_comment_dark {
+  background-color: $color-background-main;
+  color: $color-background-secondary;
+  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+
+}
+
+.colorStyle_commentCloud_dark {
+  background-color: $color-background-comment;
+
+  border: 2px solid red;
+  color: $color-background-main;
+}
+
+.colorStyle_commentAuthor_dark {
+  //font-weight: 700;
+  //font-size: 1.4rem;
+  color: $color-background-main;
+  //font-family: "Lucida Handwriting";
+
+}
+
+.colorStyle_slideShow_dark {
+  @include aboutmeShowMixin($color-background-main);
+
+}
+
+.colorStyle_footer_dark {
+  background-color: rgba(34, 37, 40, 0.9);
+  color: #1da072;
+  border: 1px solid $color-blink-color;
+}
+
+.colorStyle_input_dark {
+
+  p {
+    //color: white;
+    color: orange;
+  }
+  select {
+    background-color: $color-background-main;
+    color: $color-background-secondary;
+
+  }
+  option {
+
+    background-color: $color-background-userProfile;
+      }
+  input {
+
+    background-color: $color-background-main ;
+    color: $color-background-secondary;
+
+  }
+
+
+}
+
+.colorStyle_inputLogin_dark {
+  background-color: $color-background-secondary;
+  }
+
+.colorStyle_error_dark {
+  color: red;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.notLoggedIn_dark {
+  background-color: $color-background-main;
+  color: #b2b2b2;
+
+}
+.loggedInVoted_dark {
+  background-color: $color-background-main;
+  color: $color-blink-color;
+
+}
+.loggedDidNotVote_dark {
+  background-color: $color-blink-color;
+  color: $color-background-main;
+
+}
+.logo_dark {
+
+}

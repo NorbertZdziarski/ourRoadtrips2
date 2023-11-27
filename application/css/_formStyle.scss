@@ -21,22 +21,22 @@
   height: 2.5rem;
   margin-bottom: 1.5rem;
   p {
-    color: white;
+    //color: white;
     font-family: $fontStyleMain;
     font-size: $txtLarge;
     width: 15rem;
   }
   select {
     width: calc(100% - 15rem);
-    background-color: $color-background-main;
-    color: $color-background-secondary;
+    //background-color: $color-background-main;
+    //color: $color-background-secondary;
     font-size: $txtNormal;
     padding: 0.1rem;
     border: 0;
   }
   option {
     width: calc(100% - 15rem);
-    background-color: $color-background-userProfile;
+    //background-color: $color-background-userProfile;
     font-size: $txtNormal;
     padding: 0.1rem;
     border: 0;
@@ -44,8 +44,8 @@
   input {
     width: calc(100% - 15rem);
     height: 100%;
-    background-color: $color-background-main ;
-    color: $color-background-secondary;
+    //background-color: $color-background-main ;
+    //color: $color-background-secondary;
   }
   div {
     display: flex;

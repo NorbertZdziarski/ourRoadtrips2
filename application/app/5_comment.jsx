@@ -10,6 +10,7 @@ function Comment({comment, author, userId, tripId}) {
     const [voteState,setVoteState] = useState('notLoggedIn');
     const loggedUser = useStoreState(state => state.loggedUser);
     const [photo, setPhoto] = useState(null);
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     useEffect(() => {
         const fetchPhoto = async () => {
@@ -49,18 +50,18 @@ function Comment({comment, author, userId, tripId}) {
     }
 
     return (
-        <button className="comment_conteiner" onClick={()=>{addLike()}}>
+        <button className={`comment_conteiner colorStyle_comment_${displayStyles}`} onClick={()=>{addLike()}}>
             <div className="comment_photo_container">
                 <LoadImage imageName={photo || 'user.png'}
                            imagePath='images/users'
                            photoClass={"comment_photo" }
                 />
             </div>
-            <div className="comment_cloud">
-                <div className={`comment_like ${voteState}`}>{like}</div>
+            <div className={`comment_cloud colorStyle_commentCloud_${displayStyles}`}>
+                <div className={`comment_like ${voteState}_${displayStyles}`}>{like}</div>
                 {/*<textarea className="comment_message" defaultValue={comment.commTxt}/>*/}
                 <p className="comment_message" >{comment.commTxt}</p>
-                <p className="comment_author">{author}</p>
+                <p className={`comment_author colorStyle_commentAuthor_${displayStyles}`}>{author}</p>
             </div>
         </button>
     )

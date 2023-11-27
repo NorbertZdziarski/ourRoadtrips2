@@ -21,6 +21,8 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     const temporaryPass2 = useStoreState(state => state.temporaryPass2);
     const setTemporaryPass2 = useStoreActions(actions => actions.setTemporaryPass2);
 
+    const displayStyles = useStoreState(state => state.displayStyles);
+
     let slicePoint;
     let commentsValue;
     let tripRateData;
@@ -91,7 +93,7 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
         <div className="imputForm_container">
             {form.map((value) => <div key={`line${value}`}>
                 {/*// ------------------------- ------ ----!!!!!!! TO DO !!!!!!!!!!!!!------- rodzaj paliwa, areatext do opisu*/}
-                <label className="imputForm_box">
+                <label className={`imputForm_box colorStyle_input_${displayStyles}`}>
                     {(excludedValuesTitle.includes(value) ? null : <p >{value.slice(slicePoint,value.length)}:</p>)}
                     {(value === 'tripCountry') ? <select value={formData[value]} name={value} onChange={handleChange} className="">
                         {countriesInEurope.map((country) => (

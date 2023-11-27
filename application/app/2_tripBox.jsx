@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import LoadImage from "./a_loadimage";
-import {useStoreActions} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 import RateModule from "./4_rateModule";
 import ShowRate from "./4_showRate";
 import ShowPhoto from "./5_showPhoto";
@@ -12,6 +12,7 @@ function TripBox({trip, dataFilter}) {
     // console.log('data filter: ' + dataFilter)
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     // if (!trip.tripPublic) console.log('trip: ' + trip.tripPublic + ' - name: ' + trip.tripName);
     if (!trip.tripPublic) return null;
@@ -45,15 +46,15 @@ function TripBox({trip, dataFilter}) {
     }, [trip.tripName, trip.tripUser]);
 
     return (
-        <div className="clickPage">
+        <div className={`clickPage colorStyle_clickPage_${displayStyles}`}>
 
             <button className="" onClick={()=> {
                 setPage("showTrip")
                 setTripId(trip._id)
                 } }>
-                <div className="tripInfo_mainpage_box">
+                <div className={`tripInfo_mainpage_box layout_flex-sb-directColumn colorstyle_tripInfoBox_${displayStyles}`}>
                     <div>
-                        <div id="tripbox_title" className="tripInfo_mainpage_title">{trip.tripName}</div>
+                        <div id="tripbox_title" className={`tripInfo_mainpage_title colorstyle_borderB_${displayStyles}`}>{trip.tripName}</div>
                         <p className="tripInfo_mainpage_author"> by: {trip.tripUser}</p>
                         <p className="tripInfo_mainpage_Info-country"> {trip.tripCountry}</p>
                     </div>

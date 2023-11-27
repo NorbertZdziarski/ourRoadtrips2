@@ -27,6 +27,8 @@ const store = createStore({
     setTemporaryPass1:  action((state, payload) => { state.temporaryPass1 = (payload); }),
     temporaryPass2: "new first",
     setTemporaryPass2:  action((state, payload) => { state.temporaryPass2 = (payload); }),
+    displayStyles: 'dark',
+    setDisplayStyles:  action((state, payload) => { state.displayStyles = (payload); }),
     rules: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tellus nulla, ornare vitae tellus vel, interdum interdum nunc. Aenean vitae vehicula leo, vitae convallis eros. Vestibulum ac lectus eu tellus consectetur dapibus. In eros enim, luctus sit amet gravida vitae, semper eget risus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam vitae vulputate ante. Morbi sit amet risus ligula. Ut diam est, efficitur sed justo at, finibus dapibus est. Integer ac sodales ipsum. Nam non quam elit. Mauris tellus lacus, auctor sit amet est et, sagittis faucibus ex. Suspendisse potenti. Phasellus vestibulum, mi a placerat fringilla, dui urna vestibulum nisl, id egestas ipsum felis id lectus. Donec a nisi vel leo cursus ornare.\n" +
         "\n" +
         "Donec efficitur ante quis fermentum dignissim. Mauris eu nisi elit. Cras blandit placerat nibh, non vulputate quam pulvinar ornare. Nulla eu euismod nunc. Cras pulvinar euismod vulputate. Integer vestibulum malesuada purus, dapibus interdum diam molestie at. Donec et volutpat erat. In bibendum porttitor leo at gravida. Donec tempor, magna et aliquet vestibulum, lacus sem malesuada leo, quis vulputate tellus quam nec elit.\n" +

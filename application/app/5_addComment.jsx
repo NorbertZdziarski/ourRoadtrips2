@@ -7,7 +7,7 @@ function AddComment({author, trip, setAddComm}) {
     const loggedUser = useStoreState(state => state.loggedUser);
 
     const [enterComment, setEnterComment] = useState();
-
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     async function sendComm() {
         if (loggedUser) {
@@ -33,12 +33,12 @@ function AddComment({author, trip, setAddComm}) {
     }
 
     return (
-        <div className="showtrip_addComment colorstyle_comment_dark">
-            <div className="comment_conteiner">
-                <div className="comment_photo_container">
+        <div className={`showtrip_addComment colorstyle_reflex_${displayStyles}`}>
+            <div className={`comment_conteiner`} >
+                <div className={`comment_photo_container`}>
                     <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
                                imagePath='images/users'
-                               photoClass={"comment_photo" }
+                               photoClass={`comment_photo colorStyle_comment_${displayStyles}`}
                     />
                 </div>
                 {/*<img className="comment_photo" src="../images/user.png" alt='foto' >*/}
@@ -46,7 +46,7 @@ function AddComment({author, trip, setAddComm}) {
                 {/*</img>*/}
 
 
-                <div className="addComment_cloud">
+                <div className={`addComment_cloud colorStyle_commentCloud_${displayStyles}`}>
                     <textarea className="comment_message" Value={enterComment} onChange={(e)=>{setEnterComment(e.target.value)}}/>
 
                     <p className="comment_author"> {author.nick}</p>

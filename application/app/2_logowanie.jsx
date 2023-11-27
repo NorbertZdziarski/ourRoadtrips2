@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {useStoreActions} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData, transferData} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
@@ -14,6 +14,8 @@ function Login() {
     const [fetchError, setFetchError] = useState()
 
     const clientId = process.env.CLIENT_ID || '';
+
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     async function createUser(data) {
         let user = data.name;
@@ -99,15 +101,15 @@ function Login() {
     };
 
     return (
-        <div className="mainViewStyle login_main">
-            <div className="login_box">
-                {fetchError ? <p className="login_error">{fetchError}</p> : <></>}
+        <div className="layout_main layout_flex-sb login_main">
+            <div className={`login_box colorStyle_input_${displayStyles}`}>
+                {fetchError ? <p className={`login_error colorStyle_error_${displayStyles}`}>{fetchError}</p> : <></>}
                 <form >
-                    <input placeholder='login' type="text" name="inputUserName" className="login_input" value={userName}
+                    <input placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userName}
                            onChange={(e) => setUserName(e.target.value)}></input>
-                    <input  placeholder='password' type="password" name="inputUserPassword" className="login_input" value={userPassword}
+                    <input  placeholder='password' type="password" name="inputUserPassword" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userPassword}
                            onChange={(e) => setUserPassword(e.target.value)}></input>
-                <div className="login_buttons">
+                <div className={`login_buttons colorstyle_button_${displayStyles}`}>
                     <button onClick={handleLogin} className="main_button "> Login </button>
                     <button onClick={()=>setPage("mainPage")} className="main_button "> Cancel </button>
 
@@ -115,7 +117,7 @@ function Login() {
                 </form>
 
                 <div className="login_newaccount">
-                    <button onClick={()=>setPage("editUserData")} className=" button-important"> Create an account </button>
+                    <button onClick={()=>setPage("editUserData")} className={` button-important colorStyle_btn_important_${displayStyles} `}> Create an account </button>
                     <div className="login_newaccount">
                         <GoogleLogin
                             clientId={clientId}

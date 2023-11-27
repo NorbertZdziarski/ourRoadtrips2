@@ -11,9 +11,6 @@
   margin-bottom: 0.5rem;
   transition-duration: 0.2s;
   width: 50rem;
-  //background-color: rgba(0,0,0,0.8);
-  background-color: $color-background-main;
-
   &:hover {
     transition-duration: 0.5s;
     scale: 103%;
@@ -32,7 +29,6 @@
 }
 
 .comment_photo {
-  background-color: rgba(0, 0, 0, 0.82);
   border-top-left-radius: 1rem;
   border-bottom-left-radius: 1rem;
 }
@@ -42,7 +38,6 @@
   align-self: stretch;
   position: relative;
   box-sizing: border-box;
-  background-color: $color-background-comment;
   border: 0;
   border-top-right-radius: 1rem;
   border-bottom-right-radius: 1rem;
@@ -59,10 +54,7 @@
 .comment_author {
   padding-right: 2.5rem;
   text-align: right;
-  font-weight: 700;
-  font-size: 1.4rem;
-  color: $color-background-main;
-  font-family: "Lucida Handwriting";
+
 }
 
 .comment_like {
@@ -79,24 +71,11 @@
   justify-content: center;
   align-items: center;
   box-shadow: $shadow-comment;
-  &.notLoggedIn {
-    background-color: $color-background-main;
-    color: #b2b2b2;
-  }
-  &.loggedInVoted {
-    background-color: $color-background-main;
-    color: $color-blink-color;
-  }
-  &.loggedDidNotVote {
-    background-color: $color-blink-color;
-    color: $color-background-main;
-  }
+
 
 }
 
 .addComment_cloud {
-  background-color: $color-background-comment;
-  color: $color-background-main;
   border: 0;
   width:50rem;
   height: 10rem;

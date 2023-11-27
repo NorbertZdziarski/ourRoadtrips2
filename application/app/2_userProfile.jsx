@@ -18,7 +18,7 @@ function UserProfile() {
     const setTripId = useStoreActions(actions => actions.setTripId);
     const [usersTrips, setUsersTrips] = useState({});
     const [usersCars, setUsersCars] = useState(loggedUser.cars);
-
+    const displayStyles = useStoreState(state => state.displayStyles);
 
 
     useEffect(() => {
@@ -93,7 +93,7 @@ function UserProfile() {
                 <div>
                     About me:
                 </div>
-                <div className="userPanel_mainpage_content colorstyle_button_dark">
+                <div className={`userPanel_mainpage_content colorstyle_button_${displayStyles}`}>
                     <p>Name: {loggedUser.firstName}</p>
                     <p>{loggedUser.lastName}</p>
                     <p>{loggedUser.nick}</p>
@@ -104,17 +104,17 @@ function UserProfile() {
                 </div>
             </section>
 
-            <section className="showtrip_main colorstyle_button_dark">
+            <section className={`showtrip_main colorstyle_button_${displayStyles}`}>
                 <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
                 <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>
                 <button disabled onClick={()=> window.location.href = '#userData'}>   my map </button>
             </section>
 
-            <section className="userPanel_trips colorstyle_button_dark" id="userTrips">
+            <section className={`userPanel_trips colorstyle_button_${displayStyles}`} id="userTrips">
 
                 {usersTrips ? (
                     Object.values(usersTrips).map((trip) =>
-                        <div key={`keytrip${trip._id}`} className="userPanelItem">
+                        <div key={`keytrip${trip._id}`} className={`userPanelItem colorstyle_reverse_${displayStyles}`}>
                             <button className="clickPage" onClick={()=> {
                                 setPage("showTrip")
                                 setTripId(trip._id)
