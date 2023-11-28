@@ -7,6 +7,7 @@ const cors = require('cors')
 require('dotenv').config();
 
 const manageData = require('./app_mongo')
+const https = require("https");
 
 const app = express();
 
@@ -14,13 +15,11 @@ let host = process.env.HOST || 'localhost';
 let port = process.env.PORT || '9000';
 let dbName = process.env.DBNAME || 'ourRoadtrips2';
 
-
-
 // ------------------------------------------------------------------------ MULTER - do wgrania plików
+
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         const fileType = req.body.type;
-
         if ((fileType!=='users') && (fileType!=='trips')) {
             const error = new Error('błędna nazwa folderu (typ)');
             error.code = 'INCORRECT_FOLDER';
@@ -43,10 +42,24 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single('image');
 
 // ------------------------------------------------------------------------ USE
+// app.use(cors());
+const corsOptions = {
+    origin: function (origin, callback) {
+        const allowedOrigins = ['https://ourroadtrips.pl', 'https://www.ourroadtrips.pl'];
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    optionsSuccessStatus: 200,
+    credentials: true
+};
+app.use(cors(corsOptions));
 
-app.use(cors());
 app.use(express.static('images'));
 app.use((req, res, next) => {
+    console.log('check my-header')
     if (!req.headers['my-header']) {
         return res.status(400).send('error. Attempt to connect without required permissions');
     }
@@ -99,22 +112,23 @@ app.get('/:pathName', async (req, res) => {
     const pathName = req.params.pathName;
     const user = req.query.user;
     const password = req.query.password;
-
+    console.log('114 pathname: ' + pathName)
     if (pathName === 'login') {
         console.log('app ____________');
         let userData;
         try {
 
             if (req.headers['my-header'] === 'all') {
-                userData = await manageData(dbName,'users','login',password, user)
-
-                res.status(200).json(userData[0]);
+                // userData = await manageData(dbName,'users','login',password, user)
+                console.log(' alleluja ')
+                // res.status(200).json(userData[0]);
+                res.status(200).send('alleluja i do przodu');
             } else {
                 res.status(400).send('Brak wymaganego nagłówka');
             }
         } catch (err) {
             console.log('błąd: ' + err);
-            res.status(500).send('Wystąpił błąd podczas pobierania danych');
+            res.status(500).send('1 Wystąpił błąd podczas pobierania danych: ' + err);
         }
 
 
@@ -130,48 +144,52 @@ app.get('/:pathName', async (req, res) => {
             }
         } catch (err) {
             console.log('błąd: ' + err);
-            res.status(500).send('Wystąpił błąd podczas pobierania danych');
+            res.status(500).send('2 Wystąpił błąd podczas pobierania danych');
         }
     }
 });
 
 app.get('/userstrips/:idNr', async (req, res) => {
-
+        console.log('151 get trips ')
     const id = req.params.idNr;
     let sendData;
     let filter = {tripUserId: id}
     try {
         sendData = await manageData(dbName, 'trips', 'get',id,filter);
         if (req.headers['my-header'] === 'all') {
-            res.status(200).json(sendData);
+            // res.status(200).json(sendData);
+            res.status(200).json('ok');
         } else {
             res.status(400).send('Brak wymaganego nagłówka');
         }
     } catch (err) {
         console.log('błąd: ' + err);
-        res.status(500).send('Wystąpił błąd podczas pobierania danych');
+        res.status(500).send('3 Wystąpił błąd podczas pobierania danych');
     }
 })
 
 app.get('/:inquiryType/:idNr', async (req, res) => {
+
     const pathName = req.params.inquiryType + 's';
     let filter = null;
     let id = req.params.idNr;
+    console.log('174 get pathname: ' + pathName)
     let sendData;
     if (id === "allNicks") {
             console.log('--------------> allNicks')
         id = null;
 
         try {
-            sendData = await manageData(dbName, pathName, 'getNicks');
+            // sendData = await manageData(dbName, pathName, 'getNicks');
             if (req.headers['my-header'] === 'all') {
-                res.status(200).json(sendData);
+                // res.status(200).json(sendData);
+                res.status(200).json('ok');
             } else {
                 res.status(400).send('Brak wymaganego nagłówka');
             }
         } catch (err) {
             console.log('błąd: ' + err);
-            res.status(500).send('Wystąpił błąd podczas pobierania danych');
+            res.status(500).send('4 Wystąpił błąd podczas pobierania danych');
         }
 
     } else {
@@ -185,7 +203,7 @@ app.get('/:inquiryType/:idNr', async (req, res) => {
             }
         } catch (err) {
             console.log('błąd: ' + err);
-            res.status(500).send('Wystąpił błąd podczas pobierania danych');
+            res.status(500).send('5 Wystąpił błąd podczas pobierania danych');
         }
     }
 });
@@ -239,7 +257,7 @@ app.post('/gle', async (req, res) => {
 // app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // ----------------------------------------------------------------------------------------- PATCH
-console.log('patch')
+// console.log('patch')
 app.patch('/:inquiryType/:id', async (req, res) => {
     const id = req.params.id;
     const pathName = req.params.inquiryType + 's';
@@ -322,12 +340,25 @@ app.delete('/:inquiryType/:idNr', async (req, res) => {
         }
     } catch (err) {
         console.log('błąd: ' + err);
-        res.status(500).send('Wystąpił błąd podczas pobierania danych');
+        res.status(500).send('6 Wystąpił błąd podczas pobierania danych');
     }
 });
 
 
 
+// const privateKey = fs.readFileSync('./private.key', 'utf8');
+// const certificate = fs.readFileSync('./certificate.crt', 'utf8');
+//
+// const credentials = { key: privateKey, cert: certificate };
+//
+// // Utwórz serwer HTTPS
+// const httpsServer = https.createServer(credentials, app);
+
+// listen(3000, '10.25.32.19', () => {
+//     console.log(`Serwer działa na https://10.25.32.19:${httpsServer.address().port}`);
+// });
+
+
 app.listen(port, host, () => {
-    console.log(`Serwer działa na http://${host}:${port}`);
+    console.log(`ten serwer działa na https://${host}:${port}`);
 });

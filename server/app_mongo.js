@@ -4,7 +4,7 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
 
     let idCom = parseInt(idComString);
     // const url = 'mongodb://127.0.0.1:27017';
-    const url = 'mongodb://0.0.0.0:27017';
+    const url = 'mongodb://mongodb.server470062.nazwa.pl:4185';
     const client = await MongoClient.connect(url);
     console.log('---------------------- APP MONGO');
     console.log('Filter: '+ filter)
