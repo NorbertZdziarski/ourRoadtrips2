@@ -2,14 +2,17 @@ const  {MongoClient, ObjectId} = require('mongodb');
 const path = require("path");
 const fs = require("fs");
 const saveLog = require("./apps/savelog");
+require('dotenv').config();
 
-async function manageData(dbName11, collectionName,action,data,filter, idComString ) {
+async function manageData(collectionName,action,data,filter, idComString ) {
+
+    let dbName = process.env.DBNAME || 'ourRoadtrips2';
+    let url = process.env.DBFULLPATH || 'mongodb://127.0.0.1:27017';
 
 
+// const url = dbFullPath ;
 
-const url = 'mongodb://server470062_ourroadtrips:We2c0nnect@mongodb.server470062.nazwa.pl:4185';
-
-const dbName = 'server470062_ourroadtrips';
+// const dbName = 'server470062_ourroadtrips';
 
 //
 // const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -18,7 +21,7 @@ const dbName = 'server470062_ourroadtrips';
 
     
     let idCom = parseInt(idComString);
-    // const url = 'mongodb://127.0.0.1:27017';
+    // const url = '';
     // const url = 'mongodb://mongodb.server470062.nazwa.pl:4185';
     // const url = 'mongodb.server470062.nazwa.pl:4185';
 
