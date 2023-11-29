@@ -1,26 +1,46 @@
 const  {MongoClient, ObjectId} = require('mongodb');
+const path = require("path");
+const fs = require("fs");
+const saveLog = require("./apps/savelog");
 
-async function manageData(dbName, collectionName,action,data,filter, idComString ) {
+async function manageData(dbName11, collectionName,action,data,filter, idComString ) {
 
+
+
+const url = 'mongodb://server470062_ourroadtrips:We2c0nnect@mongodb.server470062.nazwa.pl:4185';
+
+const dbName = 'server470062_ourroadtrips';
+
+//
+// const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    const client = await MongoClient.connect(url);
+
+    
     let idCom = parseInt(idComString);
     // const url = 'mongodb://127.0.0.1:27017';
-    const url = 'mongodb://mongodb.server470062.nazwa.pl:4185';
-    const client = await MongoClient.connect(url);
-    console.log('---------------------- APP MONGO');
-    console.log('Filter: '+ filter)
-    console.log('data: '+ data)
-    console.log('data JSON: '+ JSON.stringify(data))
-    console.log('idCom: '+ idCom)
-    console.log('action: '+ action)
+    // const url = 'mongodb://mongodb.server470062.nazwa.pl:4185';
+    // const url = 'mongodb.server470062.nazwa.pl:4185';
+
+
+    saveLog(`---------------------- APP MONGO \n Filter: ${filter} \n data:  ${data} \n data JSON: ${JSON.stringify(data)} \n idCom: ${idCom} \n  action: ${action} \n  `, 'app_mongo')
+    // console.log('---------------------- APP MONGO');
+    // console.log('Filter: '+ filter)
+    // console.log('data: '+ data)
+    // console.log('data JSON: '+ JSON.stringify(data))
+    // console.log('idCom: '+ idCom)
+    // console.log('action: '+ action)
 
     try {
-        await client.connect();
+        // await client.connect();
+        saveLog(`35 | - try -`, 'app_mongo');
         const db = client.db(dbName);
+        saveLog(`36 | db: ${db}`, 'app_mongo');
         const collection = db.collection(collectionName);
         let dataDB;
 
-        console.log('nazwa kolekcji: ' + collectionName)
-
+        console.log('40 | nazwa kolekcji: ' + collectionName)
+        saveLog(`40 | nazwa kolekcji: ${collectionName}`, 'app_mongo');
         if (action === 'delete') {
             await collection.deleteOne({_id: new ObjectId(data)});
             await client.close();
@@ -66,6 +86,7 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
         } else if (action === 'googleId') {
                 console.log('-{ mongo: poszukiwanie po googleID }-')
                 console.log('-{ filter: ' + filter + ' }-')
+            saveLog(`84 | filter: ${filter}`, 'app_mongo')
             dataDB = await collection.findOne(filter)
             // await collection.insertOne(data);
             await client.close();
@@ -104,15 +125,54 @@ async function manageData(dbName, collectionName,action,data,filter, idComString
             await client.close();
             return dataDB;
         }
-        else { console.log('Niepoprawny identyfikator action: ' + action + ' lub data: ' + data);
+        else { console.log('! Niepoprawny identyfikator action: ' + action + ' lub data: ' + data);
                     }
 
 
     } catch (error) {
         console.error(error);
+        saveLog(` ! ERROR: ${error}`, 'app_mongo')
         await client.close();
     }
 }
 
 module.exports = manageData;
-
+//
+// const MongoClient = require('mongodb').MongoClient;
+//
+// // Connection URL
+// const url = 'mongodb://server470062_ourRoadtrips2:your_password@mongodb.server470062.nazwa.pl:4185';
+//
+// // Database Name
+// const dbName = 'server470062_ourRoadtrips2';
+//
+// // Create a new MongoClient
+// const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
+//
+// async function run() {
+//     try {
+//         // Connect the client to the server
+//         await client.connect();
+//
+//         console.log("Connected correctly to server");
+//
+//         // Specify the database to use
+//         const db = client.db(dbName);
+//
+//         // Specify the collection to use
+//         const col = db.collection('your_collection');
+//
+//         // Insert a single document
+//         let r = await col.insertOne({hello:'world'});
+//
+//         console.log("Insertion was successful");
+//
+//     } catch (err) {
+//         console.log(err.stack);
+//     }
+//
+//     // Close connection
+//     client.close();
+// };
+//
+// run().catch(console.dir);
