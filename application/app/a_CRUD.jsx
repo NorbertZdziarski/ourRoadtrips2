@@ -3,8 +3,8 @@ require('dotenv').config();
 
 const host = process.env.SERVER_HOST || 'localhost';
 const port = process.env.SERVER_PORT || 9000
-const apiURL = `http://${host}:${port}`;
-// const apiURL = `https://${host}:${port}`;
+// const apiURL = `http://${host}:${port}`;
+const apiURL = `https://${host}:${port}`;
 console.log('server HOST: ' + host);
 console.log('server PORT: ' + port);
 console.log('api url: ' + apiURL);
@@ -20,12 +20,19 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
         switch (method.toLowerCase()) {
             case 'get':
                 console.log('get ' + `${apiURL}/${target}`)
-                    response = await axios.get(`${apiURL}/${target}`, {
-                    headers: {
-                        'Access-Control-Allow-Origin': '*',
-                        'my-header': 'all'
-                    }
-                });
+                try {
+                    const response = await axios.get(`${apiURL}/${target}`, {
+                        headers: {
+                            'Access-Control-Allow-Origin': '*',
+                            'my-header': 'all'
+                        }
+                    });
+                    console.log(response.data);
+                    console.log(response);
+                } catch (error) {
+                    console.error(error);
+                }
+
                 break;
             case 'post':
                 const params = new URLSearchParams();

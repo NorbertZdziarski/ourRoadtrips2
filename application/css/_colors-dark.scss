@@ -163,7 +163,6 @@
 }
 
 .colorStyle_input_dark {
-
   p {
     //color: white;
     color: orange;
@@ -174,18 +173,35 @@
 
   }
   option {
-
     background-color: $color-background-userProfile;
       }
   input {
-
     background-color: $color-background-main ;
     color: $color-background-secondary;
 
   }
+}
 
+.colorStyle_yesornot_dark {
+  background-color: rgba(0,0,0) ;
+  color: $color-txt-main;
+  border: 2px solid black;
+  &:hover {
+    color: $color-background-main;
+    background-color: $color-blink-color;
+  }
+  &:disabled {
+    color: rgba(92, 93, 95, 0.49);
+    cursor: not-allowed;
+
+    &:hover {
+      color: rgba(40, 44, 52, 0.49);
+      box-shadow: 0 0 0.8rem 0.2rem rgba(250, 237, 2, 0.15);
+    }
+  }
 
 }
+
 
 .colorStyle_inputLogin_dark {
   background-color: $color-background-secondary;
