@@ -21,16 +21,16 @@ function Login() {
         let user = data.name;
         console.log('funckja async - brak użytkownika o takim ID, zakładam nowe konto.');
 
-        await checkIfItExists(user).then((r)=>{
-            console.log('tymczaowa wynik: ' + r)
-            if (r) user+= new Date();
-        })
+        // await checkIfItExists(user).then((r)=>{
+        //     console.log('tymczaowa wynik: ' + r)
+        //     if (r) user+= new Date();
+        // })
 
 
-        let saveData = {};
+        // let saveData = {};
         // saveData = getInitialFormData('user','');
 
-        saveData = {
+        let saveData = {
             googleId: data.sub,
             nick: user || data.sub,
             firstName: data.name || '',
@@ -47,6 +47,7 @@ function Login() {
         console.log('JSON data: ' + JSON.stringify(saveData));
 
         await transferData(`user/add`, saveData);
+        console.log('aktualizacja stanu Logged User')
         setLoggedUser(saveData);
 
     }

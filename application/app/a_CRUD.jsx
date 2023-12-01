@@ -5,9 +5,9 @@ const host = process.env.SERVER_HOST || 'localhost';
 const port = process.env.SERVER_PORT || 9000
 // const apiURL = `http://${host}:${port}`;
 const apiURL = `https://${host}:${port}`;
-console.log('server HOST: ' + host);
-console.log('server PORT: ' + port);
-console.log('api url: ' + apiURL);
+console.log('_server HOST: ' + host);
+console.log('_server PORT: ' + port);
+console.log('_api url: ' + apiURL);
 const sendRequest = async (method, target, data,folderName, fileName) => {
     // console.log('data: ' + data)
     // console.log('method: ' + method)
@@ -102,7 +102,8 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
             default:
                 throw new Error(`Nieobsługiwana metoda: ${method}`);
         }
-
+        console.log(response.data)
+        if (!response.data) return 'brak danych'
         return response.data;
     } catch (error) {
         console.error(`Błąd podczas zapytania ${method} do ${target}:`, error);

@@ -9,6 +9,7 @@ function ShowTrips({dataFilter}) {
 
     useEffect(() => {
         fetchData('trips').then(downloadedData => {
+            console.log('2_showTrips - pobrane dane: ' + downloadedData)
             setData(downloadedData)
         });
 

@@ -13,7 +13,8 @@ import DataFilter from "./3_filter";
 import Login from "./2_logowanie";
 import AboutMe from "./2_aboutMe";
 import ShowCar from "./3_showCar";
-// import Gmap from "./5_map";
+import Gmap from "./2_map";
+import Tymczasowe from "./tymczasowe";
 
 const MainPage = () => {
     const page = useStoreState(state => state.page);
@@ -27,6 +28,8 @@ const MainPage = () => {
                 {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
                 {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
                 {(page === "login" ? (<Login/>):(<></>))}
+                {(page === "map" ? (<Gmap/>):(<></>))}
+                {(page === "tymczasowe" ? (<Tymczasowe/>):(<></>))}
 
 
                 {(page === "showTrip" ? (<ShowTrip />):(<></>))}

@@ -21,7 +21,7 @@ const MyForm = ({type}) => {
     const setTemporaryPass2 = useStoreActions(actions => actions.setTemporaryPass2);
 
     const [formError, setFormError] = useState(null);
-
+    const displayStyles = useStoreState(state => state.displayStyles);
 
     let newUser = true;
     let usersCarsDisp = [];
@@ -53,7 +53,7 @@ console.log(usersCarsDisp)
         setLoggedUser(newState);
     }
     useEffect(() => {
-        setFormData(getInitialFormData(type,loggedUser,dataId));
+        setFormData(getInitialFormData({type}, {loggedUser}, {dataId}));
     }, [type]);
 
 
@@ -63,13 +63,13 @@ async function addDataToMongo(dataToSave) {
         console.log('------------- trip database !!!')
         console.log('nowe MONGO ' + dataToSave);
         targetPath = 'add';
-        await transferData(`${type}/${targetPath}`,dataToSave);
+        await transferData(`${type}/${targetPath}`, {dataToSave});
         setPage("userProfile");
     } else {
         console.log('------------- trip database !!!')
         console.log('update MONGO ' + dataToSave);
         targetPath = dataId._id;
-        await updateData(`${type}/${targetPath}`,dataToSave);
+        await updateData(`${type}/${targetPath}`, {dataToSave});
         setPage('userProfile')
     };
 }
@@ -95,7 +95,7 @@ async function addDataToMongo(dataToSave) {
                 newFileName = newFileNameGenerator(dataId._id, name);
                 tempFileNameArr.push(newFileName);
                 console.log('wysyłka pliku nr: ' + i + ' o nazwie: ' + newFileName )
-                await transferDataFile(`upload`, file[i], folderName, newFileName);
+                await transferDataFile(`upload`, file[i], {folderName}, {newFileName});
 
 
 
@@ -158,17 +158,17 @@ async function addDataToMongo(dataToSave) {
                 setFormData({...formData, password: temporaryPass1})
 
             } else {
-                console.log(' handle change err')
-                error += 'błąd hasła!';
+                // console.log(' handle change err')
+                // error += 'błąd hasła!';
 
                 }}
         if (newUser) {
             if (type === 'user') {
 
-                if (formData.regulations !== 'you accept the regulations') error += 'brak akceptacji regulaminu \n';
-                if (!formData.nick) error += 'podaj swój nick \n';
-                if (!formData.firstName) error += 'podaj swoje imię \n';
-                if (!formData.password) error += 'podaj hasło \n';
+                // if (formData.regulations !== 'you accept the regulations') error += 'brak akceptacji regulaminu \n';
+                // if (!formData.nick) error += 'podaj swój nick \n';
+                // if (!formData.firstName) error += 'podaj swoje imię \n';
+                // if (!formData.password) error += 'podaj hasło \n';
 
 
             }
@@ -190,10 +190,10 @@ async function addDataToMongo(dataToSave) {
         if (type === 'trip') {
             if (file) {
                 await addMultiFiles().then((responseData)=> {
-                    addDataToMongo(responseData)
+                    addDataToMongo({responseData})
                 });
             } else {
-                await addDataToMongo(formData)
+                await addDataToMongo({formData})
             }
             setPage("mainPage");
         }
@@ -218,17 +218,17 @@ async function addDataToMongo(dataToSave) {
             dataToSave = {
                 cars: carsArr,
             };
-            updateUser('cars',carsArr)
+            updateUser('cars', {carsArr})
             console.log(' update - 124')
             if (file)  {
                 newFileName = newFileNameGenerator(formData.carId);
                 formData.carPhoto = newFileName; }
-            await updateData(`user/${loggedUser._id}`, dataToSave);
+            await updateData(`user/${loggedUser._id}`, {dataToSave});
             if (file) {
                 let folderName = 'users'
                 console.log('warunek wysyłki')
                 /// błąd z czytaniem "data" w CRUD linia 76, 74
-                await transferDataFile(`upload`, file, folderName, newFileName).then(()=>{
+                await transferDataFile(`upload`, {file}, {folderName}, {newFileName}).then(()=>{
                     console.log('wysyłka pliku')
                     setPage('userProfile')});
 
@@ -248,11 +248,11 @@ async function addDataToMongo(dataToSave) {
                 let tempUser = formData.nick;
                 let tempPass = formData.password;
                 let userId;
-                await transferData(`${type}/${targetPath}`, formData);
+                await transferData(`${type}/${targetPath}`, {formData});
 
                 const target = `?user=${encodeURIComponent(tempUser)}&password=${encodeURIComponent(tempPass)}`
                 await fetchData('login' + target).then(downloadedData => {
-                    if (!downloadedData) {
+                    if (!downloadedData) {{}
                         console.log('wrong password or login');
                     } else {
                         console.log('update na stronie')
@@ -262,7 +262,7 @@ async function addDataToMongo(dataToSave) {
                 if (file)  {
                     newFileName = newFileNameGenerator('profile');
                     formData.userPhoto = newFileName; }
-                await transferDataFile(`upload`, file, 'users', newFileName);
+                await transferDataFile(`upload`, {file}, 'users', {newFileName});
                 console.log('150')
                 console.log('zmiana strony: ');
                 setPage("mainPage");
@@ -273,8 +273,8 @@ async function addDataToMongo(dataToSave) {
                 formData.userPhoto = newFileName;
                 let folderName = 'users';
 
-                await updateData(`${type}/${loggedUser._id}`, formData);
-                await transferDataFile(`upload`, file, folderName, newFileName);
+                await updateData(`${type}/${loggedUser._id}`, {formData});
+                await transferDataFile(`upload`, {file}, {folderName}, {newFileName});
                 await deleteFile(`images/users/${loggedUser.userPhoto}`);
 
                 // console.log('wysyłka pliku');
@@ -284,7 +284,7 @@ async function addDataToMongo(dataToSave) {
 
             // console.log(formData)
             // console.log(`${type}/${targetPath}`)
-            await updateData(`${type}/${loggedUser._id}`, formData);
+            await updateData(`${type}/${loggedUser._id}`, {formData});
             const tempVar = {...loggedUser,...formData}
             setLoggedUser(tempVar)
 
@@ -296,7 +296,7 @@ async function addDataToMongo(dataToSave) {
 
     return (
         <div className="mainWindowStyle">
-            <form onSubmit={handleSubmit} className="imputForm" >
+            <form onSubmit={handleSubmit} className={`imputForm colorStyle_input_${displayStyles}`} >
 
                 <PrintForm
                     form={formArr}

@@ -82,12 +82,15 @@ function Header() {
                                                 Sort
                                             </button>
                                             {(page === "mainPage") ?
-                                                <button disabled onClick={()=>tymczasowa()}>
+                                                <button onClick={()=>setPage("map")}>
                                                     Map
                                                 </button> : <button disabled >
                                                     List
                                                 </button>
                                             }
+                                            <button onClick={()=>setPage("tymczasowe")}>
+                                                tymczasowe
+                                            </button>
                                         </> : <></>}
 
                                 </>}
