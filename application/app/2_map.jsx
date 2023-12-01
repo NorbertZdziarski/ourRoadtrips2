@@ -4,7 +4,7 @@ import {DirectionsRenderer, DirectionsService, GoogleMap, LoadScript} from '@rea
 require('dotenv').config();
 const Gmap = () => {
 
-    const googleMapsAPIkey =  process.env.GOOGLE_MAPS_API_KEY || 'AIzaSyCzEi629ZB2TUIp0u8YTj-9FcxBlzK4r0I'
+    const googleMapsAPIkey =  process.env.GOOGLE_MAPS_API_KEY || ''
     const mapStyles = {
         height: "100vh",
         width: "100%"
