@@ -2,9 +2,9 @@
   "name": "server",
   "version": "1.0.0",
   "description": "ourRoadtrips server",
-  "main": "app.js",
+  "main": "app_soft.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app_soft.js"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -4,29 +4,16 @@ const fs = require("fs");
 const saveLog = require("./apps/savelog");
 require('dotenv').config();
 
-async function manageData(collectionName,action,data,filter, idComString ) {
+async function manageData(collectionName, action,data,filter, idComString ) {
+    saveLog(`8 | uruchomiono app_mongo`, 'app_mongo');
+    const dbName = process.env.DBNAME || 'ourRoadtrips2';
+    const url = process.env.DBFULLPATH || 'mongodb://127.0.0.1:27017';
 
-    let dbName = process.env.DBNAME || 'ourRoadtrips2';
-    let url = process.env.DBFULLPATH || 'mongodb://127.0.0.1:27017';
-
-
-// const url = dbFullPath ;
-
-// const dbName = 'server470062_ourroadtrips';
-
-//
-// const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true });
-
+    // const collectionName = 'ourRoadtrips'
     const client = await MongoClient.connect(url);
-
-    
     let idCom = parseInt(idComString);
-    // const url = '';
-    // const url = 'mongodb://mongodb.server470062.nazwa.pl:4185';
-    // const url = 'mongodb.server470062.nazwa.pl:4185';
 
-
-    saveLog(`---------------------- APP MONGO \n Filter: ${filter} \n data:  ${data} \n data JSON: ${JSON.stringify(data)} \n idCom: ${idCom} \n  action: ${action} \n  `, 'app_mongo')
+    saveLog(`--08-53--------------- APP MONGO  \n -- manage data --\n collection Name: ${collectionName} \n action: ${action} \n data:  ${data} \n data JSON: ${JSON.stringify(data)} \n Filter: ${filter} \n idCom: ${idCom} \n   `, 'app_mongo')
     // console.log('---------------------- APP MONGO');
     // console.log('Filter: '+ filter)
     // console.log('data: '+ data)
@@ -38,14 +25,38 @@ async function manageData(collectionName,action,data,filter, idComString ) {
         // await client.connect();
         saveLog(`35 | - try -`, 'app_mongo');
         const db = client.db(dbName);
-        saveLog(`36 | db: ${db}`, 'app_mongo');
+        // saveLog(`36 | db: ${db}`, 'app_mongo');
         const collection = db.collection(collectionName);
         let dataDB;
-
+        // saveLog(`40 | collection: ${collection}`, 'app_mongo');
         console.log('40 | nazwa kolekcji: ' + collectionName)
-        saveLog(`40 | nazwa kolekcji: ${collectionName}`, 'app_mongo');
+        saveLog(`42 | nazwa kolekcji: ${collectionName}`, 'app_mongo');
+        saveLog(`43 | action: ${action}`, 'app_mongo');
+        if (action === 'dodaj_obj') {
+            saveLog(` /// dodaj obj`, 'app_mongo');
+            await collection.insertOne({data}, function (err,res) {
+                if (err) { saveLog(` /// BŁĄD: ${err}`, 'app_mongo');}
+                client.close();
+            });
+        }
+
         if (action === 'delete') {
             await collection.deleteOne({_id: new ObjectId(data)});
+            await client.close();
+        } else if (action == 'pobierzwszystko') {
+            saveLog(`47 !!!!! pobierzwszystko`, 'app_mongo');
+
+            dataDB = await collection.find({})
+                // .toArray((err, data) => {
+                // if (err) {
+                //     saveLog(`52 | error pobierz wszystko: ${err} `, 'app_mongo');
+                //
+                // } else {
+                //     saveLog(`55 | ok - pobierz wszystko ${data}`, '!!!_mongo');
+                //
+                    return dataDB;
+                // }
+            // });
             await client.close();
         } else if (action === 'patch') {
             await collection.updateOne({_id: new ObjectId(filter)}, { $set: data }, { upsert: false });
@@ -69,7 +80,7 @@ async function manageData(collectionName,action,data,filter, idComString ) {
             console.log('filter: ' + filter)
             console.log('id: ' + idCom)
             console.log(typeof idCom);
-            console.log('like: ' + data)
+            console.log('data: ' + data)
 
             //
             try {
@@ -78,24 +89,26 @@ async function manageData(collectionName,action,data,filter, idComString ) {
                     { $set: { "tripComments.$.commLike": data } }
                 );
                     console.log('Result: ');
-                    console.log(result);
+                saveLog(`81 | result: ${result} `,`app_mongo`);
                 console.log("Dokument został zaktualizowany!");
             } catch (err) {
-                console.error(err);
+                saveLog(`84 | błąd: ${err}`,`app_mongo`);
             } finally {
                 await client.close();
             }
 
         } else if (action === 'googleId') {
-                console.log('-{ mongo: poszukiwanie po googleID }-')
-                console.log('-{ filter: ' + filter + ' }-')
+                // console.log('-{ mongo: poszukiwanie po googleID }-')
+                // console.log('-{ filter: ' + filter + ' }-')
             saveLog(`84 | filter: ${filter}`, 'app_mongo')
             dataDB = await collection.findOne(filter)
             // await collection.insertOne(data);
             await client.close();
             if (!dataDB) {
+                saveLog(`100 | zwrot - noUser`, 'app_mongo')
                 return 'noUser';
             }
+            saveLog(`103 | zwrot ${dataDB}`, 'app_mongo')
             return dataDB;
 
         } else if (data && action === 'post') {
@@ -121,6 +134,7 @@ async function manageData(collectionName,action,data,filter, idComString ) {
         } else if (action === 'get' && !data ) {
             dataDB = await collection.find().toArray();
             await client.close();
+            saveLog(`137 | pobieranie typu get | uzyskane dane: ${dataDB}  `,`app_mongo`)
             return dataDB;
         } else if (action === 'get' && data) {
 
