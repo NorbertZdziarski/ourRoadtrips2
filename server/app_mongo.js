@@ -4,7 +4,7 @@ const fs = require("fs");
 const saveLog = require("./apps/savelog");
 require('dotenv').config();
 
-async function manageData(collectionName, action,data,filter, idComString ) {
+async function manageData({collectionName}, action,data,filter, idComString ) {
     saveLog(`8 | uruchomiono app_mongo`, 'app_mongo');
     const dbName = process.env.DBNAME || 'ourRoadtrips2';
     const url = process.env.DBFULLPATH || 'mongodb://127.0.0.1:27017';
@@ -12,8 +12,8 @@ async function manageData(collectionName, action,data,filter, idComString ) {
     // const collectionName = 'ourRoadtrips'
     const client = await MongoClient.connect(url);
     let idCom = parseInt(idComString);
-
-    saveLog(`--08-53--------------- APP MONGO  \n -- manage data --\n collection Name: ${collectionName} \n action: ${action} \n data:  ${data} \n data JSON: ${JSON.stringify(data)} \n Filter: ${filter} \n idCom: ${idCom} \n   `, 'app_mongo')
+    // saveLog(`\n \n data: ${data} \n `,`app_mongo`)
+    saveLog(`\n\n--08-53--------------- APP MONGO  \n -- manage data --\n collection Name: ${collectionName} \n action: ${action} \n \ndata:  ${data} \n data JSON: ${JSON.stringify(data)} \n Filter: ${filter} \n idCom: ${idCom} \n   `, 'app_mongo')
     // console.log('---------------------- APP MONGO');
     // console.log('Filter: '+ filter)
     // console.log('data: '+ data)
@@ -26,11 +26,11 @@ async function manageData(collectionName, action,data,filter, idComString ) {
         saveLog(`35 | - try -`, 'app_mongo');
         const db = client.db(dbName);
         // saveLog(`36 | db: ${db}`, 'app_mongo');
-        const collection = db.collection(collectionName);
+        const collection = db.collection('users');
         let dataDB;
         // saveLog(`40 | collection: ${collection}`, 'app_mongo');
         console.log('40 | nazwa kolekcji: ' + collectionName)
-        saveLog(`42 | nazwa kolekcji: ${collectionName}`, 'app_mongo');
+        saveLog(`42 | nazwa kolekcji: ${collectionName} , JSON ${JSON.stringify(collectionName)}`, 'app_mongo');
         saveLog(`43 | action: ${action}`, 'app_mongo');
         if (action === 'dodaj_obj') {
             saveLog(` /// dodaj obj`, 'app_mongo');
@@ -101,7 +101,7 @@ async function manageData(collectionName, action,data,filter, idComString ) {
                 // console.log('-{ mongo: poszukiwanie po googleID }-')
                 // console.log('-{ filter: ' + filter + ' }-')
             saveLog(`84 | filter: ${filter}`, 'app_mongo')
-            dataDB = await collection.findOne(filter)
+            dataDB = await collection.findOne(data)
             // await collection.insertOne(data);
             await client.close();
             if (!dataDB) {
