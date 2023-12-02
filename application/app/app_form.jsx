@@ -63,13 +63,13 @@ async function addDataToMongo(dataToSave) {
         console.log('------------- trip database !!!')
         console.log('nowe MONGO ' + dataToSave);
         targetPath = 'add';
-        await transferData(`${type}/${targetPath}`, {dataToSave});
+        await transferData(`${type}/${targetPath}`, dataToSave);
         setPage("userProfile");
     } else {
         console.log('------------- trip database !!!')
         console.log('update MONGO ' + dataToSave);
         targetPath = dataId._id;
-        await updateData(`${type}/${targetPath}`, {dataToSave});
+        await updateData(`${type}/${targetPath}`, dataToSave);
         setPage('userProfile')
     };
 }
@@ -223,7 +223,7 @@ async function addDataToMongo(dataToSave) {
             if (file)  {
                 newFileName = newFileNameGenerator(formData.carId);
                 formData.carPhoto = newFileName; }
-            await updateData(`user/${loggedUser._id}`, {dataToSave});
+            await updateData(`user/${loggedUser._id}`, dataToSave);
             if (file) {
                 let folderName = 'users'
                 console.log('warunek wysyłki')
@@ -262,7 +262,7 @@ async function addDataToMongo(dataToSave) {
                 if (file)  {
                     newFileName = newFileNameGenerator('profile');
                     formData.userPhoto = newFileName; }
-                await transferDataFile(`upload`, {file}, 'users', {newFileName});
+                await transferDataFile(`upload`, {file}, 'users', newFileName);
                 console.log('150')
                 console.log('zmiana strony: ');
                 setPage("mainPage");
@@ -273,7 +273,7 @@ async function addDataToMongo(dataToSave) {
                 formData.userPhoto = newFileName;
                 let folderName = 'users';
 
-                await updateData(`${type}/${loggedUser._id}`, {formData});
+                await updateData(`${type}/${loggedUser._id}`, formData);
                 await transferDataFile(`upload`, {file}, {folderName}, {newFileName});
                 await deleteFile(`images/users/${loggedUser.userPhoto}`);
 
@@ -284,11 +284,12 @@ async function addDataToMongo(dataToSave) {
 
             // console.log(formData)
             // console.log(`${type}/${targetPath}`)
-            await updateData(`${type}/${loggedUser._id}`, {formData});
+            await updateData(`${type}/${loggedUser._id}`, formData);
             const tempVar = {...loggedUser,...formData}
             setLoggedUser(tempVar)
 
-            setPage("mainPage");
+            setPage("mainPage");git status
+
         }
         // setFormData(getInitialFormData(type,loggedUser));
         setPage("userProfile");
