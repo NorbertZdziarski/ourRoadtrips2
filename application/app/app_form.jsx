@@ -193,7 +193,7 @@ async function addDataToMongo(dataToSave) {
                     addDataToMongo({responseData})
                 });
             } else {
-                await addDataToMongo({formData})
+                await addDataToMongo(formData)
             }
             setPage("mainPage");
         }
@@ -248,7 +248,7 @@ async function addDataToMongo(dataToSave) {
                 let tempUser = formData.nick;
                 let tempPass = formData.password;
                 let userId;
-                await transferData(`${type}/${targetPath}`, {formData});
+                await transferData(`${type}/${targetPath}`, formData);
 
                 const target = `?user=${encodeURIComponent(tempUser)}&password=${encodeURIComponent(tempPass)}`
                 await fetchData('login' + target).then(downloadedData => {
@@ -288,7 +288,7 @@ async function addDataToMongo(dataToSave) {
             const tempVar = {...loggedUser,...formData}
             setLoggedUser(tempVar)
 
-            setPage("mainPage");git status
+            setPage("mainPage");
 
         }
         // setFormData(getInitialFormData(type,loggedUser));

@@ -1,7 +1,7 @@
 import axios from 'axios';
 require('dotenv').config();
 
-const host = process.env.SERVER_HOST || 'localhost';
+const host = process.env.SERVER_HOST || 'llllocalhost';
 const port = process.env.SERVER_PORT || 9000
 // const apiURL = `http://${host}:${port}`;
 const apiURL = `https://${host}:${port}`;
@@ -27,8 +27,10 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                             'my-header': 'all'
                         }
                     });
+                    console.log(' 23-23-3');
                     console.log(response.data);
                     console.log(response);
+                    return response.data;
                 } catch (error) {
                     console.error(error);
                 }
