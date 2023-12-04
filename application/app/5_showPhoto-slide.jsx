@@ -11,7 +11,7 @@ function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
                    photoClass={style} />
         </div>)
 
-    const [photoNr, setPhotoNr] = useState(0)
+    const [photoNr, setPhotoNr] = useState(0);
 
 
     const fnBtnLeft = () => {

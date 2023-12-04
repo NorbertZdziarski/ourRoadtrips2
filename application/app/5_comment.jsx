@@ -15,7 +15,7 @@ function Comment({comment, author, userId, tripId}) {
     useEffect(() => {
         const fetchPhoto = async () => {
             console.log(userId)
-            const data = await fetchData(`user/${userId}`);
+            const data = await fetchData(`one/user/${userId}`);
             console.log('---comment pobieranie data')
             console.log(data)
             console.log(data[0].userPhoto)

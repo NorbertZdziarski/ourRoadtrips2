@@ -6,7 +6,7 @@ const UserDataEdit = ({userData}) => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchDataFn = async () => {
             try {
                 const response = await axios.get(`http://localhost:9000/trip/${userData}`, {
                     headers: {
@@ -21,7 +21,7 @@ const UserDataEdit = ({userData}) => {
             }
         };
 
-        fetchData();
+        fetchDataFn();
     }, [userData]);
 
     return (

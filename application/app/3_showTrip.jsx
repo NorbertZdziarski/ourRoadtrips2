@@ -24,7 +24,7 @@ function ShowTrip() {
     const displayStyles = useStoreState(state => state.displayStyles);
 
     useEffect(() => {
-        const target = `trip/${tripId}`
+        const target = `one/trip/${tripId}`
         fetchData(target).then(downloadedData => {
             setData(downloadedData[0])
         });

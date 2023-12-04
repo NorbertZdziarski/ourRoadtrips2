@@ -22,7 +22,7 @@ function UserProfile() {
 
 
     useEffect(() => {
-        const target = `userstrips/${loggedUser._id}`
+        const target = `select/userstrips/${loggedUser._id}`
         fetchData(target).then(downloadedData => {
             setUsersTrips(downloadedData)
         });
@@ -50,7 +50,7 @@ function UserProfile() {
             }
             if (toDelete[0] === 'trip') {
                 await deleteData(`trip/${toDelete[1]._id}`);
-                const target = `userstrips/${loggedUser._id}`
+                const target = `select/userstrips/${loggedUser._id}`
                 fetchData(target).then(downloadedData => {
                     setUsersTrips(downloadedData)
                 });

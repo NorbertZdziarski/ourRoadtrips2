@@ -19,7 +19,7 @@ function AboutMe() {
     useEffect(() => {
         // dodac żę jak nie ma chosen to chosen jest loggedUser.
         if(chosen) {
-            const urlPath = path.join('user',chosen)
+            const urlPath = path.join('one/user',chosen)
             fetchData(urlPath)
                 .then(data => {
                     setUserData(data[0]);
@@ -32,7 +32,7 @@ function AboutMe() {
         }
     }, []);
     useEffect(() => {
-        const target = `userstrips/${chosen}`
+        const target = `one/trip/${chosen}`
         fetchData(target).then(downloadedData => {
             setUserTrips(downloadedData)
         });

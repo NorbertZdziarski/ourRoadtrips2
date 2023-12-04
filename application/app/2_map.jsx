@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-// import { GoogleMap, DirectionsRenderer } from '@googlemaps/react-wrapper';
+import React, {useMemo, useState} from 'react';
 import {DirectionsRenderer, DirectionsService, GoogleMap, LoadScript} from '@react-google-maps/api';
 require('dotenv').config();
 const Gmap = () => {
 
-    const googleMapsAPIkey =  process.env.GOOGLE_MAPS_API_KEY || ''
+    const googleMapsAPIkey =  process.env.GOOGLE_MAPS_API_KEY || '';
     const mapStyles = {
-        height: "100vh",
-        width: "100%"
+        height: "500px",
+        width: "100%",
+        opacity: 0.9
     };
     const [response, setResponse] = React.useState(null);
+    const [start, setStart] = React.useState(null);
+    const [meta, setMeta] = React.useState(null);
+    const [przez, setPrzez] = React.useState([]);
 
     const directionsCallback = (res) => {
         if (res !== null) {
@@ -21,22 +24,30 @@ const Gmap = () => {
         }
     }
     const defaultCenter = {
-        // lat: 50.0647, lng: 19.9450
-        // lat: 41.85,
-        // lng: -87.65
+        lat: 50.0647, lng: 19.9450
     }
-console.log(response)
-    return (
-        <LoadScript
-            googleMapsApiKey={googleMapsAPIkey}>
+console.log(przez + ' | ' + response)
+    const map = useMemo(() => {
+        function addPoint(pointToAdd) {
+            if (!start) {
+                setStart(pointToAdd)
+            } else if (!meta) {
+                setMeta(pointToAdd)
+            } else {
+                setPrzez((prev) => [...prev, {location: pointToAdd, stopover: false}]);
+            }
+        }
+        return (
+            <div style={{zIndex:100, position: 'relative'}}>
             <GoogleMap
                 mapContainerStyle={mapStyles}
-                // zoom={13}
-                // center={defaultCenter}
+                // center= {defaultCenter}
+                // zoom={10}
                 options={{
                     mapId: '9bce0c5043b558bb',
                     mapTypeControl: true,
                     mapTypeId: 'roadmap',
+                    backgroundColor: 'hsla(0, 0%, 0%, 0)',
                     mapTypeControlOptions: {
                         style: 'ourRoadTrips2_style',
                         position: 'TOP_RIGHT',
@@ -49,32 +60,28 @@ console.log(response)
                         ]
                     }
                 }}
+                onClick={ev => {
+                    let llat = ev.latLng.lat();
+                    let llng = ev.latLng.lng();
+                    addPoint({ lat: llat, lng: llng});
+                }}
             >
-                <DirectionsService
-                    // required
-                    options={{
-                        destination: 'Bukareszt, RO',
-                        origin: 'Krakow, Pl',
-                        travelMode: 'DRIVING',
-                        waypoints: [
-                            {
-                                location: 'Koszyce, SK',
-                                stopover: true
-                            },
-                            {
-                                location: 'Cluj-Napoca, RO',
-                                stopover: true
-                            }
-                        ]
-                    }}
-                    // required
-                    callback={directionsCallback}
-                />
-
+                {
+                    start && meta && (
+                        <DirectionsService
+                            options={{
+                                destination: meta,
+                                origin: start,
+                                travelMode: 'DRIVING',
+                                waypoints: przez
+                            }}
+                            callback={directionsCallback}
+                        />
+                    )
+                }
                 {
                     response !== null && (
                         <DirectionsRenderer
-                            // required
                             options={{
                                 directions: response
                             }}
@@ -82,13 +89,20 @@ console.log(response)
                     )
                 }
             </GoogleMap>
+            </div>
+        );
+    }, [meta, start, przez, response]);
+
+    return (
+        <LoadScript
+            googleMapsApiKey={googleMapsAPIkey}>
+            {map}
         </LoadScript>
     )
-
 };
 
 export default Gmap;
-
+//
 //             G map
 //             <GoogleMap
 //                 ref={map}
@@ -142,14 +156,15 @@ export default Gmap;
 //
 //     return (
 //         <div>
-//             G map
+//         <LoadScript
+//                        googleMapsApiKey={googleMapsAPIkey}>
 //             <GoogleMap
 //                 ref={map}
 //                 center={{ lat: 50.088094, lng: 19.937210 }}
 //                 zoom={12}
 //             />
 //             <DirectionsRenderer ref={directionsRenderer} />
-//
+//         </LoadScript>
 //             <button onClick={() => setOrigin({ lat: 50.086386, lng: 19.936210 })}>
 //                 Zmień punkt początkowy
 //             </button>

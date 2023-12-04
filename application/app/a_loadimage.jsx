@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveStyle ,imgProportions=true }) => {
     const [image, setImage] = useState('');
-    const host = process.env.SERVER_HOST || 'localhost';
+    const host = process.env.SERVER_HOST || '--localhost';
     const port = process.env.SERVER_PORT || 9000
     const apiURL = `https://${host}:${port}/download`;
     // const apiURL = `http://${host}:${port}/download`;
@@ -20,7 +20,8 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
             setImage(imageName);
         }
         if (imagePath && imageName) {
-
+        console.log('image path: ' + imagePath);
+        console.log('image name: ' + imageName)
             axios({
                 url: apiURL,
                 method: 'GET',
