@@ -11,12 +11,15 @@ router.post('/:inquiryType/add', async (req, res) => {
        saveLog(`16 | action 'post', collection name: ${collectionName} , filter: ${filter} newItem: ${newItem}`,`app_post >`);
        saveLog(`17 | json:  \n newItem: ${JSON.stringify(newItem)}`);
 
-    await manageData({collectionName},'post', newItem).then((r) => {
+    await manageData(collectionName,'post', newItem).then((r) => {
         saveLog(`20 | odpowiedz z zapisu: ${r} json: ${JSON.stringify(r)}`,`app_post >`);
     });
 
     res.status(200).send('Dodano nowy element do bazy danych');
 });
+
+
+
 router.post('/gle', async (req, res) => {
 
     const inputData = await req.body;
@@ -27,7 +30,7 @@ router.post('/gle', async (req, res) => {
 
         saveLog(`28 | json google ID  ${googlefilter} `,`app_post >`);
 
-    await manageData({collectionName},'googleId',{inputData}).then((r)=>{
+    await manageData(collectionName,'googleId',inputData).then((r)=>{
         saveLog(`31 | google - mongo response:  ${r} `,`app_post >`);
         res.status(200).send(r);
     })

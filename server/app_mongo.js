@@ -4,7 +4,7 @@ const fs = require("fs");
 const saveLog = require("./apps/savelog");
 require('dotenv').config();
 
-async function manageData(collectionName, action, data) {
+async function manageData(collectionName, action, data, filter) {
     saveLog(`8 | uruchomiono app_mongo`, 'app_mongo');
     const dbName = process.env.DBNAME || 'ourRoadtrips2';
     const url = process.env.DBFULLPATH || 'mongodb://127.0.0.1:27017';
@@ -19,7 +19,7 @@ async function manageData(collectionName, action, data) {
 
     try {
         // await client.connect();
-        saveLog(`25 | - try -`, 'app_mongo');
+        saveLog(`25 | - try - 1534`, 'app_mongo');
         const db = client.db(dbName);
         saveLog(`29 | ${db}`, 'app_mongo');
         const collection = db.collection(collectionName);
@@ -28,51 +28,68 @@ async function manageData(collectionName, action, data) {
         saveLog(`42 | nazwa kolekcji: ${collectionName} , JSON ${JSON.stringify(collectionName)}`, 'app_mongo');
         saveLog(`43 | action: ${action}`, 'app_mongo');
 
-    if (action === 'getall') {
-        dataDB = await collection.find().toArray();
-        await client.close();
-        saveLog(`40 | pobieranie typu get_all | uzyskane dane: ${dataDB}  `,`app_mongo`)
-        return dataDB;
+        if (action === 'getall') {
+            dataDB = await collection.find().toArray();
+            await client.close();
+            saveLog(`34 | pobieranie typu get_all | uzyskane dane: ${dataDB}  `,`app_mongo`)
+            return dataDB;
 
 
-    } else if (action === 'dodaj_obj') {
+        } else if (action === 'getone') {
+            dataDB = await collection.findOne({_id: new ObjectId(data)});
+            await client.close();
+            saveLog(`41 | pobieranie typu get_one | uzyskane dane: ${dataDB}  `,`app_mongo`);
+            return dataDB;
+        } else if (action === 'dodaj_obj') {
             saveLog(` /// dodaj obj`, 'app_mongo');
             await collection.insertOne({data}, function (err,res) {
                 if (err) { saveLog(` /// BŁĄD: ${err}`, 'app_mongo');}
                 client.close();
             });
         }
+        else if (action === 'patch') {
+            saveLog(` /// patch`, 'app_mongo');
+            const result = await collection.updateOne({_id: new ObjectId(filter)}, { $set: data }, { upsert: false });
+            if (result.modifiedCount === 0) {
+                saveLog('Nie znaleziono dokumentu do aktualizacji.' , 'app_mongo');
+            } else {
+                saveLog( 'Dokument został pomyślnie zaktualizowany.' , 'app_mongo');
+            }
 
-        if (action === 'delete') {
+            // await collection.insertOne({data}, function (err,res) {
+            //     if (err) { saveLog(` /// BŁĄD: ${err}`, 'app_mongo');}
+            await client.close();
+        }
+        else if (action === 'delete') {
             await collection.deleteOne({_id: new ObjectId(data)});
             await client.close();
+        }
+        else if (action === 'googleId') {
+                // console.log('-{ mongo: poszukiwanie po googleID }-')
+                // console.log('-{ filter: ' + filter + ' }-')
+            // saveLog(`84 | filter: ${filter}`, 'app_mongo')
+            saveLog(`-- google -- ${data}`, 'app_mongo')
+            dataDB = await collection.findOne(data)
+            // await collection.insertOne(data);
+            await client.close();
+            if (!dataDB) {
+                saveLog(`100 | zwrot - noUser`, 'app_mongo')
+                return 'noUser';
+            }
+            saveLog(`103 | zwrot ${dataDB}`, 'app_mongo')
+            return dataDB;
 
-
-        // }
-        // } else if (action === 'googleId') {
-        //         // console.log('-{ mongo: poszukiwanie po googleID }-')
-        //         // console.log('-{ filter: ' + filter + ' }-')
-        //     saveLog(`84 | filter: ${filter}`, 'app_mongo')
-        //     dataDB = await collection.findOne(data)
-        //     // await collection.insertOne(data);
-        //     await client.close();
-        //     if (!dataDB) {
-        //         saveLog(`100 | zwrot - noUser`, 'app_mongo')
-        //         return 'noUser';
-        //     }
-        //     saveLog(`103 | zwrot ${dataDB}`, 'app_mongo')
-        //     return dataDB;
-        //
-        // } else if (data && action === 'post') {
-        //     await collection.insertOne(data);
-        //     await client.close();
+        } else if (data && action === 'post') {
+            saveLog(`81 | post _ insertOne ${data}`, 'app_mongo')
+            await collection.insertOne(data);
+            await client.close();
         // } else if (action === 'login') {
-        // dataDB = await collection.find({nick: filter, password: data}, { projection: { password: 0 } }).toArray();
-        // await client.close();
-        // return dataDB;
+        //     dataDB = await collection.find({nick: filter, password: data}, {projection: {password: 0}}).toArray();
+        //     await client.close();
+        //     return dataDB;
 
-        // else { console.log('! Niepoprawny identyfikator action: ' + action + ' lub data: ' + data);
-                    }
+            // else { console.log('! Niepoprawny identyfikator action: ' + action + ' lub data: ' + data);
+        }
 
 
     } catch (error) {

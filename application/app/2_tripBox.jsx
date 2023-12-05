@@ -21,13 +21,16 @@ function TripBox({trip, dataFilter}) {
         return null;
     }
     if ((dataFilter[2] !== "all" && dataFilter[2] !== "select the type of trip")&& dataFilter[2] !== trip.tripType) {return null;}
-    if (!Array.isArray(trip.tripCar)) {return <p>brak tablicy</p>} else {console.log(trip.tripCar)}
-    if (trip.tripCar && Array.isArray(trip.tripCar)) {
-        console.log('warunek 1')
-        console.log('tripcar 2: ' + trip.tripCar[2])
-        console.log('data filter 3: ' + dataFilter[3])
-        if (trip.tripCar[2] && (dataFilter[3] !== "all" && dataFilter[3] !=="select vehicle type" ) &&  dataFilter[3] !== trip.tripCar[2]) return null;
-    }
+
+    // ---- poniżej weryfikuje czy tripcar jest tablicą. Teraz car będzie miało swoją bazę danych. W tripcar będzie jego ID. ====
+
+    // if (!Array.isArray(trip.tripCar)) {return <p> brak tablicy </p>} else {console.log('trip box | tripCar: ' + trip.tripCar)}
+    // if (trip.tripCar && Array.isArray(trip.tripCar)) {
+    //     console.log('warunek 1')
+    //     console.log('tripcar 2: ' + trip.tripCar[2])
+    //     console.log('data filter 3: ' + dataFilter[3])
+    //     if (trip.tripCar[2] && (dataFilter[3] !== "all" && dataFilter[3] !=="select vehicle type" ) &&  dataFilter[3] !== trip.tripCar[2]) return null;
+    // }
 
 
     // if (choiceVehicleType !== "all" && choiceVehicleType !== trip.tripCar.vehicle) return null;

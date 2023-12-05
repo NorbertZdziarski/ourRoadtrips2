@@ -56,7 +56,7 @@ function Login() {
         e.preventDefault()
 // funkcja logowania przy logowaniu za pomocą email - moje logowanie.
         const target = `?user=${encodeURIComponent(userName)}&password=${encodeURIComponent(userPassword)}`
-        await fetchData('login' + target).then(downloadedData => {
+        await fetchData('login/' + target).then(downloadedData => {
             if (!downloadedData) {
                 setFetchError('wrong password or login');
             } else {
@@ -71,16 +71,18 @@ function Login() {
         const decodedToken = jwtDecode(response.credential);
 
         let sendData = { googleId: decodedToken.sub }
+        console.log('logowanie | sendData: ' + sendData)
+        console.log('logowanie | odpalam transferData ')
         await transferData('gle',sendData)
             .then((downloadedData)=>{
-                console.log('udało się pobrać dane googleID')
+                console.log('udało się pobrać dane googleID | dane: ' + downloadedData)
                 if (downloadedData) {
                     if (downloadedData === 'noUser') {
                         console.log('brak użytkownika o takim ID, zakładam nowe konto.')
                         createUser(decodedToken);
                         setPage("mainPage")
                     } else {
-                        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~')
+                        console.log('~~~~~ co jest pobrane ~~~~~~~~~~~~~~~~~~~~~')
 
                         console.log(downloadedData)
                         setLoggedUser(downloadedData)

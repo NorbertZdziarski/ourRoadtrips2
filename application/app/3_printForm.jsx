@@ -26,7 +26,8 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     let slicePoint;
     let commentsValue;
     let tripRateData;
-    console.log(usersCars)
+    console.log('print form | zmienna type: ' + type)
+    console.log('print form | zmienna users Cars: ' + usersCars)
     // console.log(usersCarId)
     // console.log(usersCarStyleType)
     const zmienStan = () => {
@@ -60,6 +61,7 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     };
 
     if (type === 'user') {
+
         slicePoint = 0;
         if (!loggedUser._id && (!form.includes('password' && 'regulations'))) {
             form.push('password');
@@ -75,8 +77,10 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     if (type === 'trip') slicePoint = 4;
     if (type === 'car') slicePoint = 3;
 
-    console.log(formData)
-    console.log(form)
+    console.log('print form | zmienna form data: ' + formData);
+    console.log('print form | zmienna form: ' + form);
+    console.log('print form | JSON form data: ' + JSON.stringify(formData));
+    console.log('print form | JSON form: ' + JSON.stringify(form));
 
 
     if (formData.tripComments) commentsValue = formData.tripComments.length;

@@ -10,8 +10,9 @@ require('dotenv').config();
 
 const appGet = require('./apps/app_get');
 const appPost = require('./apps/app_post');
+const appPatch = require('./apps/app_patch');
 
-const manageData = require('./app_mongo')
+// const manageData = require('./app_mongo')
 const saveLog = require("./apps/savelog");
 
 const app = express();
@@ -27,6 +28,7 @@ const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         const fileType = req.body.type;
         saveLog('check my-header',`app.js _ multer `);
+        saveLog(`file type: ${fileType}`,`app.js _ multer `);
         if ((fileType!=='users') && (fileType!=='trips')) {
             const error = new Error('błędna nazwa folderu (typ)');
             error.code = 'INCORRECT_FOLDER';
@@ -34,7 +36,7 @@ const storage = multer.diskStorage({
             return cb(error); }
         // const subFolderName = req.body.folderName;
         const folderName = path.join('images',fileType)
-
+        saveLog(`folder name: ${folderName}`,`app.js _ multer `);
         if (!fs.existsSync(folderName)) {
             fs.mkdirSync(folderName,{recursive: true})
         }
@@ -81,16 +83,19 @@ app.use((req, res, next) => {
 
 app.post('/upload', function (req, res) {
     upload(req, res, function (err) {
-        saveLog('116 | upload')
+        saveLog('85 | upload')
         try {
             if (err instanceof multer.MulterError) {
+                saveLog(`88 error upload _ MulterError -> ${err.message}`)
                 throw new Error(err.message);
             } else if (err && err.code === 'INCORRECT_FOLDER') {
-
+                saveLog(`91 error upload _ INCORRECT_FOLDER -> ${err.message}`)
                 throw new Error(err.message);
             }
+            saveLog(`94 | Plik został przesłany`)
             res.send('Plik został przesłany');
         } catch (err) {
+            saveLog(`96 error upload _ 400 -> ${err.message}`)
             res.status(400).send(err.message);
         }
     });
@@ -123,24 +128,15 @@ app.get('/download', async function(req, res){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.use(appGet);
 
 app.use(bodyParser.json());
 
+
 app.use(appPost);
+app.use(appPatch)
+
+
 
 
 
@@ -158,8 +154,8 @@ app.use('*', function (req, res, next) {
 
 
 app.listen(port, host, () => {
-    saveLog(`new_v0847 -=-=-=-=-=-=-=-=-=- uruchomiono serwer na https://${host}:${port}`, ` :-) `);
-    console.log(`new v0847 TEN serwer działa na https://${host}:${port}`);
+    saveLog(`}=-=-=-=-=-=-=-=-=-=- uruchomiono serwer na https://${host}:${port}`, `${new Date()}`);
+    console.log(`${new Date()} TEN serwer działa na https://${host}:${port}`);
 });
 
 

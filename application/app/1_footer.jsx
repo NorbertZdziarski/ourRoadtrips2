@@ -9,7 +9,7 @@ function Footer() {
     return (
         <footer className="mainWindowStyle  footer_underconstruction">
             <div className={`layout_main layout_flex-sb footerStyle colorStyle_footer_${displayStyles}`}>
-                <p >(C) {year} Norbert Zdziarski. 12-4-9-24</p>
+                <p >(C) {year} Norbert Zdziarski. 12-5-15-40</p>
                 <button onClick={()=>setPage("aboutUs")} disabled>
                     about project
                 </button>

@@ -26,7 +26,8 @@ function ShowTrip() {
     useEffect(() => {
         const target = `one/trip/${tripId}`
         fetchData(target).then(downloadedData => {
-            setData(downloadedData[0])
+            console.log(downloadedData)
+            setData(downloadedData)
         });
     }, [addComm]);
     async function saveDataFn(saveData) {

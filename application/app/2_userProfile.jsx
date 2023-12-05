@@ -22,8 +22,10 @@ function UserProfile() {
 
 
     useEffect(() => {
+        console.log('Use Effect');
         const target = `select/userstrips/${loggedUser._id}`
         fetchData(target).then(downloadedData => {
+            console.log('2 user profile |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
             setUsersTrips(downloadedData)
         });
     }, []);
@@ -52,6 +54,7 @@ function UserProfile() {
                 await deleteData(`trip/${toDelete[1]._id}`);
                 const target = `select/userstrips/${loggedUser._id}`
                 fetchData(target).then(downloadedData => {
+                    console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
                     setUsersTrips(downloadedData)
                 });
                 if (toDelete[1].tripPhoto) await deleteFile(`images/trips/${toDelete[1].tripPhoto}`);
@@ -60,7 +63,8 @@ function UserProfile() {
         }
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
-
+console.log('2 user profile | users cars: ' + usersCars + ' JSON: ' + JSON.stringify(usersCars))
+console.log('2 user profile | users trips: ' + usersTrips + ' JSON: ' + JSON.stringify(usersTrips))
 
     return (
         <section className="userPanel_main">

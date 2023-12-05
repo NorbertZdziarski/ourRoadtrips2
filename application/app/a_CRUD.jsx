@@ -27,7 +27,6 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                             'my-header': 'all'
                         }
                     });
-                    console.log(' 23-23-3');
                     console.log(response.data);
                     console.log(response);
                     return response.data;
@@ -56,10 +55,15 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 break;
             case 'postfile':
                 const formDatas = new FormData();
+                console.log('CRUD | -=-=- post file -=-=- ');
+                console.log('type' + folderName + ' JSON: ' + JSON.stringify(folderName));
+                console.log('filename' + fileName + ' JSON: ' + JSON.stringify(fileName));
+                console.log('CRUD | ------------------------- ');
+
                 formDatas.append('type', folderName);
                 formDatas.append('filename', fileName);
                 formDatas.append('image', data);
-                axios.post(`${apiURL}/upload`, formDatas, {
+                await axios.post(`${apiURL}/upload`, formDatas, {
                     headers: {
                         'Access-Control-Allow-Origin': '*',
                         'Content-Type': 'multipart/form-data',
