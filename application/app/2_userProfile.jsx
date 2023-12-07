@@ -21,51 +21,68 @@ function UserProfile() {
     const displayStyles = useStoreState(state => state.displayStyles);
 
 
-    useEffect(() => {
-        console.log('Use Effect');
-        const target = `select/userstrips/${loggedUser._id}`
-        fetchData(target).then(downloadedData => {
-            console.log('2 user profile |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+    useEffect(async () => {
+        console.log('|||||||||||||||||||||||||||||| Use Effect');
+        let target = `select/trips/${loggedUser._id}`
+        await fetchData(target).then(downloadedData => {
+            console.log('2 user profile | trips |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
             setUsersTrips(downloadedData)
         });
-    }, []);
+        target = `select/cars/${loggedUser._id}`
+        await fetchData(target).then(downloadedData => {
+            console.log('2 user profile | cars |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+            setUsersCars(downloadedData)
+        });
+    }, [yesOrNot[1]]);
 
 
     useEffect(async ()=> {
         if (yesOrNot[1] === 2) {
             if (toDelete[0] === 'car') {
-                let carsArr = [...loggedUser.cars];
-                const userCopy = {...loggedUser}
+                // let carsArr = [...loggedUser.cars];
+                // const userCopy = {...loggedUser}
+                // console.log('///// cars ARR: ' + carsArr)
+                // carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1].carId);
+                // const dataToSave = {
+                //     cars: carsArr,
+                // };
+                await deleteData(`car/${toDelete[1]._id}`);
+                const target = `select/car/${loggedUser._id}`
+                fetchData(target).then(downloadedData => {
+                    console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+                    // setUsersCars(downloadedData)
+                });
+                // userCopy.cars = carsArr;
+                // setLoggedUser(userCopy);
+                //
+                // await updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
+                //     setUsersCars(carsArr)});
 
-                carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1].carId);
-                const dataToSave = {
-                    cars: carsArr,
-                };
+                let photos = Object.values(toDelete[1].carPhoto);
+                console.log('_______________________________')
+                console.log(photos)
+                console.log(photos.length)
+                 console.log(typeof photos)
 
-                userCopy.cars = carsArr;
-                setLoggedUser(userCopy);
 
-                await updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
-                    setUsersCars(carsArr)});
-                if (toDelete[1].carPhoto) await deleteFile(`images/users/${toDelete[1].carPhoto}`);
+                if (toDelete[1].carPhoto) await deleteFile('images/cars/',photos);
                 setToDelete([``,``])
             }
             if (toDelete[0] === 'trip') {
                 await deleteData(`trip/${toDelete[1]._id}`);
-                const target = `select/userstrips/${loggedUser._id}`
+                const target = `select/trip/${loggedUser._id}`
                 fetchData(target).then(downloadedData => {
                     console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
                     setUsersTrips(downloadedData)
                 });
-                if (toDelete[1].tripPhoto) await deleteFile(`images/trips/${toDelete[1].tripPhoto}`);
+                if (toDelete[1].tripPhoto) await deleteFile('images/trips/',toDelete[1].tripPhoto );
                 setToDelete([``,``])
             }
         }
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
-console.log('2 user profile | users cars: ' + usersCars + ' JSON: ' + JSON.stringify(usersCars))
-console.log('2 user profile | users trips: ' + usersTrips + ' JSON: ' + JSON.stringify(usersTrips))
 
+    console.log(usersCars)
     return (
         <section className="userPanel_main">
             <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
@@ -147,10 +164,10 @@ console.log('2 user profile | users trips: ' + usersTrips + ' JSON: ' + JSON.str
                                                     setDataId('')
                                                     setPage("addTrip")}
                                             }
-                                            className="userPanel_first">
+                                            className={`userPanel_first colorstyle_userPanel_first_${displayStyles}`}>
                     <p>add your first route! </p></button> : <></>}
             </section>
-            <section id="userCars ">
+            <section className={`userPanel_trips colorstyle_button_${displayStyles}`} id="userCars ">
                 <DisplayCars
                 usersCars={usersCars}
                 setDataId={setDataId}
@@ -165,7 +182,7 @@ console.log('2 user profile | users trips: ' + usersTrips + ' JSON: ' + JSON.str
                                                 setDataId('')
                                                 setPage("addCar")}
                                             }
-                                            className="userPanel_first">
+                                            className={`userPanel_first colorstyle_userPanel_first_${displayStyles}`}>
                     <p>add your first car! </p>
                 </button> : <></>}
             </section>

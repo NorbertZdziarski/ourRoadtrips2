@@ -37,6 +37,7 @@ console.log('my form | zmienna type: ' + type)
 console.log('my form | zmienna usersCarsDisp: ' + usersCarsDisp )
 
     const newFileNameGenerator = (idObject, filename) => {
+        console.log('new file name generator: idObject: ' + idObject)
         let oldFileName = filename.toLowerCase();
         let idx = oldFileName.lastIndexOf('.');
         let fileExtension = oldFileName.slice(idx,oldFileName.length)
@@ -58,17 +59,17 @@ console.log('my form | zmienna usersCarsDisp: ' + usersCarsDisp )
 
 
 async function addDataToMongo(dataToSave) {
-    console.log('------------- fn addDataToMongo -------------------------')
-    console.log('fn addDataToMongo - zmienna dataToSave otrzymana do funkcji ' + dataToSave);
+    // console.log('------------- fn addDataToMongo -------------------------')
+    // console.log('fn addDataToMongo - zmienna dataToSave otrzymana do funkcji ' + dataToSave);
     let targetPath;
     if (!dataId) {
-        console.log('------------- trip database !!!')
+
         console.log('fn addDataToMongo / transfer - zmienna dataToSave: ' + dataToSave);
         targetPath = 'add';
         await transferData(`${type}/${targetPath}`, dataToSave);
         setPage("userProfile");
     } else {
-        console.log('------------- trip database !!!')
+
         console.log('fn addDataToMongo / update - zmienna dataToSave' + dataToSave);
         targetPath = dataId._id;
         await updateData(`${type}/${targetPath}`, dataToSave);
@@ -84,19 +85,19 @@ async function addDataToMongo(dataToSave) {
 
             console.log('my form | zmienna file: ' + file)
             console.log(file.length)
-            let folderName = 'trips';
-
+            let folderName = type + 's';
+                console.log('|||| folder name: ' + folderName + 'file name' + file)
             for (let i=0; i<file.length; i++) {
-                console.log('---- petla -{ ' + i)
-                console.log(file[i])
+                // console.log('---- petla -{ ' + i)
+                // console.log(file[i])
                 let name = file[i].name
-                console.log(name)
-                console.log(typeof name)
-                console.log(name.toString())
-                console.log(typeof name.toString())
+                // console.log(name)
+                // console.log(typeof name)
+                // console.log(name.toString())
+                // console.log(typeof name.toString())
                 newFileName = newFileNameGenerator(dataId._id, name);
                 tempFileNameArr.push(newFileName);
-                console.log('wysyłka pliku nr: ' + i + ' o nazwie: ' + newFileName )
+                console.log('wysyłka pliku nr: ' + i + ' o nazwie: ' + newFileName + ' do folderu: ' + folderName)
                 await transferDataFile(`upload`, file[i], folderName, newFileName);
 
 
@@ -105,12 +106,20 @@ async function addDataToMongo(dataToSave) {
 
 
             }
-            console.log('------ po pętli ---')
+            console.log('------ po pętli ---{ type: ' + type)
             console.log('my form | zmienna tempFileNameArr: ' + tempFileNameArr);
 
-            const toSave = {
-                tripPhoto: tempFileNameArr
-            };
+            let toSave;
+            if (type === 'car') {
+                toSave = {
+                    carPhoto: tempFileNameArr
+                };
+            } else if (type === 'trip') {
+                toSave = {
+                    tripPhoto: tempFileNameArr
+                };
+            }
+
 
             console.log('to save: ' + toSave)
             console.log('json: ' + JSON.stringify(toSave));
@@ -127,7 +136,7 @@ async function addDataToMongo(dataToSave) {
             // }));
             const toReturn = {
                     ...formData,
-                    tripPhoto: tempFileNameArr
+                    ...toSave
                 }
             // formData['tripPhoto'] = tempFileNameArr;
             // setFormData([...formData,toSave]);
@@ -201,42 +210,54 @@ async function addDataToMongo(dataToSave) {
         }
 
         if (type === 'car') {
-            let dataToSave;
-            if (!dataId) {
-                let currentDate = new Date();
-                let timestamp = currentDate.getTime();
-                let hexTimestamp = timestamp.toString(16);
-                formData.carId = loggedUser._id + type + hexTimestamp}
-
-            let carsArr = [...loggedUser.cars];
-            const index = carsArr.findIndex((car) => car.carId === formData.carId);
-            if (index !== -1) {
-                carsArr[index] = formData
-            } else {
-                carsArr.push(formData);
-                console.log('add formData puh cars Arr')
-            }
-
-            dataToSave = {
-                cars: carsArr,
-            };
-            updateUser('cars', {carsArr})
-            console.log(' update - 124')
-            if (file)  {
-                newFileName = newFileNameGenerator(formData.carId);
-                formData.carPhoto = newFileName; }
-            await updateData(`user/${loggedUser._id}`, dataToSave);
             if (file) {
-                let folderName = 'users'
-                console.log('warunek wysyłki')
-                /// błąd z czytaniem "data" w CRUD linia 76, 74
-                await transferDataFile(`upload`, {file}, {folderName}, {newFileName}).then(()=>{
-                    console.log('wysyłka pliku')
-                    setPage('userProfile')});
-
+                await addMultiFiles().then((responseData)=> {
+                    addDataToMongo(responseData)
+                });
+            } else {
+                await addDataToMongo(formData)
             }
             setPage("mainPage");
         }
+
+
+
+            // let dataToSave;
+            // if (!dataId) {
+            //     let currentDate = new Date();
+            //     let timestamp = currentDate.getTime();
+            //     let hexTimestamp = timestamp.toString(16);
+            //     formData.carId = loggedUser._id + type + hexTimestamp}
+            //
+            // let carsArr = [...loggedUser.cars];
+            // const index = carsArr.findIndex((car) => car.carId === formData.carId);
+            // if (index !== -1) {
+            //     carsArr[index] = formData
+            // } else {
+            //     carsArr.push(formData);
+            //     console.log('add formData puh cars Arr')
+            // }
+            //
+            // dataToSave = {
+            //     cars: carsArr,
+            // };
+            // updateUser('cars', {carsArr})
+            // console.log(' update - 124')
+            // if (file)  {
+            //     newFileName = newFileNameGenerator(formData.carId);
+            //     formData.carPhoto = newFileName; }
+            // await updateData(`user/${loggedUser._id}`, dataToSave);
+            // if (file) {
+            //     let folderName = 'users'
+            //     console.log('warunek wysyłki')
+            //     /// błąd z czytaniem "data" w CRUD linia 76, 74
+            //     await transferDataFile(`upload`, {file}, {folderName}, {newFileName}).then(()=>{
+            //         console.log('wysyłka pliku')
+            //         setPage('userProfile')});
+            //
+            // }
+        //     setPage("mainPage");
+        // }
         if (type === 'user') {
             console.log(`app_form | submit | user ->`)
             let targetPath;

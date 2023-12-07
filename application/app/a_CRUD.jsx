@@ -98,7 +98,10 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 break;
             case 'deletefile':
                 response = await axios.delete(`${apiURL}/file`, {
-                    data: {target},
+                    data: {
+                        path: target,
+                        filesnames: data
+                    },
                     headers: {
                         'my-header': 'all',
                         'Access-Control-Allow-Origin': '*'

@@ -88,22 +88,17 @@ router.get('/select/:collectionname/:filter', async (req,res) => {
     const collectionName = req.params.collectionname;
     const id = req.params.filter;
 
-    let sendData;
-
     // const id = req.params.idNr;
 
     // saveLog(`203 | /userstrips/:idNr |  id: ${id} `)
-    let filter = {tripUserId: id}
+    let filter = {userId: id}
 
     saveLog(`/select | collection name: ${collectionName} filter: ${filter}`,`app_get >`);
     try {
-        sendData = await manageData( 'trips', 'get',null,filter);
-        if (req.headers['my-header'] === 'all') {
-            saveLog(`208 | ok - !!!!  wysyłanie sendData ${sendData} `)
-            res.status(200).json(sendData);
-        } else {
-            res.status(400).send('Brak wymaganego nagłówka');
-        }
+        let sendData = await manageData( collectionName, 'get',null,filter);
+        saveLog(`/select | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
+        res.status(200).json(sendData);
+
     } catch (err) {
         saveLog(`193 | błąd:  ${err} `)
         res.status(500).send('Wystąpił błąd 3 podczas pobierania danych');

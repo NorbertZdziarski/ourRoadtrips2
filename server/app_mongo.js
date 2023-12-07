@@ -19,12 +19,12 @@ async function manageData(collectionName, action, data, filter) {
 
     try {
         // await client.connect();
-        saveLog(`25 | - try - 1534`, 'app_mongo');
+        saveLog(`25 | - try -`, 'app_mongo');
         const db = client.db(dbName);
-        saveLog(`29 | ${db}`, 'app_mongo');
+            // saveLog(`29 | ${db}`, 'app_mongo');
         const collection = db.collection(collectionName);
         let dataDB;
-        saveLog(`32 | ${collection}`, 'app_mongo');
+            // saveLog(`32 | ${collection}`, 'app_mongo');
         saveLog(`42 | nazwa kolekcji: ${collectionName} , JSON ${JSON.stringify(collectionName)}`, 'app_mongo');
         saveLog(`43 | action: ${action}`, 'app_mongo');
 
@@ -40,7 +40,20 @@ async function manageData(collectionName, action, data, filter) {
             await client.close();
             saveLog(`41 | pobieranie typu get_one | uzyskane dane: ${dataDB}  `,`app_mongo`);
             return dataDB;
-        } else if (action === 'dodaj_obj') {
+        }
+         else if (action === 'get') {
+
+            saveLog(`||| app mongo GET filter ->  ${filter} JSON: ${JSON.stringify(filter) }`,`app_mongo`)
+
+            dataDB = await collection.find(filter).toArray();
+
+            await client.close();
+            saveLog(`51 | pobieranie typu get_one | uzyskane dane: ${dataDB}  `,`app_mongo`);
+            return dataDB;
+
+
+        }
+        else if (action === 'dodaj_obj') {
             saveLog(` /// dodaj obj`, 'app_mongo');
             await collection.insertOne({data}, function (err,res) {
                 if (err) { saveLog(` /// BŁĄD: ${err}`, 'app_mongo');}

@@ -5,7 +5,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
     console.log('  data ID: ' + dataId)
     if (type === 'trip') {
         return {
-            tripUserId: loggedUser._id,
+            userId: loggedUser._id,
             tripName: dataId.tripName || '',
             tripDescription:dataId.tripDescription ||  '',
             tripCar: dataId.tripCar ||  '',
@@ -25,15 +25,18 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
         };
     } else if (type === 'car') {
         return {
-            carId: dataId.carId || '',
+            userId: loggedUser._id,
+            carUser: loggedUser.nick,
+            carSaveDate: new Date(),
             carMaker: dataId.carMaker || '',
             carBrand: dataId.carBrand || '',
             carDescription: dataId.carDescription || '',
             carEngine: dataId.carEngine || '',
             carEnginePower: dataId.carEnginePower || '',
+            carFuelType: dataId.carFuelType || '',
             carStyleType: dataId.carStyleType || '',
             carPurposeType: dataId.carPurposeType || '',
-            carPhoto: dataId.carPhoto || ''
+            carPhoto: dataId.carPhoto || []
         };
 
     } else {

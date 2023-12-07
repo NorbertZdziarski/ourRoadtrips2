@@ -157,7 +157,7 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
                     {(value === 'tripDate')?(<input type="date" className="date-input" />):(<></>)}
 
                     {(value === 'carPhoto')?(
-                        <input type="file" onChange={handleFileChange} className="imputForm_inputFile"/>
+                        <input type="file" onChange={handleFileChange} className="imputForm_inputFile" multiple/>
                     ):(<></>)}
                     {(value === 'tripPhoto')?(
                         <input type="file" onChange={handleFileChange} className="imputForm_inputFile" multiple/>

@@ -1,4 +1,5 @@
-$viewHeight: calc(var(--vh, 1vh) * 100);
+//$viewHeight: calc(var(--vh, 1vh) * 100);
+$viewHeight: 100svh;
 $header-height: 5rem;
 
 $mobile_header-height: 5rem;

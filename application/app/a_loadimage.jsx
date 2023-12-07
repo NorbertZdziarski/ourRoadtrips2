@@ -11,7 +11,8 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     // const apiURL = `http://${host}:${port}/download`;
 
     // console.log('---------- LOAD IMAGE ---------')
-    // console.log('image name: ' + imageName)
+    console.log('image name: ' + imageName )
+    console.log(typeof imageName )
     if (typeof imageName !== 'string') return <>error</>;
     useEffect(() => {
         if (!imageName) return;
@@ -20,8 +21,8 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
             setImage(imageName);
         }
         if (imagePath && imageName) {
-        console.log('image path: ' + imagePath);
-        console.log('image name: ' + imageName)
+        // console.log('image path: ' + imagePath);
+        // console.log('image name: ' + imageName)
             axios({
                 url: apiURL,
                 method: 'GET',

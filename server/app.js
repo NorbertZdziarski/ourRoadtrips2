@@ -11,8 +11,8 @@ require('dotenv').config();
 const appGet = require('./apps/app_get');
 const appPost = require('./apps/app_post');
 const appPatch = require('./apps/app_patch');
+const appDelete = require('./apps/app_delete');
 
-// const manageData = require('./app_mongo')
 const saveLog = require("./apps/savelog");
 
 const app = express();
@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
         const fileType = req.body.type;
         saveLog('check my-header',`app.js _ multer `);
         saveLog(`file type: ${fileType}`,`app.js _ multer `);
-        if ((fileType!=='users') && (fileType!=='trips')) {
+        if ((fileType!=='users') && (fileType!=='trips')  && (fileType!=='cars')) {
             const error = new Error('błędna nazwa folderu (typ)');
             error.code = 'INCORRECT_FOLDER';
             saveLog(`błąd ${error}`,`app.js _ multer `);
@@ -129,12 +129,10 @@ app.get('/download', async function(req, res){
 
 
 app.use(appGet);
-
 app.use(bodyParser.json());
-
-
 app.use(appPost);
 app.use(appPatch)
+app.use(appDelete);
 
 
 

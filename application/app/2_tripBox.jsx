@@ -7,8 +7,8 @@ import ShowPhoto from "./5_showPhoto";
 import icoChat from "../images/ico/chat.png"
 
 function TripBox({trip, dataFilter}) {
-    console.log('trip: ' + trip)
-    console.log('trip json: ' + JSON.stringify(trip))
+    // console.log('trip: ' + trip)
+    // console.log('trip json: ' + JSON.stringify(trip))
     // console.log('data filter: ' + dataFilter)
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
@@ -82,7 +82,7 @@ function TripBox({trip, dataFilter}) {
                 {/*       imageWidth='400px'*/}
                 {/*       photoClass="photoStyle"*/}
                 {/*/>*/}
-                    <ShowPhoto photo={trip.tripPhoto} style={"photoStyle"} />
+                    <ShowPhoto photo={trip.tripPhoto} style={"photoStyle"} source='trips' />
                 </> : <p className="ramka">no photo.</p>}
             </button>
         </div>

@@ -4,7 +4,9 @@ import LoadImage from "./a_loadimage";
 function DisplayCars({usersCars, setPage, setDataId, setYesOrNot, setToDelete }) {
     // ------------------------------------------------------- - zastąpienie jednym kodem ?
     function PrintCars({car}) {
-        let keyData = 'lineCar' + car.id;
+        console.log('car photo: ' + car.carPhoto[0])
+        console.log(car)
+        let keyData = 'lineCar' + car._id;
         return (<div key={keyData}>
             <p>{car.carMaker} {car.carBrand}</p>
 
@@ -16,11 +18,11 @@ function DisplayCars({usersCars, setPage, setDataId, setYesOrNot, setToDelete })
         {usersCars ? (
             Object.values(usersCars).map((car) =>
 
-                <div key={`keycar${car.carId}`} className="userPanelItem colorstyle_button_dark">
+                <div key={`keycar${car._id}`} className="userPanelItem colorstyle_button_dark">
                     <button className="clickPage" >
                         <PrintCars  car={car}/>
-                        {car.carPhoto ? <LoadImage imageName={car.carPhoto}
-                                                   imagePath='images/users'
+                        {car.carPhoto ? <LoadImage imageName={car.carPhoto[0]}
+                                                   imagePath='images/cars'
                                                    // imageWidth='120px'
                                                    photoClass='aboutme_PhotoTrip'/> : <p>no photo</p>}
                     </button>

@@ -23,11 +23,16 @@ const updateData = async (target,data) => {
 };
 
 const deleteData = async (target) => {
+    console.log('     delete :    ')
+
     return await sendRequest('delete', target);
 };
-const deleteFile = async (target) => {
+const deleteFile = async (target, data) => {
     console.log('crud service delete file');
-    return await sendRequest('deletefile', target);
+    console.log('     target :  ' + target)
+    console.log('     data :    ' + data)
+    console.log('     data JSON:' + JSON.stringify(data))
+    return await sendRequest('deletefile', target, data);
 };
 
 
