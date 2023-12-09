@@ -6,6 +6,7 @@ import DataFilter from "./3_filter";
 import LoadImage from "./a_loadimage";
 import DataSort from "./4_sort";
 import logourl from "../images/logo_m.png"
+import icotheme from "../images/color-palette_6591234.png"
 import {fetchData} from "./a_CRUD_service";
 import {checkIfItExists} from "./app_check";
 
@@ -17,6 +18,7 @@ function Header() {
     const setDataId = useStoreActions(actions => actions.setDataId);
     const setDataFilter = useStoreActions(actions => actions.setDataFilter);
     const displayStyles = useStoreState(state => state.displayStyles);
+    const setDisplayStyles = useStoreActions(actions => actions.setDisplayStyles);
 
     const dataFilter = useStoreState(state => state.dataFilter);
     const dataSortOn = useStoreState(state => state.dataSortOn);
@@ -45,7 +47,7 @@ function Header() {
         }
     }, []);
 
-    console.log('Header - screen: '+ screenWidth + " data sort: " + dataSortOn)
+    // console.log('Header - screen: '+ screenWidth + " data sort: " + dataSortOn)
 
     function tymczasowa() {
         // await checkIfItExists('rom1').then((r)=>{
@@ -54,7 +56,7 @@ function Header() {
 
     }
 
-    return (
+    return (<>
         <header className={`headerStyle colorStyle_headerBtn_${displayStyles} `}>
             <div className="layout_main layout_flex-sb tymczasowy_header">
                 {screenWidth < 950 ? <>
@@ -88,9 +90,9 @@ function Header() {
                                                     List
                                                 </button>
                                             }
-                                            <button disabled onClick={()=>setPage("tymczasowe")}>
-                                                tymczasowe
-                                            </button>
+                                            {/*<button disabled onClick={()=>setPage("tymczasowe")}>*/}
+                                            {/*    tymczasowe*/}
+                                            {/*</button>*/}
                                         </> : <></>}
 
                                 </>}
@@ -98,7 +100,7 @@ function Header() {
 
                     ) : ( <></> ))}
 
-                    {(page === "userProfile" ? (
+                    {(page === "userProfile") ? (
                             <section className="headerButtons">
                                 <button onClick={()=>setPage("mainPage")}>
                                     Main Page
@@ -119,7 +121,7 @@ function Header() {
                                 </button>
                             </section>
                     ) : (
-                        <></>))}
+                        <></>)}
 
                     {(((page === "editUserData") || (page === "addCar") || (page === "addTrip") ) ? (
                             <section className="headerButtons">
@@ -155,28 +157,43 @@ function Header() {
                 </>}
 
                     <div className="headerButtons">
-                        {(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>
-                            {/*<p>{loggedUser.nick}</p>*/}
+
+                        {/*{(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>*/}
+                        {/*    /!*<p>{loggedUser.nick}</p>*!/*/}
+                        {/*    <LoadImage imageName={loggedUser.userPhoto || 'user.png'}*/}
+                        {/*               imagePath='images/users'*/}
+                        {/*               photoClass="header_photo"*/}
+                        {/*    />*/}
+                        {/*</button>):(<></>)}*/}
+                        {(loggedUser && page!=='userProfile') ?    <button onClick={()=>setPage("userProfile")}>
                             <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
                                        imagePath='images/users'
                                        photoClass="header_photo"
                             />
-                        </button>):(<></>)}
-                        {(loggedUser && page!=='userProfile') ?    <button onClick={()=>setPage("userProfile")}>
-                            USER PROFILE
                         </button> : <></>}
-                        {loggedUser ? <button onClick={()=>{
+                        {!loggedUser ? <button onClick={()=>setPage("login")}>
+                            LOGIN </button> : <></>}
+                        {(page==='userProfile') ? <button onClick={()=>{
                             setLoggedUser();
                             googleLogout();
                             setPage("mainPage");
                         }}> Logout
-                        </button> : <button onClick={()=>setPage("login")}>
-                            LOGIN </button>}
+                        </button> : <></>}
+                        <button onClick={()=>{
+                            if (displayStyles === 'dark') {setDisplayStyles('light')} else {setDisplayStyles('dark')}
+                            }}>
+                            <img src={icotheme} className={`header_ico ico_${displayStyles}`} />
+                        </button>
                         <img src={logourl} className={`header_logo logo_${displayStyles}`} />
                     </div>
 
             </div>
+
         </header>
+    <div className={`subHeader_${displayStyles}`}>
+
+    </div>
+    </>
     );
 }
 

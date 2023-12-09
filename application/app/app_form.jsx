@@ -12,6 +12,8 @@ const MyForm = ({type}) => {
     const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
+    const loggedUserCars = useStoreState(state => state.loggedUserCars);
+    const setLoggedUserCars = useStoreActions(actions => actions.setLoggedUserCars);
     const dataId = useStoreState(state => state.dataId);
     const rules = useStoreState(state => state.rules);
 
@@ -26,15 +28,20 @@ const MyForm = ({type}) => {
     let newUser = true;
     let usersCarsDisp = [];
 
+    // let loggedUsersCars;
+
     if (loggedUser) {
         newUser = false;
-        if (loggedUser.cars) {
-            const loggedUsersCars = loggedUser.cars;
-            usersCarsDisp = Object.values(loggedUsersCars).map(car => [`${car.carMaker} ${car.carBrand}`,car.carId, car.carStyleType]);
-        }
+            fetchData('all/cars').then(downloadedData => {
+                console.log('2_showTrips - pobrane dane: ' + downloadedData)
+                setLoggedUserCars(downloadedData);
+            });
+
+            usersCarsDisp = Object.values(loggedUserCars).map(car => [`${car.carMaker} ${car.carBrand}`,car._id, car.carStyleType]);
+
     }
-console.log('my form | zmienna type: ' + type)
-console.log('my form | zmienna usersCarsDisp: ' + usersCarsDisp )
+// console.log('my form | zmienna type: ' + type)
+// console.log('my form | zmienna usersCarsDisp: ' + usersCarsDisp )
 
     const newFileNameGenerator = (idObject, filename) => {
         console.log('new file name generator: idObject: ' + idObject)
@@ -64,13 +71,13 @@ async function addDataToMongo(dataToSave) {
     let targetPath;
     if (!dataId) {
 
-        console.log('fn addDataToMongo / transfer - zmienna dataToSave: ' + dataToSave);
+        // console.log('fn addDataToMongo / transfer - zmienna dataToSave: ' + dataToSave);
         targetPath = 'add';
         await transferData(`${type}/${targetPath}`, dataToSave);
         setPage("userProfile");
     } else {
 
-        console.log('fn addDataToMongo / update - zmienna dataToSave' + dataToSave);
+        // console.log('fn addDataToMongo / update - zmienna dataToSave' + dataToSave);
         targetPath = dataId._id;
         await updateData(`${type}/${targetPath}`, dataToSave);
         setPage('userProfile')
@@ -78,36 +85,17 @@ async function addDataToMongo(dataToSave) {
 }
     async function addMultiFiles() {
         let newFileName;
-            console.log('------------- trip file !!!')
-            // console.log('trip - if file ')
-            // ----------------- tu jest błąd logiczny z data_id . Jeżeli go nie ma to nie można go przypożądkować.
-            const tempFileNameArr = [];
 
-            console.log('my form | zmienna file: ' + file)
-            console.log(file.length)
+            const tempFileNameArr = [];
             let folderName = type + 's';
-                console.log('|||| folder name: ' + folderName + 'file name' + file)
             for (let i=0; i<file.length; i++) {
-                // console.log('---- petla -{ ' + i)
-                // console.log(file[i])
+
                 let name = file[i].name
-                // console.log(name)
-                // console.log(typeof name)
-                // console.log(name.toString())
-                // console.log(typeof name.toString())
                 newFileName = newFileNameGenerator(dataId._id, name);
                 tempFileNameArr.push(newFileName);
-                console.log('wysyłka pliku nr: ' + i + ' o nazwie: ' + newFileName + ' do folderu: ' + folderName)
                 await transferDataFile(`upload`, file[i], folderName, newFileName);
 
-
-
-
-
-
             }
-            console.log('------ po pętli ---{ type: ' + type)
-            console.log('my form | zmienna tempFileNameArr: ' + tempFileNameArr);
 
             let toSave;
             if (type === 'car') {
@@ -121,14 +109,14 @@ async function addDataToMongo(dataToSave) {
             }
 
 
-            console.log('to save: ' + toSave)
-            console.log('json: ' + JSON.stringify(toSave));
+            // console.log('to save: ' + toSave)
+            // console.log('json: ' + JSON.stringify(toSave));
 
             // setFormData(prevState => ({
             //     ...prevState,
             //     ...toSave
             // }));
-            console.log('------- teraz była wywołana setFormData w func.')
+            // console.log('------- teraz była wywołana setFormData w func.')
 
             // setFormData((prev) => ({
             //     ...prev,
@@ -159,17 +147,15 @@ async function addDataToMongo(dataToSave) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         let error = '';
-        console.log('-------------------------------------------')
+
         if (temporaryPass1) {
             console.log(' handle change temp 1')
             if (temporaryPass1 === temporaryPass2) {
-                // console.log(' handle change temp 2 |||||||||||||||||||||||||||||||||||||||||||')
-                // console.log('pas 1 ' + temporaryPass1 + ' | pas 2 ' + temporaryPass2)
-                // console.log(formData)
+
                 setFormData({...formData, password: temporaryPass1})
 
             } else {
-                // console.log(' handle change err')
+
                 // error += 'błąd hasła!';
 
                 }}
@@ -181,20 +167,15 @@ async function addDataToMongo(dataToSave) {
                 // if (!formData.firstName) error += 'podaj swoje imię \n';
                 // if (!formData.password) error += 'podaj hasło \n';
 
-
             }
         } else {
             if (type === 'user') {
-
 
             }
         }
 
         setFormError(error)
         // if (error) return;
-
-        console.log('_formData_pass___ ' + formData.password)
-
 
         let newFileName;
 
@@ -284,12 +265,12 @@ async function addDataToMongo(dataToSave) {
                     }
                 });
                 if (file)  {
-                    console.log(`app_form | submit | new user | upload file |`)
+                    // console.log(`app_form | submit | new user | upload file |`)
                     newFileName = newFileNameGenerator('profile');
                     formData.userPhoto = newFileName; }
                 await transferDataFile(`upload`, {file}, 'users', newFileName);
-                console.log('150')
-                console.log('zmiana strony: ');
+                // console.log('150')
+                // console.log('zmiana strony: ');
                 setPage("mainPage");
             }
 
@@ -310,9 +291,9 @@ async function addDataToMongo(dataToSave) {
 
             // console.log(formData)
             // console.log(`${type}/${targetPath}`)
-            console.log(`app_form | submit | update user |`)
-            console.log(`app_form | submit | update user | form data: ` + JSON.stringify(formData))
-            console.log(`app_form | submit | update user | logged user ID: ` + loggedUser._id)
+            // console.log(`app_form | submit | update user |`)
+            // console.log(`app_form | submit | update user | form data: ` + JSON.stringify(formData))
+            // console.log(`app_form | submit | update user | logged user ID: ` + loggedUser._id)
 
             await updateData(`${type}/${loggedUser._id}`, formData).then((r)=> console.log('result update user: ' + r));
             const tempVar = {...loggedUser,...formData}
@@ -347,10 +328,6 @@ async function addDataToMongo(dataToSave) {
 
                 </section>
             </form>
-                {/*{newUser ? <></> :  <LoadImage imageName={formData.carPhoto}*/}
-                {/*                      imagePath='images/users'*/}
-                {/*                      imageWidth='300px'*/}
-                {/*                    />  }*/}
 
         </div>
     );

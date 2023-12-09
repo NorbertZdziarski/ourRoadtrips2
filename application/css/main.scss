@@ -50,8 +50,8 @@ body {
   font-size: 1.6rem;
   font-family: "BankGothic Lt BT";
   padding: 5px;
-  //height: 100%;
-  @include mainStyle($footer-height);
+  height: $footer-height;
+  //@include mainStyle($footer-height);
 }
 .footerWindowStyle {
   box-sizing: border-box;
@@ -84,6 +84,7 @@ body {
   }
 
   @include sidebarstyle;
+  padding-bottom: 0.5rem;
 }
 
 .mainViewStyle {

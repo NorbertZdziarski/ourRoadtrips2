@@ -7,11 +7,22 @@ const fetchData = async (target) => {
 //     return await sendRequest('get', target);
 // };
 const transferData = async (target,data) => {
+    console.log('CRUD : post');
+    console.log('target: ' + target);
+    console.log('data: ' + data);
     return await sendRequest('post', target,data);
 };
 const transferDataFile = async (target,data, folderName, fileName) => {
 
     return await sendRequest('postFile', target,data,folderName, fileName);
+};
+
+const transferGooglePhoto = async (sourceUrl,targetPath) => {
+    console.log('CRUD : post google photo');
+    // console.log('target: ' + target);
+    console.log('data: ' + sourceUrl);
+    console.log('folderName: ' + targetPath);
+    return await sendRequest('postgooglephoto', null,sourceUrl,targetPath);
 };
 
 const updateData = async (target,data) => {
@@ -37,5 +48,5 @@ const deleteFile = async (target, data) => {
 
 
 
-export {fetchData,transferData,updateData,deleteData, deleteFile,transferDataFile};
+export {fetchData,transferData,updateData,deleteData, deleteFile,transferDataFile, transferGooglePhoto};
 

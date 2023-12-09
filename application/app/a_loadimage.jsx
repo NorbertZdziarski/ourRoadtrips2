@@ -11,8 +11,12 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     // const apiURL = `http://${host}:${port}/download`;
 
     // console.log('---------- LOAD IMAGE ---------')
-    console.log('image name: ' + imageName )
-    console.log(typeof imageName )
+    // console.log('image name: ' + imageName )
+    // console.log(typeof imageName )
+    if (!imageName) {
+        imageName = 'noimage.jpg'
+        imagePath = 'images/'
+    }
     if (typeof imageName !== 'string') return <>error</>;
     useEffect(() => {
         if (!imageName) return;

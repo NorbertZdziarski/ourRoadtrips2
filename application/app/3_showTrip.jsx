@@ -53,9 +53,11 @@ function ShowTrip() {
     }
 
     function chosenFn(user) {
+
         setChosen(user);
         setPage("aboutMe");
     }
+
     return (
         <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
         {/*<section className="mainViewStyle">*/}
@@ -79,9 +81,9 @@ function ShowTrip() {
                     <button>   photo </button>
                     <button disabled>   map </button>
                     <button onClick={()=> window.location.href = '#tripDescription'}>   story </button>
-                    <button onClick={()=> chosenFn(data.tripUserId)}>   {data.tripUser} </button>
-                    <button onClick={()=>{setChosen(data.tripCar);
-                        setPage("showcar");}}>   {data.tripCar} </button>
+                    <button onClick={()=> chosenFn(data.userId)}>   {data.tripUser} </button>
+                        <button disabled={!data.tripCar} onClick={()=>{setChosen(data.tripCar);
+                      setPage("showcar");}}>   {data.tripCar} </button>
                 </div>
 
                 {data.tripPhoto ? <ShowPhotoSlide

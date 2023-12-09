@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
-import {fetchData, transferData} from "./a_CRUD_service";
+import {fetchData, transferData, transferGooglePhoto} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import {getInitialFormData} from "./getInitialFormData";
@@ -19,7 +19,17 @@ function Login() {
 
     async function createUser(data) {
         let user = data.name;
+        let sourceUrl = data.picture;
+        let targetPath = `images/users/${data.sub}`;
         console.log('funckja async - brak użytkownika o takim ID, zakładam nowe konto.');
+console.log(`zapis zdjęcia ${user}: \n targetPath: ${targetPath} \n sourceUrl: ${sourceUrl}`)
+
+        await transferGooglePhoto(sourceUrl,targetPath);
+
+
+
+
+
 
         // await checkIfItExists(user).then((r)=>{
         //     console.log('tymczaowa wynik: ' + r)
@@ -37,17 +47,17 @@ function Login() {
             lastName: data.family_name || '',
             userPersonalComment: data.locale ||'',
             email: data.email || '',
-            userPhoto: data.picture || '',
+            userPhoto: targetPath || '',
             userDescription: '',
             dateOfAccountCreation: new Date(),
             cars: []
         }
 
-        console.log('save data: ' + saveData)
-        console.log('JSON data: ' + JSON.stringify(saveData));
+        // console.log('save data: ' + saveData)
+        // console.log('JSON data: ' + JSON.stringify(saveData));
 
         await transferData(`user/add`, saveData);
-        console.log('aktualizacja stanu Logged User')
+        // console.log('aktualizacja stanu Logged User')
         setLoggedUser(saveData);
 
     }
@@ -60,7 +70,7 @@ function Login() {
             if (!downloadedData) {
                 setFetchError('wrong password or login');
             } else {
-                console.log(downloadedData)
+                // console.log(downloadedData)
                 setLoggedUser(downloadedData)
                 setPage("mainPage")
             }
@@ -71,20 +81,20 @@ function Login() {
         const decodedToken = jwtDecode(response.credential);
 
         let sendData = { googleId: decodedToken.sub }
-        console.log('logowanie | sendData: ' + sendData)
-        console.log('logowanie | odpalam transferData ')
+        // console.log('logowanie | sendData: ' + sendData)
+        // console.log('logowanie | odpalam transferData ')
         await transferData('gle',sendData)
             .then((downloadedData)=>{
-                console.log('udało się pobrać dane googleID | dane: ' + downloadedData)
+                // console.log('udało się pobrać dane googleID | dane: ' + downloadedData)
                 if (downloadedData) {
                     if (downloadedData === 'noUser') {
-                        console.log('brak użytkownika o takim ID, zakładam nowe konto.')
+                        // console.log('brak użytkownika o takim ID, zakładam nowe konto.')
                         createUser(decodedToken);
                         setPage("mainPage")
                     } else {
-                        console.log('~~~~~ co jest pobrane ~~~~~~~~~~~~~~~~~~~~~')
-
-                        console.log(downloadedData)
+                        // console.log('~~~~~ co jest pobrane ~~~~~~~~~~~~~~~~~~~~~')
+                        //
+                        // console.log(downloadedData)
                         setLoggedUser(downloadedData)
                         setPage("mainPage")
                     }
@@ -100,7 +110,7 @@ function Login() {
     };
 
     const handleFailure = (response) => {
-        console.log('Logowanie nie powiodło się:', response);
+        // console.log('Logowanie nie powiodło się:', response);
     };
 
     return (
@@ -108,19 +118,19 @@ function Login() {
             <div className={`login_box colorStyle_input_${displayStyles}`}>
                 {fetchError ? <p className={`login_error colorStyle_error_${displayStyles}`}>{fetchError}</p> : <></>}
                 <form >
-                    <input placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userName}
+                    <input disabled placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userName}
                            onChange={(e) => setUserName(e.target.value)}></input>
-                    <input  placeholder='password' type="password" name="inputUserPassword" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userPassword}
+                    <input disabled  placeholder='password' type="password" name="inputUserPassword" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userPassword}
                            onChange={(e) => setUserPassword(e.target.value)}></input>
                 <div className={`login_buttons colorstyle_button_${displayStyles}`}>
-                    <button onClick={handleLogin} className="main_button "> Login </button>
+                    <button disabled onClick={handleLogin} className="main_button "> Login </button>
                     <button onClick={()=>setPage("mainPage")} className="main_button "> Cancel </button>
 
                 </div>
                 </form>
 
                 <div className="login_newaccount">
-                    <button onClick={()=>setPage("editUserData")} className={` button-important colorStyle_btn_important_${displayStyles} `}> Create an account </button>
+                    <button disabled onClick={()=>setPage("editUserData")} className={` button-important colorStyle_btn_important_${displayStyles} `}> Create an account </button>
                     <div className="login_newaccount">
                         <GoogleLogin
                             clientId={clientId}

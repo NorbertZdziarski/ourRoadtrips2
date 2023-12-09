@@ -7,8 +7,8 @@ const YesOrNot = () => {
 
     return (
         <div className={`yesOrNot colorStyle_yesornot_${displayStyles}`}>
-            <button className="button_yesornot" onClick={()=> setYesOrNot([false,2])}>Yess...</button>
-            <button className="button_yesornot" onClick={()=> setYesOrNot([false,1])}>NO !!!</button>
+            <button className="button_yesornot" onClick={()=> setYesOrNot([false,2])}>Yes.</button>
+            <button className="button_yesornot" onClick={()=> setYesOrNot([false,1])}>NO !</button>
         </div>
     )
 }

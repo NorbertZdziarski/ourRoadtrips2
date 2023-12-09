@@ -4,7 +4,10 @@ import btnImgL from '../images/1904658-arrow-arrow-left-change-direction-left-ne
 import btnImgR from '../images/1904671-arrow-arrow-right-change-direction-next-page-right_122521.png'
 
 function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
-
+    if (!photo) {
+        photo = 'noimage.jpg'
+        photoPath = 'images/'
+    }
     if (typeof photo === 'string') return (<div className="imageBox" >
         <LoadImage imageName={photo}
                    imagePath={photoPath}
@@ -15,7 +18,7 @@ function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
 
 
     const fnBtnLeft = () => {
-        if (photoNr > 0) {setPhotoNr( prevNr => prevNr -1)} else {setPhotoNr((photo.length-1))}
+        if (photoNr > 0) {setPhotoNr( prevNr => prevNr -1)} else {setPhotoNr(photo.length-1)}
     }
     const fnBtnRight = () => {
         if (photoNr < (photo.length -1)) {setPhotoNr(prevNr => prevNr +1)} else {setPhotoNr(0)}

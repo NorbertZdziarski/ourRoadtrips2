@@ -5,9 +5,18 @@
   margin-top: 1px;
   box-shadow: inset 0.3rem 0.3rem 0.3rem $color-background-userProfile;
 }
+.header_ico {
+
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-top: 1px;
+}
 .header_logo {
-  width: 3.2rem;
-  height: 3.0rem;
+  position: absolute;
+  left: calc(50% - 1.6rem);
+  top: 1.5rem;
+  width: 3.0rem;
+  height: 2.8rem;
   margin-top: 1px;
 }
 

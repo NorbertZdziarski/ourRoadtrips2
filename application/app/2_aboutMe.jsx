@@ -22,7 +22,8 @@ function AboutMe() {
             const urlPath = path.join('one/user',chosen)
             fetchData(urlPath)
                 .then(data => {
-                    setUserData(data[0]);
+                    // console.log(JSON.stringify(data))
+                    setUserData(data);
 
                 })
                 .catch(err => {
@@ -54,7 +55,7 @@ function AboutMe() {
                             </div>
                             <div className="aboutme_column fnt_subtitle">
 
-                                <h4 className="fnt_Title">I`m: {userData.firstName} {userData.lastName} vel {userData.nick}</h4>
+                                <h4 className="fnt_Title">I'm: {userData.firstName} {userData.lastName} vel {userData.nick}</h4>
                                 {/*<p></p>*/}
                                 <p className="aboutme_column_title">{userData.userPersonalComment}</p>
                                 <p>about me: {userData.userDescription}</p>

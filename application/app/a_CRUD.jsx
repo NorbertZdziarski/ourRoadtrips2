@@ -9,11 +9,13 @@ console.log('_server HOST: ' + host);
 console.log('_server PORT: ' + port);
 console.log('_api url: ' + apiURL);
 const sendRequest = async (method, target, data,folderName, fileName) => {
-    // console.log('data: ' + data)
-    // console.log('method: ' + method)
-    // console.log('target: ' + target)
-    // console.log('folder name: ' + folderName)
-    // console.log('file name: ' + fileName)
+
+    console.log('method: ' + method)
+    console.log('target: ' + target)
+    console.log('data: ' + data)
+    console.log('folder name: ' + folderName)
+    console.log('file name: ' + fileName)
+
     try {
         let response;
 
@@ -40,10 +42,11 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 for (const key in data) {
                     params.append(key, data[key]);
                 }
-                console.log(params)
-                console.log(data)
-                console.log(JSON.stringify(data))
-                console.log(typeof data)
+                // console.log(params)
+                // console.log(data)
+                // console.log(JSON.stringify(data))
+                // console.log(typeof data)
+                // JSON.stringify(data)
 
                 response = await axios.post(`${apiURL}/${target}`,JSON.stringify(data), {
                     headers: {
@@ -53,6 +56,35 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                     }
                 });
                 break;
+            case 'postgooglephoto':
+                // const linksToSend = new FormData();
+                console.log('CRUD | -=-=- GooglePhoto -=-=- v3 -=---------');
+                console.log('folder name: ' + folderName + ' JSON: ' + JSON.stringify(folderName));
+                console.log('data: ' + data + ' JSON: ' + JSON.stringify(data));
+                // console.log('CRUD | ------------------------- ');
+
+                // linksToSend.append('sourceUrl', data);
+                // linksToSend.append('targetPath', folderName);
+                // formDatas.append('image', data);
+                await axios.post(`${apiURL}/glephoto`, {
+                    sourceUrl: data,
+                    targetPath: folderName
+                }, {
+                    headers: {
+                        'Access-Control-Allow-Origin': '*',
+                        'Content-Type': 'application/json',
+                        'my-header': 'all'
+                    }
+                })
+                    .then(response => {
+                        console.log('-=-=- GooglePhoto response ')
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        console.log('-=-=- GooglePhoto error ')
+                        console.error(error);
+                    });
+                return;
             case 'postfile':
                 const formDatas = new FormData();
                 console.log('CRUD | -=-=- post file -=-=- ');

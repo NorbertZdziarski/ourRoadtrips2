@@ -8,7 +8,6 @@ import PrintTrips from "./4_printTrips";
 
 function UserProfile() {
     const loggedUser = useStoreState(state => state.loggedUser);
-    const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const setPage = useStoreActions(actions => actions.setPage);
     const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
     const yesOrNot = useStoreState(state => state.yesOrNot);
@@ -16,22 +15,24 @@ function UserProfile() {
     const toDelete = useStoreState(state => state.toDelete);
     const setDataId = useStoreActions(actions => actions.setDataId);
     const setTripId = useStoreActions(actions => actions.setTripId);
-    const [usersTrips, setUsersTrips] = useState({});
-    const [usersCars, setUsersCars] = useState(loggedUser.cars);
+    const loggedUserCars = useStoreState(state => state.loggedUserCars);
+    const setLoggedUserCars = useStoreActions(actions => actions.setLoggedUserCars);
+    const loggedUserTrips = useStoreState(state => state.loggedUserTrips);
+    const setLoggedUserTrips = useStoreActions(actions => actions.setLoggedUserTrips);
     const displayStyles = useStoreState(state => state.displayStyles);
 
 
     useEffect(async () => {
-        console.log('|||||||||||||||||||||||||||||| Use Effect');
+
         let target = `select/trips/${loggedUser._id}`
         await fetchData(target).then(downloadedData => {
-            console.log('2 user profile | trips |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
-            setUsersTrips(downloadedData)
+            // console.log('2 user profile | trips |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+            setLoggedUserTrips(downloadedData)
         });
         target = `select/cars/${loggedUser._id}`
         await fetchData(target).then(downloadedData => {
-            console.log('2 user profile | cars |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
-            setUsersCars(downloadedData)
+            // console.log('2 user profile | cars |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+            setLoggedUserCars(downloadedData)
         });
     }, [yesOrNot[1]]);
 
@@ -49,7 +50,7 @@ function UserProfile() {
                 await deleteData(`car/${toDelete[1]._id}`);
                 const target = `select/car/${loggedUser._id}`
                 fetchData(target).then(downloadedData => {
-                    console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+                    // console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
                     // setUsersCars(downloadedData)
                 });
                 // userCopy.cars = carsArr;
@@ -59,10 +60,10 @@ function UserProfile() {
                 //     setUsersCars(carsArr)});
 
                 let photos = Object.values(toDelete[1].carPhoto);
-                console.log('_______________________________')
-                console.log(photos)
-                console.log(photos.length)
-                 console.log(typeof photos)
+                    // console.log('_______________________________')
+                    // console.log(photos)
+                    // console.log(photos.length)
+                    //  console.log(typeof photos)
 
 
                 if (toDelete[1].carPhoto) await deleteFile('images/cars/',photos);
@@ -73,7 +74,7 @@ function UserProfile() {
                 const target = `select/trip/${loggedUser._id}`
                 fetchData(target).then(downloadedData => {
                     console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
-                    setUsersTrips(downloadedData)
+                    setLoggedUserTrips(downloadedData)
                 });
                 if (toDelete[1].tripPhoto) await deleteFile('images/trips/',toDelete[1].tripPhoto );
                 setToDelete([``,``])
@@ -82,12 +83,11 @@ function UserProfile() {
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
 
-    console.log(usersCars)
+
     return (
         <section className="userPanel_main">
             <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
                        imagePath='images/users'
-                       // photoClass="userPanel_userPhoto"
                        photoClass="userPanel_bgphoto"
             />
             <header className="userPanel_mainpage_box">
@@ -133,10 +133,10 @@ function UserProfile() {
 
             <section className={`userPanel_trips colorstyle_button_${displayStyles}`} id="userTrips">
 
-                {usersTrips ? (
-                    Object.values(usersTrips).map((trip) =>
+                {loggedUserTrips ? (
+                    loggedUserTrips.map((trip) =>
                         <div key={`keytrip${trip._id}`} className={`userPanelItem colorstyle_reverse_${displayStyles}`}>
-                            <button className="clickPage" onClick={()=> {
+                            <button className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=> {
                                 setPage("showTrip")
                                 setTripId(trip._id)
                             }}>
@@ -160,7 +160,7 @@ function UserProfile() {
                         loading data....
                     </div>
                 )}
-                {(usersTrips.length === 0) ? <button onClick={()=>{
+                {(loggedUserTrips.length === 0) ? <button onClick={()=>{
                                                     setDataId('')
                                                     setPage("addTrip")}
                                             }
@@ -169,16 +169,16 @@ function UserProfile() {
             </section>
             <section className={`userPanel_trips colorstyle_button_${displayStyles}`} id="userCars ">
                 <DisplayCars
-                usersCars={usersCars}
+                usersCars={loggedUserCars}
                 setDataId={setDataId}
                 setPage={setPage}
                 loggedUser={loggedUser}
-                setUsersCars={setUsersCars}
+
                 setYesOrNot={setYesOrNot}
                 yesOrNot={yesOrNot}
                 setToDelete={setToDelete}
                 />
-                {(usersCars.length === 0) ? <button onClick={()=>{
+                {(loggedUserCars.length === 0) ? <button onClick={()=>{
                                                 setDataId('')
                                                 setPage("addCar")}
                                             }

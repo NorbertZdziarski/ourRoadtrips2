@@ -220,5 +220,7 @@
 
 .logo_light {
   filter: invert(100%);
-
+  //:hover {
+  //  filter: none;
+  //}
 }

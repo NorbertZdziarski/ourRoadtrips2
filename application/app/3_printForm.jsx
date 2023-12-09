@@ -26,10 +26,7 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     let slicePoint;
     let commentsValue;
     let tripRateData;
-    console.log('print form | zmienna type: ' + type)
-    console.log('print form | zmienna users Cars: ' + usersCars)
-    // console.log(usersCarId)
-    // console.log(usersCarStyleType)
+
     const zmienStan = () => {
         setStan(!stan);
         setFormData({ ...formData, tripPublic: stan })
@@ -40,12 +37,12 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     };
 
     function handleFileChange(event) {
-        console.log(event.target.files)
-        console.log(typeof event.target.files)
+        if (event.target.files.length > 5) {
+            alert("Możesz przesłać maksymalnie 5 plików");
+        } else {
         let filesArr = event.target.files;
-        console.log(filesArr)
 
-        setFile(filesArr)
+        setFile(filesArr) }
 
         // filesArr.map((file) => {
         //     console.log(file)
@@ -56,6 +53,8 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     }
 
     const handleChange = (e) => {
+
+
                 setFormData({ ...formData, [e.target.name]: e.target.value });
         // JSON.parse(e.target.value)
     };
@@ -77,11 +76,6 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     if (type === 'trip') slicePoint = 4;
     if (type === 'car') slicePoint = 3;
 
-    console.log('print form | zmienna form data: ' + formData);
-    console.log('print form | zmienna form: ' + form);
-    console.log('print form | JSON form data: ' + JSON.stringify(formData));
-    console.log('print form | JSON form: ' + JSON.stringify(form));
-
 
     if (formData.tripComments) commentsValue = formData.tripComments.length;
     if (formData.tripRate) {
@@ -92,6 +86,7 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
                          average: rateSum / formData.tripRate.length,
                          max: rateMax};
     }
+
 
     return(
         <div className="imputForm_container">
@@ -125,13 +120,20 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
                     </select>):(<></>)}
                     {value === 'tripCar' ? <>
                     {choseCar ?
-                            (<select value={formData[value[0]]} name={value} onChange={handleChange} className="">
-                                {usersCars.map((tripCar) => (
-                                    <option key={tripCar[0]} value={JSON.stringify(tripCar)} >
-                                        {tripCar[0]} - {tripCar[2]}
-                                    </option>
-                                ))}
-                            </select>) : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>}
+                            (<select
+                                    value={formData[value] ? formData[value] : ' no data '}
+                                    name={value}
+                                    onChange={handleChange}
+                                    className=""
+                                >
+                                    <option value="" disabled={formData[value] !== ''}>choose your car</option>
+                                    {Object.values(usersCars).map((tripCar) => (
+                                        <option key={tripCar[1]} value={JSON.stringify(tripCar)}>
+                                            {tripCar[0]} / {tripCar[2]}
+                                        </option>
+                                    ))}
+                                </select>
+                            ) : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>}
                         <button type="button" className="main_button" onClick={() => setChoseCar(!choseCar)}>change</button>
                         </>
                         :(<></>)}
@@ -177,6 +179,17 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
                     {(value === 'repeat password')?(
                         <input type="text" name={value} value={temporaryPass2 || ''} onChange={(e)=> {setTemporaryPass2(e.target.value)} } className="imputForm_inputData"/>
                     ):(<></>)}
+                    {((value === 'carDescription') && (value === 'tripDescription' ))?(
+                        <textarea
+                            name={value}
+                            value={formData[value] || ''}
+                            onChange={handleChange}
+                            maxLength='2000'
+                            rows="3"
+                            className="imputForm_inputData"
+                        />
+                    ):(<></>)}
+
                     {(excludedValues.includes(value) ? null : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>)}
                 </label>
             </div>)}

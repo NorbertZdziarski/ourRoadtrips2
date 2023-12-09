@@ -3,21 +3,22 @@
   box-sizing: border-box;
   padding: 5px;
   display: block;
-  width: $main-view-width;
-
+  //width: $main-view-width;
+  width: 100%;
   height: max-content;
 
 
   font-family: Abel;
-  @include rwd(flex);
+  //@include rwd(flex);
   z-index: 1;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
 
 
 }
 
 .userPanel_bgphoto {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   opacity: 0.1;
@@ -60,6 +61,7 @@
     }
 }
 .userPanel_trips {
+
   display: flex;
   flex-wrap: wrap;
 }
