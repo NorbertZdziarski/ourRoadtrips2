@@ -9,6 +9,20 @@
   }
 }
 
+@mixin rwd_form($displayStyle:block) {
+  @media screen and (max-width: 950px) {
+    //@content
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0.1rem;
+    display: $displayStyle
+  }
+}
+
+
 //@mixin rwdBlock {
 //  @media screen and (max-width: 950px) {
 //    //@content

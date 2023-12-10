@@ -10,6 +10,7 @@ function Comment({comment, author, userId, tripId}) {
     const [voteState,setVoteState] = useState('notLoggedIn');
     const loggedUser = useStoreState(state => state.loggedUser);
     const [photo, setPhoto] = useState(null);
+    const [photoPath, setPhotoPath] = useState('images/users')
     const displayStyles = useStoreState(state => state.displayStyles);
 
     useEffect(() => {
@@ -20,6 +21,8 @@ function Comment({comment, author, userId, tripId}) {
             console.log(data)
             console.log(data[0].userPhoto)
             setPhoto(data[0].userPhoto);
+            if (data[0].userPhoto.slice(0,3) === 'http') {setPhotoPath('')} else {setPhotoPath('images/users')}
+
         };
 
         fetchPhoto();
@@ -53,7 +56,7 @@ function Comment({comment, author, userId, tripId}) {
         <button className={`comment_conteiner colorStyle_comment_${displayStyles}`} onClick={()=>{addLike()}}>
             <div className="comment_photo_container">
                 <LoadImage imageName={photo || 'user.png'}
-                           imagePath='images/users'
+                           imagePath={photoPath}
                            photoClass={"comment_photo" }
                 />
             </div>

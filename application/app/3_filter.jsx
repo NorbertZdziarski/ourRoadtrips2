@@ -49,7 +49,7 @@ const DataFilter = () => {
                     ))}
                 </select>
 
-                <button onClick={(e)=> acceptFn(e) }>Accept</button>
+                <button onClick={(e)=> acceptFn(e.target) }>Accept</button>
                 <button onClick={()=> setDataFilter([false,selectCountry,choiceTripType,choiceStyleTypes ])}>Cancel</button>
             </form>
         </div>

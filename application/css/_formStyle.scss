@@ -17,9 +17,10 @@
   display: flex;
   justify-content: left;
   align-items: end;
-
   height: 2.5rem;
   margin-bottom: 1.5rem;
+  @include rwd();
+
   p {
     //color: white;
     font-family: $fontStyleMain;

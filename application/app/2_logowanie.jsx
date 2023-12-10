@@ -19,16 +19,30 @@ function Login() {
 
     async function createUser(data) {
         let user = data.name;
-        let sourceUrl = data.picture;
-        let targetPath = `images/users/${data.sub}`;
-        console.log('funckja async - brak użytkownika o takim ID, zakładam nowe konto.');
-console.log(`zapis zdjęcia ${user}: \n targetPath: ${targetPath} \n sourceUrl: ${sourceUrl}`)
-
-        await transferGooglePhoto(sourceUrl,targetPath);
 
 
 
-
+    //     let sourceUrl = data.picture;
+    //     console.log('{}-------zapisanie kopii obrazu----------------------{}')
+    //     console.log('sourceUrl: ' + sourceUrl)
+    //     console.log(typeof sourceUrl);
+    //
+    //
+    //     let dotIndex = sourceUrl.lastIndexOf('.');
+    //     let extension = sourceUrl.slice(dotIndex);
+    //
+    //     console.log('odKropkiDoKonca ' + extension); // Wyświetli: ".string"
+    //
+    //
+    //     let targetPath = `images/users/${data.sub}${extension}`;
+    //     console.log('funckja async - brak użytkownika o takim ID, zakładam nowe konto.');
+    // console.log(`zapis zdjęcia ${user}: \n targetPath: ${targetPath} \n sourceUrl: ${sourceUrl}`)
+    //
+    //     await transferGooglePhoto(sourceUrl,targetPath);
+    //
+    //
+    //
+    //
 
 
         // await checkIfItExists(user).then((r)=>{
@@ -47,7 +61,7 @@ console.log(`zapis zdjęcia ${user}: \n targetPath: ${targetPath} \n sourceUrl: 
             lastName: data.family_name || '',
             userPersonalComment: data.locale ||'',
             email: data.email || '',
-            userPhoto: targetPath || '',
+            userPhoto: data.picture || '',
             userDescription: '',
             dateOfAccountCreation: new Date(),
             cars: []

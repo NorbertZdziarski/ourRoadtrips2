@@ -23,18 +23,21 @@ function UserProfile() {
 
 
     useEffect(async () => {
-
+        console.log('yes or not: ' + yesOrNot)
         let target = `select/trips/${loggedUser._id}`
         await fetchData(target).then(downloadedData => {
             // console.log('2 user profile | trips |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
             setLoggedUserTrips(downloadedData)
         });
         target = `select/cars/${loggedUser._id}`
+        console.log('target: ' + target);
+        console.log('user: ' + loggedUser.name);
+
         await fetchData(target).then(downloadedData => {
-            // console.log('2 user profile | cars |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+            console.log('2 user profile | cars |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
             setLoggedUserCars(downloadedData)
         });
-    }, [yesOrNot[1]]);
+    },[]);
 
 
     useEffect(async ()=> {
