@@ -2,24 +2,17 @@ const express = require('express');
 const saveLog = require("./savelog");
 const manageData = require("../app_mongo");
 const router = express.Router();
+
 saveLog(` | -- app patch -- |`,`app_patch >`);
 
 // app.use(bodyParser.json());
 // ----------------------------------------------------------------------------------------- PATCH
 
-router.patch('/:inquiryType/:id', async (req, res) => {
-    saveLog(`307 | -- app.patch -- `,`app_patch >`);
-    const id = req.params.id;
-    const pathName = req.params.inquiryType + 's';
-    const newItem = await req.body;
-    saveLog(`311 | action 'patch', path name: ${pathName} , newItem: ${newItem} - ${id}`,`app_patch >`);
-    await manageData(pathName,'patch', newItem,id);
-    res.send('Dane zostały zaktualizowane');
-});
 router.patch('/:inquiryType/comment/:id', async (req, res) => {
     const id = req.params.id;
-    console.log('patch comment id: ' + id)
+    saveLog('patch comment id: ' + id,'app_patch <>')
     const pathName = req.params.inquiryType + 's';
+    saveLog('patch comment pathName: ' + pathName,'app_patch <>')
     // const idCom = req.params.idCom;
     let newItem = await req.body;
     // if (id.includes('/comment/')) {
@@ -29,7 +22,7 @@ router.patch('/:inquiryType/comment/:id', async (req, res) => {
     //     console.log(beforeComment); // wyświetla 'trip/${tripId}'
     //     console.log(afterComment);  // wyświetla '${comment._id}'}
     // }
-    saveLog(`309 | komentarz ${pathName}`,`app_patch >`);
+    saveLog(`25 | komentarz ${newItem} JSON ${JSON.stringify(newItem)}`,`app_patch >`);
 
     await manageData(pathName,'patchComm',  newItem,id);
 
@@ -38,7 +31,7 @@ router.patch('/:inquiryType/comment/:id', async (req, res) => {
 router.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     const id = req.params.id;
     console.log('----------------------comm like.');
-    console.log(' id: ' + id)
+    console.log('34 id: ' + id)
     const pathName = req.params.inquiryType + 's';
     const idCom = req.params.idCom;
     const newItem = await req.body;
@@ -49,14 +42,24 @@ router.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     //     console.log(beforeComment); // wyświetla 'trip/${tripId}'
     //     console.log(afterComment);  // wyświetla '${comment._id}'}
     // }
-    saveLog(`329 | komentarz like ${pathName}`,`app_patch >`);
-    console.log('new item: ' + newItem);
+    saveLog(`45 | komentarz like ${pathName}`,`app_patch >`);
+    saveLog(' 46 | new item: ' + newItem, 'app_mongo');
     console.log('idCOm: ' + idCom);
     console.log('----------------------');
 
     await manageData(pathName,'patch', 'patchCommLike',newItem,id, idCom);
     res.send('Dane zostały zaktualizowane');
 });
+router.patch('/:inquiryType/:id', async (req, res) => {
+    saveLog(`307 | -- app.patch -- `,`app_patch >`);
+    const id = req.params.id;
+    const pathName = req.params.inquiryType + 's';
+    const newItem = await req.body;
+    saveLog(`311 | action 'patch', path name: ${pathName} , newItem: ${newItem} - ${id}`,`app_patch >`);
+    await manageData(pathName,'patch', newItem,id);
+    res.send('Dane zostały zaktualizowane');
+});
+
 
 
 

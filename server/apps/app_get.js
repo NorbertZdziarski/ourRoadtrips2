@@ -115,15 +115,6 @@ router.get('/file/:collectionname/:id', async (req,res) => {
 })
 
 
-
-
-
-
-
-
-
-
-
 router.get('/:collectionName', async (req, res) => {
     const collectionName = req.params.collectionName;
     const user = req.query.user;

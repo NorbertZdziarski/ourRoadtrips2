@@ -125,30 +125,20 @@ app.get('/download', async function(req, res){
 });
 
 
-
-
-
 app.use(appGet);
 app.use(bodyParser.json());
+
 app.use(appPost);
 app.use(appPatch)
 app.use(appDelete);
 
 
-
-
-
-
-
-
-
-
-
 app.use('*', function (req, res, next) {
-    saveLog(`| Nieobsługiwane zapytanie |`);
+    saveLog(`| Nieobsługiwane zapytanie | Typ zapytania: ${req.method} | Ścieżka: ${req.path}`);
 
     res.status(400).json({msg: 'Nieobsługiwane zapytanie'});
 });
+
 
 
 app.listen(port, host, () => {

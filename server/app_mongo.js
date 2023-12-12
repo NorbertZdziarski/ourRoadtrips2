@@ -14,7 +14,7 @@ async function manageData(collectionName, action, data, filter) {
     // let idComString;
     // let idCom = parseInt(idComString);
     // saveLog(`\n \n data: ${data} \n `,`app_mongo`)
-    saveLog(`\n \n--23-12-03_0940--------------- APP MONGO  \n -- manage data --\n collection Name: ${collectionName} \n action: ${action} \n \ndata:  ${data} \n data JSON: ${JSON.stringify(data)} \n  `, 'app_mongo')
+    saveLog(`\n \n--23-12-07_1440--------------- APP MONGO  \n -- manage data --\n collection Name: ${collectionName} \n action: ${action} \n \ndata:  ${data} \n data JSON: ${JSON.stringify(data)} \n  `, 'app_mongo')
 
 
     try {
@@ -69,8 +69,6 @@ async function manageData(collectionName, action, data, filter) {
                 saveLog( 'Dokument został pomyślnie zaktualizowany.' , 'app_mongo');
             }
 
-            // await collection.insertOne({data}, function (err,res) {
-            //     if (err) { saveLog(` /// BŁĄD: ${err}`, 'app_mongo');}
             await client.close();
         }
         else if (action === 'delete') {
@@ -78,12 +76,10 @@ async function manageData(collectionName, action, data, filter) {
             await client.close();
         }
         else if (action === 'googleId') {
-                // console.log('-{ mongo: poszukiwanie po googleID }-')
-                // console.log('-{ filter: ' + filter + ' }-')
-            // saveLog(`84 | filter: ${filter}`, 'app_mongo')
+
             saveLog(`-- google -- ${data}`, 'app_mongo')
             dataDB = await collection.findOne(data)
-            // await collection.insertOne(data);
+
             await client.close();
             if (!dataDB) {
                 saveLog(`100 | zwrot - noUser`, 'app_mongo')
@@ -102,6 +98,42 @@ async function manageData(collectionName, action, data, filter) {
         //     return dataDB;
 
             // else { console.log('! Niepoprawny identyfikator action: ' + action + ' lub data: ' + data);
+        } else if (action === 'patchComm') {
+        await collection.updateOne(
+            {_id: new ObjectId(filter)},
+            { $set: { tripComments: data } },
+            //     function(err, result) {
+            //         if (err) throw err;
+            //
+            //         console.log("Dokument został zaktualizowany!");
+            //
+            //         client.close();
+            //     }
+        );
+        await client.close();return
+        }  else if (action === 'patchCommLike') {
+            saveLog('----------------------app mongo: patch comm like.', 'app_mongo');
+
+            saveLog('filter: ' + filter, 'app_mongo')
+            // saveLog('id: ' + idCom)
+            // saveLog(typeof idCom);
+            saveLog('data: ' + data, 'app_mongo')
+
+            //
+            try {
+                const result = await collection.updateOne(
+                    {"_id": new ObjectId(filter), "tripComments": { $elemMatch: { id: idCom } } },
+                    { $set: { "tripComments.$.commLike": data } }
+                );
+                // console.log('Result: ');
+                saveLog(`81 | result: ${result} `,`app_mongo`);
+                saveLog("Dokument został zaktualizowany!", 'app_mongo');
+            } catch (err) {
+                saveLog(`84 | błąd: ${err}`,`app_mongo`);
+            } finally {
+                await client.close();
+            }
+
         }
 
 
