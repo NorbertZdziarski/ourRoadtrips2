@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useStoreActions} from "easy-peasy";
 
-const DataFilter = () => {
+const DataFilter = ({setMoblieMenuClass}) => {
 
     const setDataFilter = useStoreActions(actions => actions.setDataFilter);
 
@@ -49,8 +49,14 @@ const DataFilter = () => {
                     ))}
                 </select>
 
-                <button onClick={(e)=> acceptFn(e.target) }>Accept</button>
-                <button onClick={()=> setDataFilter([false,selectCountry,choiceTripType,choiceStyleTypes ])}>Cancel</button>
+                <button onClick={(e)=> {
+                    setMoblieMenuClass('');
+                    acceptFn(e.target)
+                } }>Accept</button>
+                <button onClick={()=> {
+                    setMoblieMenuClass('');
+                    setDataFilter([false,selectCountry,choiceTripType,choiceStyleTypes ])
+                }}>Cancel</button>
             </form>
         </div>
     )

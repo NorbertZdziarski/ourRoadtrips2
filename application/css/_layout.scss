@@ -5,8 +5,10 @@
 .layout_main {
   width: $main-view-width;
   box-sizing: border-box;
+  //margin-inline: auto;
 }
 .layout_flex-sb {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   //border: 1px solid red;

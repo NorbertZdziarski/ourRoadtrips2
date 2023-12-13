@@ -1,6 +1,6 @@
 import React from "react";
 import {useStoreActions, useStoreState} from "easy-peasy";
-const DataSort = () => {
+const DataSort = ({setMoblieMenuClass}) => {
     const setTripSort = useStoreActions(actions => actions.setTripSort);
     const setDataSortOn = useStoreActions(actions => actions.setDataSortOn);
     const tripSort = useStoreState(state => state.tripSort);
@@ -19,7 +19,9 @@ const DataSort = () => {
                 </option>
             ))}
         </select>
-        <button onClick={()=> setDataSortOn(false) }>Cancel</button>
+        <button onClick={()=> {
+            setMoblieMenuClass('');
+            setDataSortOn(false)} }>Cancel</button>
     </>)
 }
 

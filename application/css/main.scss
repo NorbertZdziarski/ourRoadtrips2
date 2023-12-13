@@ -55,7 +55,7 @@ body {
 }
 .footerWindowStyle {
   box-sizing: border-box;
-  @include mainStyle($footer-height);
+  //@include mainStyle($footer-height);
 
   width: calc( 100vw - 10px);
   margin-left: 10px;

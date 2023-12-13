@@ -41,16 +41,22 @@ function Header() {
     useEffect(() => {
         const handleResize = () => {
             setScreenWidth(window.innerWidth);
-
+            if (window.innerWidth >= 950) {
+                console.log('screenWidth >= 950');
+                setMoblieMenuClass('');
+            // } else {
+            //     setMoblieMenuClass('_mobile'); // Zmień 'someOtherClass' na klasę, którą chcesz użyć, gdy screenWidth < 950
+            }
         }
 
         window.addEventListener('resize', handleResize);
+        handleResize(); // Wywołaj funkcję handleResize od razu po dodaniu nasłuchiwacza, aby ustawić początkowy stan
 
         return () => {
             window.removeEventListener('resize', handleResize);
         }
-
     }, []);
+
 
     // console.log('Header - screen: '+ screenWidth + " data sort: " + dataSortOn)
 
@@ -70,14 +76,18 @@ function Header() {
             setMoblieMenuClass('_mobile');
         }  else {setMoblieMenuClass('');}
 
+
         console.log(`[ 2 ] mobile menu class ${moblieMenuClass} |`)
 
    }
-    console.log(`_ mobile menu class ${moblieMenuClass} `)
+
+    // layout_main  tymczasowy_header
+
+    console.log(`_ mobile menu class ${moblieMenuClass} | ${screenWidth}`)
     return (<>
         <header className={`headerStyle${moblieMenuClass} colorStyle_headerBtn_${displayStyles} `}>
-            <div className={`layout_main layout_flex-sb tymczasowy_header`} >
-                {screenWidth < 950 ? <>
+            <div className={`layout_flex-sb`} >
+                {(screenWidth < 950) && (moblieMenuClass === '') ? <>
                     <button onClick={()=>openMenu()}>
                         =
                     </button>
@@ -90,8 +100,8 @@ function Header() {
                                 {page !== "mainPage" ? <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button> : <>
-                                    {(dataFilter[0] ) ? <DataFilter/> : <></>}
-                                    {(dataSortOn) ? <DataSort />:<></>}
+                                    {(dataFilter[0] ) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
+                                    {(dataSortOn) ? <DataSort setMoblieMenuClass={setMoblieMenuClass} />:<></>}
 
                                     {((!dataSortOn) && (!dataFilter[0])) ? <>
                                             <button onClick={()=>setDataFilter([true,'all','all','all'])}>
@@ -107,6 +117,12 @@ function Header() {
                                                     List
                                                 </button>
                                             }
+                                        {(moblieMenuClass === '')?(<></>):(
+
+                                            <button onClick={()=>setMoblieMenuClass('')}>
+                                                cancel
+                                            </button>
+                                        )}
                                             {/*<button disabled onClick={()=>setPage("tymczasowe")}>*/}
                                             {/*    tymczasowe*/}
                                             {/*</button>*/}
@@ -136,6 +152,12 @@ function Header() {
                                 <button onClick={()=>setPage("editUserData")}>
                                     Edit User Data
                                 </button>
+                                {(moblieMenuClass === '')?(<></>):(
+
+                                    <button onClick={()=>setMoblieMenuClass('')}>
+                                        cancel
+                                    </button>
+                                )}
                             </section>
                     ) : (
                         <></>)}
@@ -145,6 +167,12 @@ function Header() {
                                 <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button>
+                                {(moblieMenuClass === '')?(<></>):(
+
+                                    <button onClick={()=>setMoblieMenuClass('')}>
+                                        cancel
+                                    </button>
+                                )}
                             </section>
                     ) : (
                         <></>))}
@@ -157,6 +185,12 @@ function Header() {
                                 <button onClick={()=>{setPage("showTrip")}}>
                                     Back
                                 </button>
+                                {(moblieMenuClass === '')?(<></>):(
+
+                                    <button onClick={()=>setMoblieMenuClass('')}>
+                                        cancel
+                                    </button>
+                                )}
                             </section>
                     ) : (
                         <></>))}
@@ -166,12 +200,19 @@ function Header() {
                                 <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button>
+                                {(moblieMenuClass === '')?(<></>):(
+
+                                    <button onClick={()=>setMoblieMenuClass('')}>
+                                        cancel
+                                    </button>
+                                )}
                             </section>
                     ) : (
                         <></>))}
 
 
                 </>}
+                {(moblieMenuClass === '')?(
 
                     <div className={`headerButtons${moblieMenuClass}`}>
 
@@ -198,13 +239,14 @@ function Header() {
                         </button> : <></>}
                         <button onClick={()=>{
                             if (displayStyles === 'dark') {setDisplayStyles('light')} else {setDisplayStyles('dark')}
-                            }}>
+                        }}>
                             <img src={icotheme} className={`header_ico ico_${displayStyles}`} />
                         </button>
                         <button onClick={()=>setPage("mainPage")}>
                             <img src={logourl} className={`header_logo logo_${displayStyles}`} />
                         </button>
-                    </div>
+                    </div>):(<></>)}
+
 
             </div>
 
