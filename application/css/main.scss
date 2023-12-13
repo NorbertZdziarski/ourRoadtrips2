@@ -37,11 +37,15 @@ body {
   overflow-y: hidden;
 
 }
-.App {
+.app {
   height: calc(var(--vh, 1vh) * 100);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .showTrips {
+  width: 100%;
   max-height: 100%;
   padding: 1rem 0;
 }
@@ -51,6 +55,7 @@ body {
   font-family: "BankGothic Lt BT";
   padding: 5px;
   height: $footer-height;
+  width: $main-view-width;
   //@include mainStyle($footer-height);
 }
 .footerWindowStyle {
@@ -59,11 +64,11 @@ body {
 
   width: calc( 100vw - 10px);
   margin-left: 10px;
-  overflow-y: scroll;
+  //overflow-y: scroll;
   @include rwd();
 
   @media screen and (max-width: 950px) {
-    height: $mobile_main-view-height;
+    height: $footer-height;
   }
 
   @include sidebarstyle;
@@ -72,7 +77,8 @@ body {
   box-sizing: border-box;
   @include mainStyle($main-view-height);
 
-  width: calc( 100vw - 10px);
+  //width: calc( 100vw - 10px);
+  width: $main-view-width;
   margin-left: 10px;
   overflow-y: scroll;
   @include rwd();
