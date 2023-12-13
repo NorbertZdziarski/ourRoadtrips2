@@ -13,6 +13,7 @@ function TripBox({trip, dataFilter}) {
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
     const displayStyles = useStoreState(state => state.displayStyles);
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     // if (!trip.tripPublic) console.log('trip: ' + trip.tripPublic + ' - name: ' + trip.tripName);
     if (!trip.tripPublic) return null;
@@ -43,15 +44,17 @@ function TripBox({trip, dataFilter}) {
 
 
     useEffect(() => {
+        setShowLoading([true,1]);
         var divHeight = document.getElementById('tripbox_title').offsetHeight;
         // console.log('div height: ' + divHeight)
         document.documentElement.style.setProperty('--tripbox_title-height', divHeight + 'px');
+        setShowLoading([false,0]);
     }, [trip.tripName, trip.tripUser]);
 
     return (
         <div className={`clickPage colorStyle_clickPage_${displayStyles}`}>
 
-            <button className="" onClick={()=> {
+            <button className="btn_tripBox" onClick={()=> {
                 setPage("showTrip")
                 setTripId(trip._id)
                 } }>

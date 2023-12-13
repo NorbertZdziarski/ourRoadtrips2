@@ -21,7 +21,11 @@
     display: $displayStyle
   }
 }
-
+@mixin rwd_width() {
+  @media screen and (max-width: 950px) {
+    width: 100%;
+  }
+  }
 
 //@mixin rwdBlock {
 //  @media screen and (max-width: 950px) {

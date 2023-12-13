@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {useStoreActions} from "easy-peasy";
+import Anim_loading from "./anim_loading";
 require('dotenv').config();
 
 
@@ -8,6 +10,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     const host = process.env.SERVER_HOST || '--localhost';
     const port = process.env.SERVER_PORT || 9000
     const apiURL = `https://${host}:${port}/download`;
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     // const apiURL = `http://${host}:${port}/download`;
 
     // console.log('---------- LOAD IMAGE ---------')
@@ -44,6 +47,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
             }).catch((error) => {
                 console.error('Błąd podczas żądania:', error);
             });}
+
     }, [imageName, imagePath]);
 
     if (imgProportions) {
@@ -62,7 +66,7 @@ const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
         <div className={perspectiveStyle}>
             {image ? <>
                 <img src={image} alt={'foto'} width={imageWidth} className={photoClass}/>
-            </>: <>...loading</>}
+            </>: <><Anim_loading size={'_m'}/></>}
 
         </div>
     );

@@ -15,30 +15,37 @@ function AboutMe() {
     const [userTrips, setUserTrips] = useState(null);
     const [error, setError] = useState(null);
     const displayStyles = useStoreState(state => state.displayStyles);
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     useEffect(() => {
         // dodac żę jak nie ma chosen to chosen jest loggedUser.
+        setShowLoading([true,0]);
         if(chosen) {
             const urlPath = path.join('one/user',chosen)
             fetchData(urlPath)
                 .then(data => {
                     // console.log(JSON.stringify(data))
+                    setShowLoading([false,0]);
                     setUserData(data);
 
                 })
                 .catch(err => {
                     setError(err.message);
+                    setShowLoading([false,0]);
                     console.error('An error occurred:', err);
                 });
         }
     }, []);
     useEffect(() => {
+        setShowLoading([true,0]);
         const target = `one/trip/${chosen}`
         fetchData(target).then(downloadedData => {
+            setShowLoading([false,0]);
             setUserTrips(downloadedData)
         });
     }, []);
     if (error) {
+        setShowLoading([false,0]);
         return <div>Error: {error}</div>;
     }
     return (<>

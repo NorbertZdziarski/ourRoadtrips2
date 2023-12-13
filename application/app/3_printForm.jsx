@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import '../css/main.scss';
 import {useStoreActions, useStoreState} from "easy-peasy";
-const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
+import {fetchData} from "./a_CRUD_service";
+const PrintForm = ({form,formData,setFormData, setFile, type}) => {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
 
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
-
+    const loggedUserCars = useStoreState(state => state.loggedUserCars);
     const loggedUser = useStoreState(state => state.loggedUser);
 
     const excludedValues = ['password', 'repeat password','regulations', 'tripCarStyleType','userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
     const excludedValuesTitle = ['cars','carId', 'tripUserId','tripCarStyleType'];
-    const [stan, setStan] = useState(true);
+
     const [choseCar, setChoseCar] = useState(false);
 
     const temporaryPass1 = useStoreState(state => state.temporaryPass1);
@@ -22,17 +23,58 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
     const setTemporaryPass2 = useStoreActions(actions => actions.setTemporaryPass2);
 
     const displayStyles = useStoreState(state => state.displayStyles);
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+    const [userCars,setUserCars] = useState([]);
+    const setLoggedUserCars = useStoreActions(actions => actions.setLoggedUserCars);
 
+    let usersCarsDisp = [];
+    const [stan, setStan] = useState(form.tripPublic);
     let slicePoint;
     let commentsValue;
     let tripRateData;
+    console.log('stan: ' + stan + ' |||||');
+
+    // useEffect(()=>{
+    //
+    //     setStan()
+    // },[])
+
+    useEffect(()=>{
+        console.log('}}} users cars disp _________________');
+        setShowLoading([true,0]);
+
+        if (loggedUser) {
+            // newUser = false;
+
+            const target = `select/cars/${loggedUser._id}`
+            fetchData(target).then(downloadedData => {
+                usersCarsDisp = Object.values(downloadedData).map(car => [`${car.carMaker} ${car.carBrand}`,car._id, car.carStyleType]);
+                console.log('}}} users cars disp: ' + usersCarsDisp + ' JSON: ' + JSON.stringify(usersCarsDisp))
+                setShowLoading([false,0]);
+                console.log('}}} 3 print form |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+                setUserCars(usersCarsDisp)
+            });
+
+            // fetchData('all/cars').then(downloadedData => {
+            //     console.log('2_showTrips - pobrane dane: ' + downloadedData)
+            //     usersCarsDisp = Object.values(downloadedData).map(car => [`${car.carMaker} ${car.carBrand}`,car._id, car.carStyleType]);
+            //     console.log('users cars disp: ' + usersCarsDisp)
+            //     setShowLoading([false,0]);
+            //     setLoggedUserCars(downloadedData);
+            // });
+
+        }
+        setShowLoading([false,0]);
+    },[]);
 
     const zmienStan = () => {
         setStan(!stan);
+        console.log('_____ STAN: ' + stan)
         setFormData({ ...formData, tripPublic: stan })
     };
     const rullesStan = () => {
         setStan(!stan);
+        console.log('_____ STAN: ' + stan)
         setFormData({ ...formData, regulations: stan })
     };
 
@@ -127,7 +169,8 @@ const PrintForm = ({form,formData,usersCars, setFormData, setFile, type}) => {
                                     className=""
                                 >
                                     <option value="" disabled={formData[value] !== ''}>choose your car</option>
-                                    {Object.values(usersCars).map((tripCar) => (
+                                    {/*Object.values(userCars)*/}
+                                    {userCars.map((tripCar) => (
                                         <option key={tripCar[1]} value={JSON.stringify(tripCar)}>
                                             {tripCar[0]} / {tripCar[2]}
                                         </option>

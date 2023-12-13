@@ -144,7 +144,7 @@ function Login() {
                 </form>
 
                 <div className="login_newaccount">
-                    <button disabled onClick={()=>setPage("editUserData")} className={` button-important colorStyle_btn_important_${displayStyles} `}> Create an account </button>
+                    <button disabled onClick={()=>setPage("editUserData")} className={`button-important button-important_${displayStyles}`}> Create an account </button>
                     <div className="login_newaccount">
                         <GoogleLogin
                             clientId={clientId}

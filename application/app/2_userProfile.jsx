@@ -4,6 +4,7 @@ import {deleteData, deleteFile, fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
 import DisplayCars from "./3_displayCars";
 import PrintTrips from "./4_printTrips";
+import Anim_loading from "./anim_loading";
 
 
 function UserProfile() {
@@ -20,57 +21,76 @@ function UserProfile() {
     const loggedUserTrips = useStoreState(state => state.loggedUserTrips);
     const setLoggedUserTrips = useStoreActions(actions => actions.setLoggedUserTrips);
     const displayStyles = useStoreState(state => state.displayStyles);
-
+    // const [loggedUserCars,setLoggedUserCars] = useState(null);
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     useEffect(async () => {
-        console.log('yes or not: ' + yesOrNot)
-        let target = `select/trips/${loggedUser._id}`
-        await fetchData(target).then(downloadedData => {
+        setShowLoading([true,0]);
+        let targetTrips = `select/trips/${loggedUser._id}`
+        await fetchData(targetTrips).then(downloadedTrips => {
             // console.log('2 user profile | trips |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
-            setLoggedUserTrips(downloadedData)
+            setLoggedUserTrips(downloadedTrips)
         });
-        target = `select/cars/${loggedUser._id}`
-        console.log('target: ' + target);
+        let targetCars = `select/cars/${loggedUser._id}`
+        console.log('---------{ user profile : target cars : 33 }-----------------');
+        console.log('target: ' + targetCars);
         console.log('user: ' + loggedUser.name);
 
-        await fetchData(target).then(downloadedData => {
-            console.log('2 user profile | cars |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
-            setLoggedUserCars(downloadedData)
+        await fetchData(targetCars).then(downloadedCars => {
+            console.log('2 user profile | cars |  downloadedData: ' + downloadedCars + ' JSON: ' + JSON.stringify(downloadedCars))
+            setLoggedUserCars(downloadedCars)
         });
+        setShowLoading([false,0]);
     },[]);
 
 
     useEffect(async ()=> {
+        setShowLoading([true,0]);
         if (yesOrNot[1] === 2) {
             if (toDelete[0] === 'car') {
+                console.log('---------{ user profile : delete car : 47 }-----------------');
+                console.log(`---------{  delete car : ${JSON.stringify(toDelete) }-----------------`);
+                await deleteData(`car/${toDelete[1]._id}`);
+                const target = `select/cars/${loggedUser._id}`
+                fetchData(target).then(downloadedData => {
+                    console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+                    setLoggedUserCars(downloadedData)
+                });
+                if (toDelete[1].carPhoto) await deleteFile('images/cars/',toDelete[1].carPhoto);
+                setToDelete([``,``])
+
                 // let carsArr = [...loggedUser.cars];
                 // const userCopy = {...loggedUser}
                 // console.log('///// cars ARR: ' + carsArr)
-                // carsArr = carsArr.filter(ob=>ob.carId !== toDelete[1].carId);
+                // carsArr = carsArr.filter(ob=>ob._id !== toDelete[1]._id
+                // );
                 // const dataToSave = {
                 //     cars: carsArr,
                 // };
-                await deleteData(`car/${toDelete[1]._id}`);
-                const target = `select/car/${loggedUser._id}`
-                fetchData(target).then(downloadedData => {
-                    // console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
-                    // setUsersCars(downloadedData)
-                });
+                //
+                // await deleteData(`car/${toDelete[1]._id}`);
+                // const target = `select/car/${loggedUser._id}`
+                //
+                // fetchData(target).then(downloadedData => {
+                //     console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+                //     setLoggedUserCars(downloadedData)
+                // });
+                //
                 // userCopy.cars = carsArr;
                 // setLoggedUser(userCopy);
                 //
                 // await updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
-                //     setUsersCars(carsArr)});
-
-                let photos = Object.values(toDelete[1].carPhoto);
-                    // console.log('_______________________________')
-                    // console.log(photos)
-                    // console.log(photos.length)
-                    //  console.log(typeof photos)
-
-
-                if (toDelete[1].carPhoto) await deleteFile('images/cars/',photos);
-                setToDelete([``,``])
+                //     setLoggedUserCars(carsArr)});
+                //
+                // let photos = Object.values(toDelete[1].carPhoto);
+                //     console.log('_______________________________')
+                //     console.log(photos)
+                //     console.log(photos.length)
+                //      console.log(typeof photos)
+                //
+                //
+                // if (toDelete[1].carPhoto) await deleteFile('images/cars/',photos);
+                // setToDelete([``,``])
             }
             if (toDelete[0] === 'trip') {
                 await deleteData(`trip/${toDelete[1]._id}`);
@@ -83,6 +103,7 @@ function UserProfile() {
                 setToDelete([``,``])
             }
         }
+        setShowLoading([false,0]);
         setYesOrNot([false,0])
     }, [yesOrNot[1]])
 
@@ -115,7 +136,7 @@ function UserProfile() {
 
             <section id="userData" className="">
                 <div>
-                    About me:
+                    <p>About me:</p>
                 </div>
                 <div className={`userPanel_mainpage_content colorstyle_button_${displayStyles}`}>
                     <p>Name: {loggedUser.firstName}</p>
@@ -124,7 +145,6 @@ function UserProfile() {
                     <p>{loggedUser.email}</p>
                     <p>{loggedUser.userDescription}</p>
                     <p> Twoja najlepiej oceniana podróż: </p>
-
                 </div>
             </section>
 
@@ -160,7 +180,7 @@ function UserProfile() {
                         </div>)
                 ) : (
                     <div>
-                        loading data....
+                        <Anim_loading size={'_m'}/>
                     </div>
                 )}
                 {(loggedUserTrips.length === 0) ? <button onClick={()=>{
@@ -181,7 +201,7 @@ function UserProfile() {
                 yesOrNot={yesOrNot}
                 setToDelete={setToDelete}
                 />
-                {(loggedUserCars.length === 0) ? <button onClick={()=>{
+                {(loggedUserCars && loggedUserCars.length === 0) ? <button onClick={()=>{
                                                 setDataId('')
                                                 setPage("addCar")}
                                             }

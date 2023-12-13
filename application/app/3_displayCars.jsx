@@ -3,7 +3,8 @@ import LoadImage from "./a_loadimage";
 import {useStoreState} from "easy-peasy";
 import ShowPhoto from "./5_showPhoto";
 
-function DisplayCars({usersCars, setPage, setDataId, setYesOrNot, setToDelete }) {
+
+function DisplayCars({usersCars, setDataId,  setPage, loggedUser, setYesOrNot, yesOrNot, setToDelete }) {
     const displayStyles = useStoreState(state => state.displayStyles);
     // ------------------------------------------------------- - zastąpienie jednym kodem ?
     function PrintCars({car}) {

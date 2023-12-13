@@ -61,9 +61,10 @@
     }
 }
 .userPanel_trips {
-
   display: flex;
   flex-wrap: wrap;
+  @include rwd_form(block);
+
 }
 .userPanel_cars {
   flex-wrap: wrap;

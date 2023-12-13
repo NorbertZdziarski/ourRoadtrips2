@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 require('dotenv').config();
 
 const host = process.env.SERVER_HOST || 'llllocalhost';
@@ -150,6 +151,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
         console.error(`Błąd podczas zapytania ${method} do ${target}:`, error);
         throw error;
     }
+
 };
 
 export default sendRequest;

@@ -25,6 +25,9 @@ function Header() {
     const setDataSortOn = useStoreActions(actions => actions.setDataSortOn);
 
     const [screenWidth, setScreenWidth] = useState();
+    const [moblieMenuClass, setMoblieMenuClass] = useState('');
+
+    // let moblieMenuClass = '';
 
 
 
@@ -38,6 +41,7 @@ function Header() {
     useEffect(() => {
         const handleResize = () => {
             setScreenWidth(window.innerWidth);
+
         }
 
         window.addEventListener('resize', handleResize);
@@ -45,6 +49,7 @@ function Header() {
         return () => {
             window.removeEventListener('resize', handleResize);
         }
+
     }, []);
 
     // console.log('Header - screen: '+ screenWidth + " data sort: " + dataSortOn)
@@ -56,20 +61,32 @@ function Header() {
 
     }
 
+   function openMenu() {
+
+        console.log(`[ 1 ] mobile menu class ${moblieMenuClass} | `)
+
+        if (moblieMenuClass === '') {
+            console.log('bla bla bla')
+            setMoblieMenuClass('_mobile');
+        }  else {setMoblieMenuClass('');}
+
+        console.log(`[ 2 ] mobile menu class ${moblieMenuClass} |`)
+
+   }
+    console.log(`_ mobile menu class ${moblieMenuClass} `)
     return (<>
-        <header className={`headerStyle colorStyle_headerBtn_${displayStyles} `}>
-            <div className="layout_main layout_flex-sb tymczasowy_header">
+        <header className={`headerStyle${moblieMenuClass} colorStyle_headerBtn_${displayStyles} `}>
+            <div className={`layout_main layout_flex-sb tymczasowy_header`} >
                 {screenWidth < 950 ? <>
-                    <button onClick={()=>setPage("mainPage")}>
+                    <button onClick={()=>openMenu()}>
                         =
                     </button>
-
 
                 </> : <>
 
                     {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "showcar") || (page === "mainPageFilter"))? (
 
-                            <section className="headerButtons ">
+                            <section className={`headerButtons${moblieMenuClass}`}>
                                 {page !== "mainPage" ? <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button> : <>
@@ -101,7 +118,7 @@ function Header() {
                     ) : ( <></> ))}
 
                     {(page === "userProfile") ? (
-                            <section className="headerButtons">
+                            <section className={`headerButtons${moblieMenuClass}`}>
                                 <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button>
@@ -124,7 +141,7 @@ function Header() {
                         <></>)}
 
                     {(((page === "editUserData") || (page === "addCar") || (page === "addTrip") ) ? (
-                            <section className="headerButtons">
+                            <section className={`headerButtons${moblieMenuClass}`}>
                                 <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button>
@@ -133,7 +150,7 @@ function Header() {
                         <></>))}
 
                     {((page === "aboutMe") ? (
-                            <section className="headerButtons">
+                            <section className={`headerButtons${moblieMenuClass}`}>
                                 <button onClick={()=>setPage("mainPage")}>
                                     Main Page
                                 </button>
@@ -156,7 +173,7 @@ function Header() {
 
                 </>}
 
-                    <div className="headerButtons">
+                    <div className={`headerButtons${moblieMenuClass}`}>
 
                         {/*{(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>*/}
                         {/*    /!*<p>{loggedUser.nick}</p>*!/*/}
@@ -184,7 +201,9 @@ function Header() {
                             }}>
                             <img src={icotheme} className={`header_ico ico_${displayStyles}`} />
                         </button>
-                        <img src={logourl} className={`header_logo logo_${displayStyles}`} />
+                        <button onClick={()=>setPage("mainPage")}>
+                            <img src={logourl} className={`header_logo logo_${displayStyles}`} />
+                        </button>
                     </div>
 
             </div>

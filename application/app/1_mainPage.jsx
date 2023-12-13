@@ -15,14 +15,17 @@ import AboutMe from "./2_aboutMe";
 import ShowCar from "./3_showCar";
 import Gmap from "./2_map";
 import Tymczasowe from "./tymczasowe";
+import Anim_loading from "./anim_loading";
 
 const MainPage = () => {
     const page = useStoreState(state => state.page);
     const yesOrNot = useStoreState(state => state.yesOrNot);
+    const showLoading = useStoreState(state => state.showLoading);
     const dataFilter = useStoreState(state => state.dataFilter);
 
     return (
         <div className="mainWindowStyle  ">
+
             <div className=" layout_main layout_flex-sb">
                 {(page === "userProfile" ? (<UserProfile/>):(<></>))}
                 {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
@@ -44,6 +47,8 @@ const MainPage = () => {
                     <MyForm
                     type={"trip"}/>):(<></>))}
                 {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
+
+                {(showLoading[0]) ? (<Anim_loading/>):(<></>)}
             </div>
         </div>
     );

@@ -1,7 +1,11 @@
 import sendRequest from "./a_CRUD";
 
+
 const fetchData = async (target) => {
+
     return await sendRequest('get', target);
+
+
 };
 // const loginCheck = async (target) => {
 //     return await sendRequest('get', target);

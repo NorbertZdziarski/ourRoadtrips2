@@ -19,6 +19,8 @@ const store = createStore({
     setLoggedUserTrips:  action((state, payload) => { state.loggedUserTrips = (payload); }),
     yesOrNot: [false,0],
     setYesOrNot:  action((state, payload) => { state.yesOrNot = (payload); }),
+    showLoading: [false,0],
+    setShowLoading:  action((state, payload) => { state.showLoading = (payload); }),
     toDelete: ['',''],
     setToDelete:  action((state, payload) => { state.toDelete = (payload); }),
     dataFilter: [false,'all','all','all'],

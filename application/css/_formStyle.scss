@@ -11,14 +11,16 @@
   flex-direction: column;
   border-bottom: 1px dotted $color-txt-secondary;
   margin-bottom: 0.5rem;
+  @include rwd_form(block);
 }
 
 .imputForm_box {
   display: flex;
   justify-content: left;
   align-items: end;
-  height: 2.5rem;
-  margin-bottom: 1.5rem;
+  //height: 2.5rem;
+  //margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem;
   @include rwd();
 
   p {
@@ -26,6 +28,10 @@
     font-family: $fontStyleMain;
     font-size: $txtLarge;
     width: 15rem;
+    border: 1px solid red;
+    height: 2rem;
+    margin-top: 1rem;
+    //margin-bottom: 0.2rem;
   }
   select {
     width: calc(100% - 15rem);
@@ -33,20 +39,26 @@
     //color: $color-background-secondary;
     font-size: $txtNormal;
     padding: 0.1rem;
-    border: 0;
+    //border: 0;
+    border: 1px solid blue;
+    @include rwd_width();
   }
   option {
     width: calc(100% - 15rem);
     //background-color: $color-background-userProfile;
     font-size: $txtNormal;
     padding: 0.1rem;
-    border: 0;
+    //border: 0;
+    border: 1px solid green;
+    @include rwd_width();
   }
   input {
     width: calc(100% - 15rem);
     height: 100%;
     //background-color: $color-background-main ;
     //color: $color-background-secondary;
+    @include rwd_width();
+    border: 1px solid yellow;
   }
   div {
     display: flex;
@@ -54,6 +66,8 @@
     font-family: $fontStyleMain;
     font-size: $txtLarge;
     width: calc(100% - 15rem);
+    @include rwd_width();
+    border: 1px solid rosybrown;
   }
 }
 

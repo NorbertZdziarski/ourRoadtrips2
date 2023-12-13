@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import '../css/main.scss';
 import {fetchData, transferData, updateData, deleteData, transferDataFile, deleteFile} from "./a_CRUD_service";
 import {useStoreActions, useStoreState} from "easy-peasy";
@@ -12,34 +12,27 @@ const MyForm = ({type}) => {
     const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
-    const loggedUserCars = useStoreState(state => state.loggedUserCars);
+
     const setLoggedUserCars = useStoreActions(actions => actions.setLoggedUserCars);
     const dataId = useStoreState(state => state.dataId);
     const rules = useStoreState(state => state.rules);
 
     const temporaryPass1 = useStoreState(state => state.temporaryPass1);
-    const setTemporaryPass1 = useStoreActions(actions => actions.setTemporaryPass1);
+    // const setTemporaryPass1 = useStoreActions(actions => actions.setTemporaryPass1);
     const temporaryPass2 = useStoreState(state => state.temporaryPass2);
-    const setTemporaryPass2 = useStoreActions(actions => actions.setTemporaryPass2);
-
+    // const setTemporaryPass2 = useStoreActions(actions => actions.setTemporaryPass2);
+    const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+    const yesOrNot = useStoreState(state => state.yesOrNot);
     const [formError, setFormError] = useState(null);
     const displayStyles = useStoreState(state => state.displayStyles);
 
     let newUser = true;
-    let usersCarsDisp = [];
+
 
     // let loggedUsersCars;
 
-    if (loggedUser) {
-        newUser = false;
-            fetchData('all/cars').then(downloadedData => {
-                console.log('2_showTrips - pobrane dane: ' + downloadedData)
-                setLoggedUserCars(downloadedData);
-            });
 
-            usersCarsDisp = Object.values(loggedUserCars).map(car => [`${car.carMaker} ${car.carBrand}`,car._id, car.carStyleType]);
-
-    }
 // console.log('my form | zmienna type: ' + type)
 // console.log('my form | zmienna usersCarsDisp: ' + usersCarsDisp )
 
@@ -61,29 +54,40 @@ const MyForm = ({type}) => {
         setLoggedUser(newState);
     }
     useEffect(() => {
+        setShowLoading([true,0]);
         setFormData(getInitialFormData(type, loggedUser, dataId));
+        setShowLoading([false,0]);
     }, [type]);
 
 
 async function addDataToMongo(dataToSave) {
+    setShowLoading([true,0]);
+    console.log('--------------- app form | add data to mongo:  ' + dataToSave)
+
     // console.log('------------- fn addDataToMongo -------------------------')
     // console.log('fn addDataToMongo - zmienna dataToSave otrzymana do funkcji ' + dataToSave);
     let targetPath;
     if (!dataId) {
 
-        // console.log('fn addDataToMongo / transfer - zmienna dataToSave: ' + dataToSave);
+        console.log('fn addDataToMongo / transfer - zmienna dataToSave: ' + dataToSave);
         targetPath = 'add';
-        await transferData(`${type}/${targetPath}`, dataToSave);
-        setPage("userProfile");
+        await transferData(`${type}/${targetPath}`, dataToSave).then(()=>{
+            setPage('userProfile')
+        });
     } else {
 
-        // console.log('fn addDataToMongo / update - zmienna dataToSave' + dataToSave);
+        console.log('fn addDataToMongo / update - zmienna dataToSave' + dataToSave);
         targetPath = dataId._id;
-        await updateData(`${type}/${targetPath}`, dataToSave);
-        setPage('userProfile')
+        await updateData(`${type}/${targetPath}`, dataToSave).then(()=>{
+            setPage('userProfile')
+        });
+
     };
+    setShowLoading([false,0]);
 }
     async function addMultiFiles() {
+        setShowLoading([true,0]);
+        console.log('--------------- app form | add multi files ')
         let newFileName;
 
             const tempFileNameArr = [];
@@ -108,7 +112,6 @@ async function addDataToMongo(dataToSave) {
                 };
             }
 
-
             // console.log('to save: ' + toSave)
             // console.log('json: ' + JSON.stringify(toSave));
 
@@ -122,10 +125,12 @@ async function addDataToMongo(dataToSave) {
             //     ...prev,
             //     tripPhoto: tempFileNameArr
             // }));
+
             const toReturn = {
                     ...formData,
                     ...toSave
                 }
+
             // formData['tripPhoto'] = tempFileNameArr;
             // setFormData([...formData,toSave]);
             // file.map((f)=>{
@@ -139,13 +144,20 @@ async function addDataToMongo(dataToSave) {
             // await transferDataFile(`upload`, file, folderName, newFileName);
             // console.log('wysyłka pliku')
             // setPage('userProfile')
+
+        setShowLoading([false,'']);
             return toReturn;
     }
 
     let formArr = Object.keys(formData)
 
     const handleSubmit = async (e) => {
+
+        console.log(' ------ TYPE: ' + type)
+        console.log(' ---- trip public: ' + formData.tripPublic)
+
         e.preventDefault();
+        setShowLoading([true,0]);
         let error = '';
 
         if (temporaryPass1) {
@@ -187,10 +199,12 @@ async function addDataToMongo(dataToSave) {
             } else {
                 await addDataToMongo(formData)
             }
+            setShowLoading([false,0]);
             setPage("mainPage");
         }
 
         if (type === 'car') {
+            console.log('--------------- app form | car ')
             if (file) {
                 await addMultiFiles().then((responseData)=> {
                     addDataToMongo(responseData)
@@ -198,6 +212,7 @@ async function addDataToMongo(dataToSave) {
             } else {
                 await addDataToMongo(formData)
             }
+            setShowLoading([false,0]);
             setPage("mainPage");
         }
 
@@ -240,7 +255,9 @@ async function addDataToMongo(dataToSave) {
         //     setPage("mainPage");
         // }
         if (type === 'user') {
-            console.log(`app_form | submit | user ->`)
+            console.log(`|| app_form | submit | user ->`)
+            console.log(`|| save: trip public ->` + formData.tripPublic)
+
             let targetPath;
 
             // if (file)  {
@@ -271,6 +288,12 @@ async function addDataToMongo(dataToSave) {
                 await transferDataFile(`upload`, {file}, 'users', newFileName);
                 // console.log('150')
                 // console.log('zmiana strony: ');
+                setYesOrNot(prevState => {
+                    let newArray = [...prevState.yesOrNot];
+                    newArray[2] = false;
+                    return {array: newArray};
+                });
+                setShowLoading([false,0]);
                 setPage("mainPage");
             }
 
@@ -286,6 +309,11 @@ async function addDataToMongo(dataToSave) {
 
                 // console.log('wysyłka pliku');
                 // console.log('zmiana strony: ');
+                setYesOrNot(prevState => {
+                    let newArray = [...prevState.yesOrNot];
+                    newArray[2] = false;
+                    return {array: newArray};
+                });
                 setPage('userProfile')
             }
 
@@ -296,13 +324,21 @@ async function addDataToMongo(dataToSave) {
             // console.log(`app_form | submit | update user | logged user ID: ` + loggedUser._id)
 
             await updateData(`${type}/${loggedUser._id}`, formData).then((r)=> console.log('result update user: ' + r));
-            const tempVar = {...loggedUser,...formData}
-            setLoggedUser(tempVar)
+            const tempVar = {...loggedUser,...formData};
+            setLoggedUser(tempVar);
 
+            setShowLoading([false,0]);
             setPage("mainPage");
 
         }
+
         // setFormData(getInitialFormData(type,loggedUser));
+        setYesOrNot(prevState => {
+            let newArray = [...prevState.yesOrNot];
+            newArray[2] = false;
+            return {array: newArray};
+        });
+        setShowLoading([false,0]);
         setPage("userProfile");
     };
 
@@ -313,13 +349,14 @@ async function addDataToMongo(dataToSave) {
                 <PrintForm
                     form={formArr}
                     formData={formData}
-                    usersCars={usersCarsDisp}
+
                     setFormData={setFormData}
                     setFile={setFile}
                     type={type}
                 />
                 <section className="imputForm_sendButtonPlace">
-                    <button type="submit" className="button-important">it's ok, I'm sending it.</button>
+
+                    <button type="submit" className={`button-important button-important_${displayStyles}`}>it's ok, I'm sending it.</button>
                     {(formError) ? <pre className="fnt_error">{formError}</pre> : <></>}
                     {(newUser) ?  <div className="imputForm_regulations ">
                         <p className="fnt_Title">regulations:</p>

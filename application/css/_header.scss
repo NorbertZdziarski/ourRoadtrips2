@@ -31,6 +31,8 @@
     background-color: $color-background-dropdown;
     padding: 0.2rem;
   }
+
+  @include rwd(block);
 }
 .headerStyle {
   box-sizing: border-box;
@@ -38,21 +40,41 @@
 
   border-bottom: 2px solid $color-background-main;
 
-  @media screen and (max-width: 950px) {
-    max-width: 100%;
-    margin: 0;
-    display: block;
-    height: $mobile_header-height;
-
-  }
+  //@media screen and (max-width: 950px) {
+  //  //max-width: 100%;
+  //  margin: 0;
+  //  display: block;
+  //  min-height: $mobile_header-height;
+  //
+  //}
 
 }
+
+.headerStyle_mobile {
+  min-height: $header-height;
+  border: 1px solid cyan;
+}
+
 .headerButtons {
   display: flex;
   align-items: end;
   //height: 100%;
-
 }
+
+.headerButtons_mobile {
+  display: block;
+  align-items: end;
+  //height: 100%;
+}
+
+.headerMenu_filter {
+  display: block;
+  //align-items: end;
+  //height: 100%;
+}
+
+
+
 
 //&:hover {
 //  background-color: yellow;
