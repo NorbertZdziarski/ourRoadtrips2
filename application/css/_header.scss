@@ -35,12 +35,14 @@
   @include rwd(block);
 }
 .headerStyle {
+  margin-top: 0.5rem;
+margin-left: 1rem;
   box-sizing: border-box;
   @include mainStyle($header-height);
   width: 100%;
   //border-bottom: 2px solid $color-background-main;
 
-  border: 1px solid cyan;
+  //border: 1px solid cyan;
   //@media screen and (max-width: 950px) {
   //  //max-width: 100%;
   //  margin: 0;
@@ -58,7 +60,7 @@
   justify-content: space-between;
   //min-height: $header-height;
   //height: 100%;
-  border: 1px solid cyan;
+  //border: 1px solid cyan;
 }
 
 .headerButtons {
@@ -78,7 +80,7 @@
   button {
     height: 4rem;
     background-color: rgba(0,0,0,0);
-    border: 1px solid gold;
+    border: 1px dotted rgba(255, 255, 255, 0.2);
   }
   //height: 100%;
 }

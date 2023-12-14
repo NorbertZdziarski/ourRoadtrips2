@@ -2,17 +2,23 @@
 //  width: 100%;
 //
 //}
-.layout_main {
+.layout_mainViewWidth {
   width: $main-view-width;
+}
+
+.layout_main {
+  //width: $main-view-width;
   box-sizing: border-box;
   margin-inline: auto;
+  //border: 1px solid deeppink;
 }
 .layout_flex-sb {
-  width: 100%;
+  //width: 100%;
   display: flex;
   justify-content: space-between;
   //border: 1px solid red;
   //@include rwd(flex);
+  //border: 1px solid blueviolet;
 }
 
 .layout_flex-sc {

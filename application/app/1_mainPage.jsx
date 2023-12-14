@@ -26,7 +26,7 @@ const MainPage = () => {
     return (
         <div className="mainWindowStyle  ">
 
-            <div className="layout_main layout_flex-sb">
+            <div className="layout_main layout_flex-sb layout_mainViewWidth">
                 {(page === "userProfile" ? (<UserProfile/>):(<></>))}
                 {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
                 {(page === "aboutUs" ? (<AboutUs/>):(<></>))}

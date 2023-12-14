@@ -13,7 +13,7 @@ function Login() {
     const [userPassword, setUserPassword] = useState()
     const [fetchError, setFetchError] = useState()
 
-    const clientId = process.env.CLIENT_ID || '';
+    const clientId = process.env.CLIENT_ID;
 
     const displayStyles = useStoreState(state => state.displayStyles);
 
@@ -129,7 +129,7 @@ function Login() {
 
     return (
         <div className="layout_main layout_flex-sb login_main">
-            <div className={`login_box colorStyle_input_${displayStyles}`}>
+            <section className={`login_box colorStyle_input_${displayStyles}`}>
                 {fetchError ? <p className={`login_error colorStyle_error_${displayStyles}`}>{fetchError}</p> : <></>}
                 <form >
                     <input disabled placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userName}
@@ -143,20 +143,20 @@ function Login() {
                 </div>
                 </form>
 
-                <div className="login_newaccount">
-                    <button disabled onClick={()=>setPage("editUserData")} className={`button-important button-important_${displayStyles}`}> Create an account </button>
-                    <div className="login_newaccount">
-                        <GoogleLogin
-                            clientId={clientId}
-                            onSuccess={handleSuccess}
-                            onFailure={handleFailure}
-                        />
+                {/*<div className="login_newaccount">*/}
+                {/*    <button disabled onClick={()=>setPage("editUserData")} className={`button-important button-important_${displayStyles}`}> Create an account </button>*/}
 
-                    </div>
 
-                </div>
-            </div>
+                {/*</div>*/}
+            </section>
+            <section className="login_newaccount">
+                <GoogleLogin
+                    clientId={clientId}
+                    onSuccess={handleSuccess}
+                    onFailure={handleFailure}
+                />
 
+            </section>
         </div>
     );
 }

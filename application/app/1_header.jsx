@@ -86,7 +86,7 @@ function Header() {
     console.log(`_ mobile menu class ${moblieMenuClass} | ${screenWidth}`)
     return (<>
         <header className={`headerStyle${moblieMenuClass} colorStyle_headerBtn_${displayStyles} `}>
-            <div className={`layout_flex-sb`} >
+            <div className={` layout_flex-sb layout_mainViewWidth`} >
                 {(screenWidth < 950) && (moblieMenuClass === '') ? <>
                     <button onClick={()=>openMenu()}>
                         =

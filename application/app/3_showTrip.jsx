@@ -8,6 +8,7 @@ import {calculateTheAverage} from "./calculateTheAverage";
 import ShowComments from "./4_showComments";
 import AddComment from "./5_addComment";
 import ShowPhotoSlide from "./5_showPhoto-slide";
+import Gmap from "./2_map";
 
 
 
@@ -21,6 +22,7 @@ function ShowTrip() {
 
     const [data, setData] = useState(null);
     const [addComm, setAddComm] = useState(null);
+    const [showMap, setShowMap] = useState(false);
     const displayStyles = useStoreState(state => state.displayStyles);
 
     useEffect(() => {
@@ -30,6 +32,11 @@ function ShowTrip() {
             setData(downloadedData)
         });
     }, [addComm]);
+
+    // const fnShowMap = () => {
+    //     setShowMap(!showMap);
+    // }
+
     async function saveDataFn(saveData) {
         let rateArr = [];
         if (!data.tripRate) {data.tripRate = {}};
@@ -78,17 +85,27 @@ function ShowTrip() {
 
                 </header>
                 <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
-                    <button>   photo </button>
-                    <button disabled>   map </button>
-                    <button onClick={()=> window.location.href = '#tripDescription'}>   story </button>
-                    <button onClick={()=> chosenFn(data.userId)}>   {data.tripUser} </button>
-                        <button disabled={!data.tripCar} onClick={()=>{setChosen(data.tripCar);
+                    <button onClick={()=>setShowMap(false)}>   photo </button>
+                    <button onClick={()=>setShowMap(true)}>   map </button>
+                    <button onClick={()=> {
+                        setShowMap(false)
+                        window.location.href = '#tripDescription'
+                    }}>   story </button>
+                    <button onClick={()=> {
+                        setShowMap(false)
+                        chosenFn(data.userId)
+                    }}>   {data.tripUser} </button>
+                        <button disabled={!data.tripCar} onClick={()=>{
+                            setShowMap(false);
+                            setChosen(data.tripCar);
                       setPage("showcar");}}>   {data.tripCar} </button>
                 </div>
+                {showMap ? <Gmap/> : <>
+                    {data.tripPhoto ? <ShowPhotoSlide
+                        photo={data.tripPhoto}
+                        style={'aboutme_PhotoCar'}/> : <p>no photo</p>}
+                </> }
 
-                {data.tripPhoto ? <ShowPhotoSlide
-                                photo={data.tripPhoto}
-                                style={'aboutme_PhotoCar'}/> : <p>no photo</p>}
 
                 <div id="tripDescription" className="showtrip_description">
                     <p>   {data.tripDescription} </p>
