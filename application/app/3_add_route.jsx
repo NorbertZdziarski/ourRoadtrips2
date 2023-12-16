@@ -1,5 +1,12 @@
 import React, {useMemo, useState, useEffect} from 'react';
-import {GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
+import {
+    GoogleMap,
+    LoadScript,
+    Marker,
+    DirectionsService,
+    DirectionsRenderer,
+    OverlayView
+} from '@react-google-maps/api';
 import Anim_loading from "./anim_loading";
 require('dotenv').config();
 
@@ -18,6 +25,12 @@ const [routeData, setRouteData] = useState(false);
 
 const [directions, setDirections] = useState(null);
 const [tripPoint, setTripPoint] = useState(false);
+
+    const [routeInfoKM, setRouteInfoKM] = useState(false);
+    const [routeInfoTime, setRouteInfoTime] = useState(false);
+    const [routeInfoSummary, setRouteInfoSummary] = useState(false);
+    const [routeInfoPoints, setRouteInfoPoints] = useState([]);
+
 
 const countryCoordinates = {
     'Poland': {lat: 51.9194, lng: 19.1451},
@@ -94,6 +107,29 @@ useEffect(() => {
         console.log('==================================')
         console.log(routeData.geocoded_waypoints)
         console.log(routeData.routes)
+        console.log('----------------------------------')
+
+
+        if (routeData.geocoded_waypoints) console.log(routeData.geocoded_waypoints.length)
+
+
+        console.log('----------------------------------')
+        if (routeData.routes) {
+            console.log(routeData.routes[0].summary)
+            console.log(routeData.routes[0].legs[0].distance)
+            console.log(routeData.routes[0].legs[0].duration)
+            console.log(routeData.routes[0].legs[0].end_address)
+            console.log(routeData.routes[0].legs[0].start_address)
+            // console.log(routeData.routes[0].legs[0].start_address)
+            console.log('----------------------------------')
+            setRouteInfoKM(routeData.routes[0].legs[0].distance.text);
+            setRouteInfoTime(routeData.routes[0].legs[0].duration.text);
+            setRouteInfoSummary(routeData.routes[0].summary);
+            // setRouteInfoPoints()
+
+        }
+
+
     },[routeData])
 
     const addPoint = (point) => {
@@ -137,10 +173,20 @@ const map = useMemo(() => (
                 }
             }}
         >
-            {tripPoint && <Marker position={tripMap[0]} />}
-      {directions && <DirectionsRenderer directions={directions} />}
 
-    </GoogleMap>
+        {tripPoint && <Marker position={tripMap[0]} />}
+
+        {directions && <DirectionsRenderer directions={directions} />}
+        <OverlayView
+            position= {{ lat: 52.2297, lng: 21.0122 }}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+            <div style={{ cursor: 'pointer' }}> {/* Tutaj zmieniamy kursor */}
+                <h1>OverlayView</h1>
+                <button type='button'>Click me</button>
+            </div>
+        </OverlayView>
+        </GoogleMap>
 
     </div>
 ), [center, zoom, tripMap, directions, addNewPoint]);
@@ -155,8 +201,10 @@ const map = useMemo(() => (
                 <button onClick={()=>setAddNewPoint(true)} > Add point </button>
                 {/*<button disabled={} onClick={()=>{setAddNewPoint(true)}}> Add next point </button>*/}
                 <div>
-                    <p>Your route:</p>
+                    {routeInfoSummary ? <p>Your route:</p>: <></>}
                     {(tripMap.length>0) ? <>{tripMap.map((pointOnMap, index)=>{<div> <p>{index}</p>  </div>}) }</> : <p> none </p>}
+                    {routeInfoKM ? <p> length: {routeInfoKM}</p>  : <></>}
+                    {routeInfoTime ? <p> czas: {routeInfoTime}</p> : <></>}
 
                 </div>
             </section>
