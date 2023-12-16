@@ -137,30 +137,3 @@ export default ShowMap;
 
 
 
-//     onClick={ev => {
-//         let llat = ev.latLng.lat();
-//         let llng = ev.latLng.lng();
-//         addPoint({ lat: llat, lng: llng});
-//     }}
-// >
-//     {
-//         start && meta && (
-//             <DirectionsService
-//                 options={{
-//                     destination: meta,
-//                     origin: start,
-//                     travelMode: 'DRIVING'
-//                 }}
-//                 callback={directionsCallback}
-//             />
-//         )
-//     }
-//     {
-//         response !== null && (
-//             <DirectionsRenderer
-//                 options={{
-//                     directions: response
-//                 }}
-//             />
-//         )
-//     }

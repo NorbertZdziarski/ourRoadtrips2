@@ -9,6 +9,8 @@ import ShowComments from "./4_showComments";
 import AddComment from "./5_addComment";
 import ShowPhotoSlide from "./5_showPhoto-slide";
 import Gmap from "./2_map";
+import AddRoute from "./3_add_route";
+import ShowMap from "./3_show_map";
 
 
 
@@ -100,7 +102,7 @@ function ShowTrip() {
                             setChosen(data.tripCar);
                       setPage("showcar");}}>   {data.tripCar} </button>
                 </div>
-                {showMap ? <Gmap/> : <>
+                {showMap ? <AddRoute country={data.tripCountry}/> : <>
                     {data.tripPhoto ? <ShowPhotoSlide
                         photo={data.tripPhoto}
                         style={'aboutme_PhotoCar'}/> : <p>no photo</p>}
