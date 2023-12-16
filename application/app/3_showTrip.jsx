@@ -125,9 +125,9 @@ function ShowTrip() {
                         trip={data}
                         setAddComm={setAddComm}/>
                     </>: <></>}
-                <div id="tripComm" className="showtrip_description">
-                    {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}
-                </div>
+                {/*<div id="tripComm" className="showtrip_description">*/}
+                {/*    {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}*/}
+                {/*</div>*/}
             </section>) : (<p>loading data</p>) }
         </section>
     );
