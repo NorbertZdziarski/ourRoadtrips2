@@ -282,12 +282,11 @@ async function addDataToMongo(dataToSave) {
                     }
                 });
                 if (file)  {
-                    // console.log(`app_form | submit | new user | upload file |`)
+
                     newFileName = newFileNameGenerator('profile');
                     formData.userPhoto = newFileName; }
                 await transferDataFile(`upload`, {file}, 'users', newFileName);
-                // console.log('150')
-                // console.log('zmiana strony: ');
+
                 setYesOrNot(prevState => {
                     let newArray = [...prevState.yesOrNot];
                     newArray[2] = false;
@@ -307,8 +306,6 @@ async function addDataToMongo(dataToSave) {
                 await transferDataFile(`upload`, file, folderName, newFileName);
                 await deleteFile(`images/users/${loggedUser.userPhoto}`);
 
-                // console.log('wysyłka pliku');
-                // console.log('zmiana strony: ');
                 setYesOrNot(prevState => {
                     let newArray = [...prevState.yesOrNot];
                     newArray[2] = false;
