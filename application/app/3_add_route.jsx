@@ -163,19 +163,7 @@ let llng = ev.latLng.lng();
 addPoint({ lat: llat, lng: llng});
 }}
 >
-{/*{tripMap.length[0] && !tripMap.length[1] &&  <Marker position={tripMap[0]} /> }*/}
 
-{/*{tripMap.length > 1 &&*/}
-{/*<DirectionsService*/}
-{/*options={{*/}
-{/*destination: tripMap[tripMap.length - 1],*/}
-{/*origin: tripMap[0],*/}
-{/*travelMode: 'DRIVING',*/}
-{/*waypoints: tripMap.slice(1, -1).map(location => ({location}))*/}
-{/*}}*/}
-{/*callback={directionsCallback}*/}
-{/*/>*/}
-{/*}*/}
 {directions && <DirectionsRenderer directions={directions} />}
 
 </GoogleMap>
