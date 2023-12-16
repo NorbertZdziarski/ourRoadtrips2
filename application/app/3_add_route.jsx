@@ -1,5 +1,13 @@
 import React, {useMemo, useState, useEffect} from 'react';
-import {GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
+import {
+    GoogleMap,
+    LoadScript,
+    Marker,
+    DirectionsService,
+    DirectionsRenderer,
+    OverlayView
+} from '@react-google-maps/api';
+import Anim_loading from "./anim_loading";
 require('dotenv').config();
 
 const AddRoute = ({country}) => {
@@ -15,10 +23,14 @@ const [tripMap, setTripMap] = useState([]);
 const [addNewPoint, setAddNewPoint] = useState(false);
 const [routeData, setRouteData] = useState(false);
 
-// const [start, setStart] = useState({lat: 51.9194, lng: 19.1451});
-// const [meta, setMeta] = useState({lat: 51.05, lng: 18.85});
-
 const [directions, setDirections] = useState(null);
+const [tripPoint, setTripPoint] = useState(false);
+
+    const [routeInfoKM, setRouteInfoKM] = useState(false);
+    const [routeInfoTime, setRouteInfoTime] = useState(false);
+    const [routeInfoSummary, setRouteInfoSummary] = useState(false);
+    const [routeInfoPoints, setRouteInfoPoints] = useState([]);
+
 
 const countryCoordinates = {
     'Poland': {lat: 51.9194, lng: 19.1451},
@@ -50,6 +62,10 @@ const countryCoordinates = {
     'Cyprus': {lat: 35.70, lng: 34.60}
 };
 
+useEffect(()=>{
+    console.log(' _use Effect _ add new point ' + addNewPoint)
+},[addNewPoint]);
+
 useEffect(() => {
     if (country && countryCoordinates[country]) {
         setCenter(countryCoordinates[country]);
@@ -59,8 +75,8 @@ useEffect(() => {
 }, [country]);
 
     useEffect(() => {
-        console.log(' długość: ' + tripMap.length)
-        console.log(' dane json '+ JSON.stringify(tripMap))
+        console.log(' _długość: ' + tripMap.length)
+        if (tripMap.length === 1) {setTripPoint(true)} else {setTripPoint(false)}
         if (tripMap.length > 1) {
             const directionsService = new window.google.maps.DirectionsService();
             const waypoints = tripMap.slice(1, -1).map(location => ({location, stopover: false}));
@@ -72,124 +88,108 @@ useEffect(() => {
                     waypoints: waypoints
                 },
                 (result, status) => {
-                    console.log('_ result ' + result)
-                    console.log('_ result JSON ' + JSON.stringify(result));
-                    console.log(' status ' + status)
+                    console.log(result)
                     if (status === window.google.maps.DirectionsStatus.OK) {
-                        console.log('update directions')
+                        console.log('update directions ' + result)
                         setDirections(result);
+                        setRouteData(result)
                     } else {
                         console.error(`error fetching directions ${result}`);
                     }
                 }
             );
         }
-    }, [tripMap]); // Dodaj tripMap do listy zależności
 
-// useEffect(() => {
-//     // setStart(tripMap[0])
-//     // if (tripMap.length > 0) setMeta(tripMap[tripMap.length - 1])
-//     // console.log('EFFECT trip map: ' + tripMap);
-//     // console.log('EFFECT trip map length: ' + tripMap.length + '<<<<<<<<<');
-//     // console.log('EFFECT || trip map json: ' + JSON.stringify(tripMap))
-//     // console.log('EFFECT directions: ' + JSON.stringify(directions))
-//     tripMap.forEach((point, index) => {
-//         console.log('L____' + point.lat + ' | ' + point.lng)
-//         if (typeof point.lat !== 'number' || point.lat < -90 || point.lat > 90) {
-//             console.error(`Invalid latitude at index ${index}: `, point.lat);
-//         }
-//         if (typeof point.lng !== 'number' || point.lng < -180 || point.lng > 180) {
-//             console.error(`Invalid longitude at index ${index}: `, point.lng);
-//         }
-//     });
-//     console.log('ROUTE DATA: ' + JSON.stringify(routeData));
-// }, [tripMap, directions]);
+    }, [tripMap]);
 
-// useEffect(()=>{
-//     console.log('EFFECT start: ' + start + '<<');
-//     console.log('EFFECT |start json: ' + JSON.stringify(start))
-//     console.log('EFFECT meta: ' + meta + '<<<<');
-//     console.log('EFFECT |meta json: ' + JSON.stringify(meta))
-//
-// },[start,meta])
+
+    useEffect(()=>{
+        console.log('==================================')
+        console.log(routeData.geocoded_waypoints)
+        console.log(routeData.routes)
+        console.log('----------------------------------')
+
+
+        if (routeData.geocoded_waypoints) console.log(routeData.geocoded_waypoints.length)
+
+
+        console.log('----------------------------------')
+        if (routeData.routes) {
+            console.log(routeData.routes[0].summary)
+            console.log(routeData.routes[0].legs[0].distance)
+            console.log(routeData.routes[0].legs[0].duration)
+            console.log(routeData.routes[0].legs[0].end_address)
+            console.log(routeData.routes[0].legs[0].start_address)
+            // console.log(routeData.routes[0].legs[0].start_address)
+            console.log('----------------------------------')
+            setRouteInfoKM(routeData.routes[0].legs[0].distance.text);
+            setRouteInfoTime(routeData.routes[0].legs[0].duration.text);
+            setRouteInfoSummary(routeData.routes[0].summary);
+            // setRouteInfoPoints()
+
+        }
+
+
+    },[routeData])
 
     const addPoint = (point) => {
         console.log('|>> trip map POINT json: ' + JSON.stringify(point))
         setTripMap((prev) =>[...prev, point]);
-    }
+        setAddNewPoint(false)
 
-    const directionsCallback = (response) => {
-        console.log('__Response: ', response);
-        if (response !== null) {
-            if (response.status === 'OK') {
-                setDirections(response);
-                setRouteData(response)
-            } else {
-                console.log('Response status not OK: ', response.status);
-            }
-        } else {
-            console.log('Response is null');
-        }
     }
-
 
 const map = useMemo(() => (
-<div style={{zIndex:1000, width: '100%', height: '100%'}}>
+    <div style={{zIndex:1000, width: '100%', height: '100%'}}>
 
-<GoogleMap
-mapContainerStyle={mapStyles}
-center={center}
-zoom={zoom}
-options={{
-mapId: '9bce0c5043b558bb',
-mapTypeControl: true,
-mapTypeId: 'roadmap',
-backgroundColor: 'hsla(0, 0%, 0%, 0)',
-mapTypeControlOptions: {
-style: 'ourRoadTrips2_style',
-position: 'TOP_RIGHT',
-mapTypeIds: [
-'roadmap',
-'satellite',
-'hybrid',
-'terrain',
-'styled_map'
-]
-}
-}}
-onClick={ev => {
-let llat = ev.latLng.lat();
-let llng = ev.latLng.lng();
-addPoint({ lat: llat, lng: llng});
-}}
->
-{/*{tripMap.length[0] && !tripMap.length[1] &&  <Marker position={tripMap[0]} /> }*/}
+        <GoogleMap
+            mapContainerStyle={mapStyles}
+            center={center}
+            zoom={zoom}
+            options={{
+                mapId: '9bce0c5043b558bb',
+                mapTypeControl: true,
+                mapTypeId: 'roadmap',
+                backgroundColor: 'hsla(0, 0%, 0%, 0)',
+                mapTypeControlOptions: {
+                    style: 'ourRoadTrips2_style',
+                    position: 'TOP_RIGHT',
+                    mapTypeIds: [
+                        'roadmap',
+                        'satellite',
+                        'hybrid',
+                        'terrain',
+                        'styled_map'
+                        ]
+                    }
+                }}
+            onClick={ev => {
+                console.log(' ___ onClick _ add new point ' + addNewPoint)
+                if (addNewPoint) {
+                    console.log(' ___ IF onClick _ add new point ' + addNewPoint)
+                    let llat = ev.latLng.lat();
+                    let llng = ev.latLng.lng();
+                    addPoint({ lat: llat, lng: llng});
+                }
+            }}
+        >
 
-{/*{tripMap.length > 1 &&*/}
-{/*<DirectionsService*/}
-{/*options={{*/}
-{/*destination: tripMap[tripMap.length - 1],*/}
-{/*origin: tripMap[0],*/}
-{/*travelMode: 'DRIVING',*/}
-{/*waypoints: tripMap.slice(1, -1).map(location => ({location}))*/}
-{/*}}*/}
-{/*callback={directionsCallback}*/}
-{/*/>*/}
-{/*}*/}
-{directions && <DirectionsRenderer directions={directions} />}
+        {tripPoint && <Marker position={tripMap[0]} />}
 
-</GoogleMap>
-<section>
-<button disabled onClick={()=>{setAddNewPoint(true)}}> Add first point </button>
-<button disabled onClick={()=>{setAddNewPoint(true)}}> Add next point </button>
-<div>
-<p>Your route:</p>
-{tripMap ? <>{tripMap.map((pointOnMap)=>{<div> {pointOnMap} </div>}) }</> : <>none</>}
+        {directions && <DirectionsRenderer directions={directions} />}
+        <OverlayView
+            position= {{ lat: 52.2297, lng: 21.0122 }}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+        >
+            <div style={{ cursor: 'pointer' }}> {/* Tutaj zmieniamy kursor */}
+                <h1>OverlayView</h1>
+                <button type='button'>Click me</button>
+            </div>
+        </OverlayView>
+        </GoogleMap>
 
-</div>
-</section>
-</div>
-), [center, zoom, tripMap, directions]);
+    </div>
+), [center, zoom, tripMap, directions, addNewPoint]);
 
     return (
         <>
@@ -197,6 +197,17 @@ addPoint({ lat: llat, lng: llng});
                 googleMapsApiKey={googleMapsAPIkey}>
                 {map}
             </LoadScript>
+            <section>
+                <button onClick={()=>setAddNewPoint(true)} > Add point </button>
+                {/*<button disabled={} onClick={()=>{setAddNewPoint(true)}}> Add next point </button>*/}
+                <div>
+                    {routeInfoSummary ? <p>Your route:</p>: <></>}
+                    {(tripMap.length>0) ? <>{tripMap.map((pointOnMap, index)=>{<div> <p>{index}</p>  </div>}) }</> : <p> none </p>}
+                    {routeInfoKM ? <p> length: {routeInfoKM}</p>  : <></>}
+                    {routeInfoTime ? <p> czas: {routeInfoTime}</p> : <></>}
+
+                </div>
+            </section>
         </>
     )
 };
