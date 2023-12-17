@@ -16,6 +16,7 @@ import ShowCar from "./3_showCar";
 import Gmap from "./2_map";
 import Tymczasowe from "./tymczasowe";
 import Anim_loading from "./anim_loading";
+import AddTrip from "./2_add_trip";
 
 const MainPage = () => {
     const page = useStoreState(state => state.page);
@@ -28,7 +29,8 @@ const MainPage = () => {
 
             <div className="layout_main layout_flex-sb layout_mainViewWidth">
                 {(page === "userProfile" ? (<UserProfile/>):(<></>))}
-                {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
+                {/*{(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}*/}
+                {(page === "mainPage" ? (<AddTrip/>):(<></>))}
                 {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
                 {(page === "login" ? (<Login/>):(<></>))}
                 {(page === "map" ? (<Gmap/>):(<></>))}
