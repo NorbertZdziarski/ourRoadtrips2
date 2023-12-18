@@ -4,6 +4,7 @@ import {fetchData, transferData, updateData, deleteData, transferDataFile, delet
 import {useStoreActions, useStoreState} from "easy-peasy";
 import PrintForm from "./3_printForm";
 import {getInitialFormData} from "./getInitialFormData";
+import newFileNameGenerator from "./a_newFileNameGenerator";
 
 const MyForm = ({type}) => {
     const [file, setFile] = useState(null);
@@ -36,18 +37,6 @@ const MyForm = ({type}) => {
 // console.log('my form | zmienna type: ' + type)
 // console.log('my form | zmienna usersCarsDisp: ' + usersCarsDisp )
 
-    const newFileNameGenerator = (idObject, filename) => {
-        console.log('new file name generator: idObject: ' + idObject)
-        let oldFileName = filename.toLowerCase();
-        let idx = oldFileName.lastIndexOf('.');
-        let fileExtension = oldFileName.slice(idx,oldFileName.length)
-        let currentDate = new Date();
-        let timestamp = currentDate.getTime();
-        let hexTimestamp = timestamp.toString(16);
-
-        return loggedUser._id + type + idObject + hexTimestamp + fileExtension;
-    }
-
     function updateUser(key, newData) {
         const newState = { ...loggedUser };
         newState[key] = newData;
@@ -61,7 +50,7 @@ const MyForm = ({type}) => {
 
 
 async function addDataToMongo(dataToSave) {
-    setShowLoading([true,0]);
+    setShowLoading([true,0]);  // osobna funckja -  poprawić to.
     console.log('--------------- app form | add data to mongo:  ' + dataToSave)
 
     // console.log('------------- fn addDataToMongo -------------------------')
@@ -95,7 +84,7 @@ async function addDataToMongo(dataToSave) {
             for (let i=0; i<file.length; i++) {
 
                 let name = file[i].name
-                newFileName = newFileNameGenerator(dataId._id, name);
+                newFileName = newFileNameGenerator(dataId._id, name, type);
                 tempFileNameArr.push(newFileName);
                 await transferDataFile(`upload`, file[i], folderName, newFileName);
 

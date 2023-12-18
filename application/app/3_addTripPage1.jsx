@@ -1,32 +1,81 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import PrintForm from "./3_printForm";
+import { deleteFile, fetchData, transferData, transferDataFile, updateData } from "./a_CRUD_service";
+import { getInitialFormData } from "./getInitialFormData";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import addDataToMongo from "./a_addDataToMongo";
+import addMultiFiles from "./a_addMultiFiles";
 
-const AddTripPage1 = () => {
-    const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
-    return (<>
+const AddTripPage1 = ({page, setPageInputTrip, pageInputTrip}) => {
+    const [formData, setFormData] = useState({});
+    const [formDataPage1, setFormDataPage1] = useState({});
+    const [file, setFile] = useState(null);
+    const dataId = useStoreState(state => state.dataId);
+    const loggedUser = useStoreState(state => state.loggedUser);
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+    const type = 'trip';
+    const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType'],['tripCar'],['tripMap'],['tripPhoto']];
 
-            <div>
-                page 1
-                <select value={formData[value]} name={value} onChange={handleChange} className="">
-                    {countriesInEurope.map((country) => (
-                        <option key={country} value={country} >
-                            {country}
-                        </option>
-                <div className="imputForm_visibility">
-                    <div className="imputForm_visibility_txt">{stan ? 'will not be displayed' : 'visible on main page'}</div>
-                    <button type="button" className="main_button" onClick={zmienStan}>change visibility</button>
+    useEffect(() => {
+        setShowLoading([true, 0]);
+        const fetchData = async () => {
+            // setShowLoading([true, 0]);
+            let data = await getInitialFormData(type, loggedUser, dataId);
+            console.log(data);
+            setFormData(data);
+            // setShowLoading([false, 0]);
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        if (formData) {
+        console.log(formData);
+        console.log(JSON.stringify(formData));
+
+        const objectToSave = keysToCopy[page].reduce((result, key) => {
+            if (key in formData) {
+                result[key] = formData[key];
+            }
+            return result;
+        }, {});
+        setFormDataPage1(objectToSave);
+        setShowLoading([false, 0]);}
+    }, [formData]);
+
+    useEffect(async () =>{
+        if (file) {
+            await addMultiFiles(file, dataId, type, formData).then((responseData)=> {
+                addDataToMongo(responseData)
+            });
+        } else {
+            await addDataToMongo(formDataPage1, dataId, type)
+        }
+    },[pageInputTrip])
+
+    let formArr = Object.keys(formDataPage1);
+
+    return (
+        <>
+            <div id={'addTripPage1'}>
+                <h4>your new trip!</h4>
+                <h3>give us some informations:</h3>
+                <form>
+                    <PrintForm
+                        form={formArr}
+                        formData={formDataPage1}
+                        setFormData={setFormDataPage1}
+                        setFile={setFile}
+                        type='trip'
+                    />
+                </form>
+                <div>
+                    <button onClick={()=> setPageInputTrip(pageInputTrip - 1)}>back</button>
+                    <button onClick={()=> setPageInputTrip(pageInputTrip + 1)}>next</button>
                 </div>
-                <textarea
-                    name={value}
-                    value={formData[value] || ''}
-                    onChange={handleChange}
-                    maxLength='2000'
-                    rows="3"
-                    className="imputForm_inputData"
-                />
-                <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>
             </div>
-
-    </>)
+        </>
+    )
 }
 
 export default AddTripPage1;

@@ -29,8 +29,8 @@ const MainPage = () => {
 
             <div className="layout_main layout_flex-sb layout_mainViewWidth">
                 {(page === "userProfile" ? (<UserProfile/>):(<></>))}
-                {/*{(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}*/}
-                {(page === "mainPage" ? (<AddTrip/>):(<></>))}
+                {(page === "mainPage" ? (<ShowTrips dataFilter={dataFilter}/>):(<></>))}
+                {/*{(page === "mainPage" ? (<AddTrip/>):(<></>))}*/}
                 {(page === "aboutUs" ? (<AboutUs/>):(<></>))}
                 {(page === "login" ? (<Login/>):(<></>))}
                 {(page === "map" ? (<Gmap/>):(<></>))}
@@ -45,9 +45,8 @@ const MainPage = () => {
                     type={"user"}/>):(<></>))}
                 {(page === "addCar" ? (<MyForm
                     type={"car"}/>):(<></>))}
-                {(page === "addTrip" ? (
-                    <MyForm
-                    type={"trip"}/>):(<></>))}
+                {(page === "addTrip" ? (<AddTrip/>):(<></>))}
+
                 {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
 
                 {(showLoading[0]) ? (<Anim_loading/>):(<></>)}
@@ -57,3 +56,5 @@ const MainPage = () => {
 };
 
 export default MainPage;
+// <MyForm
+// type={"trip"}/>):(<></>))}

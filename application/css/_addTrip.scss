@@ -1,0 +1,88 @@
+.addTrip {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  box-sizing: border-box;
+  overflow-x: hidden;
+  width: 100%;
+  padding-top: 2rem;
+
+}
+.addTrip_inputBox {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 2rem;
+
+
+  button {
+    transition-duration: 0.5s;
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid $color-background-reflex;
+    color: $color-background-reflex;
+    background-color: rgba(0,0,0,0);
+    border-radius: 50%;
+    &:hover {
+      transition-duration: 1s;
+    }
+  }
+  div {
+    margin: 1rem;
+    box-sizing: border-box;
+    height: 2px;
+    border: 1px solid $color-background-reflex;
+    width: 25%;
+  }
+
+  &:first-child {
+    color: $color-background-main;
+    border: 1px solid $color-blink-color;
+    background-color: $color-blink-color;
+  }
+
+}
+
+.addTrip_inputBox {
+  button {
+    &.below {
+      border: 1px solid $color-background-secondary;
+      background-color: $color-background-secondary;
+      color: $color-background-main;
+    }
+    &.current {
+      color: $color-background-main;
+      border: 1px solid $color-blink-color;
+      background-color: $color-blink-color;
+    }
+    &.above {
+      border: 1px solid $color-background-reflex;
+      color: $color-background-reflex;
+    }
+  }
+}
+//.addTrip_inputBox {
+//  div {
+//    &.below {
+//      border: 1px solid $color-background-secondary;
+//    }
+//    &.above {
+//      border: 1px solid $color-background-reflex;
+//    }
+//  }
+//}
+
+
+
+//.addTrip_inputBox_1 button:nth-child(1) {
+//  background-color: #b53a3a;
+//}
+
+//.addTrip_inputButtonLine {
+//
+//
+//}
+//.addTrip_inputLine {
+//
+//}

@@ -9,7 +9,7 @@
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  border-bottom: 1px dotted $color-txt-secondary;
+  //border-bottom: 1px dotted $color-txt-secondary;
   margin-bottom: 0.5rem;
   @include rwd_form(block);
 }
@@ -28,7 +28,7 @@
     font-family: $fontStyleMain;
     font-size: $txtLarge;
     width: 15rem;
-    border: 1px solid red;
+    //border: 1px solid red;
     height: 2rem;
     margin-top: 1rem;
     //margin-bottom: 0.2rem;
@@ -40,7 +40,7 @@
     font-size: $txtNormal;
     padding: 0.1rem;
     //border: 0;
-    border: 1px solid blue;
+    //border: 1px solid blue;
     @include rwd_width();
   }
   option {
@@ -49,7 +49,7 @@
     font-size: $txtNormal;
     padding: 0.1rem;
     //border: 0;
-    border: 1px solid green;
+    //border: 1px solid green;
     @include rwd_width();
   }
   input {
@@ -58,7 +58,7 @@
     //background-color: $color-background-main ;
     //color: $color-background-secondary;
     @include rwd_width();
-    border: 1px solid yellow;
+    //border: 1px solid yellow;
   }
   div {
     display: flex;
@@ -67,7 +67,7 @@
     font-size: $txtLarge;
     width: calc(100% - 15rem);
     @include rwd_width();
-    border: 1px solid rosybrown;
+    //border: 1px solid rosybrown;
   }
 }
 
@@ -84,6 +84,11 @@
 
 .imputForm_inputData {
 
+  border-bottom: 1px dotted $color-txt-secondary;
+}
+
+.imputForm_inputDataArrea {
+  height: auto;
   border-bottom: 1px dotted $color-txt-secondary;
 }
 .imputForm_inputFile {
