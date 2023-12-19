@@ -1,77 +1,106 @@
 import React, { useState, useEffect } from 'react';
 import PrintForm from "./3_printForm";
-import { deleteFile, fetchData, transferData, transferDataFile, updateData } from "./a_CRUD_service";
-import { getInitialFormData } from "./getInitialFormData";
 import { useStoreActions, useStoreState } from "easy-peasy";
-import addDataToMongo from "./a_addDataToMongo";
-import addMultiFiles from "./a_addMultiFiles";
 
-const AddTripPage1 = ({page, setPageInputTrip, pageInputTrip}) => {
-    const [formData, setFormData] = useState({});
-    const [formDataPage1, setFormDataPage1] = useState({});
-    const [file, setFile] = useState(null);
-    const dataId = useStoreState(state => state.dataId);
-    const loggedUser = useStoreState(state => state.loggedUser);
-    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
-    const type = 'trip';
-    const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType'],['tripCar'],['tripMap'],['tripPhoto']];
+const AddTripPage1 = ({page, setPageInputTrip, pageInputTrip, formData, setFormData, setFile}) => {
 
-    useEffect(() => {
-        setShowLoading([true, 0]);
-        const fetchData = async () => {
-            // setShowLoading([true, 0]);
-            let data = await getInitialFormData(type, loggedUser, dataId);
-            console.log(data);
-            setFormData(data);
-            // setShowLoading([false, 0]);
-        };
-        fetchData();
-    }, []);
+    const [okPrint, setOkPrint] = useState(false);
+    // const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType'],['tripCar'],['tripMap'],['tripPhoto']];
+    // const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
-    useEffect(() => {
-        if (formData) {
-        console.log(formData);
-        console.log(JSON.stringify(formData));
+    // useEffect(() => {
+    //     console.log('---------------add trip page _ useEffect -------------------------')
+    //     console.log(formData)
+    //     const fetchDataAndUpdate = async () => {
+    //         console.log('txt test')
+    //         // const response = await fetchData();
+    //         // console.log(response);
+    //         console.log('page input trip: ' + pageInputTrip);
+    //
+    //         const objectToSave = keysToCopy[pageInputTrip - 1].reduce((result, key) => {
+    //             console.log(result)
+    //             if (key in formData) {
+    //                 result[key] = formData[key];
+    //             }
+    //             return result;
+    //         }, {});
+    //
+    //         setFormData(objectToSave);
+    //         setOkPrint(true)
+    //     };
+    //
+    //     fetchDataAndUpdate();
+    //
+    // }, [pageInputTrip]);
 
-        const objectToSave = keysToCopy[page].reduce((result, key) => {
-            if (key in formData) {
-                result[key] = formData[key];
-            }
-            return result;
-        }, {});
-        setFormDataPage1(objectToSave);
-        setShowLoading([false, 0]);}
-    }, [formData]);
+    // useEffect(() => {
+    //     if (formData) {
+    //     console.log(formData);
+    //     console.log(JSON.stringify(formData));
+    //
+    //     const objectToSave = keysToCopy[page].reduce((result, key) => {
+    //         if (key in formData) {
+    //             result[key] = formData[key];
+    //         }
+    //         return result;
+    //     }, {});
+    //         setFormData(objectToSave);
+    //     setShowLoading([false, 0]);}
+    // }, [formData]);
 
-    useEffect(async () =>{
-        if (file) {
-            await addMultiFiles(file, dataId, type, formData).then((responseData)=> {
-                addDataToMongo(responseData)
-            });
+    // useEffect(async () =>{
+        // if (file) {
+        //     await addMultiFiles(file, dataId, type, formData).then((responseData)=> {
+        //         addDataToMongo(responseData)
+        //     });
+        // } else {
+        //     await addDataToMongo(tempInMemory, dataId, type)
+        // }
+    // },[pageInputTrip])
+
+    const changePageFn = async (dir) => {
+        console.log('add trip | change page fn | line 62')
+        // if (pageInputTrip === 1) {
+
+        //     setFormDataPage1(formData)
+        // } else if (pageInputTrip === 2) {
+
+        //     setFormDataPage2(formData)
+        // } else if (pageInputTrip === 3) {
+        //
+        // } else {
+        //     console.log('4 form data: ' + formData)
+        //     setFormDataPage4(formData)
+        // }
+
+        if (dir === 'next') {
+            setPageInputTrip(pageInputTrip + 1)
         } else {
-            await addDataToMongo(formDataPage1, dataId, type)
+            setPageInputTrip(pageInputTrip - 1)
         }
-    },[pageInputTrip])
 
-    let formArr = Object.keys(formDataPage1);
+    }
 
+    let formArr = Object.keys(formData);
+console.log('page: ' + pageInputTrip)
     return (
         <>
             <div id={'addTripPage1'}>
                 <h4>your new trip!</h4>
                 <h3>give us some informations:</h3>
                 <form>
+                    {okPrint ?
                     <PrintForm
                         form={formArr}
-                        formData={formDataPage1}
-                        setFormData={setFormDataPage1}
+                        formData={formData}
+                        setFormData={setFormData}
                         setFile={setFile}
                         type='trip'
-                    />
+                    /> : <>wait....</> }
                 </form>
                 <div>
-                    <button onClick={()=> setPageInputTrip(pageInputTrip - 1)}>back</button>
-                    <button onClick={()=> setPageInputTrip(pageInputTrip + 1)}>next</button>
+                    {(pageInputTrip > 1) ? <button onClick={()=> changePageFn('back') }>back</button> : <></>}
+                    {(pageInputTrip < 4) ? <button onClick={()=> changePageFn('next')}>next</button> : <button onClick={()=> setPageInputTrip(666)}>save</button> }
                 </div>
             </div>
         </>

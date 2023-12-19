@@ -32,7 +32,7 @@ const PrintForm = ({form,formData,setFormData, setFile, type}) => {
     let slicePoint;
     let commentsValue;
     let tripRateData;
-    console.log('stan: ' + stan + ' |||||');
+    // console.log('stan: ' + stan + ' |||||');
 
     // useEffect(()=>{
     //

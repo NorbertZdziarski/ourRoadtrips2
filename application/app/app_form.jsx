@@ -28,6 +28,7 @@ const MyForm = ({type}) => {
     const [formError, setFormError] = useState(null);
     const displayStyles = useStoreState(state => state.displayStyles);
 
+
     let newUser = true;
 
 
