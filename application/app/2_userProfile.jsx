@@ -94,8 +94,14 @@ function UserProfile() {
             }
             if (toDelete[0] === 'trip') {
                 await deleteData(`trip/${toDelete[1]._id}`);
-                const target = `select/trip/${loggedUser._id}`
-                fetchData(target).then(downloadedData => {
+                const target = `select/trips/${loggedUser._id}`
+
+                console.log('target: ' + target)
+                console.log('user id: ' + loggedUser._id)
+                console.log('to delete: ' + toDelete)
+
+
+                await fetchData(target).then(downloadedData => {
                     console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
                     setLoggedUserTrips(downloadedData)
                 });

@@ -1,42 +1,22 @@
-import React, {useMemo, useState, useEffect} from 'react';
-import {GoogleMap, LoadScript, Marker, DirectionsService, DirectionsRenderer} from '@react-google-maps/api';
+import React, {useMemo, useState, useEffect, useRef} from 'react';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 require('dotenv').config();
 
 const ShowMap = ({country, tripMap, tripPoint}) => {
+    const [isMapsLoaded, setMapsLoaded] = useState(false);
+    const [isTripMapLoaded, setTripMapLoaded] = useState(false);
+    const mapRef = useRef(null);
+
+    useEffect(()=>{
+        if (tripMap) {
+            if (tripMap.geocode.overview_path)  setTripMapLoaded(true)
+        }
+    },[isMapsLoaded])
 
     const countryCoordinates = {
         'Poland': {lat: 51.9194, lng: 19.1451},
         'Finland': {lat: 70.10, lng: 31.58},
-        'Sweden': {lat: 69.06, lng: 24.16},
-        'United Kingdom': {lat: 60.85, lng: 1.76},
-        'Estonia': {lat: 59.68, lng: 28.21},
-        'Latvia': {lat: 58.08, lng: 28.24},
-        'Denmark': {lat: 57.75, lng: 15.16},
-        'Lithuania': {lat: 56.45, lng: 26.87},
-        'Ireland': {lat: 55.39, lng: -6.00},
-        'Germany': {lat: 55.06, lng: 15.04},
-        'Netherlands': {lat: 53.51, lng: 7.23},
-        'Belgium': {lat: 51.51, lng: 6.40},
-        'France': {lat: 51.09, lng: 9.56},
-        'Czech Republic': {lat: 51.05, lng: 18.85},
-        'Luxembourg': {lat: 50.18, lng: 6.53},
-        'Slovakia': {lat: 49.60, lng: 22.57},
-        'Austria': {lat: 49.02, lng: 17.16},
-        'Hungary': {lat: 48.59, lng: 22.91},
-        'Romania': {lat: 48.27, lng: 29.69},
-        'Italy': {lat: 47.10, lng: 18.51},
-        'Slovenia': {lat: 46.88, lng: 16.57},
-        'Bulgaria': {lat: 44.22, lng: 28.61},
-        'Spain': {lat: 43.79, lng: 4.32},
-        'Portugal': {lat: 42.15, lng: -6.18},
-        'Greece': {lat: 41.76, lng: 28.25},
-        'Malta': {lat: 36.08, lng: 14.58},
-        'Cyprus': {lat: 35.70, lng: 34.60}
     };
-
-    console.log('country: ' + country + countryCoordinates[country]);
-    console.log('country: ' + JSON.stringify(countryCoordinates[country]));
-
     const googleMapsAPIkey =  process.env.GOOGLE_MAPS_API_KEY;
     const mapStyles = {
         height: "600px",
@@ -49,36 +29,14 @@ const ShowMap = ({country, tripMap, tripPoint}) => {
     useEffect(() => {
         if (country && countryCoordinates[country]) {
             setCenter(countryCoordinates[country]);
-            setZoom(5); // Adjust zoom level as needed
-
-            console.log('center: ' + center + 'zoom: ' + zoom)
-            console.log('center: ' + JSON.stringify(center))
+            setZoom(3);
         }
     }, [country]);
-    tripPoint = {lat: 50.0614, lng: 19.9366};
-    tripMap =  [
- { lat: 50.0614, lng: 19.9366 },
-
-           { lat: 44.4325, lng: 26.1039 },
- { lat: 48.7238, lng: 21.2571 }
-    ];
-
-    const [directions, setDirections] = useState(null);
-
-    const directionsCallback = (response) => {
-        if (response !== null) {
-            if (response.status === 'OK') {
-                setDirections(response);
-            } else {
-                console.log('response: ', response);
-            }
-        }
-    }
 
     const map = useMemo(() => (
         <div style={{zIndex:1000, width: '100%', height: '100%'}}>
-
             <GoogleMap
+                ref={mapRef}
                 mapContainerStyle={mapStyles}
                 center={center}
                 zoom={zoom}
@@ -99,41 +57,26 @@ const ShowMap = ({country, tripMap, tripPoint}) => {
                         ]
                     }
                 }}
-            >
-                {/*{tripPoint && <Marker position={tripPoint} />}*/}
-                {/*{tripMap && <Polyline path={tripMap} options={{strokeColor: "#02bbfb"}}/>}*/}
-
-                {tripMap &&
-                    <DirectionsService
-                        options={{
-                            destination: tripMap[tripMap.length - 1],
-                            origin: tripMap[0],
-                            travelMode: 'DRIVING',
-                            waypoints: tripMap.slice(1, -1).map(location => ({location}))
-                        }}
-                        callback={directionsCallback}
-                    />
-                }
-                {directions && <DirectionsRenderer directions={directions} />}
-
-
-
-            </GoogleMap>
+                onLoad={map => {
+                    mapRef.current = map;
+                    if (isTripMapLoaded) {
+                        new window.google.maps.Polyline({
+                            path: tripMap.geocode.overview_path,
+                            geodesic: true,
+                            strokeColor: "#fb3c02",
+                            strokeOpacity: 1.0,
+                            strokeWeight: 3
+                        }).setMap(mapRef.current)
+                    }
+                }}
+            />
         </div>
-    ), [center, zoom, tripPoint, tripMap]);
+    ), [center, zoom, tripMap, isMapsLoaded, isTripMapLoaded]);
 
     return (
-        <>
-            <LoadScript
-                googleMapsApiKey={googleMapsAPIkey}>
-                {map}
-            </LoadScript>
-        </>
-    )
+        <LoadScript googleMapsApiKey={googleMapsAPIkey} onLoad={() => setMapsLoaded(true)}>
+            {map}
+        </LoadScript>
+    );
 };
-
 export default ShowMap;
-
-
-
-

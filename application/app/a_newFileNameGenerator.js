@@ -1,7 +1,5 @@
-const {useStoreState} = require("easy-peasy");
-const newFileNameGenerator = (idObject, filename, type) => {
 
-    const loggedUser = useStoreState(state => state.loggedUser);
+const newFileNameGenerator = (idObject, filename, type, loggedUser) => {
 
     console.log('new file name generator: idObject: ' + idObject)
     let oldFileName = filename.toLowerCase();
@@ -11,7 +9,19 @@ const newFileNameGenerator = (idObject, filename, type) => {
     let timestamp = currentDate.getTime();
     let hexTimestamp = timestamp.toString(16);
 
-    return loggedUser._id + type + idObject + hexTimestamp + fileExtension;
+    console.log('oldFileName ' + oldFileName)
+    console.log('idx ' + idx)
+    console.log('fileExtension ' + fileExtension)
+    console.log('currentDate ' + currentDate)
+    console.log('timestamp ' + timestamp)
+    console.log('hexTimestamp ' + hexTimestamp)
+    console.log('idObject ' + idObject)
+    console.log('type ' + type)
+    console.log('loggedUser ' +  loggedUser)
+
+
+
+    return loggedUser + '-' + type + idObject + '-' + hexTimestamp + fileExtension;
 }
 
 module.exports = newFileNameGenerator;

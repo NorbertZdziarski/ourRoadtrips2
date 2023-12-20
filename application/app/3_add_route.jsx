@@ -10,7 +10,7 @@ import {
 import Anim_loading from "./anim_loading";
 require('dotenv').config();
 
-const AddRoute = ({country}) => {
+const AddRoute = ({country, routeToSave, setRouteToSave}) => {
 const googleMapsAPIkey =  process.env.GOOGLE_MAPS_API_KEY;
 const mapStyles = {
     height: "600px",
@@ -104,24 +104,25 @@ useEffect(() => {
 
 
     useEffect(()=>{
-        console.log('==================================')
-        console.log(routeData.geocoded_waypoints)
-        console.log(routeData.routes)
-        console.log('----------------------------------')
+        setRouteToSave(routeData)
+        // console.log('==================================')
+        // console.log(routeData.geocoded_waypoints)
+        // console.log(routeData.routes)
+        // console.log('----------------------------------')
 
 
-        if (routeData.geocoded_waypoints) console.log(routeData.geocoded_waypoints.length)
+        // if (routeData.geocoded_waypoints) console.log(routeData.geocoded_waypoints.length)
 
 
-        console.log('----------------------------------')
+        // console.log('----------------------------------')
         if (routeData.routes) {
-            console.log(routeData.routes[0].summary)
-            console.log(routeData.routes[0].legs[0].distance)
-            console.log(routeData.routes[0].legs[0].duration)
-            console.log(routeData.routes[0].legs[0].end_address)
-            console.log(routeData.routes[0].legs[0].start_address)
+            // console.log(routeData.routes[0].summary)
+            // console.log(routeData.routes[0].legs[0].distance)
+            // console.log(routeData.routes[0].legs[0].duration)
+            // console.log(routeData.routes[0].legs[0].end_address)
             // console.log(routeData.routes[0].legs[0].start_address)
-            console.log('----------------------------------')
+            // console.log(routeData.routes[0].legs[0].start_address)
+            // console.log('----------------------------------')
             setRouteInfoKM(routeData.routes[0].legs[0].distance.text);
             setRouteInfoTime(routeData.routes[0].legs[0].duration.text);
             setRouteInfoSummary(routeData.routes[0].summary);

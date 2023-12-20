@@ -6,16 +6,16 @@ const host = process.env.SERVER_HOST || 'llllocalhost';
 const port = process.env.SERVER_PORT || 9000
 // const apiURL = `http://${host}:${port}`;
 const apiURL = `https://${host}:${port}`;
-console.log('_server HOST: ' + host);
-console.log('_server PORT: ' + port);
-console.log('_api url: ' + apiURL);
+// console.log('_server HOST: ' + host);
+// console.log('_server PORT: ' + port);
+// console.log('_api url: ' + apiURL);
 const sendRequest = async (method, target, data,folderName, fileName) => {
 
-    console.log('method: ' + method)
-    console.log('target: ' + target)
-    console.log('data: ' + data)
-    console.log('folder name: ' + folderName)
-    console.log('file name: ' + fileName)
+    // console.log('method: ' + method)
+    // console.log('target: ' + target)
+    // console.log('data: ' + data)
+    // console.log('folder name: ' + folderName)
+    // console.log('file name: ' + fileName)
 
     try {
         let response;
@@ -30,8 +30,8 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                             'my-header': 'all'
                         }
                     });
-                    console.log(response.data);
-                    console.log(response);
+                    // console.log(response.data);
+                    // console.log(response);
                     return response.data;
                 } catch (error) {
                     console.error(error);
@@ -59,10 +59,10 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 break;
             case 'postgooglephoto':
                 // const linksToSend = new FormData();
-                console.log('CRUD | -=-=- GooglePhoto -=-=- v3 -=---------');
-                console.log('folder name: ' + folderName + ' JSON: ' + JSON.stringify(folderName));
-                console.log('data: ' + data + ' JSON: ' + JSON.stringify(data));
-                // console.log('CRUD | ------------------------- ');
+                // console.log('CRUD | -=-=- GooglePhoto -=-=- v3 -=---------');
+                // console.log('folder name: ' + folderName + ' JSON: ' + JSON.stringify(folderName));
+                // console.log('data: ' + data + ' JSON: ' + JSON.stringify(data));
+                // // console.log('CRUD | ------------------------- ');
 
                 // linksToSend.append('sourceUrl', data);
                 // linksToSend.append('targetPath', folderName);
@@ -89,9 +89,9 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
             case 'postfile':
                 const formDatas = new FormData();
                 console.log('CRUD | -=-=- post file -=-=- ');
-                console.log('type' + folderName + ' JSON: ' + JSON.stringify(folderName));
-                console.log('filename' + fileName + ' JSON: ' + JSON.stringify(fileName));
-                console.log('CRUD | ------------------------- ');
+                // console.log('type' + folderName + ' JSON: ' + JSON.stringify(folderName));
+                // console.log('filename' + fileName + ' JSON: ' + JSON.stringify(fileName));
+                // console.log('CRUD | ------------------------- ');
 
                 formDatas.append('type', folderName);
                 formDatas.append('filename', fileName);

@@ -1,70 +1,106 @@
 import React, {useEffect, useState} from 'react';
 
-import AddTripPage1 from "./3_addTripPage1";
-import AddTripPage3 from "./3_addTripPage3";
+import AddTripPageMap from "./3_addTripPageMap";
 
 import {useStoreActions, useStoreState} from "easy-peasy";
 import addMultiFiles from "./a_addMultiFiles";
 import addDataToMongo from "./a_addDataToMongo";
 import {getInitialFormData} from "./getInitialFormData";
+import PrintForm from "./3_printForm";
+import {fetchData, updateData} from "./a_CRUD_service";
 
 const AddTrip = () => {
     const loggedUser = useStoreState(state => state.loggedUser);
     const [pageInputTrip, setPageInputTrip] = useState(1)
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({});
-    const [formDataToSave, setFormDataToSave] = useState({});
     const type = 'trip';
     const dataId = useStoreState(state => state.dataId);
     const setPage = useStoreActions(actions => actions.setPage);
-    // const [formDataPage, setFormDataPage] = useState({});
+
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     const [okPrint, setOkPrint] = useState(false);
-    const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType'],['tripCar'],['tripMap'],['tripPhoto']];
+    const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType', 'tripPublic' ],['tripCar'],['tripMap'],['tripPhoto'],[ 'userId','tripUser', 'tripSaveDate', 'tripRate', 'tripComments']];
     const [formDataPage1, setFormDataPage1] = useState({});
     const [formDataPage2, setFormDataPage2] = useState({});
+    const [formDataPage3, setFormDataPage3] = useState({});
     const [formDataPage4, setFormDataPage4] = useState({});
+    const [formDataPageOther, setFormDataPageOther] = useState({});
 
-    //
     useEffect(() => {
-        console.log('--------------------------- ADD TRIP -------------------------------------')
-        console.log('--use effect | fetchData | line 27 ---')
 
         const fetchData = async () => {
-            const data = await getInitialFormData(type, loggedUser, formData);
+            const data = await getInitialFormData(type, loggedUser, dataId);
             console.log('ADD TRIP | data: ' + data)
             setFormData(data);
-            console.log(' finish update use efect | fetch')
+
+
+            const objectToSave5 = keysToCopy[4].reduce((result, key) => {
+                if (key in data) {
+                    result[key] = data[key];
+                }
+                return result;
+            }, {});
+            setFormDataPageOther(objectToSave5);
 
             const objectToSave1 = keysToCopy[0].reduce((result, key) => {
-                console.log(result)
                 if (key in data) {
                     result[key] = data[key];
                 }
                 return result;
             }, {});
-
             setFormDataPage1(objectToSave1);
+
             const objectToSave2 = keysToCopy[1].reduce((result, key) => {
-                console.log(result)
-                if (key in data) {
+                    if (key in data) {
                     result[key] = data[key];
                 }
                 return result;
             }, {});
-
             setFormDataPage2(objectToSave2);
-            const objectToSave3 = keysToCopy[3].reduce((result, key) => {
-                console.log(result)
+
+            const objectToSave3 = keysToCopy[2].reduce((result, key) => {
+                    if (key in data) {
+                    result[key] = data[key];
+                }
+                return result;
+            }, {});
+            setFormDataPage3(objectToSave3);
+
+            const objectToSave4 = keysToCopy[3].reduce((result, key) => {
                 if (key in data) {
                     result[key] = data[key];
                 }
                 return result;
             }, {});
+            setFormDataPage4(objectToSave4);
 
-            setFormDataPage4(objectToSave3);
 
         };
+
+
+        // const fetchData = async () => {
+        //     const data = await getInitialFormData(type, loggedUser, formData);
+        //     console.log('ADD TRIP | data: ' + data)
+        //     setFormData(data);
+        //     console.log(' finish update use efect | fetch')
+        //
+        //     const setFormDataPages = [setFormDataPage1, setFormDataPage2, setFormDataPage3, setFormDataPage4, setFormDataPageOther];
+        //
+        //     keysToCopy.forEach((keys, index) => {
+        //         const objectToSave = keys.reduce((result, key) => {
+        //             if (key in data) {
+        //                 result[key] = data[key];
+        //             }
+        //             return result;
+        //         }, {});
+        //
+        //         setFormDataPages[index];
+        //     });
+        // };
+
+
+
 
         // const fetchDataAndUpdate = async () => {
         //     console.log('---------------add trip page _ useEffect -------------------------')
@@ -81,17 +117,24 @@ const AddTrip = () => {
     const handleSubmit = async () => {
 
         // console.log(' ------ TYPE: ' + type)
-        console.log(' ---- trip public: handleSubmit ')
+        console.log(' ---- trip public: handleSubmit <><><><><><> ')
         console.log(' ---- trip public: ' + formData.tripPublic)
         console.log(' ---- handle submit: ' + formData)
         console.log(' ---- JSON: ' + JSON.stringify(formData))
-        console.log(' ---- handle submit: ' + formDataToSave)
-        console.log(' ---- JSON: ' + JSON.stringify(formDataToSave))
+
+        console.log('file:' + file)
 
         // e.preventDefault();
         setShowLoading([true,0]);
         // let error = '';
-
+        // let formDataToSave = await formData.concat(formDataPage1, formDataPage2, formDataPage4);
+        let formDataToSave = { ...formData, ...formDataPage1, ...formDataPage2, ...formDataPage3 , ...formDataPage4 , ...formDataPageOther }
+        console.log(' ---- handle submit formDataToSave: ' + formDataToSave)
+        console.log(' ---- JSON formDataToSave: ' + JSON.stringify(formDataToSave));
+        console.log(' ---- handle submit formDataPag1: ' + formDataPage1)
+        console.log(' ---- JSON formDataPag1: ' + JSON.stringify(formDataPage1));
+        console.log(' ---- data ID: ' + dataId);
+        console.log(' ---- type: ' + type);
         // if (temporaryPass1) {
         //     console.log(' handle change temp 1')
         //     if (temporaryPass1 === temporaryPass2) {
@@ -122,10 +165,16 @@ const AddTrip = () => {
         // }
 
         if (file) {
-            console.log('2_add+trip: file')
-            await addMultiFiles(file, dataId, type, formDataToSave).then((responseData)=> {
-                addDataToMongo(responseData).then((r)=>{ console.log(r)})
-            });
+            console.log('2_add+trip: file | type: ' + type + ' | dataID: ' + dataId)
+            if (!dataId) {
+                await addDataToMongo(formDataToSave, null, type).then((res) => {
+                    console.log('198: dont dataID | res ' + res + ' | JSON: ' + JSON.stringify(res));
+                    addMultiFiles(file, res.id, type, formDataToSave, loggedUser._id).then((responseData) => {
+                        updateData(`${type}/${res.id}`, responseData);
+                        // addDataToMongo(responseData).then((r)=>{ console.log(r)})
+                    })
+                });
+            }
         } else {
             console.log('2_add+trip: else')
             await addDataToMongo(formDataToSave, dataId, type).then((r)=>{ console.log(r)})
@@ -143,18 +192,13 @@ const AddTrip = () => {
     };
 
     useEffect(async ()=>{
+
+
+
+
+
+
         console.log('_____________ useEffect 91 _ set to save | page input trip' + pageInputTrip)
-        await setFormDataToSave(prevState => {
-            const updatedState = { ...prevState };
-            for (const key in formData) {
-                updatedState[key] = formData[key];
-            }
-            return updatedState;
-        });
-
-
-
-
 
         if (pageInputTrip === 666) handleSubmit()
 
@@ -188,29 +232,68 @@ const AddTrip = () => {
     //         });
     //     });
     // });
-    console.log(' add trip: form data - JSON: ' + JSON.stringify(formData))
+    console.log('|| 253 || add trip: form data - JSON: ' + JSON.stringify(formData))
+    const changePageFn = async (dir) => {
+        if (pageInputTrip === 1) {
+            const objectToSave = keysToCopy[0].reduce((result, key) => {
+                    if (key in formData) {
+                        result[key] = formData[key];
+                    }
+                    return result;
+                }, {});
+                    setFormData(objectToSave);
+        }
+        if (dir === 'next') {
+            setPageInputTrip(pageInputTrip + 1)
+        } else {
+            setPageInputTrip(pageInputTrip - 1)
+        }
 
+    }
+    let formArr = Object.keys(formData);
+    let formArr1 = Object.keys(formDataPage1);
+    let formArr2 = Object.keys(formDataPage2);
+    let formArr3 = Object.keys(formDataPage3);
+    let formArr4 = Object.keys(formDataPage4);
     return (<>
         <section className={`addTrip`}>
-            { okPrint ? <>
-            <div >
-                {(pageInputTrip === 1) ? <AddTripPage1 setPageInputTrip={setPageInputTrip} pageInputTrip={pageInputTrip} formData={formDataPage1} setFormData={setFormData}/> : <></>}
-                {(pageInputTrip === 2) ? <AddTripPage1 setPageInputTrip={setPageInputTrip} pageInputTrip={pageInputTrip} formData={formDataPage2} setFormData={setFormData}/> : <></>}
-                {(pageInputTrip === 3) ? <AddTripPage3 setPageInputTrip={setPageInputTrip} pageInputTrip={pageInputTrip} formData={formData} setFormData={setFormData}/> : <></>}
-                {(pageInputTrip === 4) ? <AddTripPage1 setPageInputTrip={setPageInputTrip} pageInputTrip={pageInputTrip} formData={formDataPage4} setFormData={setFormData} setFile={setFile}/> : <></>}
-            </div>
+            {okPrint ? <>
+                <div>
+                    {(pageInputTrip === 1 || pageInputTrip === 2 || pageInputTrip === 4) &&
+                        <div id={'addTripPage1'}>
+                            <h4>your new trip!</h4>
+                            <h3>give us some informations:</h3>
+                            <form>
+                                {okPrint ?
+                                    <PrintForm
+                                        form={pageInputTrip === 1 ? formArr1 : pageInputTrip === 2 ? formArr2 : formArr4}
+                                        formData={pageInputTrip === 1 ? formDataPage1 : pageInputTrip === 2 ? formDataPage2 : formDataPage4}
+                                        setFormData={pageInputTrip === 1 ? setFormDataPage1 : pageInputTrip === 2 ? setFormDataPage2 : setFormDataPage4}
+                                        setFile={setFile}
+                                        type='trip'
+                                    /> : <>wait....</> }
+                            </form>
+                            <div>
+                                {(pageInputTrip > 1) ? <button onClick={()=> changePageFn('back') }>back</button> : <></>}
+                                {(pageInputTrip < 4) ? <button onClick={()=> changePageFn('next')}>next</button> : <button onClick={()=> setPageInputTrip(666)}>save</button> }
+                            </div>
+                        </div>
+                    }
+                    {pageInputTrip === 3 && <AddTripPageMap setPageInputTrip={setPageInputTrip} pageInputTrip={pageInputTrip} formData={formDataPage3} setFormData={setFormDataPage3} country={formDataPage1.tripCountry}/> }
+                </div>
 
-            <div className={`addTrip_inputBox`}>
-                <button disabled onClick={()=> setPageInputTrip(1)}>1</button>
-                <div />
-                <button disabled onClick={()=> setPageInputTrip(2)}>2</button>
-                <div />
-                <button disabled onClick={()=> setPageInputTrip(3)}>3</button>
-                <div />
-                <button disabled onClick={()=> setPageInputTrip(4)}>4</button>
-            </div>
+                <div className={`addTrip_inputBox`}>
+                    <button disabled onClick={()=> setPageInputTrip(1)}>1</button>
+                    <div />
+                    <button disabled onClick={()=> setPageInputTrip(2)}>2</button>
+                    <div />
+                    <button disabled onClick={()=> setPageInputTrip(3)}>3</button>
+                    <div />
+                    <button disabled onClick={()=> setPageInputTrip(4)}>4</button>
+                </div>
             </> : <>...loading...</>}
         </section>
+
     </>)
 }
 

@@ -102,7 +102,7 @@ function ShowTrip() {
                             setChosen(data.tripCar);
                       setPage("showcar");}}>   {data.tripCar} </button>
                 </div>
-                {showMap ? <AddRoute country={data.tripCountry}/> : <>
+                {showMap ? <ShowMap country={data.tripCountry} tripMap={data.tripMap}/> : <>
                     {data.tripPhoto ? <ShowPhotoSlide
                         photo={data.tripPhoto}
                         style={'aboutme_PhotoCar'}/> : <p>no photo</p>}

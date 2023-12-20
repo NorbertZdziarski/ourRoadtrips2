@@ -74,16 +74,13 @@ router.post('/:inquiryType/add', async (req, res) => {
        saveLog(`16 | action 'post', collection name: ${collectionName} , filter: ${filter} newItem: ${newItem}`,`app_post >`);
        saveLog(`17 | json:  \n newItem: ${JSON.stringify(newItem)}`);
 
-    await manageData(collectionName,'post', newItem).then((r) => {
-        saveLog(`20 | odpowiedz z zapisu: ${r} json: ${JSON.stringify(r)}`,`app_post >`);
+    await manageData(collectionName,'post', newItem).then((result) => {
+        saveLog(`20 | odpowiedz z zapisu: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
+        res.status(200).send({message: 'Dodano nowy element do bazy danych', id: result});
     });
 
-    res.status(200).send('Dodano nowy element do bazy danych');
+
 });
-
-
-
-
 
 // router.post('/:inquiryType/add', async (req, res) => {
 //     saveLog(`12 | -- app.post -- `,`app_post >`);

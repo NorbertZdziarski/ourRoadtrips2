@@ -89,9 +89,35 @@ async function manageData(collectionName, action, data, filter) {
             return dataDB;
 
         } else if (data && action === 'post') {
-            saveLog(`81 | post _ insertOne ${data}`, 'app_mongo')
-            await collection.insertOne(data);
-            await client.close();
+            saveLog(`81 | post _ insertOne ${JSON.stringify(data)}`, 'app_mongo')
+            // await collection.insertOne(data);
+
+            try {
+                let result = await collection.insertOne(data);
+                // saveLog('inserted record' + result.ops[0], 'app_mongo');
+                saveLog('New document ID:' + result.insertedId, 'app_mongo');
+                return result.insertedId;
+            } catch (error) {
+                saveLog('Error occurred while inserting: ' + error, 'app_mongo');
+                client.close();
+            }
+
+
+            // await collection.insertOne(data, function(error, result) {
+            //     if (error) {
+            //         saveLog('Error occurred while inserting: ' + error, 'app_mongo');
+            //         client.close();
+            //
+            //     } else {
+            //         saveLog('inserted record' + result.ops[0], 'app_mongo');
+            //         saveLog('New document ID:' + result.insertedId, 'app_mongo');
+            //         return result.insertedId;
+            //     }
+            // });
+            // await client.close();
+
+
+
         // } else if (action === 'login') {
         //     dataDB = await collection.find({nick: filter, password: data}, {projection: {password: 0}}).toArray();
         //     await client.close();

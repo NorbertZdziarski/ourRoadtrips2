@@ -1,21 +1,28 @@
 const newFileNameGenerator = require("./a_newFileNameGenerator");
 const {transferDataFile} = require("./a_CRUD_service");
-const {useStoreActions} = require("easy-peasy");
 
 
-async function addMultiFiles(file, dataId, type, formData) {
 
-    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+async function addMultiFiles(file, dataId, type, formData, loggedUser) {
 
-    setShowLoading([true,0]);
+    // const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+
+    // setShowLoading([true,0]);
     console.log('--------------- app form | add multi files ')
+    console.log('| file: ' + file)
+    console.log('| dataId: ' + dataId)
+    console.log(typeof dataId)
+    console.log('| type: ' + type)
+    console.log('| form data: ' + formData)
+    console.log('| fomr data json ' + JSON.stringify(formData))
     let newFileName;
 
     const tempFileNameArr = [];
     let folderName = type + 's';
+    console.log('folder name: ' + folderName)
     for (let i=0; i<file.length; i++) {
         let name = file[i].name
-        newFileName = newFileNameGenerator(dataId._id, name, type);
+        newFileName = newFileNameGenerator(dataId, name, type, loggedUser);
         tempFileNameArr.push(newFileName);
         await transferDataFile(`upload`, file[i], folderName, newFileName);
     }
@@ -36,7 +43,7 @@ async function addMultiFiles(file, dataId, type, formData) {
         ...toSave
     }
 
-    setShowLoading([false,'']);
+    // setShowLoading([false,'']);
     return toReturn;
 }
 

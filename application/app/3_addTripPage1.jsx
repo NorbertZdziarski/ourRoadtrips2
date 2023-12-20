@@ -4,7 +4,7 @@ import { useStoreActions, useStoreState } from "easy-peasy";
 
 const AddTripPage1 = ({page, setPageInputTrip, pageInputTrip, formData, setFormData, setFile}) => {
 
-    const [okPrint, setOkPrint] = useState(false);
+    const [okPrint, setOkPrint] = useState(true);
     // const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType'],['tripCar'],['tripMap'],['tripPhoto']];
     // const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
