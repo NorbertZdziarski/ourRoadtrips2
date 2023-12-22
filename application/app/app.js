@@ -71,7 +71,8 @@ function App() {
                             <Route path="/aboutUs" element={<AboutUs/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/map" element={<Gmap/>}/>
-                            <Route path="/showTrip" element={<ShowTrip />}/>
+                            {/*<Route path="/showTrip" element={<ShowTrip />}/>*/}
+                            <Route path="/showtrip/:id" element={<ShowTrip />} />
                             <Route path="/aboutMe" element={<AboutMe />}/>
                             <Route path="/showcar" element={<ShowCar />}/>
                             <Route path="/editUserData" element={<MyForm type={"user"}/>}/>

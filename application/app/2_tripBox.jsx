@@ -5,6 +5,7 @@ import RateModule from "./4_rateModule";
 import ShowRate from "./4_showRate";
 import ShowPhoto from "./5_showPhoto";
 import icoChat from "../images/ico/chat.png"
+import {Link} from "react-router-dom";
 
 function TripBox({trip, dataFilter}) {
     // console.log('trip: ' + trip)
@@ -42,7 +43,7 @@ function TripBox({trip, dataFilter}) {
     //     document.documentElement.style.setProperty('--tripbox_title-height', divHeight + 'px');
     // };
 
-
+    console.log('trip box')
     useEffect(() => {
         setShowLoading([true,1]);
         var divHeight = document.getElementById('tripbox_title').offsetHeight;
@@ -53,11 +54,11 @@ function TripBox({trip, dataFilter}) {
 
     return (
         <div className={`clickPage colorStyle_clickPage_${displayStyles}`}>
-
-            <button className="btn_tripBox" onClick={()=> {
-                setPage("showTrip")
-                setTripId(trip._id)
-                } }>
+            {/*<Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}>  */}
+            {/*<button className="btn_tripBox" onClick={()=> {*/}
+            {/*    setPage("showTrip")*/}
+            {/*    setTripId(trip._id)*/}
+            {/*    } }>*/}
                 <div className={`tripInfo_mainpage_box layout_flex-sb-directColumn colorstyle_tripInfoBox_${displayStyles}`}>
                     <div>
                         <div id="tripbox_title" className={`tripInfo_mainpage_title colorstyle_borderB_${displayStyles}`}>{trip.tripName}</div>
@@ -87,7 +88,8 @@ function TripBox({trip, dataFilter}) {
                 {/*/>*/}
                     <ShowPhoto photo={trip.tripPhoto} style={"photoStyle"} source='trips' />
                 </> : <p className="ramka">no photo.</p>}
-            </button>
+            {/*</button>*/}
+            {/*</Link>*/}
         </div>
     );
 }

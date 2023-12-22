@@ -12,11 +12,12 @@ import Gmap from "./2_map";
 import AddRoute from "./3_add_route";
 import ShowMap from "./3_show_map";
 
-
-
 function ShowTrip() {
+    // let { id } = useParams();
+
     const page = useStoreState(state => state.page);
     const tripId = useStoreState(state => state.tripId);
+    // const tripId = id;
     const loggedUser = useStoreState(state => state.loggedUser);
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
@@ -26,7 +27,7 @@ function ShowTrip() {
     const [addComm, setAddComm] = useState(null);
     const [showMap, setShowMap] = useState(false);
     const displayStyles = useStoreState(state => state.displayStyles);
-
+    console.log(' show trip id ' + tripId)
     useEffect(() => {
         const target = `one/trip/${tripId}`
         fetchData(target).then(downloadedData => {

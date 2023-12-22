@@ -45,8 +45,11 @@ function Header() {
             setMoblieMenuClass('');
         }
     }
+
+    // colorStyle_headerBtn_${displayStyles}
+
     return (<>
-            <header className={`headerStyle${moblieMenuClass} colorStyle_headerBtn_${displayStyles} `}>
+            <header className={`headerStyle${moblieMenuClass} fnt_btn_header`}>
                 <div className={` layout_flex-sb layout_mainViewWidth`}>
                     {(screenWidth < 950) && (moblieMenuClass === '') ? <>
                         <button onClick={() => openMenu()}>
@@ -54,20 +57,20 @@ function Header() {
                         </button>
                     </> : <>
                         {(((page === "mainPage") || (page === "aboutUs") || (page === "showTrip") || (page === "showcar") || (page === "mainPageFilter")) ? (
-                            <section className={`headerButtons${moblieMenuClass}`}>
-                                {page !== "mainPage" ? <Link to="/"> Main Page </Link> : <>
+                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
+                                {page !== "mainPage" ?<> <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>{setPage("mainPage")}</> : <>
                                     {(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
                                     {(dataSortOn) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
 
                                     {((!dataSortOn) && (!dataFilter[0])) ? <>
-                                        <button onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
+                                        <button  onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
                                             Filter
                                         </button>
                                         <button onClick={() => setDataSortOn(true)}>
                                             Sort
                                         </button>
                                         {(page === "mainPage") ?
-                                            <Link to="/map"> Map </Link> : <button disabled>
+                                            <Link to="/map"  className="myLink" onClick={() => {setPage("mainPage")}}> Map </Link> : <button disabled>
                                                 List
                                             </button>
                                         }
@@ -88,24 +91,28 @@ function Header() {
                         ) : (<></>))}
 
                         {(page === "userProfile") ? (
-                            <section className={`headerButtons${moblieMenuClass}`}>
-                                <Link to="/"> Main Page </Link>
-                                <button onClick={() => {
-                                    setDataId('')
-                                    setPage("addTrip")
-                                }}>
-                                    Add trip
-                                </button>
-                                <button onClick={() => {
-                                    setDataId('')
-                                    setPage("addCar")
-                                }
-                                }>
-                                    Add car
-                                </button>
-                                <button onClick={() => setPage("editUserData")}>
-                                    Edit User Data
-                                </button>
+                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
+                                <Link to="/addTrip" className="myLink" onClick={() => {setDataId(''); setPage("addTrip")}}> Add trip </Link>
+                                <Link to="/addCar" className="myLink" onClick={() => {setDataId(''); setPage("addCar")}}> Add Car </Link>
+                                <Link to="/editUserData" className="myLink" onClick={() => {setPage("editUserData")}}> Edit User Data </Link>
+
+
+                                {/*<button onClick={() => {*/}
+                                {/*    */}
+                                {/*}}>*/}
+                                {/*    Add trip*/}
+                                {/*</button>*/}
+                                {/*<button onClick={() => {*/}
+                                {/*    setDataId('')*/}
+                                {/*    setPage("addCar")*/}
+                                {/*}*/}
+                                {/*}>*/}
+                                {/*    Add car*/}
+                                {/*</button>*/}
+                                {/*<button onClick={() => setPage("editUserData")}>*/}
+                                {/*    Edit User Data*/}
+                                {/*</button>*/}
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
@@ -117,8 +124,8 @@ function Header() {
                             <></>)}
 
                         {(((page === "editUserData") || (page === "addCar") || (page === "addTrip")) ? (
-                            <section className={`headerButtons${moblieMenuClass}`}>
-                                <Link to="/"> Main Page </Link>
+                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
@@ -130,8 +137,8 @@ function Header() {
                             <></>))}
 
                         {((page === "aboutMe") ? (
-                            <section className={`headerButtons${moblieMenuClass}`}>
-                                <Link to="/"> Main Page </Link>
+                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
                                 <button onClick={() => {
                                     setPage("showTrip")
                                 }}>
@@ -148,8 +155,8 @@ function Header() {
                             <></>))}
 
                         {((page === "login") ? (
-                            <section className="headerButtons">
-                                <Link to="/"> Main Page </Link>
+                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
@@ -164,7 +171,7 @@ function Header() {
                     </>}
                     {(moblieMenuClass === '') ? (
 
-                        <div className={`headerButtons${moblieMenuClass}`}>
+                        <div className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
 
                             {/*{(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>*/}
                             {/*    /!*<p>{loggedUser.nick}</p>*!/*/}
@@ -179,8 +186,11 @@ function Header() {
                                            photoClass="header_photo"
                                 />
                             </button></> : <></>}
-                            {!loggedUser ?<> <Link to="/login"> -Login- </Link> <button onClick={() => setPage("login")}>
-                                LOGIN </button> </> : <></>}
+
+                            {/*<button onClick={() => setPage("login")}>*/}
+                            {/*    LOGIN </button> </>*/}
+
+                            {!loggedUser ?<> <Link to="/login" className="myLink" onClick={() => {setPage("login")}}> -Login- </Link></> : <></>}
                             {(page === 'userProfile') ? <button onClick={() => {
                                 setLoggedUser();
                                 googleLogout();
@@ -196,14 +206,16 @@ function Header() {
                             }}>
                                 <img src={icotheme} className={`header_ico ico_${displayStyles}`}/>
                             </button>
-                            <button onClick={() => setPage("mainPage")}>
-                                <img src={logourl} className={`header_logo logo_${displayStyles}`}/>
-                            </button>
+                            {/*<button onClick={() => setPage("mainPage")}>*/}
+
+                            {/*</button>*/}
                         </div>) : (<></>)}
 
 
                 </div>
-
+                <Link to="/"  onClick={() => {setPage("mainPage")}}>
+                    <img src={logourl} className={`header_logo logo_${displayStyles}`}/>
+                </Link>
             </header>
             <div className={`subHeader_${displayStyles}`}>
 
