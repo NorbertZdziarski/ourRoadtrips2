@@ -2,7 +2,7 @@ import TripBox from "./2_tripBox";
 import React from "react";
 import {useStoreState} from "easy-peasy";
 
-const SortingTrips = ({ tripData, dataFilter }) => {
+function SortingTrips({ tripData, dataFilter }) {
     const tripSort = useStoreState(state => state.tripSort);
 
 

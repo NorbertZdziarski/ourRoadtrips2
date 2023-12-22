@@ -6,7 +6,7 @@ import PrintForm from "./3_printForm";
 import {getInitialFormData} from "./getInitialFormData";
 import newFileNameGenerator from "./a_newFileNameGenerator";
 
-const MyForm = ({type}) => {
+function MyForm({type}) {
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({});
 

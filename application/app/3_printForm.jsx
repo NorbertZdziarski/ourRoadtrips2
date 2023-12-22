@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../css/main.scss';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
-const PrintForm = ({form,formData,setFormData, setFile, type}) => {
+function PrintForm({form,formData,setFormData, setFile, type}) {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
@@ -29,6 +29,7 @@ const PrintForm = ({form,formData,setFormData, setFile, type}) => {
 
     let usersCarsDisp = [];
     const [stan, setStan] = useState(form.tripPublic);
+    const [stanPublic, setStanPublic] = useState(form.tripPublic || false);
     let slicePoint;
     let commentsValue;
     let tripRateData;
@@ -40,7 +41,7 @@ const PrintForm = ({form,formData,setFormData, setFile, type}) => {
     // },[])
 
     useEffect(()=>{
-        console.log('}}} users cars disp _________________');
+        // console.log('}}} users cars disp _________________');
         setShowLoading([true,0]);
 
         if (loggedUser) {
@@ -49,9 +50,9 @@ const PrintForm = ({form,formData,setFormData, setFile, type}) => {
             const target = `select/cars/${loggedUser._id}`
             fetchData(target).then(downloadedData => {
                 usersCarsDisp = Object.values(downloadedData).map(car => [`${car.carMaker} ${car.carBrand}`,car._id, car.carStyleType]);
-                console.log('}}} users cars disp: ' + usersCarsDisp + ' JSON: ' + JSON.stringify(usersCarsDisp))
+                // console.log('}}} users cars disp: ' + usersCarsDisp + ' JSON: ' + JSON.stringify(usersCarsDisp))
                 setShowLoading([false,0]);
-                console.log('}}} 3 print form |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+                // console.log('}}} 3 print form |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
                 setUserCars(usersCarsDisp)
             });
 
@@ -68,9 +69,10 @@ const PrintForm = ({form,formData,setFormData, setFile, type}) => {
     },[]);
 
     const zmienStan = () => {
-        setStan(!stan);
-        console.log('_____ STAN: ' + stan)
-        setFormData({ ...formData, tripPublic: stan })
+
+        setStanPublic(!stanPublic);
+        console.log('_____ STAN: ' + stanPublic)
+        setFormData({ ...formData, tripPublic: stanPublic })
     };
     const rullesStan = () => {
         setStan(!stan);
@@ -189,7 +191,7 @@ const PrintForm = ({form,formData,setFormData, setFile, type}) => {
                     </select>):(<></>)}
                     {(value === 'tripPublic')?(
                         <div className="imputForm_visibility">
-                            <div className="imputForm_visibility_txt">{stan ? 'will not be displayed' : 'visible on main page'}</div>
+                            <div className="imputForm_visibility_txt">{stanPublic ? 'will not be displayed' : 'visible on main page'}</div>
                             <button type="button" className="main_button" onClick={zmienStan}>change visibility</button>
                         </div>
                     ):(<></>)}

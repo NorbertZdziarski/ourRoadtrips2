@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useStoreActions} from "easy-peasy";
 
-const DataFilter = ({setMoblieMenuClass}) => {
+function DataFilter({setMoblieMenuClass}) {
 
     const setDataFilter = useStoreActions(actions => actions.setDataFilter);
 

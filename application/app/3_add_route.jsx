@@ -10,7 +10,7 @@ import {
 import Anim_loading from "./anim_loading";
 require('dotenv').config();
 
-const AddRoute = ({country, routeToSave, setRouteToSave}) => {
+function AddRoute({country, routeToSave, setRouteToSave}) {
 const googleMapsAPIkey =  process.env.GOOGLE_MAPS_API_KEY;
 const mapStyles = {
     height: "600px",

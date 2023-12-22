@@ -1,8 +1,5 @@
 export const getInitialFormData = (type,loggedUser, dataId) => {
-    console.log('  get Initial Form Data')
-    console.log('  type: ' + type)
-    console.log('  logged user: ' + loggedUser)
-    console.log('  data ID: ' + dataId)
+
     if (type === 'trip') {
         return {
             userId: loggedUser._id,

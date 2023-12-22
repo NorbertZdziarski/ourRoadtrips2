@@ -1,7 +1,7 @@
 import React from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 
-const YesOrNot = () => {
+function YesOrNot() {
     const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
     const displayStyles = useStoreState(state => state.displayStyles);
 

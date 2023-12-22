@@ -3,7 +3,6 @@ import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData, transferData, transferGooglePhoto} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
-import {getInitialFormData} from "./getInitialFormData";
 import {checkIfItExists} from "./app_check";
 require('dotenv').config();
 function Login() {
@@ -19,8 +18,6 @@ function Login() {
 
     async function createUser(data) {
         let user = data.name;
-
-
 
     //     let sourceUrl = data.picture;
     //     console.log('{}-------zapisanie kopii obrazu----------------------{}')
@@ -44,13 +41,10 @@ function Login() {
     //
     //
 
-
         // await checkIfItExists(user).then((r)=>{
         //     console.log('tymczaowa wynik: ' + r)
         //     if (r) user+= new Date();
         // })
-
-
         // let saveData = {};
         // saveData = getInitialFormData('user','');
 
@@ -66,14 +60,9 @@ function Login() {
             dateOfAccountCreation: new Date(),
             cars: []
         }
+       await transferData(`user/add`, saveData);
 
-        // console.log('save data: ' + saveData)
-        // console.log('JSON data: ' + JSON.stringify(saveData));
-
-        await transferData(`user/add`, saveData);
-        // console.log('aktualizacja stanu Logged User')
         setLoggedUser(saveData);
-
     }
 
     const handleLogin = async (e) => {
@@ -95,24 +84,18 @@ function Login() {
         const decodedToken = jwtDecode(response.credential);
 
         let sendData = { googleId: decodedToken.sub }
-        // console.log('logowanie | sendData: ' + sendData)
-        // console.log('logowanie | odpalam transferData ')
+
         await transferData('gle',sendData)
             .then((downloadedData)=>{
-                // console.log('udało się pobrać dane googleID | dane: ' + downloadedData)
+
                 if (downloadedData) {
                     if (downloadedData === 'noUser') {
-                        // console.log('brak użytkownika o takim ID, zakładam nowe konto.')
-                        createUser(decodedToken);
+                            createUser(decodedToken);
                         setPage("mainPage")
                     } else {
-                        // console.log('~~~~~ co jest pobrane ~~~~~~~~~~~~~~~~~~~~~')
-                        //
-                        // console.log(downloadedData)
                         setLoggedUser(downloadedData)
                         setPage("mainPage")
                     }
-
                 } else {
                     console.log('błąd.')
                 }
@@ -122,7 +105,6 @@ function Login() {
             });
 
     };
-
     const handleFailure = (response) => {
         // console.log('Logowanie nie powiodło się:', response);
     };
@@ -145,20 +127,17 @@ function Login() {
 
                 {/*<div className="login_newaccount">*/}
                 {/*    <button disabled onClick={()=>setPage("editUserData")} className={`button-important button-important_${displayStyles}`}> Create an account </button>*/}
-
-
                 {/*</div>*/}
             </section>
             <section className="login_newaccount">
-                <GoogleLogin
-                    clientId={clientId}
-                    onSuccess={handleSuccess}
-                    onFailure={handleFailure}
-                />
+            <GoogleLogin
+                clientId={clientId}
+                onSuccess={handleSuccess}
+                onFailure={handleFailure}
+            />
 
             </section>
         </div>
     );
 }
-
 export default Login;

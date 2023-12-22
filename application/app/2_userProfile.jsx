@@ -32,9 +32,9 @@ function UserProfile() {
             setLoggedUserTrips(downloadedTrips)
         });
         let targetCars = `select/cars/${loggedUser._id}`
-        console.log('---------{ user profile : target cars : 33 }-----------------');
-        console.log('target: ' + targetCars);
-        console.log('user: ' + loggedUser.name);
+        // console.log('---------{ user profile : target cars : 33 }-----------------');
+        // console.log('target: ' + targetCars);
+        // console.log('user: ' + loggedUser.name);
 
         await fetchData(targetCars).then(downloadedCars => {
             console.log('2 user profile | cars |  downloadedData: ' + downloadedCars + ' JSON: ' + JSON.stringify(downloadedCars))
@@ -48,8 +48,7 @@ function UserProfile() {
         setShowLoading([true,0]);
         if (yesOrNot[1] === 2) {
             if (toDelete[0] === 'car') {
-                console.log('---------{ user profile : delete car : 47 }-----------------');
-                console.log(`---------{  delete car : ${JSON.stringify(toDelete) }-----------------`);
+
                 await deleteData(`car/${toDelete[1]._id}`);
                 const target = `select/cars/${loggedUser._id}`
                 fetchData(target).then(downloadedData => {
@@ -96,13 +95,13 @@ function UserProfile() {
                 await deleteData(`trip/${toDelete[1]._id}`);
                 const target = `select/trips/${loggedUser._id}`
 
-                console.log('target: ' + target)
-                console.log('user id: ' + loggedUser._id)
-                console.log('to delete: ' + toDelete)
+                // console.log('target: ' + target)
+                // console.log('user id: ' + loggedUser._id)
+                // console.log('to delete: ' + toDelete)
 
 
                 await fetchData(target).then(downloadedData => {
-                    console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+
                     setLoggedUserTrips(downloadedData)
                 });
                 if (toDelete[1].tripPhoto) await deleteFile('images/trips/',toDelete[1].tripPhoto );
@@ -219,5 +218,4 @@ function UserProfile() {
         </section>
     );
 }
-
 export default UserProfile;

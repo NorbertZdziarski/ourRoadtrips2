@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PrintForm from "./3_printForm";
 import { useStoreActions, useStoreState } from "easy-peasy";
 
-const AddTripPage1 = ({page, setPageInputTrip, pageInputTrip, formData, setFormData, setFile}) => {
+function AddTripPage1({page, setPageInputTrip, pageInputTrip, formData, setFormData, setFile}) {
 
     const [okPrint, setOkPrint] = useState(true);
     // const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType'],['tripCar'],['tripMap'],['tripPhoto']];

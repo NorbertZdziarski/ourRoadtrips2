@@ -2,7 +2,6 @@ import React from 'react';
 
 function AboutUs() {
 
-
     return (
         <section className="underConstruction mainViewStyle">
             <header className={`layout_flex-sb`}>

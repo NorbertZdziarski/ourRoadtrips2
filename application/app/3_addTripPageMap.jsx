@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import AddRoute from "./3_add_route";
 
-const AddTripPageMap = ({setPageInputTrip, pageInputTrip, country, formData, setFormData}) => {
+function AddTripPageMap({setPageInputTrip, pageInputTrip, country, formData, setFormData}) {
 
     const [routeToSave, setRouteToSave] = useState(null)
     useEffect(()=>{

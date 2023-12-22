@@ -1,6 +1,6 @@
 import React from "react";
 import {useStoreActions, useStoreState} from "easy-peasy";
-const DataSort = ({setMoblieMenuClass}) => {
+function DataSort({setMoblieMenuClass}) {
     const setTripSort = useStoreActions(actions => actions.setTripSort);
     const setDataSortOn = useStoreActions(actions => actions.setDataSortOn);
     const tripSort = useStoreState(state => state.tripSort);

@@ -1,9 +1,6 @@
 import React from 'react';
-import {useStoreState} from "easy-peasy";
 
-
-const Anim_loading = ({size}) => {
-    const showLoading = useStoreState(state => state.showLoading);
+function Anim_loading({size}) {
 
 // let size = '';
 // if (showLoading[1] === 1) {size = '_m'}

@@ -5,7 +5,7 @@ import Anim_loading from "./anim_loading";
 require('dotenv').config();
 
 
-const LoadImage = ({ imageName, imageWidth, imagePath, photoClass,perspectiveStyle ,imgProportions=true }) => {
+function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveStyle ,imgProportions=true }) {
     const [image, setImage] = useState('');
     const host = process.env.SERVER_HOST || '--localhost';
     const port = process.env.SERVER_PORT || 9000

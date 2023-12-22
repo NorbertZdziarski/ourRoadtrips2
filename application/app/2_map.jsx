@@ -5,7 +5,7 @@ import {fetchData} from "./a_CRUD_service";
 import {useStoreState} from "easy-peasy";
 
 
-const Gmap = () => {
+function Gmap() {
     const tripId = useStoreState(state => state.tripId);
     const [data, setData] = useState(null);
     let tripPoint = null;

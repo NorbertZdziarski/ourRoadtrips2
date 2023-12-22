@@ -9,7 +9,7 @@ import {getInitialFormData} from "./getInitialFormData";
 import PrintForm from "./3_printForm";
 import {fetchData, updateData} from "./a_CRUD_service";
 
-const AddTrip = () => {
+function AddTrip() {
     const loggedUser = useStoreState(state => state.loggedUser);
     const [pageInputTrip, setPageInputTrip] = useState(1)
     const [file, setFile] = useState(null);
@@ -31,9 +31,7 @@ const AddTrip = () => {
 
         const fetchData = async () => {
             const data = await getInitialFormData(type, loggedUser, dataId);
-            console.log('ADD TRIP | data: ' + data)
             setFormData(data);
-
 
             const objectToSave5 = keysToCopy[4].reduce((result, key) => {
                 if (key in data) {
@@ -99,9 +97,6 @@ const AddTrip = () => {
         //     });
         // };
 
-
-
-
         // const fetchDataAndUpdate = async () => {
         //     console.log('---------------add trip page _ useEffect -------------------------')
         //     console.log(formData)
@@ -117,24 +112,13 @@ const AddTrip = () => {
     const handleSubmit = async () => {
 
         // console.log(' ------ TYPE: ' + type)
-        console.log(' ---- trip public: handleSubmit <><><><><><> ')
-        console.log(' ---- trip public: ' + formData.tripPublic)
-        console.log(' ---- handle submit: ' + formData)
-        console.log(' ---- JSON: ' + JSON.stringify(formData))
-
-        console.log('file:' + file)
 
         // e.preventDefault();
         setShowLoading([true,0]);
         // let error = '';
         // let formDataToSave = await formData.concat(formDataPage1, formDataPage2, formDataPage4);
         let formDataToSave = { ...formData, ...formDataPage1, ...formDataPage2, ...formDataPage3 , ...formDataPage4 , ...formDataPageOther }
-        console.log(' ---- handle submit formDataToSave: ' + formDataToSave)
-        console.log(' ---- JSON formDataToSave: ' + JSON.stringify(formDataToSave));
-        console.log(' ---- handle submit formDataPag1: ' + formDataPage1)
-        console.log(' ---- JSON formDataPag1: ' + JSON.stringify(formDataPage1));
-        console.log(' ---- data ID: ' + dataId);
-        console.log(' ---- type: ' + type);
+
         // if (temporaryPass1) {
         //     console.log(' handle change temp 1')
         //     if (temporaryPass1 === temporaryPass2) {
@@ -165,10 +149,10 @@ const AddTrip = () => {
         // }
 
         if (file) {
-            console.log('2_add+trip: file | type: ' + type + ' | dataID: ' + dataId)
+
             if (!dataId) {
                 await addDataToMongo(formDataToSave, null, type).then((res) => {
-                    console.log('198: dont dataID | res ' + res + ' | JSON: ' + JSON.stringify(res));
+
                     addMultiFiles(file, res.id, type, formDataToSave, loggedUser._id).then((responseData) => {
                         updateData(`${type}/${res.id}`, responseData);
                         // addDataToMongo(responseData).then((r)=>{ console.log(r)})
@@ -176,7 +160,7 @@ const AddTrip = () => {
                 });
             }
         } else {
-            console.log('2_add+trip: else')
+
             await addDataToMongo(formDataToSave, dataId, type).then((r)=>{ console.log(r)})
         }
         // setShowLoading([false,0]);
@@ -193,12 +177,7 @@ const AddTrip = () => {
 
     useEffect(async ()=>{
 
-
-
-
-
-
-        console.log('_____________ useEffect 91 _ set to save | page input trip' + pageInputTrip)
+        // console.log('_____________ useEffect 91 _ set to save | page input trip' + pageInputTrip)
 
         if (pageInputTrip === 666) handleSubmit()
 
@@ -232,7 +211,7 @@ const AddTrip = () => {
     //         });
     //     });
     // });
-    console.log('|| 253 || add trip: form data - JSON: ' + JSON.stringify(formData))
+    // console.log('|| 253 || add trip: form data - JSON: ' + JSON.stringify(formData))
     const changePageFn = async (dir) => {
         if (pageInputTrip === 1) {
             const objectToSave = keysToCopy[0].reduce((result, key) => {

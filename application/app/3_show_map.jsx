@@ -2,7 +2,7 @@ import React, {useMemo, useState, useEffect, useRef} from 'react';
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
 require('dotenv').config();
 
-const ShowMap = ({country, tripMap, tripPoint}) => {
+function ShowMap({country, tripMap, tripPoint}) {
     const [isMapsLoaded, setMapsLoaded] = useState(false);
     const [isTripMapLoaded, setTripMapLoaded] = useState(false);
     const mapRef = useRef(null);
@@ -60,13 +60,22 @@ const ShowMap = ({country, tripMap, tripPoint}) => {
                 onLoad={map => {
                     mapRef.current = map;
                     if (isTripMapLoaded) {
-                        new window.google.maps.Polyline({
+                        const polyline = new window.google.maps.Polyline({
                             path: tripMap.geocode.overview_path,
                             geodesic: true,
                             strokeColor: "#fb3c02",
                             strokeOpacity: 1.0,
                             strokeWeight: 3
-                        }).setMap(mapRef.current)
+                        });
+                        polyline.setMap(mapRef.current);
+
+                        let bounds = new window.google.maps.LatLngBounds();
+
+                        tripMap.geocode.overview_path.forEach((point) => {
+                            bounds.extend(point);
+                        });
+
+                        map.fitBounds(bounds);
                     }
                 }}
             />

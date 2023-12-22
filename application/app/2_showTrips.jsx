@@ -3,8 +3,6 @@ import {fetchData} from "./a_CRUD_service";
 import SortingTrips from "./3_sortingTrips";
 import {useStoreActions} from "easy-peasy";
 
-// import Gmap from "./5_map";
-
 function ShowTrips({dataFilter}) {
     const [data, setData] = useState(null);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
@@ -14,7 +12,7 @@ function ShowTrips({dataFilter}) {
         fetchData('all/trips').then(downloadedData => {
             // console.log('2_showTrips - pobrane dane: ' + downloadedData)
             setShowLoading([false,0]);
-            setData(downloadedData)
+            setData(downloadedData);
         });
 
     }, []);
