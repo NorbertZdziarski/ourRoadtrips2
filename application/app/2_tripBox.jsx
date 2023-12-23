@@ -27,23 +27,24 @@ function TripBox({trip, dataFilter}) {
     // ---- poniżej weryfikuje czy tripcar jest tablicą. Teraz car będzie miało swoją bazę danych. W tripcar będzie jego ID. ====
 
     // if (!Array.isArray(trip.tripCar)) {return <p> brak tablicy </p>} else {console.log('trip box | tripCar: ' + trip.tripCar)}
-    // if (trip.tripCar && Array.isArray(trip.tripCar)) {
-    //     console.log('warunek 1')
-    //     console.log('tripcar 2: ' + trip.tripCar[2])
-    //     console.log('data filter 3: ' + dataFilter[3])
-    //     if (trip.tripCar[2] && (dataFilter[3] !== "all" && dataFilter[3] !=="select vehicle type" ) &&  dataFilter[3] !== trip.tripCar[2]) return null;
-    // }
+    if (trip.tripCar && Array.isArray(trip.tripCar)) {
+        console.log('warunek 1')
+        console.log('tripcar 2: ' + trip.tripCar[2])
+        console.log('data filter 3: ' + dataFilter[3])
+        if (trip.tripCar[2] && (dataFilter[3] !== "all" && dataFilter[3] !=="select vehicle type" ) &&  dataFilter[3] !== trip.tripCar[2]) return null;
+    }
 
 
     // if (choiceVehicleType !== "all" && choiceVehicleType !== trip.tripCar.vehicle) return null;
 
-    // window.onload = function() {
-    //     var divHeight = document.getElementById('tripbox_title').offsetHeight;
-    //     console.log('div height: ' + divHeight)
-    //     document.documentElement.style.setProperty('--tripbox_title-height', divHeight + 'px');
-    // };
-
-    console.log('trip box')
+    window.onload = function() {
+        var divHeight = document.getElementById('tripbox_title').offsetHeight;
+        console.log('div height: ' + divHeight)
+        document.documentElement.style.setProperty('--tripbox_title-height', divHeight + 'px');
+    };
+    console.log(typeof trip);
+    console.log(JSON.stringify(trip))
+        console.log('trip box' + trip.name)
     useEffect(() => {
         setShowLoading([true,1]);
         var divHeight = document.getElementById('tripbox_title').offsetHeight;
@@ -67,8 +68,8 @@ function TripBox({trip, dataFilter}) {
                     </div>
                     <div>
                         <div className="tripInfo_mainpage_Info-tripRate">
-                            <ShowRate
-                                rateArr={trip.tripRate}/>
+                            {/*<ShowRate*/}
+                            {/*    rateArr={trip.tripRate}/>*/}
                         </div>
                         {/*<p className="tripInfo_mainpage_Info-tripComm">comments</p>*/}
                         {(trip.tripComments && trip.tripComments.length > 0) ? <img src={icoChat} className="icoStyleTripBox"/> : <></>}

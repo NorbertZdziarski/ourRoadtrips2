@@ -27,7 +27,6 @@ console.log('show trips' + dataFilter)
     // layout_main layout_flex-sb
     return (
         <section className="showTrips  ">
-
             {data ? (
                     <SortingTrips tripData={data}
                                dataFilter={dataFilter} />

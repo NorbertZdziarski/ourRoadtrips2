@@ -5,19 +5,18 @@ import Header from "./1_header";
 import Footer from "./1_footer";
 import {useStoreActions, useStoreState} from "easy-peasy";
 import ShowTrips from "./2_showTrips";
-import UserProfile from "./2_userProfile";
-import AboutUs from "./2_aboutUs";
+// import UserProfile from "./2_userProfile";
+// import AboutUs from "./2_aboutUs";
 import ShowTrip from "./3_showTrip";
-import MyForm from "./app_form";
-import YesOrNot from "./3_yesOrNot";
-import DataFilter from "./3_filter";
-import Login from "./2_logowanie";
-import AboutMe from "./2_aboutMe";
-import ShowCar from "./3_showCar";
-import Gmap from "./2_map";
-import Tymczasowe from "./tymczasowe";
-import Anim_loading from "./anim_loading";
-import AddTrip from "./2_add_trip";
+// import MyForm from "./app_form";
+// import YesOrNot from "./3_yesOrNot";
+// import DataFilter from "./3_filter";
+// import Login from "./2_logowanie";
+// import AboutMe from "./2_aboutMe";
+// import ShowCar from "./3_showCar";
+// import Gmap from "./2_map";
+// import Anim_loading from "./anim_loading";
+// import AddTrip from "./2_add_trip";
 
 // const MainPage = () => {
 //
@@ -59,6 +58,14 @@ function App() {
     const dataFilter = useStoreState(state => state.dataFilter);
     const displayStyles = useStoreState(state => state.displayStyles);
     console.log(' a p p ')
+    console.log(typeof page)
+    console.log(typeof yesOrNot)
+    console.log(JSON.stringify(yesOrNot))
+    console.log(yesOrNot)
+    console.log(typeof dataFilter)
+    console.log(dataFilter)
+    console.log(JSON.stringify(dataFilter))
+    console.log(typeof displayStyles)
     return (
         <div className={`app colorstyle_${displayStyles}`}>
             <Router>
@@ -67,17 +74,17 @@ function App() {
                     <div className="layout_main layout_flex-sb layout_mainViewWidth">
                         <Routes>
                             <Route path="/" element={<ShowTrips dataFilter={dataFilter}/>}/>
-                            <Route path="/userProfile" element={<UserProfile/>}/>
-                            <Route path="/aboutUs" element={<AboutUs/>}/>
-                            <Route path="/login" element={<Login/>}/>
-                            <Route path="/map" element={<Gmap/>}/>
+                            {/*<Route path="/userprofile" element={<UserProfile/>}/>*/}
+                            {/*<Route path="/aboutus" element={<AboutUs/>}/>*/}
+                            {/*<Route path="/login" element={<Login/>}/>*/}
+                            {/*<Route path="/map" element={<Gmap/>}/>*/}
                             {/*<Route path="/showTrip" element={<ShowTrip />}/>*/}
-                            <Route path="/showtrip/:id" element={<ShowTrip />} />
-                            <Route path="/aboutMe" element={<AboutMe />}/>
-                            <Route path="/showcar" element={<ShowCar />}/>
-                            <Route path="/editUserData" element={<MyForm type={"user"}/>}/>
-                            <Route path="/addCar" element={<MyForm type={"car"}/>}/>
-                            <Route path="/addTrip" element={<AddTrip/>}/>
+                            <Route path="/showtrip/:id" element={<ShowTrip/>} />
+                            {/*<Route path="/aboutme" element={<AboutMe/>}/>*/}
+                            {/*<Route path="/showcar" element={<ShowCar/>}/>*/}
+                            {/*<Route path="/edituserdata" element={<MyForm type={"user"}/>}/>*/}
+                            {/*<Route path="/addcar" element={<MyForm type={"car"}/>}/>*/}
+                            {/*<Route path="/addtrip" element={<AddTrip/>}/>*/}
                         </Routes>
                         {/*{(yesOrNot[0] ? (<YesOrNot/>):(<></>))}*/}
                         {/*{(showLoading[0]) ? (<Anim_loading/>):(<></>)}*/}
