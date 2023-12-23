@@ -16,9 +16,9 @@ import { useParams } from 'react-router-dom';
 function ShowTrip() {
     let { id } = useParams();
     console.log(' | show trip |')
-    // const page = useStoreState(state => state.page);
+    const page = useStoreState(state => state.page);
     // // const tripId_memory = useStoreState(state => state.tripId);
-    // const tripId = id;
+    const tripId = id;
     // console.log(typeof page)
     // // console.log(typeof tripId_memory)
     // console.log(typeof tripId)
@@ -28,14 +28,14 @@ function ShowTrip() {
     // console.log(typeof loggedUser)
     // console.log(typeof setPage)
     // const setTripId = useStoreActions(actions => actions.setTripId);
-    // const setChosen = useStoreActions(actions => actions.setChosen);
+    const setChosen = useStoreActions(actions => actions.setChosen);
     // console.log('26')
     // console.log(typeof setTripId)
     // console.log(typeof setChosen)
-    // const [data, setData] = useState(null);
+    const [data, setData] = useState(null);
     // // const [addComm, setAddComm] = useState(null);
-    // const [showMap, setShowMap] = useState(false);
-    // const displayStyles = useStoreState(state => state.displayStyles);
+    const [showMap, setShowMap] = useState(false);
+    const displayStyles = useStoreState(state => state.displayStyles);
     // console.log(typeof data)
     // console.log(typeof setData())
     // // console.log(typeof addComm)
@@ -53,7 +53,7 @@ function ShowTrip() {
                 const downloadedData = await fetchData(target);
                 console.log(downloadedData);
                 console.log(typeof downloadedData);
-                // setData(downloadedData);
+                setData(downloadedData);
             } catch (error) {
                 console.error("Error fetching data: ", error);
             }
@@ -89,25 +89,25 @@ function ShowTrip() {
     //     // });
     // }
     // console.log('68')
-    // function chosenFn(user) {
-    //     setChosen(user);
+    function chosenFn(user) {
+        setChosen(user);
     //     setPage("aboutMe");
-    // }
+    }
     console.log('73')
-    // colorstyle_reflex_${displayStyles}
+    //
     return (
-        <section className={`userPanel_main `}>
+        <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
             <p> test </p>
             {console.log('76')}
-        {/*<section className="mainViewStyle">*/}
-        {/*    {data ? <>*/}
+        <section className="mainViewStyle">
+            {data ? <>
         {/*        {console.log('79')}*/}
-        {/*        <header className="showtrip_header">*/}
-        {/*            <div>*/}
+                <header className="showtrip_header">
+                    <div>
         {/*                {console.log('82')}*/}
-        {/*                <h3>   {data.tripName} </h3>*/}
-        {/*                <p className="fnt_subtitle">{data.tripType} in {data.tripCountry || 'unknown'}</p>*/}
-        {/*            </div>*/}
+                        <h3>   {data.tripName} </h3>
+                        <p className="fnt_subtitle">{data.tripType} in {data.tripCountry || 'unknown'}</p>
+                    </div>
 
         {/*            /!*{loggedUser._id ? <RateModule*!/*/}
         {/*            /!*    tripId = {data._id}*!/*/}
@@ -117,23 +117,23 @@ function ShowTrip() {
         {/*            /!*<p>like: {rateValue} of {quantity} </p>*!/*/}
         {/*                /!*onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*!/*/}
 
-        {/*        </header>*/}
-        {/*        <div className={`showtrip_main colorstyle_button_${displayStyles}`}>*/}
-        {/*            <button onClick={()=>setShowMap(false)}>   photo </button>*/}
-        {/*            <button onClick={()=>setShowMap(true)}>   map </button>*/}
-        {/*            <button onClick={()=> {*/}
-        {/*                setShowMap(false);*/}
-        {/*                // window.location.href = '#tripDescription'*/}
-        {/*            }}>   story </button>*/}
-        {/*            <button onClick={()=> {*/}
-        {/*                setShowMap(false);*/}
-        {/*                chosenFn(data.userId)*/}
-        {/*            }}>   {data.tripUser} </button>*/}
-        {/*                <button disabled={!data.tripCar} onClick={()=>{*/}
-        {/*                    setShowMap(false);*/}
-        {/*                    setChosen(data.tripCar);*/}
-        {/*              setPage("showcar");}}>   {data.tripCar} </button>*/}
-        {/*        </div>*/}
+                </header>
+                <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
+                    <button onClick={()=>setShowMap(false)}>   photo </button>
+                    <button onClick={()=>setShowMap(true)}>   map </button>
+                    <button onClick={()=> {
+                        setShowMap(false);
+                        // window.location.href = '#tripDescription'
+                    }}>   story </button>
+                    <button onClick={()=> {
+                        setShowMap(false);
+                        chosenFn(data.userId)
+                    }}>   {data.tripUser} </button>
+                        <button disabled={!data.tripCar} onClick={()=>{
+                            setShowMap(false);
+                            setChosen(data.tripCar);
+                      setPage("showcar");}}>   {data.tripCar} </button>
+                </div>
         {/*        /!*{showMap ? <><ShowMap country={data.tripCountry} tripMap={data.tripMap}/></> : <>*!/*/}
         {/*        /!*    {data.tripPhoto ? <ShowPhotoSlide*!/*/}
         {/*        /!*        photo={data.tripPhoto}*!/*/}
@@ -141,14 +141,14 @@ function ShowTrip() {
         {/*        /!*</> }*!/*/}
 
 
-        {/*        <div id="tripDescription" className="showtrip_description">*/}
-        {/*            /!*<p>   {data.tripDescription} </p>*!/*/}
-        {/*        </div>*/}
+                <div id="tripDescription" className="showtrip_description">
+                    <p>   {data.tripDescription} </p>
+                </div>
         {/*        <div className={`showtrip_main colorstyle_button_${displayStyles}`}>*/}
         {/*            /!*{loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}*!/*/}
         {/*            /!*{loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}*!/*/}
 
-        {/*            <button disabled>Share</button>*/}
+                    <button disabled>Share</button>
 
         {/*        </div>*/}
         {/*        /!*{addComm ? <>*!/*/}
@@ -160,8 +160,9 @@ function ShowTrip() {
         {/*        /!*<div id="tripComm" className="showtrip_description">*!/*/}
         {/*        /!*    {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}*!/*/}
         {/*        /!*</div>*!/*/}
-        {/*    </> : <p>loading data</p>}*/}
+            </> : <p>loading data</p>}
             {console.log('139')}
+        </section>
         </section>
     );
 }
