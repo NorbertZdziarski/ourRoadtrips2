@@ -54,3 +54,18 @@
   font-size: $size;
   z-index: 10;
 }
+
+@mixin headerBtnStyle {
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 900;
+  background-color: rgba(0,0,0,0);
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  height: 2.8rem;
+  padding: 0 1.2rem 0 1.2rem;
+  margin-left: 0.8rem;
+  //border: 1px solid red;
+}

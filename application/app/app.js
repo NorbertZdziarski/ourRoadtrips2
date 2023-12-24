@@ -12,7 +12,7 @@ import ShowTrip from "./3_showTrip";
 // import YesOrNot from "./3_yesOrNot";
 // import DataFilter from "./3_filter";
 // import Login from "./2_logowanie";
-// import AboutMe from "./2_aboutMe";
+import AboutMe from "./2_aboutMe";
 // import ShowCar from "./3_showCar";
 // import Gmap from "./2_map";
 // import Anim_loading from "./anim_loading";
@@ -80,7 +80,7 @@ function App() {
                             {/*<Route path="/map" element={<Gmap/>}/>*/}
                             {/*<Route path="/showTrip" element={<ShowTrip />}/>*/}
                             <Route path="/showtrip/:id" element={<ShowTrip/>} />
-                            {/*<Route path="/aboutme" element={<AboutMe/>}/>*/}
+                            <Route path="/aboutme" element={<AboutMe/>}/>
                             {/*<Route path="/showcar" element={<ShowCar/>}/>*/}
                             {/*<Route path="/edituserdata" element={<MyForm type={"user"}/>}/>*/}
                             {/*<Route path="/addcar" element={<MyForm type={"car"}/>}/>*/}

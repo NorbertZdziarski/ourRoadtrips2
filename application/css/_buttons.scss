@@ -1,17 +1,14 @@
 .headerStyle button {
-  z-index: 900;
-  background-color: rgba(0,0,0,0) ;
-    border: 0;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-    height: 3.2rem;
-    padding: 0 1.2rem 0 1.2rem;
-    margin-left: 0.8rem;
+  @include headerBtnStyle;
+}
 
+.myLink {
+  @include headerBtnStyle;
 }
 
 
 .showtrip_main button {
+  border: 1px green red;
   box-sizing: border-box;
   background-color: rgba(0,0,0,0) ;
   //color: $color-background-main;
@@ -40,6 +37,7 @@
 }
 
 .main_button {
+  border: 1px solid rosybrown;
   background-color: rgba(0,0,0,0) ;
   color: $color-txt-main;
   border: 0;
@@ -62,7 +60,6 @@
   //}
 }
 
-
 .button-important {
   background-color: rgba(0,0,0,0) ;
   border: 0;
@@ -76,7 +73,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 2px;
   height: 3rem;
   padding: 2rem;
@@ -89,6 +85,4 @@
 .btnarrow {
   width: 80%;
   filter: invert(100%);
-
-
 }

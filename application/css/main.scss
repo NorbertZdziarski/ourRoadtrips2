@@ -1,9 +1,7 @@
 @import "reset";
 :root {
   font-size: 10px;
-
 }
-
 @import "variables";
 @import "mixins";
 
@@ -27,10 +25,6 @@
 
 @import "addTrip";
 
-
-
-
-
 body {
   position: relative;
   box-sizing: border-box;
@@ -38,8 +32,8 @@ body {
   height: calc(var(--vh, 1vh) * 100);
   margin: 0;
   overflow-y: hidden;
-
 }
+
 .app {
   height: calc(var(--vh, 1vh) * 100);
   display: flex;
@@ -53,8 +47,8 @@ body {
   max-height: 100%;
   padding: 1rem 0;
 }
-.footerStyle {
 
+.footerStyle {
   font-size: 1.6rem;
   font-family: "BankGothic Lt BT";
   padding: 5px;
@@ -65,7 +59,6 @@ body {
 .footerWindowStyle {
   box-sizing: border-box;
   //@include mainStyle($footer-height);
-
   width: calc( 100vw - 10px);
   margin-left: 10px;
   //overflow-y: scroll;
@@ -264,7 +257,6 @@ body {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .showtrip_main {
-
   box-sizing: border-box;
   display: flex;
   justify-content: space-around;
@@ -287,7 +279,6 @@ body {
   align-items: center;
   width: 100%;
   text-align: justify;
-
   //background-color: $color-background-secondary;
   background-color: rgba(0,0,0,0);
   padding: 1rem;
@@ -304,8 +295,6 @@ body {
   align-items: center;
   width: 100%;
   text-align: left;
-
-
   padding: 1rem;
   font-family: Abel;
   font-size: 20px;
@@ -314,7 +303,6 @@ body {
 }
 
 .showtrip_footer {
-
   box-sizing: border-box;
   display: flex;
   justify-content: space-around;
@@ -332,11 +320,7 @@ body {
   width: 100%;
 }
 
-
 // ----------------------------------------co poniżej jest ROBOCZE - do usunięcia ----
-
-
-
 
 .tymczasowy_header {
   font-size: 1.6rem;
@@ -432,20 +416,15 @@ $stripe-color2: rgba(255, 255, 0, 0.8);
   box-sizing: border-box;
   width: 15rem;
   height: 15rem;
-
   padding: 2rem;
   margin: 2rem;
-
   display: flex;
   justify-items: center;
   align-items: center;
   border-radius: 50%;
-
   box-shadow: 1rem 1rem 1rem $color-background-userProfile;
 
-
   p {
-
     font-size: $tripTitle;
     font-weight: 600;
     margin-inline: auto;
