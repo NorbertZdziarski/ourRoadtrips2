@@ -11,7 +11,7 @@ function Footer() {
 
         <footer className="footerWindowStyle footer_underconstruction">
             <div className={`layout_main layout_flex-sb footerStyle colorStyle_footer_${displayStyles}`}>
-                <p >(C) {year} Norbert Zdziarski. 12-21-08-40</p>
+                <p >(C) {year} Norbert Zdziarski. 12-26-09-15</p>
                 <button onClick={()=>setPage("aboutUs")} disabled>
                     about project
                 </button>

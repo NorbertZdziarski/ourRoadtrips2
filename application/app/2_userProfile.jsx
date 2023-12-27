@@ -5,9 +5,12 @@ import LoadImage from "./a_loadimage";
 import DisplayCars from "./3_displayCars";
 import PrintTrips from "./4_printTrips";
 import Anim_loading from "./anim_loading";
+import { Link } from "react-router-dom";
+
 
 
 function UserProfile() {
+    console.log(' user profile')
     const loggedUser = useStoreState(state => state.loggedUser);
     const setPage = useStoreActions(actions => actions.setPage);
     const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
@@ -25,6 +28,7 @@ function UserProfile() {
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     useEffect(async () => {
+        // setPage("userProfile")
         setShowLoading([true,0]);
         let targetTrips = `select/trips/${loggedUser._id}`
         await fetchData(targetTrips).then(downloadedTrips => {
@@ -163,26 +167,34 @@ function UserProfile() {
 
                 {loggedUserTrips ? (
                     loggedUserTrips.map((trip) =>
+                        // return (
                         <div key={`keytrip${trip._id}`} className={`userPanelItem colorstyle_reverse_${displayStyles}`}>
-                            <button className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=> {
-                                setPage("showTrip")
-                                setTripId(trip._id)
-                            }}>
+
+                            <Link to={`/showtrip/${trip._id}`} className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=>{
+                            setTripId(trip._id)
+                            setPage("showTrip");
+                        }}>
+                            {/*<button className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=> {*/}
+                            {/*    setPage("showTrip")*/}
+                            {/*    setTripId(trip._id)*/}
+                            {/*}}>*/}
                                 <PrintTrips  trip={trip}/>
-                            </button>
+                            </Link>
+
                             <div className="userPanel-buttons ">
-                                <button  onClick={()=>{
+                                <Link to="/addtrip" onClick={()=>{
                                     setPage("addTrip")
                                     setDataId(trip)}
-                                }>edit</button>
+                                }>edit</Link>
                                 <button  onClick={()=>{
                                     setToDelete(['trip',trip])
                                     setYesOrNot([true,0])
                                 }
                                 }>delete</button>
-                                {trip.tripPublic ?<p> public </p> : <p>hidden</p>}
+                                {trip.tripPublic ? <p>public</p> : <p>hidden</p>}
                             </div>
-                        </div>)
+                        </div>
+                        )
                 ) : (
                     <div>
                         <Anim_loading size={'_m'}/>

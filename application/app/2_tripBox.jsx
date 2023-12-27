@@ -39,11 +39,11 @@ function TripBox({trip, dataFilter}) {
 
     window.onload = function() {
         var divHeight = document.getElementById('tripbox_title').offsetHeight;
-        console.log('div height: ' + divHeight)
+        // console.log('div height: ' + divHeight)
         document.documentElement.style.setProperty('--tripbox_title-height', divHeight + 'px');
     };
-    console.log(typeof trip);
-    console.log(JSON.stringify(trip))
+    // console.log(typeof trip);
+    // console.log(JSON.stringify(trip))
         console.log('trip box' + trip.name)
     useEffect(() => {
         setShowLoading([true,1]);

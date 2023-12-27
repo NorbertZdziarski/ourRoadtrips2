@@ -83,7 +83,6 @@
 }
 
 .imputForm_inputData {
-
   border-bottom: 1px dotted $color-txt-secondary;
 }
 
@@ -124,5 +123,25 @@
     border-color: $color-blink-color;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(250, 237, 2, 0.25);
+  }
+}
+
+.buttons_inline a, .buttons_inline button {
+  display: block;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0) ;
+  border: 0;
+  border-radius: 0.5rem;
+  width: 20%;
+  height: 2.8rem;
+  padding: 1rem;
+  margin-left: 0.8rem;
+  text-align: center;
+  &:hover {
+    box-shadow: 0 0 0.8rem 0.2rem $color-blink-color;
+    background-color: $color-blink-color;
+    color: $color-background-main;
   }
 }

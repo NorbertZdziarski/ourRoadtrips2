@@ -25,7 +25,9 @@
 
 @import "addTrip";
 
+
 body {
+  border: 0;
   position: relative;
   box-sizing: border-box;
   //height: 100vh;
@@ -135,12 +137,21 @@ body {
   right: 0;
 }
 .photoStyle {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  width: 100%;
-  transform: translateY(-50%);
-  z-index: 1;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 100%;  // Dodane
+    object-fit: cover;  // Dodane
+    transform: translateY(-50%);
+    z-index: 1;
+
+
+
+    //width: 100%;
+    //height: inherit;
+    //object-fit: cover;
 
 }
 
@@ -152,6 +163,7 @@ body {
 }
 
 .clickPage {
+  display: block;
   border: 0;
   overflow: hidden;
   width: 100%;
@@ -243,7 +255,7 @@ body {
 
 }
 .showtrip_header {
-  border-top: 2px ridge $color-background-reflex;
+  //border-top: 2px ridge $color-background-reflex;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;

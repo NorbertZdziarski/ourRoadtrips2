@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
+import { useNavigate } from 'react-router-dom';
 import {fetchData, transferData, transferGooglePhoto} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import {checkIfItExists} from "./app_check";
 require('dotenv').config();
 function Login() {
+    const page = useStoreState(state => state.page);
     const setPage = useStoreActions(actions => actions.setPage);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
     const [userName, setUserName] = useState()
     const [userPassword, setUserPassword] = useState()
     const [fetchError, setFetchError] = useState()
-
+    const navigate = useNavigate();
     const clientId = process.env.CLIENT_ID;
-
     const displayStyles = useStoreState(state => state.displayStyles);
+
+    useEffect(()=>{
+        if (page === "mainPage") {
+            navigate('/');
+        }
+    },[page])
 
     async function createUser(data) {
         let user = data.name;

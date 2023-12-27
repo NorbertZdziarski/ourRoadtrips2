@@ -173,7 +173,7 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
                                     <option value="" disabled={formData[value] !== ''}>choose your car</option>
                                     {/*Object.values(userCars)*/}
                                     {userCars.map((tripCar) => (
-                                        <option key={tripCar[1]} value={JSON.stringify(tripCar)}>
+                                        <option key={tripCar[1]} value={tripCar}>
                                             {tripCar[0]} / {tripCar[2]}
                                         </option>
                                     ))}

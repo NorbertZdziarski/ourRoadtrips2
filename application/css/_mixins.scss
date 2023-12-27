@@ -12,7 +12,7 @@
     background: $color-background-secondary}
 }
 @mixin mainStyle($heightValue) {
-  //height: $heightValue ;
+  //height: $heightValue;
   display: flex;
   justify-content: center;
 }

@@ -2,25 +2,44 @@
   @include headerBtnStyle;
 }
 
+a, button {
+  display: block;
+  font-size: $txtNormal;
+}
+
 .myLink {
   @include headerBtnStyle;
 }
+//.showtrip_main a {
+//  display: block;
+//  //border: 1px green;
+//  box-sizing: border-box;
+//  background-color: rgba(0, 0, 0, 0);
+//  //color: $color-background-main;
+//  //color: $color-txt-main;
+//  border: 0;
+//  border-radius: 0.5rem;
+//  width: 31%;
+//  height: 3rem;
+//  padding: 1rem;
+//  margin-left: 0.8rem;
+//}
 
-
-.showtrip_main button {
-  border: 1px green red;
-  box-sizing: border-box;
-  background-color: rgba(0,0,0,0) ;
-  //color: $color-background-main;
-    //color: $color-txt-main;
-  border: 0;
-  border-radius: 0.5rem;
-  width: 31%;
-  height: 3rem;
-  padding: 1rem;
-  margin-left: 0.8rem;
+.showtrip_main {
+  //border: 1px green;
+  //box-sizing: border-box;
+  //background-color: rgba(0,0,0,0) ;
+  ////color: $color-background-main;
+  //  //color: $color-txt-main;
+  //border: 0;
+  //border-radius: 0.5rem;
+  ////width: 31%;
+  //height: 3rem;
+  //padding: 1rem;
+  //margin-left: 0.8rem;
 
   &:hover {
+
     //color: $color-background-main;
     //background-color: $color-background-yesornot;
 
@@ -37,7 +56,7 @@
 }
 
 .main_button {
-  border: 1px solid rosybrown;
+  //border: 1px solid rosybrown;
   background-color: rgba(0,0,0,0) ;
   color: $color-txt-main;
   border: 0;

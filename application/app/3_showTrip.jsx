@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import { Link } from "react-router-dom";
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData, updateData} from "./a_CRUD_service";
 // import LoadImage from "./a_loadimage";
 import ShowRate from "./4_showRate";
-// import RateModule from "./4_rateModule";
-// import {calculateTheAverage} from "./calculateTheAverage";
+import RateModule from "./4_rateModule";
+import {calculateTheAverage} from "./calculateTheAverage";
 import ShowComments from "./4_showComments";
 import AddComment from "./5_addComment";
 import ShowPhotoSlide from "./5_showPhoto-slide";
@@ -16,22 +17,17 @@ import { useParams } from 'react-router-dom';
 function ShowTrip() {
     let { id } = useParams();
     console.log(' | show trip |')
-    const page = useStoreState(state => state.page);
+    // const page = useStoreState(state => state.page);
     // // const tripId_memory = useStoreState(state => state.tripId);
     const tripId = id;
-    // console.log(typeof page)
-    // // console.log(typeof tripId_memory)
-    // console.log(typeof tripId)
-    //
+
     const loggedUser = useStoreState(state => state.loggedUser);
     // const setPage = useStoreActions(actions => actions.setPage);
     // console.log(typeof loggedUser)
     // console.log(typeof setPage)
     // const setTripId = useStoreActions(actions => actions.setTripId);
     const setChosen = useStoreActions(actions => actions.setChosen);
-    // console.log('26')
-    // console.log(typeof setTripId)
-    // console.log(typeof setChosen)
+
     const [data, setData] = useState(null);
     const [addComm, setAddComm] = useState(null);
     const [showMap, setShowMap] = useState(false);
@@ -50,8 +46,8 @@ function ShowTrip() {
         const fetchDataAsync = async () => {
             try {
                 const downloadedData = await fetchData(target);
-                console.log(downloadedData);
-                console.log(typeof downloadedData);
+                // console.log(downloadedData);
+                // console.log(typeof downloadedData);
                 setData(downloadedData);
             } catch (error) {
                 console.error("Error fetching data: ", error);
@@ -92,8 +88,7 @@ function ShowTrip() {
         setChosen(user);
     //     setPage("aboutMe");
     }
-    console.log('73')
-    //
+
     return (
         <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
             <p> test </p>
@@ -116,21 +111,38 @@ function ShowTrip() {
                     {/*    onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
 
                 </header>
-                <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
+                <div className={`showtrip_main colorstyle_button_${displayStyles} buttons_inline`}>
                     <button onClick={()=>setShowMap(false)}>   photo </button>
                     <button onClick={()=>setShowMap(true)}>   map </button>
                     <button onClick={()=> {
                         setShowMap(false);
                         // window.location.href = '#tripDescription'
                     }}>   story </button>
-                    <button onClick={()=> {
-                        setShowMap(false);
-                        chosenFn(data.userId)
-                    }}>   {data.tripUser} </button>
-                        <button disabled={!data.tripCar} onClick={()=>{
+
+                    {data.userId ?
+                        <Link to={`/aboutme/${data.userId}`} onClick={()=>{
                             setShowMap(false);
-                            setChosen(data.tripCar);
-                      setPage("showcar");}}>   {data.tripCar} </button>
+                            // setPage("showTrip");
+                            }}>
+                                {data.tripUser}
+                        </Link> : <></>}
+                    {data.tripCar ?
+                        <Link to={`/showcar/${data.tripCar[1]}`} onClick={()=>{
+                                setShowMap(false);
+                                // setPage("showcar");
+                            }}>
+                                {data.tripCar}
+                        </Link> : <></>}
+
+                    {/*<button onClick={()=> { /aboutme*/}
+                    {/*    */}
+                    {/*    chosenFn(data.userId)*/}
+                    {/*}}>    </button>*/}
+                      {/*  <button disabled={!data.tripCar} onClick={()=>{*/}
+                      {/*      setShowMap(false);*/}
+                      {/*      setChosen();*/}
+                      {/*setPage("");*/}
+                      {/*  }}>    </button>*/}
                 </div>
                 {showMap ? <><ShowMap country={data.tripCountry} tripMap={data.tripMap}/></> : <>
                     {data.tripPhoto ? <ShowPhotoSlide
@@ -159,8 +171,7 @@ function ShowTrip() {
                     {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}
                 </div>
             </> : <p>loading data</p>}
-            {console.log('139')}
-        </section>
+            </section>
         </section>
     );
 }

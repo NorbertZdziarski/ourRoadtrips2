@@ -5,17 +5,25 @@ import { useEffect, useState } from 'react';
 import path from 'path';
 import LoadImage from "./a_loadimage";
 import PrintTrips from "./4_printTrips";
+import { useParams } from 'react-router-dom';
+
+
 
 function AboutMe() {
-    const setChosen = useStoreActions(actions => actions.setChosen);
-    const chosen = useStoreState(state => state.chosen);
-    const setPage = useStoreActions(actions => actions.setPage);
+    console.log(' about ME')
+    let { id } = useParams();
+    // const setChosen = useStoreActions(actions => actions.setChosen);
+    // const chosen = useStoreState(state => state.chosen);
+
+    // const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
     const [userData, setUserData] = useState(null);
     const [userTrips, setUserTrips] = useState(null);
     const [error, setError] = useState(null);
     const displayStyles = useStoreState(state => state.displayStyles);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+
+    let chosen = id;
 
     useEffect(() => {
         // dodac żę jak nie ma chosen to chosen jest loggedUser.
@@ -86,7 +94,7 @@ function AboutMe() {
                             Object.values(userData.cars).map((car) =>
                                 <div key={`keytrip${car.id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
                                     <button className="aboutme_button" onClick={()=> {
-                                        setPage("showcar")
+                                        // setPage("showcar")
                                         setChosen(car)
                                     }}>
                                         <LoadImage imageName={car.carPhoto}
@@ -105,7 +113,7 @@ function AboutMe() {
                             Object.values(userTrips).map((trip) =>
                                 <div key={`keytrip${trip._id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
                                     <button className="aboutme_button" onClick={()=> {
-                                        setPage("showTrip")
+                                        // setPage("showTrip")
                                         setTripId(trip._id)
                                     }}>
                                         <PrintTrips  trip={trip}/>

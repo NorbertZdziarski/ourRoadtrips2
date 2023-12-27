@@ -10,6 +10,7 @@ import PrintForm from "./3_printForm";
 import {fetchData, updateData} from "./a_CRUD_service";
 
 function AddTrip() {
+
     const loggedUser = useStoreState(state => state.loggedUser);
     const [pageInputTrip, setPageInputTrip] = useState(1)
     const [file, setFile] = useState(null);

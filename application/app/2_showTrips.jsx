@@ -6,7 +6,7 @@ import {useStoreActions} from "easy-peasy";
 function ShowTrips({dataFilter}) {
     const [data, setData] = useState(null);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
-console.log('show trips' + dataFilter)
+    console.log('show trips: ' + dataFilter)
     useEffect(() => {
         setShowLoading([true,0]);
         fetchData('all/trips').then(downloadedData => {

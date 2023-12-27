@@ -55,13 +55,14 @@
     height: 1rem;
     position: absolute;
     bottom: -1rem;
-    left: -0.8rem;
+    left: 0;
+    //left: -0.8rem;
   }
 }
 
 .colorStyle_headerBtn_dark .myLink, button {
   //border: 1px solid blue;
-
+  //border: 1px solid red;
   color: $color-blink-color;
   //position: relative;
   //&:after {
@@ -104,6 +105,7 @@
 
 
 
+
 .subHeader_dark {
   //z-index: 999;
   //height: 1rem;
@@ -117,7 +119,9 @@
 
 
 
-.colorstyle_button_dark button {
+.colorstyle_button_dark button, a {
+  display: block;
+
   background-color: rgba(0,0,0,0) ;
   color: $color-txt-main;
   &:hover {
