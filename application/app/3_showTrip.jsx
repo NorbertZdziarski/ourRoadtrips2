@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom';
 
 function ShowTrip() {
     let { id } = useParams();
-    console.log(' | show trip |')
+    // console.log(' | show trip |')
     // const page = useStoreState(state => state.page);
     // // const tripId_memory = useStoreState(state => state.tripId);
     const tripId = id;
@@ -41,7 +41,7 @@ function ShowTrip() {
     // console.log(' show trip id: ' + tripId + ' id: '+ id)
 
     useEffect(() => {
-        console.log('| use efect _ show trip')
+        // console.log('| use efect _ show trip')
         const target = `one/trip/${tripId}`
         const fetchDataAsync = async () => {
             try {
@@ -78,7 +78,7 @@ function ShowTrip() {
             };
         const target = `trip/${tripId}`
         await updateData(target,dataToSave);
-        console.log(typeof dataToSave);
+        // console.log(typeof dataToSave);
         //     .then(downloadedData => {
         //     setData(downloadedData[0])
         // });
@@ -91,8 +91,6 @@ function ShowTrip() {
 
     return (
         <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
-            <p> test </p>
-            {console.log('76')}
         <section className="mainViewStyle">
             {data ? <>
                 <header className="showtrip_header">
@@ -131,7 +129,7 @@ function ShowTrip() {
                                 setShowMap(false);
                                 // setPage("showcar");
                             }}>
-                                {data.tripCar}
+                                {data.tripCar[0]}
                         </Link> : <></>}
 
                     {/*<button onClick={()=> { /aboutme*/}

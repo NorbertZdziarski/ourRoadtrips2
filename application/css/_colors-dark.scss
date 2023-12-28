@@ -59,6 +59,25 @@
     //left: -0.8rem;
   }
 }
+//.trips_container {
+//  div {
+//    a.colorstyle_button_dark {
+//      background-color: rgba(0, 250, 0, 1);
+//      &:hover {
+//        background-color: rgba(0, 0, 0, 0);
+//      }
+//    }
+//  }
+//}
+
+.trips_container {
+  div {
+      a:hover {
+        background-color: rgba(0,0,0,0);
+      }
+  }
+}
+
 
 .colorStyle_headerBtn_dark .myLink, button {
   //border: 1px solid blue;
@@ -176,6 +195,7 @@
   &:hover {
     //border: 2px solid $color-blink-color;
     transition-duration: 0.2s;
+    background-color: rgba(0,0,0,0);
     box-shadow: 0 0 0.1rem 0.2rem $color-background-comment;
   }
 }

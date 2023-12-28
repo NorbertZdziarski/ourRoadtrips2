@@ -97,11 +97,13 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
     }
 
     const handleChange = (e) => {
-
-
-                setFormData({ ...formData, [e.target.name]: e.target.value });
-        // JSON.parse(e.target.value)
+        let value = e.target.value;
+        if (e.target.name === 'tripCar') {
+            value = JSON.parse(e.target.value);
+        }
+        setFormData({ ...formData, [e.target.name]: value });
     };
+
 
     if (type === 'user') {
 
@@ -173,10 +175,11 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
                                     <option value="" disabled={formData[value] !== ''}>choose your car</option>
                                     {/*Object.values(userCars)*/}
                                     {userCars.map((tripCar) => (
-                                        <option key={tripCar[1]} value={tripCar}>
+                                        <option key={tripCar[1]} value={JSON.stringify(tripCar)}>
                                             {tripCar[0]} / {tripCar[2]}
                                         </option>
                                     ))}
+
                                 </select>
                             ) : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>}
                         <button type="button" className="main_button" onClick={() => setChoseCar(!choseCar)}>change</button>

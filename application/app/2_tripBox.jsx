@@ -28,9 +28,9 @@ function TripBox({trip, dataFilter}) {
 
     // if (!Array.isArray(trip.tripCar)) {return <p> brak tablicy </p>} else {console.log('trip box | tripCar: ' + trip.tripCar)}
     if (trip.tripCar && Array.isArray(trip.tripCar)) {
-        console.log('warunek 1')
-        console.log('tripcar 2: ' + trip.tripCar[2])
-        console.log('data filter 3: ' + dataFilter[3])
+        // console.log('warunek 1')
+        // console.log('tripcar 2: ' + trip.tripCar[2])
+        // console.log('data filter 3: ' + dataFilter[3])
         if (trip.tripCar[2] && (dataFilter[3] !== "all" && dataFilter[3] !=="select vehicle type" ) &&  dataFilter[3] !== trip.tripCar[2]) return null;
     }
 
@@ -44,7 +44,7 @@ function TripBox({trip, dataFilter}) {
     };
     // console.log(typeof trip);
     // console.log(JSON.stringify(trip))
-        console.log('trip box' + trip.name)
+    //     console.log('trip box' + trip.name)
     useEffect(() => {
         setShowLoading([true,1]);
         var divHeight = document.getElementById('tripbox_title').offsetHeight;

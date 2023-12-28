@@ -1,11 +1,12 @@
 @mixin sidebarstyle {
+  margin-left: 2px;
   &::-webkit-scrollbar {
-    width: 10px }
+    width: 8px }
   &::-webkit-scrollbar-track {
     background: rgba(23, 23, 23, 0)
   }
   &::-webkit-scrollbar-thumb{
-    border-radius: 5px;
+    border-radius: 4px;
     background: $color-blink-color;
   }
   &::-webkit-scrollbar-thumb:hover{

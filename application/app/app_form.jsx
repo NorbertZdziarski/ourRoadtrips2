@@ -5,11 +5,13 @@ import {useStoreActions, useStoreState} from "easy-peasy";
 import PrintForm from "./3_printForm";
 import {getInitialFormData} from "./getInitialFormData";
 import newFileNameGenerator from "./a_newFileNameGenerator";
+import {useNavigate} from "react-router-dom";
 
 function MyForm({type}) {
+    const navigate = useNavigate();
     const [file, setFile] = useState(null);
     const [formData, setFormData] = useState({});
-
+    const page = useStoreState(state => state.page);
     const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
@@ -30,7 +32,14 @@ function MyForm({type}) {
 
 
     let newUser = true;
-
+    useEffect(()=>{
+        if (page === "mainPage") {
+            navigate('/');
+        }
+        if (page === "userProfile") {
+            navigate('/userprofile');
+        }
+    },[page])
 
     // let loggedUsersCars;
 

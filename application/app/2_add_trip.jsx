@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react';
-
-import AddTripPageMap from "./3_addTripPageMap";
-
+import {useNavigate} from "react-router-dom";
 import {useStoreActions, useStoreState} from "easy-peasy";
 import addMultiFiles from "./a_addMultiFiles";
 import addDataToMongo from "./a_addDataToMongo";
 import {getInitialFormData} from "./getInitialFormData";
 import PrintForm from "./3_printForm";
 import {fetchData, updateData} from "./a_CRUD_service";
+import AddTripPageMap from "./3_addTripPageMap";
 
 function AddTrip() {
-
+    const navigate = useNavigate();
     const loggedUser = useStoreState(state => state.loggedUser);
     const [pageInputTrip, setPageInputTrip] = useState(1)
     const [file, setFile] = useState(null);
@@ -18,7 +17,7 @@ function AddTrip() {
     const type = 'trip';
     const dataId = useStoreState(state => state.dataId);
     const setPage = useStoreActions(actions => actions.setPage);
-
+    const page = useStoreState(state => state.page);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     const [okPrint, setOkPrint] = useState(false);
     const keysToCopy = [['tripName', 'tripDescription', 'tripDate','tripCountry','tripType', 'tripPublic' ],['tripCar'],['tripMap'],['tripPhoto'],[ 'userId','tripUser', 'tripSaveDate', 'tripRate', 'tripComments']];
@@ -108,7 +107,14 @@ function AddTrip() {
 
         fetchData().then(setOkPrint(true));
     }, []);
-
+    useEffect(()=>{
+        if (page === "mainPage") {
+            navigate('/');
+        }
+        if (page === "userProfile") {
+            navigate('/userprofile');
+        }
+    },[page])
 
     const handleSubmit = async () => {
 

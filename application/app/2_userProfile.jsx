@@ -145,7 +145,7 @@ function UserProfile() {
 
             <section id="userData" className="">
                 <div>
-                    <p>About me:</p>
+                    <p>Your data:</p>
                 </div>
                 <div className={`userPanel_mainpage_content colorstyle_button_${displayStyles}`}>
                     <p>Name: {loggedUser.firstName}</p>

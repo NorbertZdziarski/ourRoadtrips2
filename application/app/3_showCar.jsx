@@ -7,7 +7,7 @@ import path from "path";
 import {fetchData} from "./a_CRUD_service";
 
 function ShowCar() {
-    console.log(' show car ')
+    // console.log(' show car ')
     let { id } = useParams();
     const [chosen, setChosen] = useState(id);
     const [error, setError] = useState(null);
@@ -16,10 +16,10 @@ function ShowCar() {
         // dodac żę jak nie ma chosen to chosen jest loggedUser.
         // setShowLoading([true,0]);
         // if(chosen) {
-            const urlPath = path.join('one/user',chosen)
+            const urlPath = path.join('one/car',chosen)
             fetchData(urlPath)
                 .then(data => {
-                    // console.log(JSON.stringify(data))
+
                     // setShowLoading([false,0]);
                     setChosen(data);
 
@@ -27,7 +27,7 @@ function ShowCar() {
                 .catch(err => {
                     setError(err.message);
                     // setShowLoading([false,0]);
-                    console.error('An error occurred:', err);
+                    console.error('|!| An error occurred:', err);
                     return <div> Error: {error}</div>;
                 });
         // }
@@ -38,7 +38,6 @@ function ShowCar() {
     // const chosen = useStoreState(state => state.chosen);
     // const setPage = useStoreActions(actions => actions.setPage);
     // setChosen(id);
-    console.log(id)
 
     // let chosen = id;
 
