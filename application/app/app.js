@@ -23,6 +23,7 @@ function App() {
     const yesOrNot = useStoreState(state => state.yesOrNot);
     const dataFilter = useStoreState(state => state.dataFilter);
     const displayStyles = useStoreState(state => state.displayStyles);
+    const showLoading = useStoreActions(actions => actions.showLoading);
 
     return (
         <div className={`app colorstyle_${displayStyles}`}>
@@ -45,7 +46,8 @@ function App() {
                             <Route path="/addtrip" element={<AddTrip/>}/>
                         </Routes>
                         {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
-                        {/*{(showLoading[0]) ? (<Anim_loading/>):(<></>)}*/}
+                        {showLoading ? <>{(showLoading[0]) ? (<Anim_loading/>):(<></>)}</> :<></>}
+
                     </div>
                 </div>
                 <Footer/>
