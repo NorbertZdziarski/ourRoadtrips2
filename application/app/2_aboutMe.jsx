@@ -5,7 +5,8 @@ import { useEffect, useState } from 'react';
 import path from 'path';
 import LoadImage from "./a_loadimage";
 import PrintTrips from "./4_printTrips";
-import { useParams } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
+import Anim_loading from "./anim_loading";
 
 
 
@@ -19,12 +20,13 @@ function AboutMe() {
     const setTripId = useStoreActions(actions => actions.setTripId);
     const [userData, setUserData] = useState(null);
     const [userTrips, setUserTrips] = useState(null);
+    const [userCars, setUserCars] = useState(null);
     const [error, setError] = useState(null);
     const displayStyles = useStoreState(state => state.displayStyles);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     let chosen = id;
-
+    console.info(' id: ' + id)
     useEffect(() => {
         // dodac żę jak nie ma chosen to chosen jest loggedUser.
         setShowLoading([true,0]);
@@ -32,7 +34,6 @@ function AboutMe() {
             const urlPath = path.join('one/user',chosen)
             fetchData(urlPath)
                 .then(data => {
-                    // console.log(JSON.stringify(data))
                     setShowLoading([false,0]);
                     setUserData(data);
 
@@ -46,16 +47,28 @@ function AboutMe() {
     }, []);
     useEffect(() => {
         setShowLoading([true,0]);
-        const target = `one/trip/${chosen}`
+        let target = `select/trips/${chosen}`
+        // console.log('url target: ' + target)
         fetchData(target).then(downloadedData => {
+            // console.log('downloadedData: ' + downloadedData)
             setShowLoading([false,0]);
             setUserTrips(downloadedData)
+        });
+        target = `select/cars/${chosen}`
+        console.log('url target: ' + target)
+        fetchData(target).then(downloadedData => {
+            console.log('downloadedData: ' + downloadedData)
+            console.log('downloadedData JSON: ' + JSON.stringify(downloadedData));
+            setShowLoading([false,0]);
+            setUserCars(downloadedData)
         });
     }, []);
     if (error) {
         setShowLoading([false,0]);
         return <div>Error: {error}</div>;
     }
+    console.log('userData:  ' + userData )
+    console.log('userTrips:  ' + userTrips )
     return (<>
         <section className="layout_main layout_flex-sb">
             {userData ?
@@ -88,16 +101,46 @@ function AboutMe() {
                         </div>
                         {/*<LoadImage imageName={userData.}*/}
                     </section>
+
+
+                    {/*<section className={`userPanel_trips colorstyle_button_${displayStyles}`}>*/}
+
+                    {/*    {userTrips ? (*/}
+                    {/*        userTrips.map((trip) =>*/}
+                    {/*            // return (*/}
+                    {/*            <div key={`keytrip${trip._id}`} className={`userPanelItem colorstyle_reverse_${displayStyles}`}>*/}
+
+                    {/*                <Link to={`/showtrip/${trip._id}`} className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=>{*/}
+                    {/*                    setTripId(trip._id)*/}
+                    {/*                    setPage("showTrip");*/}
+                    {/*                }}>*/}
+                    {/*                    /!*<button className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=> {*!/*/}
+                    {/*                    /!*    setPage("showTrip")*!/*/}
+                    {/*                    /!*    setTripId(trip._id)*!/*/}
+                    {/*                    /!*}}>*!/*/}
+                    {/*                    <PrintTrips  trip={trip}/>*/}
+                    {/*                </Link>*/}
+
+
+                    {/*            </div>*/}
+                    {/*        )*/}
+                    {/*    ) : (*/}
+                    {/*        <div>*/}
+                    {/*            <Anim_loading size={'_m'}/>*/}
+                    {/*        </div>*/}
+                    {/*    )}*/}
+                    {/*</section>*/}
+
                     <section className={`aboutme_show-container colorstyle_button_${displayStyles}`}>
 
-                        {userData.cars ? (
-                            Object.values(userData.cars).map((car) =>
+                        {userCars ? (
+                            Object.values(userCars).map((car) =>
                                 <div key={`keytrip${car.id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
                                     <button className="aboutme_button" onClick={()=> {
                                         // setPage("showcar")
                                         setChosen(car)
                                     }}>
-                                        <LoadImage imageName={car.carPhoto}
+                                        <LoadImage imageName={car.carPhoto[0]}
                                                    imagePath='images/users'
                                                    imageWidth='600px'
                                                    photoClass={`aboutme_PhotoCar colorStyle_clickPage_${displayStyles}`}/>
@@ -108,7 +151,6 @@ function AboutMe() {
                         )}
                     </section>
                     <section className={`aboutme_show-container colorstyle_button_${displayStyles}`}>
-                        {/*my trips*/}
                         {userTrips ? (
                             Object.values(userTrips).map((trip) =>
                                 <div key={`keytrip${trip._id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
@@ -123,7 +165,7 @@ function AboutMe() {
                         ) : (
                             <div>loading data....</div>
                         )}
-                                    </section>
+                    </section>
 
                 </div>: <>...no data...</> }
 
