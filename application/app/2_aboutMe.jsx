@@ -16,7 +16,7 @@ function AboutMe() {
     // const setChosen = useStoreActions(actions => actions.setChosen);
     // const chosen = useStoreState(state => state.chosen);
 
-    // const setPage = useStoreActions(actions => actions.setPage);
+    const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
     const [userData, setUserData] = useState(null);
     const [userTrips, setUserTrips] = useState(null);
@@ -45,19 +45,20 @@ function AboutMe() {
                 });
         }
     }, []);
-    useEffect(() => {
+    useEffect(async () => {
         setShowLoading([true,0]);
         let target = `select/trips/${chosen}`
         // console.log('url target: ' + target)
-        fetchData(target).then(downloadedData => {
+        await fetchData(target).then(downloadedData => {
             // console.log('downloadedData: ' + downloadedData)
             setShowLoading([false,0]);
             setUserTrips(downloadedData)
         });
         target = `select/cars/${chosen}`
         console.log('url target: ' + target)
-        fetchData(target).then(downloadedData => {
+        await fetchData(target).then(downloadedData => {
             console.log('downloadedData: ' + downloadedData)
+            console.log('downloadedData p0: ' + downloadedData[0].carPhoto[0])
             console.log('downloadedData JSON: ' + JSON.stringify(downloadedData));
             setShowLoading([false,0]);
             setUserCars(downloadedData)
@@ -136,15 +137,20 @@ function AboutMe() {
                         {userCars ? (
                             Object.values(userCars).map((car) =>
                                 <div key={`keytrip${car.id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
-                                    <button className="aboutme_button" onClick={()=> {
-                                        // setPage("showcar")
-                                        setChosen(car)
-                                    }}>
+                                    <Link to={`/showcar/${car._id}`} className="aboutme_button" onClick={()=>{
+                                                           // setTripId(car._id)
+                                                            setPage("showcar");
+                                                       }}>
+                        {/*className={`clickPage colorStyle_clickPage_${displayStyles}`}*/}
+                                    {/*<button className="aboutme_button" onClick={()=> {*/}
+                                    {/*    // setPage("showcar")*/}
+                                    {/*    setChosen(car)*/}
+                                    {/*}}>*/}
                                         <LoadImage imageName={car.carPhoto[0]}
-                                                   imagePath='images/users'
-                                                   imageWidth='600px'
+                                                   imagePath='images/cars'
+                                                   // imageWidth='600px'
                                                    photoClass={`aboutme_PhotoCar colorStyle_clickPage_${displayStyles}`}/>
-                                    </button>
+                                    </Link>
                                 </div>)
                         ) : (
                             <div>loading data....</div>
@@ -154,12 +160,16 @@ function AboutMe() {
                         {userTrips ? (
                             Object.values(userTrips).map((trip) =>
                                 <div key={`keytrip${trip._id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
-                                    <button className="aboutme_button" onClick={()=> {
-                                        // setPage("showTrip")
-                                        setTripId(trip._id)
+                                    <Link to={`/showtrip/${trip._id}`} className="aboutme_button" onClick={()=>{
+                                        // setTripId(trip._id)
+                                        setPage("showTrip");
                                     }}>
+                                    {/*<button className="aboutme_button" onClick={()=> {*/}
+                                    {/*    // setPage("showTrip")*/}
+                                    {/*    setTripId(trip._id)*/}
+                                    {/*}}>*/}
                                         <PrintTrips  trip={trip}/>
-                                    </button>
+                                    </Link>
 
                                 </div>)
                         ) : (

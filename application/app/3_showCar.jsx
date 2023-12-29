@@ -51,7 +51,7 @@ function ShowCar() {
                 </div>
                 {/*<LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users' photoClass="showtrip_photoStyle" />*/}
                 <div>
-                    <ShowPhotoSlide photo={chosen.carPhoto} style={'showtrip_photoStyle'} photoPath='images/users'/>
+                    <ShowPhotoSlide photo={chosen.carPhoto} style={'showtrip_photoStyle'} photoPath='images/cars'/>
                 </div>
 
                 {/*<div className="showtrip_description">*/}

@@ -73,14 +73,14 @@ function Header() {
     // console.log(page)
     return (<>
             <header className={`headerStyle${moblieMenuClass} fnt_btn_header`}>
-                <div className={` layout_flex-sb layout_mainViewWidth`}>
+                <div className={` layout_flex-sb layout_mainViewWidth colorStyle_headerBtn_${displayStyles}`}>
                     {(screenWidth < 950) && (moblieMenuClass === '') ? <>
                         <button onClick={() => openMenu()}>
                             =
                         </button>
                     </> : <>
                         {(((page === "mainPage") || (page === "aboutus") || (page === "showtrip") || (page === "showcar") || (page === "mainPageFilter")) ? (
-                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
+                            <section className={`headerButtons${moblieMenuClass} `}>
                            {page !== "mainPage" ?<> <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link></> : <>
                             {(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
                             {(dataSortOn) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
@@ -102,9 +102,9 @@ function Header() {
                                               cancel
                                          </button>
                                    )}
-                                      <button disabled onClick={()=>setPage("tymczasowe")}>
-                                       tymczasowe
-                                       </button>
+                                      {/*<button disabled onClick={()=>setPage("tymczasowe")}>*/}
+                                      {/* tymczasowe*/}
+                                      {/* </button>*/}
                                    </> : <></>}
 
                                 </>}
@@ -193,7 +193,7 @@ function Header() {
                     </>}
                     {(moblieMenuClass === '') ? (
 
-                        <div className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
+                        <div className={`headerButtons${moblieMenuClass} `}>
 
                             {/*{(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>*/}
                             {/*    /!*<p>{loggedUser.nick}</p>*!/*/}

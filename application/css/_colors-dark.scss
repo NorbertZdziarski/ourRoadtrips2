@@ -45,18 +45,20 @@
   p {
   color:$color-background-main;}
 }
-.colorStyle_headerBtn_dark {
+div.colorStyle_headerBtn_dark {
+  //border: 1px solid red;
   position: relative;
   &:after {
     content: '';
     background: linear-gradient(to bottom, $color-background-main, rgba(0,0,0,0));
     z-index: 999;
-    width: 100%;
+    width: calc(100% + 0.5rem);
     height: 1rem;
     position: absolute;
     bottom: -1rem;
-    left: 0;
-    //left: -0.8rem;
+    //left: 0;
+    //border: 1px solid dodgerblue;
+    left: -0.5rem;
   }
 }
 //.trips_container {

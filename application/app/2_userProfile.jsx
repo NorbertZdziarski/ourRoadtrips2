@@ -41,7 +41,8 @@ function UserProfile() {
         // console.log('user: ' + loggedUser.name);
 
         await fetchData(targetCars).then(downloadedCars => {
-            console.log('2 user profile | cars |  downloadedData: ' + downloadedCars + ' JSON: ' + JSON.stringify(downloadedCars))
+            setShowLoading([false,0]);
+            // console.log('2 user profile | cars |  downloadedData: ' + downloadedCars + ' JSON: ' + JSON.stringify(downloadedCars))
             setLoggedUserCars(downloadedCars)
         });
         setShowLoading([false,0]);
