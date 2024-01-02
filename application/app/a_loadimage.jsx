@@ -12,7 +12,7 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     const apiURL = `https://${host}:${port}/download`;
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     // const apiURL = `http://${host}:${port}/download`;
-
+    //
     // console.log('---------- LOAD IMAGE ---------')
     // console.log('image name: ' + imageName )
     // console.log(typeof imageName )
@@ -61,7 +61,7 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
                 img.style.width = 'auto';
             }
         };}
-
+// console.log('image ' + image)
     return (
         <div className={perspectiveStyle}>
             {image ? <>

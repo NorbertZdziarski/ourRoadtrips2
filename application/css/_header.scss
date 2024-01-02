@@ -35,7 +35,7 @@
   @include rwd(block);
 }
 .headerStyle {
-  height: $header-height;
+  min-height: $header-height;
   //border: 1px solid red;
   margin-top: 0.5rem;
   margin-left: 1rem;

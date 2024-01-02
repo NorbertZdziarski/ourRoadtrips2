@@ -10,7 +10,7 @@ import AboutUs from "./2_aboutUs";
 import ShowTrip from "./3_showTrip";
 import MyForm from "./app_form";
 import YesOrNot from "./3_yesOrNot";
-import DataFilter from "./3_filter";
+import DataFilter from "./4_filter";
 import Login from "./2_logowanie";
 import AboutMe from "./2_aboutMe";
 import ShowCar from "./3_showCar";
@@ -32,11 +32,11 @@ function App() {
                 <div className="mainWindowStyle  ">
                     <div className="layout_main layout_flex-sb layout_mainViewWidth">
                         <Routes>
-                            <Route exact path="/" element={<ShowTrips dataFilter={dataFilter}/>}/>
+                            <Route exact path="/" element={<ShowTrips dataFilter={dataFilter} map={false} />}/>
                             <Route path="/userprofile" element={<UserProfile/>}/>
                             <Route path="/aboutus" element={<AboutUs/>}/>
                             <Route path="/login" element={<Login/>}/>
-                            <Route path="/map" element={<Gmap/>}/>
+                            <Route path="/map" element={<ShowTrips dataFilter={dataFilter} map={true}/>} />
                             <Route path="/showTrip" element={<ShowTrip />}/>
                             <Route path="/showtrip/:id" element={<ShowTrip/>} />
                             <Route path="/aboutme/:id" element={<AboutMe/>}/>

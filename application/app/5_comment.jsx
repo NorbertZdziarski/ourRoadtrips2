@@ -15,19 +15,18 @@ function Comment({comment, author, userId, tripId}) {
 
     useEffect(() => {
         const fetchPhoto = async () => {
-            console.log(userId)
             const data = await fetchData(`one/user/${userId}`);
-            console.log('---comment pobieranie data')
-            console.log(data)
-            console.log(data[0].userPhoto)
-            setPhoto(data[0].userPhoto);
-            if (data[0].userPhoto.slice(0,3) === 'http') {setPhotoPath('')} else {setPhotoPath('images/users')}
-
+            if (data && data.userPhoto) {
+                setPhoto(data.userPhoto);
+                if (data.userPhoto.slice(0,3) === 'http') {
+                    setPhotoPath('')
+                } else {
+                    setPhotoPath('images/users')
+                }
+            }
         };
-
         fetchPhoto();
     }, []);
-
 
     useEffect(()=>{
         if (loggedUser) {
@@ -44,14 +43,11 @@ function Comment({comment, author, userId, tripId}) {
                 setLike(prevLike => prevLike + 1);
                 setVoteState('loggedInVoted'); // Aktualizacja stanu voteState
                 const target = `trip/${tripId}/commlike/${comment.id}`;
-                console.log('nowa wartosc' + nowa_wartosc);
-                console.log('target' + target);
                 comment.commLike.push(loggedUser._id);
                 await updateData(target, nowa_wartosc);
             }
         }
     }
-
     return (
         <button className={`comment_conteiner colorStyle_comment_${displayStyles}`} onClick={()=>{addLike()}}>
             <div className="comment_photo_container">

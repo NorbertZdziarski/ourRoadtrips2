@@ -15,7 +15,12 @@ function TripBox({trip, dataFilter}) {
     const setTripId = useStoreActions(actions => actions.setTripId);
     const displayStyles = useStoreState(state => state.displayStyles);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
-
+    // console.log('tripSort: ' + tripSort)
+    console.info(' trip box ')
+    console.log('dataFilter: ' + dataFilter)
+    console.log('trip.tripCountry: ' + trip.tripCountry)
+    console.log('trip.tripType: ' + trip.tripType)
+    // console.log('trip.tripCar[2]: ' + trip.tripCar[2])
     // if (!trip.tripPublic) console.log('trip: ' + trip.tripPublic + ' - name: ' + trip.tripName);
     if (!trip.tripPublic) return null;
 

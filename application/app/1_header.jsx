@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import { useLocation } from 'react-router-dom';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {googleLogout} from '@react-oauth/google';
-import DataFilter from "./3_filter";
+import DataFilter from "./4_filter";
 import LoadImage from "./a_loadimage";
 import DataSort from "./4_sort";
 import logourl from "../images/logo_m.png";
@@ -33,19 +33,15 @@ function Header() {
 
     const location = useLocation();
         React.useEffect(() => {
-            console.log('Zmiana URL', location);
+            // console.log('Zmiana URL', location);
             const firstPartOfPath = location.pathname.split('/')[1];
-            console.log('pierwsza część: ', firstPartOfPath);
+            // console.log('pierwsza część: ', firstPartOfPath);
             if (firstPartOfPath === "") {setNewPage("mainPage")} else {setNewPage(firstPartOfPath)}
 
         }, [location]);
 
-        console.log(`Obecny URL: ${location.pathname}`);
-        // console.log(` p a g e : ${page}`);
+        // console.log(`Obecny URL: ${location.pathname}`);
 
-
-
-    //
     // useEffect(() => {
     //     const handleResize = () => {
     //         setScreenWidth(window.innerWidth);
@@ -79,24 +75,29 @@ function Header() {
                             =
                         </button>
                     </> : <>
-                        {(((page === "mainPage") || (page === "aboutus") || (page === "showtrip") || (page === "showcar") || (page === "mainPageFilter")) ? (
+                        {(((page === "mainPage") || (page === "aboutus") || (page === "showtrip") || (page === "showcar") || (page === "map") || (page === "mainPageFilter")) ? (
                             <section className={`headerButtons${moblieMenuClass} `}>
-                           {page !== "mainPage" ?<> <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link></> : <>
+                           {((page !== "mainPage") && (page !== "map")) ?<> <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link></> : <>
                             {(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
-                            {(dataSortOn) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
+                            {((dataSortOn) && (page !=="map")) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
 
                                    {((!dataSortOn) && (!dataFilter[0])) ? <>
                                     <button  onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
                                          Filter
                                   </button>
-                                  <button onClick={() => setDataSortOn(true)}>
-                                        Sort
-                                      </button>
-                                    {(page === "mainPage") ?
-                                           <Link to="/map"  className="myLink" onClick={() => {setPage("mainPage")}}> Map </Link> : <button disabled>
-                                             List
-                                         </button>
-                                   }
+                                       {(page !=="map") ? <button onClick={() => setDataSortOn(true)}>
+                                           Sort
+                                       </button>: <></>}
+
+
+
+                                       { (page === "map") ?  <Link to="/"  className="myLink" > List </Link>: <Link to="/map"  className="myLink" > Map </Link>}
+
+                                   {/* {(page === "mainPage") ?*/}
+                                   {/*        <Link to="/map"  className="myLink" onClick={() => {setPage("mainPage")}}> Map </Link> : <button disabled>*/}
+                                   {/*          List*/}
+                                   {/*      </button>*/}
+                                   {/*}*/}
                                         {(moblieMenuClass === '') ? (<></>) : (
                                           <button onClick={() => setMoblieMenuClass('')}>
                                               cancel

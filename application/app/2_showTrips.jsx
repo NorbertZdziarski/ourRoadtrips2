@@ -3,7 +3,7 @@ import {fetchData} from "./a_CRUD_service";
 import SortingTrips from "./3_sortingTrips";
 import {useStoreActions} from "easy-peasy";
 
-function ShowTrips({dataFilter}) {
+function ShowTrips({dataFilter, map}) {
     const [data, setData] = useState(null);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     console.log('show trips: ' + dataFilter)
@@ -12,14 +12,14 @@ function ShowTrips({dataFilter}) {
         fetchData('all/trips').then(downloadedData => {
             // console.log('2_showTrips - pobrane dane: ' + downloadedData)
             setShowLoading([false,0]);
-            console.log('downloadeddata: ')
-            console.log(typeof downloadedData)
+            // console.log('downloadeddata: ')
+            // console.log(typeof downloadedData)
             // console.log(downloadedData)
             // const dataArray = Object.values(downloadedData)
             const dataArray = downloadedData.map(obj => Object.values(obj));
-            console.log('Object.entries downloadeddata: ')
-            console.log(typeof dataArray)
-            console.log(dataArray)
+            // console.log('Object.entries downloadeddata: ')
+            // console.log(typeof dataArray)
+            // console.log(dataArray)
             setData(downloadedData);
         });
 
@@ -29,7 +29,8 @@ function ShowTrips({dataFilter}) {
         <section className="showTrips  ">
             {data ? (
                     <SortingTrips tripData={data}
-                               dataFilter={dataFilter} />
+                                dataFilter={dataFilter}
+                                map = {map}/>
             ) : (
                 <p>data loading...</p>
             )}

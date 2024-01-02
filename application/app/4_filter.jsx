@@ -14,11 +14,13 @@ function DataFilter({setMoblieMenuClass}) {
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const acceptFn = (event) => {
-        event.preventDefault()
-        console.log(selectCountry,choiceTripType,choiceStyleTypes)
+        // event.preventDefault()
+        // console.log(selectCountry,choiceTripType,choiceStyleTypes)
+        console.log(' >>> ' + selectCountry + ' | ' + choiceTripType + ' | ' + choiceStyleTypes)
+
         setDataFilter([false,selectCountry,choiceTripType,choiceStyleTypes ])
     }
-
+    console.log(' > ' + selectCountry + choiceTripType + choiceStyleTypes)
     return (
         <div className="">
         {/*<div className="yesOrNot">*/}
@@ -32,7 +34,7 @@ function DataFilter({setMoblieMenuClass}) {
                     ))}
                 </select>
 
-                <select value={choiceTripType} name={choiceTripType} onChange={()=>setChoiceTripType(event.target.value)} className="header_dropdown_menu">
+                <select value={choiceTripType} name={choiceTripType} onChange={(event)=>setChoiceTripType(event.target.value)} className="header_dropdown_menu">
                     <option value="select the type of trip" disabled={selectCountry !== "select the type of trip"}>select the type of trip</option>
                     {tripTypes.map((triptype) => (
                         <option key={triptype} value={triptype} >
@@ -40,7 +42,7 @@ function DataFilter({setMoblieMenuClass}) {
                         </option>
                     ))}
                 </select>
-                <select value={choiceStyleTypes} name={choiceStyleTypes} onChange={()=>setChoiceStyleTypes(event.target.value)} className="header_dropdown_menu">
+                <select value={choiceStyleTypes} name={choiceStyleTypes} onChange={(event)=>setChoiceStyleTypes(event.target.value)} className="header_dropdown_menu">
                     <option value="select vehicle type" disabled={selectCountry !== "select vehicle type"}>select vehicle type</option>
                     {carsStyleTypes.map((carStyle) => (
                         <option key={carStyle} value={carStyle} >
@@ -50,6 +52,7 @@ function DataFilter({setMoblieMenuClass}) {
                 </select>
 
                 <button onClick={(e)=> {
+                    console.log(selectCountry,choiceTripType,choiceStyleTypes);
                     setMoblieMenuClass('');
                     acceptFn(e.target)
                 } }>Accept</button>
