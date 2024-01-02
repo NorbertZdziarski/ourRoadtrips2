@@ -4,26 +4,27 @@ import {useStoreActions} from "easy-peasy";
 function DataFilter({setMoblieMenuClass}) {
 
     const setDataFilter = useStoreActions(actions => actions.setDataFilter);
-
     const [selectCountry, setSelectCountry] = useState("choose a country")
     const [choiceTripType, setChoiceTripType] = useState("select the type of trip")
     const [choiceStyleTypes, setChoiceStyleTypes] = useState("select vehicle type")
     const [choiceCarType, setChoiceCarType] = useState("all")
-
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const acceptFn = (event) => {
         // event.preventDefault()
         // console.log(selectCountry,choiceTripType,choiceStyleTypes)
-        console.log(' >>> ' + selectCountry + ' | ' + choiceTripType + ' | ' + choiceStyleTypes)
+        let saveCountry;
+        if (selectCountry==='choose a country') {saveCountry = 'all'} else { saveCountry = selectCountry}
+        let saveTripType;
+        if (choiceTripType==='select the type of trip') {saveTripType = 'all'} else { saveTripType = choiceTripType}
+        let saveStyleTypes;
+        if (choiceStyleTypes==="select vehicle type") {saveStyleTypes = 'all'} else { saveStyleTypes = choiceStyleTypes}
 
-        setDataFilter([false,selectCountry,choiceTripType,choiceStyleTypes ])
+        setDataFilter([false,saveCountry,saveTripType,saveStyleTypes ])
     }
-    console.log(' > ' + selectCountry + choiceTripType + choiceStyleTypes)
     return (
         <div className="">
-        {/*<div className="yesOrNot">*/}
             <form>
                 <select value={selectCountry} onChange={(event) => setSelectCountry(event.target.value)} className="header_dropdown_menu">
                     <option value="choose a country" disabled={selectCountry !== "choose a country"}>choose a country</option>
@@ -64,5 +65,4 @@ function DataFilter({setMoblieMenuClass}) {
         </div>
     )
 }
-
 export default DataFilter;

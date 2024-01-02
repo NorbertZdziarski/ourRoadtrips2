@@ -5,32 +5,47 @@ import {useStoreActions} from "easy-peasy";
 
 function ShowTrips({dataFilter, map}) {
     const [data, setData] = useState(null);
+    const [filteredData, setFilteredData] = useState(null); // Dodaj to
+    const [showOn, setShowOn] = useState(false)
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
-    console.log('show trips: ' + dataFilter)
+
     useEffect(() => {
         setShowLoading([true,0]);
         fetchData('all/trips').then(downloadedData => {
-            // console.log('2_showTrips - pobrane dane: ' + downloadedData)
-            setShowLoading([false,0]);
-            // console.log('downloadeddata: ')
-            // console.log(typeof downloadedData)
-            // console.log(downloadedData)
-            // const dataArray = Object.values(downloadedData)
             const dataArray = downloadedData.map(obj => Object.values(obj));
-            // console.log('Object.entries downloadeddata: ')
-            // console.log(typeof dataArray)
-            // console.log(dataArray)
             setData(downloadedData);
         });
-
     }, []);
-    // layout_main layout_flex-sb
+
+    useEffect(() => {
+        if (data) {
+            const fData = data.filter(trip => {
+                if (!trip.tripPublic) return false;
+                if ((dataFilter[1] !== "all" && dataFilter[1] !== "choose a country") && dataFilter[1] !== trip.tripCountry) {
+                    return false;
+                }
+                if ((dataFilter[2] !== "all" && dataFilter[2] !== "select the type of trip")&& dataFilter[2] !== trip.tripType) {
+                    return false;
+                }
+                if (trip.tripCar && Array.isArray(trip.tripCar)) {
+                    if (trip.tripCar[2] && (dataFilter[3] !== "all" && dataFilter[3] !=="select vehicle type" ) &&  dataFilter[3] !== trip.tripCar[2]) return false;
+                }
+                return true;
+            });
+            setFilteredData(fData);
+
+        }
+    }, [data, dataFilter]);
+
+    useEffect(()=>{
+        if (filteredData) setShowOn(true);
+    },[filteredData])
+
     return (
         <section className="showTrips  ">
-            {data ? (
-                    <SortingTrips tripData={data}
-                                dataFilter={dataFilter}
-                                map = {map}/>
+            {showOn ? (
+                <SortingTrips tripData={filteredData}
+                              map = {map}/>
             ) : (
                 <p>data loading...</p>
             )}

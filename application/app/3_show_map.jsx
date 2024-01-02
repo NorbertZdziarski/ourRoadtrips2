@@ -10,11 +10,6 @@ function ShowMap({country, tripMap, tripPoint, locations}) {
     const mapRef = useRef(null);
     let mapH;
     let mapZoom = 4.2;
-    // if (tripMap)
-    //
-    // console.log(' |locations| ' + locations)
-    // console.log(' | JSON | ' + JSON.stringify(locations))
-    // console.log(typeof locations)
 
     if (!locations) {
         mapH = `600px`;
@@ -22,9 +17,6 @@ function ShowMap({country, tripMap, tripPoint, locations}) {
         locations = [];
     } else {
         mapH = `100%`}
-
-    // { console.log(' |||||||||||||||||||||||||| ');  }
-
 
     useEffect(()=>{
         if (tripMap) {
@@ -179,7 +171,7 @@ function ShowMap({country, tripMap, tripPoint, locations}) {
                 ))}
             </GoogleMap>
         </div>
-    ), [center, zoom, tripMap, isMapsLoaded, isTripMapLoaded]);
+    ), [center, zoom, tripMap, isMapsLoaded, isTripMapLoaded, locations]);
     return (
         <LoadScript googleMapsApiKey={googleMapsAPIkey} onLoad={() => setMapsLoaded(true)}>
             {map}
