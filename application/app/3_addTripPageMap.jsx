@@ -22,9 +22,9 @@ function AddTripPageMap({setPageInputTrip, pageInputTrip, country, formData, set
     },[routeToSave])
     return (<>
 
-        <div>
+        <div >
             <AddRoute country={country} routeToSave={routeToSave} setRouteToSave={setRouteToSave}/>
-            <div>
+            <div className={`addTrip_inputBox2`}>
                 <button onClick={()=> setPageInputTrip(pageInputTrip - 1)}>back</button>
                 <button onClick={()=> setPageInputTrip(pageInputTrip + 1)}>next</button>
             </div>

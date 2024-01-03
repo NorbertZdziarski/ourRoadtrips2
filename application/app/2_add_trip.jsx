@@ -25,6 +25,10 @@ function AddTrip() {
     const [formDataPage2, setFormDataPage2] = useState({});
     const [formDataPage3, setFormDataPage3] = useState({});
     const [formDataPage4, setFormDataPage4] = useState({});
+    const [styleButt1, setStyleButt1] = useState('current');
+    const [styleButt2, setStyleButt2] = useState('above');
+    const [styleButt3, setStyleButt3] = useState('above');
+    const [styleButt4, setStyleButt4] = useState('above');
     const [formDataPageOther, setFormDataPageOther] = useState({});
 
     useEffect(() => {
@@ -97,16 +101,10 @@ function AddTrip() {
         //     });
         // };
 
-        // const fetchDataAndUpdate = async () => {
-        //     console.log('---------------add trip page _ useEffect -------------------------')
-        //     console.log(formData)
-        //     console.log(JSON.stringify(formData));
-        //     console.log('txt test')
-        //     console.log('page input trip: ' + pageInputTrip);
-
-
         fetchData().then(setOkPrint(true));
+        setPageInputTrip(1);
     }, []);
+
     useEffect(()=>{
         if (page === "mainPage") {
             navigate('/');
@@ -118,12 +116,8 @@ function AddTrip() {
 
     const handleSubmit = async () => {
 
-        // console.log(' ------ TYPE: ' + type)
-
         // e.preventDefault();
         setShowLoading([true,0]);
-        // let error = '';
-        // let formDataToSave = await formData.concat(formDataPage1, formDataPage2, formDataPage4);
         let formDataToSave = { ...formData, ...formDataPage1, ...formDataPage2, ...formDataPage3 , ...formDataPage4 , ...formDataPageOther }
 
         // if (temporaryPass1) {
@@ -182,43 +176,25 @@ function AddTrip() {
         // setPage("userProfile");
     };
 
-    useEffect(async ()=>{
-
-        // console.log('_____________ useEffect 91 _ set to save | page input trip' + pageInputTrip)
-
+    useEffect(() => {
         if (pageInputTrip === 666) handleSubmit()
 
-    },[pageInputTrip])
+        if (pageInputTrip === 1) {setStyleButt1('current'); setStyleButt2('above') }
+        if (pageInputTrip === 2) {setStyleButt1('below'); setStyleButt2('current'); setStyleButt3('above') }
+        if (pageInputTrip === 3) {setStyleButt2('below'); setStyleButt3('current'); setStyleButt4('above') }
+        if (pageInputTrip === 4) {setStyleButt3('below'); setStyleButt4('current');  }
 
-    const buttons = document.querySelectorAll('.addTrip_inputBox button');
-    buttons.forEach((button, index) => {
-        button.addEventListener('click', () => {
-            buttons.forEach((btn, i) => {
-                if (i < index) {
-                    btn.className = 'below';
-                } else if (i === index) {
-                    btn.className = 'current';
-                } else {
-                    btn.className = 'above';
-                }
-            });
-        });
-    });
+        // const styles = ['below', 'current', 'above'];
+        // function setStyles(page) {
+        //     for (let i = 1; i <= 4; i++) {
+        //         const style = styles[page - i + 1] || 'below';
+        //         window'setStyleButt' + i;
+        //     }
+        // }
+        // setStyles(pageInputTrip);
 
+    }, [pageInputTrip]);
 
-    // const divs = document.querySelectorAll('.addTrip_inputBox div');
-    // divs.forEach((div, index) => {
-    //     div.addEventListener('click', () => {
-    //         divs.forEach((dv, i) => {
-    //             if (i < index) {
-    //                 dv.className = 'below';
-    //             } else {
-    //                 dv.className = 'above';
-    //             }
-    //         });
-    //     });
-    // });
-    // console.log('|| 253 || add trip: form data - JSON: ' + JSON.stringify(formData))
     const changePageFn = async (dir) => {
         if (pageInputTrip === 1) {
             const objectToSave = keysToCopy[0].reduce((result, key) => {
@@ -259,9 +235,10 @@ function AddTrip() {
                                         type='trip'
                                     /> : <>wait....</> }
                             </form>
-                            <div>
-                                {(pageInputTrip > 1) ? <button onClick={()=> changePageFn('back') }>back</button> : <></>}
-                                {(pageInputTrip < 4) ? <button onClick={()=> changePageFn('next')}>next</button> : <button onClick={()=> setPageInputTrip(666)}>save</button> }
+                            <div className={`addTrip_inputBox2`}>
+                                {(pageInputTrip > 1) ? <button  onClick={()=> changePageFn('back') }>back</button> : <></>}
+                                {(dataId || pageInputTrip >= 4) ? <button  onClick={()=> setPageInputTrip(666)}>save</button> : <></>}
+                                {(pageInputTrip < 4) ? <button  onClick={()=> changePageFn('next')}>next</button> : <></>}
                             </div>
                         </div>
                     }
@@ -269,13 +246,10 @@ function AddTrip() {
                 </div>
 
                 <div className={`addTrip_inputBox`}>
-                    <button disabled onClick={()=> setPageInputTrip(1)}>1</button>
-                    <div />
-                    <button disabled onClick={()=> setPageInputTrip(2)}>2</button>
-                    <div />
-                    <button disabled onClick={()=> setPageInputTrip(3)}>3</button>
-                    <div />
-                    <button disabled onClick={()=> setPageInputTrip(4)}>4</button>
+                    <button className={styleButt1} onClick={()=> setPageInputTrip(1)}>1</button>
+                    <button className={styleButt2} onClick={()=> setPageInputTrip(2)}>2</button>
+                    <button className={styleButt3} onClick={()=> setPageInputTrip(3)}>3</button>
+                    <button className={styleButt4} onClick={()=> setPageInputTrip(4)}>4</button>
                 </div>
             </> : <>...loading...</>}
         </section>

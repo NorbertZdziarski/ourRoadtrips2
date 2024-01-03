@@ -7,6 +7,9 @@ import LoadImage from "./a_loadimage";
 import DataSort from "./4_sort";
 import logourl from "../images/logo_m.png";
 import icotheme from "../images/color-palette_6591234.png";
+import icomap from "../images/map.png";
+import icolist from "../images/list_tasks_to_do_list_icon_233416.png";
+import icohome from "../images/home_house_icon_143764.png";
 import { Link } from "react-router-dom";
 
 function Header() {
@@ -77,21 +80,46 @@ function Header() {
                     </> : <>
                         {(((page === "mainPage") || (page === "aboutus") || (page === "showtrip") || (page === "showcar") || (page === "map") || (page === "mainPageFilter")) ? (
                             <section className={`headerButtons${moblieMenuClass} `}>
-                           {((page !== "mainPage") && (page !== "map")) ?<> <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link></> : <>
+
+                           {((page !== "mainPage") && (page !== "map")) ?<>
+
+
+                               <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}>
+                                   <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
+                               </Link>
+
+                               </> : <>
+
+
                             {(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
                             {((dataSortOn) && (page !=="map")) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
 
                                    {((!dataSortOn) && (!dataFilter[0])) ? <>
-                                    <button  onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
-                                         Filter
-                                  </button>
+                                       { (page === "map") ?
+                                           // <Link to="/"  onClick={() => {setPage("mainPage")}}>
+                                           //
+                                           // </Link>
+                                           <Link to="/"  className="myLink" >
+                                               <img src={icolist} className={`header_ico ico_${displayStyles}`}/>
+                                           </Link>
+                                           :
+                                           // <Link to="/"  onClick={() => {setPage("mainPage")}}>
+                                           // <img src={ico} className={`header_logo logo_${displayStyles}`}/>
+                                           // </Link>
+                                           <Link to="/map"  className="myLink" >
+                                               <img src={icomap} className={`header_ico ico_${displayStyles}`}/>
+                                           </Link>
+                                       }
+                                       <button  onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
+                                            Filter
+                                            </button>
                                        {(page !=="map") ? <button onClick={() => setDataSortOn(true)}>
-                                           Sort
-                                       </button>: <></>}
+                                            Sort
+                                            </button>: <></>}
 
 
 
-                                       { (page === "map") ?  <Link to="/"  className="myLink" > List </Link>: <Link to="/map"  className="myLink" > Map </Link>}
+
 
                                    {/* {(page === "mainPage") ?*/}
                                    {/*        <Link to="/map"  className="myLink" onClick={() => {setPage("mainPage")}}> Map </Link> : <button disabled>*/}
@@ -149,7 +177,7 @@ function Header() {
                         {(((page === "editUserData") || (page === "addcar") || (page === "addtrip")) ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
-                                {(moblieMenuClass === '') ? (<></>) : (
+                                {(moblieMenuClass === '') ? (<> abc </>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
                                         cancel

@@ -165,9 +165,9 @@ const map = useMemo(() => (
                     }
                 }}
             onClick={ev => {
-                console.log(' ___ onClick _ add new point ' + addNewPoint)
+                // console.log(' ___ onClick _ add new point ' + addNewPoint)
                 if (addNewPoint) {
-                    console.log(' ___ IF onClick _ add new point ' + addNewPoint)
+                    // console.log(' ___ IF onClick _ add new point ' + addNewPoint)
                     let llat = ev.latLng.lat();
                     let llng = ev.latLng.lng();
                     addPoint({ lat: llat, lng: llng});
@@ -198,7 +198,7 @@ const map = useMemo(() => (
                 googleMapsApiKey={googleMapsAPIkey}>
                 {map}
             </LoadScript>
-            <section>
+            <section className={`addTrip_inputBox2`}>
                 <button onClick={()=>setAddNewPoint(true)} > Add point </button>
                 {/*<button disabled={} onClick={()=>{setAddNewPoint(true)}}> Add next point </button>*/}
                 <div>

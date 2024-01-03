@@ -22,7 +22,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
 
         switch (method.toLowerCase()) {
             case 'get':
-                console.log('get ' + `${apiURL}/${target}`)
+                // console.log('get ' + `${apiURL}/${target}`)
                 try {
                     const response = await axios.get(`${apiURL}/${target}`, {
                         headers: {
@@ -88,7 +88,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 return;
             case 'postfile':
                 const formDatas = new FormData();
-                console.log('CRUD | -=-=- post file -=-=- ');
+                // console.log('CRUD | -=-=- post file -=-=- ');
                 // console.log('type' + folderName + ' JSON: ' + JSON.stringify(folderName));
                 // console.log('filename' + fileName + ' JSON: ' + JSON.stringify(fileName));
                 // console.log('CRUD | ------------------------- ');
@@ -112,7 +112,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 return;
                 // break;
             case 'patch':
-                console.log('CRUD: patch')
+                // console.log('CRUD: patch')
                 response = await axios.patch(`${apiURL}/${target}`, data,{
                     headers: {
                         'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
             default:
                 throw new Error(`Nieobsługiwana metoda: ${method}`);
         }
-        console.log(response.data)
+        // console.log(response.data)
         if (!response.data) return 'brak danych'
         return response.data;
     } catch (error) {

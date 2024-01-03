@@ -9,6 +9,30 @@
   padding-top: 2rem;
 
 }
+.addTrip_inputBox2 {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-bottom: 2rem;
+
+
+  button {
+    transition-duration: 0.5s;
+    width: 5rem;
+    height: 5rem;
+    border: 1px solid $color-background-secondary;
+    background-color: $color-background-secondary;
+    color: $color-background-main;
+    border-radius: 50%;
+    &:hover {
+      transition-duration: 1s;
+      color: $color-background-main;
+      border: 1px solid $color-blink-color;
+      background-color: $color-blink-color;
+    }
+  }
+}
 .addTrip_inputBox {
   display: flex;
   justify-content: space-evenly;

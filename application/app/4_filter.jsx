@@ -53,7 +53,6 @@ function DataFilter({setMoblieMenuClass}) {
                 </select>
 
                 <button onClick={(e)=> {
-                    console.log(selectCountry,choiceTripType,choiceStyleTypes);
                     setMoblieMenuClass('');
                     acceptFn(e.target)
                 } }>Accept</button>

@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 
 
 function UserProfile() {
-    console.log(' user profile')
     const loggedUser = useStoreState(state => state.loggedUser);
     const setPage = useStoreActions(actions => actions.setPage);
     const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
