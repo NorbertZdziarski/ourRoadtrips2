@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PrintForm from "./3_printForm";
 import { useStoreActions, useStoreState } from "easy-peasy";
+import ImagePreview from "./4_imagePreview";
 
 function AddTripPage1({page, setPageInputTrip, pageInputTrip, formData, setFormData, setFile}) {
 
@@ -97,6 +98,7 @@ console.log('page: ' + pageInputTrip)
                         setFile={setFile}
                         type='trip'
                     /> : <>wait....</> }
+
                 </form>
                 <div>
                     {(pageInputTrip > 1) ? <button onClick={()=> changePageFn('back') }>back</button> : <></>}

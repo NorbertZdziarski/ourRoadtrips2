@@ -1,6 +1,7 @@
 @mixin sidebarstyle {
-  margin-left: 2px;
+  padding-right: 1rem;
   &::-webkit-scrollbar {
+
     width: 8px }
   &::-webkit-scrollbar-track {
     background: rgba(23, 23, 23, 0)

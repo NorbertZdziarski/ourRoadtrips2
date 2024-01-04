@@ -9,6 +9,7 @@
   padding-top: 2rem;
 
 }
+
 .addTrip_inputBox2 {
   margin-top: 2rem;
   display: flex;
@@ -110,3 +111,58 @@
 //.addTrip_inputLine {
 //
 //}
+
+
+.addTrip_inputMap div {
+  width: 100%;
+  min-height: inherit;
+  box-sizing: border-box;
+  border: 1px dotted white;
+  padding: 1rem;
+  p {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+  }
+}
+
+@keyframes scale-grow {
+  0%, 16.66% {
+    transform: rotate(0);
+  }
+  5.33% {
+    transform: rotate(-5deg);
+  }
+  11.66% {
+    transform: rotate(5deg);
+  }
+  16.67%, 100% {
+    transform: rotate(0);
+  }
+}
+.addTrip_inputCont {
+  padding: 0;
+  width: 100%;
+  min-height: 9rem;
+  background-color: rgb(17,20,23);
+  margin: 0;
+  button {
+    z-index: 5000;
+    min-height: 9rem;
+    border-radius: 0;
+    border: 1px solid black;
+    animation: scale-grow 3s 3s infinite forwards;
+  }
+  button.addTrip-newPoint  {
+    background-color: $color-blink-color;
+
+  }
+}
+
+.addTrip-newPoint {
+  box-sizing: border-box;
+  border: 4px solid $color-blink-color;
+}
+
+
+
+

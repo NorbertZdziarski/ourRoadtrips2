@@ -24,8 +24,8 @@ function DataFilter({setMoblieMenuClass}) {
         setDataFilter([false,saveCountry,saveTripType,saveStyleTypes ])
     }
     return (
-        <div className="">
-            <form>
+        <div >
+            <form className='layout_grid3'>
                 <select value={selectCountry} onChange={(event) => setSelectCountry(event.target.value)} className="header_dropdown_menu">
                     <option value="choose a country" disabled={selectCountry !== "choose a country"}>choose a country</option>
                     {countriesInEurope.map((country) => (

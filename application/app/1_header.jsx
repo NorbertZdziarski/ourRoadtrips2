@@ -11,6 +11,7 @@ import icomap from "../images/map.png";
 import icolist from "../images/list_tasks_to_do_list_icon_233416.png";
 import icohome from "../images/home_house_icon_143764.png";
 import { Link } from "react-router-dom";
+import FilterStaus from "./4_filterStatus";
 
 function Header() {
     const [page, setNewPage] = useState('mainPage')
@@ -25,8 +26,11 @@ function Header() {
     const dataFilter = useStoreState(state => state.dataFilter);
     const dataSortOn = useStoreState(state => state.dataSortOn);
     const setDataSortOn = useStoreActions(actions => actions.setDataSortOn);
+    const tripSort = useStoreState(state => state.tripSort);
     const [screenWidth, setScreenWidth] = useState();
     const [moblieMenuClass, setMoblieMenuClass] = useState('');
+    const [filterBar, setFilterBar] = useState(false);
+    const [filterBarStatus, setFilterBarStatus] = useState('status');
 
 
 
@@ -68,8 +72,34 @@ function Header() {
         }
     }
 
+    useEffect(() => {
+
+        if (dataSortOn && page !== "map") {
+            setFilterBar(true);
+            setFilterBarStatus('sort');
+        } else {
+            if (filterBarStatus === 'sort') {
+                setFilterBar(false);
+                setFilterBarStatus('status');
+            }
+        }
+        if (dataFilter[0]) {
+            setFilterBar(true);
+            setFilterBarStatus('filter');
+        } else {
+            if (filterBarStatus === 'filter') {
+                setFilterBar(false);
+                setFilterBarStatus('status');
+            }
+        }
+        if (dataFilter[1] !== 'all' || dataFilter[2] !== 'all' || dataFilter[3] !== 'all') {
+            setFilterBar(true);
+        }
+
+    }, [dataFilter, dataSortOn, page]);
+
     // colorStyle_headerBtn_${displayStyles}
-    // console.log(page)
+
     return (<>
             <header className={`headerStyle${moblieMenuClass} fnt_btn_header`}>
                 <div className={` layout_flex-sb layout_mainViewWidth colorStyle_headerBtn_${displayStyles}`}>
@@ -91,10 +121,10 @@ function Header() {
                                </> : <>
 
 
-                            {(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
-                            {((dataSortOn) && (page !=="map")) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}
+                            {/*{(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
+                            {/*{((dataSortOn) && (page !=="map")) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
 
-                                   {((!dataSortOn) && (!dataFilter[0])) ? <>
+                                   {((!dataSortOn) || (!dataFilter[0])) ? <>
                                        { (page === "map") ?
                                            // <Link to="/"  onClick={() => {setPage("mainPage")}}>
                                            //
@@ -113,9 +143,10 @@ function Header() {
                                        <button  onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
                                             Filter
                                             </button>
-                                       {(page !=="map") ? <button onClick={() => setDataSortOn(true)}>
+                                       {(page !=="map") ?<> <button onClick={() => setDataSortOn(true)}>
                                             Sort
-                                            </button>: <></>}
+                                            </button>
+                                           <p> {tripSort}</p></>: <></>}
 
 
 
@@ -143,7 +174,9 @@ function Header() {
 
                         {(page === "userprofile") ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
-                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}>
+                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
+                                </Link>
                                 <Link to="/addTrip" className="myLink" onClick={() => {setDataId(''); setPage("addTrip")}}> Add trip </Link>
                                 <Link to="/addCar" className="myLink" onClick={() => {setDataId(''); setPage("addCar")}}> Add Car </Link>
                                 <Link to="/editUserData" className="myLink" onClick={() => {setPage("editUserData")}}> Edit User Data </Link>
@@ -174,10 +207,12 @@ function Header() {
                         ) : (
                             <></>)}
 
-                        {(((page === "editUserData") || (page === "addcar") || (page === "addtrip")) ? (
+                        {(((page === "editUserData") || (page === "addcar") || (page === "addtrip")|| (page === "addTrip")) ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
-                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
-                                {(moblieMenuClass === '') ? (<> abc </>) : (
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}>
+                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
+                                </Link>
+                                {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
                                         cancel
@@ -189,7 +224,9 @@ function Header() {
 
                         {((page === "aboutme") ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
-                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}>
+                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
+                                </Link>
                                 <button onClick={() => {
                                     setPage("showTrip")
                                 }}>
@@ -207,7 +244,9 @@ function Header() {
 
                         {((page === "login") ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
-                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}> Main Page </Link>
+                                <Link to="/" className="myLink" onClick={() => {setPage("mainPage")}}>
+                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
+                                </Link>
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
@@ -271,10 +310,24 @@ function Header() {
                 <Link to="/"  onClick={() => {setPage("mainPage")}}>
                     <img src={logourl} className={`header_logo logo_${displayStyles}`}/>
                 </Link>
+                {/*<button onClick={() => setFilterBar(!filterBar)}>*/}
+                {/*    Toggle Filter Bar*/}
+                {/*</button>*/}
             </header>
             <div className={`subHeader_${displayStyles}`}>
 
             </div>
+
+            <div className={`headerMenu_filter-bar ${filterBar ? 'show' : 'hide'}`}>
+
+                {/*{(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
+                {/*{((dataSortOn) && (page !=="map")) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
+
+                {filterBarStatus === 'filter' ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
+                {filterBarStatus === 'sort' ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
+                {filterBarStatus === 'status' ? <FilterStaus setFilterBar={setFilterBar}/> :<></>}
+            </div>
+
         </>
     );
 }

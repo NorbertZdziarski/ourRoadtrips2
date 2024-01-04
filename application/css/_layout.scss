@@ -7,6 +7,7 @@
 }
 
 .layout_main {
+  @include sidebarstyle;
   //width: $main-view-width;
   box-sizing: border-box;
   margin-inline: auto;
@@ -33,4 +34,22 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.layout_grid3 {
+  background-color: $color-background-main;
+  border: 0;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  p {
+    //display: inline-block;
+    color: $color-background-secondary;
+    padding: 1rem;
+    border-left: $color-background-secondary;
+  }
+  button {
+    color: black;
+    border: 0;
+  }
 }

@@ -25,6 +25,7 @@ const [routeData, setRouteData] = useState(false);
 
 const [directions, setDirections] = useState(null);
 const [tripPoint, setTripPoint] = useState(false);
+const [addPointClass, setAddPointClass] = useState('');
 
     const [routeInfoKM, setRouteInfoKM] = useState(false);
     const [routeInfoTime, setRouteInfoTime] = useState(false);
@@ -105,7 +106,7 @@ useEffect(() => {
 
     useEffect(()=>{
         setRouteToSave(routeData)
-        // console.log('==================================')
+        console.log('==================================')
         // console.log(routeData.geocoded_waypoints)
         // console.log(routeData.routes)
         // console.log('----------------------------------')
@@ -116,11 +117,11 @@ useEffect(() => {
 
         // console.log('----------------------------------')
         if (routeData.routes) {
-            // console.log(routeData.routes[0].summary)
+            console.log(routeData.routes[0].summary)
             // console.log(routeData.routes[0].legs[0].distance)
             // console.log(routeData.routes[0].legs[0].duration)
-            // console.log(routeData.routes[0].legs[0].end_address)
-            // console.log(routeData.routes[0].legs[0].start_address)
+            console.log(routeData.routes[0].legs[0].end_address)
+            console.log(routeData.routes[0].legs[0].start_address)
             // console.log(routeData.routes[0].legs[0].start_address)
             // console.log('----------------------------------')
             setRouteInfoKM(routeData.routes[0].legs[0].distance.text);
@@ -139,6 +140,10 @@ useEffect(() => {
         setAddNewPoint(false)
 
     }
+
+    useEffect(()=>{
+        if (addNewPoint) {setAddPointClass('addTrip-newPoint')} else {setAddPointClass('')}
+    },[addNewPoint])
 
 const map = useMemo(() => (
     <div style={{zIndex:1000, width: '100%', height: '100%'}}>
@@ -178,35 +183,44 @@ const map = useMemo(() => (
         {tripPoint && <Marker position={tripMap[0]} />}
 
         {directions && <DirectionsRenderer directions={directions} />}
-        <OverlayView
-            position= {{ lat: 52.2297, lng: 21.0122 }}
-            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-        >
-            <div style={{ cursor: 'pointer' }}> {/* Tutaj zmieniamy kursor */}
-                <h1>OverlayView</h1>
-                <button type='button'>Click me</button>
-            </div>
-        </OverlayView>
+        {/*<OverlayView*/}
+        {/*    position= {{ lat: 52.2297, lng: 21.0122 }}*/}
+        {/*    mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}*/}
+        {/*>*/}
+        {/*    <div style={{ cursor: 'pointer' }}> /!* Tutaj zmieniamy kursor *!/*/}
+        {/*        <h1>OverlayView</h1>*/}
+        {/*        <button type='button'>Click me</button>*/}
+        {/*    </div>*/}
+        {/*</OverlayView>*/}
         </GoogleMap>
 
     </div>
-), [center, zoom, tripMap, directions, addNewPoint]);
-
+), [mapStyles, center, zoom, addNewPoint, tripPoint, tripMap, directions]);
+console.log('tripMap.length: ' + tripMap.length)
     return (
         <>
-            <LoadScript
-                googleMapsApiKey={googleMapsAPIkey}>
-                {map}
-            </LoadScript>
-            <section className={`addTrip_inputBox2`}>
-                <button onClick={()=>setAddNewPoint(true)} > Add point </button>
+            <div className={addPointClass}>
+                <LoadScript
+                    googleMapsApiKey={googleMapsAPIkey}>
+                    {map}
+                </LoadScript>
+            </div>
+            <section className={`layout_flex-sb addTrip_inputCont addTrip_inputMap addTrip_inputBox2 `}>
+                {(tripMap.length===0) ? <button className={addPointClass} onClick={()=>setAddNewPoint(true)} > Add first point </button> : <button onClick={()=>setAddNewPoint(true)} > Add next point </button>}
                 {/*<button disabled={} onClick={()=>{setAddNewPoint(true)}}> Add next point </button>*/}
                 <div>
-                    {routeInfoSummary ? <p>Your route:</p>: <></>}
-                    {(tripMap.length>0) ? <>{tripMap.map((pointOnMap, index)=>{<div> <p>{index}</p>  </div>}) }</> : <p> none </p>}
+                    {routeInfoSummary ? <p className={`fnt_subtitle`}>Your route:</p>:  <p> no trip </p>}
+                    {/*{(tripMap.length>0) ? <>{tripMap.map((pointOnMap, index)=>{<div> <p>{index}</p>  </div>}) }</> : <></>}*/}
                     {routeInfoKM ? <p> length: {routeInfoKM}</p>  : <></>}
                     {routeInfoTime ? <p> czas: {routeInfoTime}</p> : <></>}
-
+                </div>
+                <div>
+                    {routeData ?
+                        <>
+                            <p>{routeData.routes[0].summary}</p>
+                            <p>{routeData.routes[0].legs[0].start_address}</p>
+                            <p>{routeData.routes[0].legs[0].end_address}</p>
+                        </> : <p> no data </p>}
                 </div>
             </section>
         </>

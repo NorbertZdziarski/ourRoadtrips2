@@ -56,6 +56,7 @@ body {
   padding: 5px;
   height: $footer-height;
   width: $main-view-width;
+  overflow: hidden;
   //@include mainStyle($footer-height);
 }
 .footerWindowStyle {
@@ -459,3 +460,4 @@ $stripe-color2: rgba(255, 255, 0, 0.8);
 .divHeightTemp {
   height: 100%;
 }
+

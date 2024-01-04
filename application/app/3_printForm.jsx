@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import '../css/main.scss';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
+import ImagePreview from "./4_imagePreview";
 function PrintForm({form,formData,setFormData, setFile, type}) {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
@@ -87,6 +88,7 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
         let filesArr = event.target.files;
 
         setFile(filesArr) }
+
 
         // filesArr.map((file) => {
         //     console.log(file)
@@ -241,6 +243,7 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
                     {(excludedValues.includes(value) ? null : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>)}
                 </label>
             </div>)}
+            <ImagePreview/>
         </div>
     )
 }
