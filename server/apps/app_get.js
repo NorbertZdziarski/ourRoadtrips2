@@ -2,18 +2,18 @@ const express = require('express');
 const saveLog = require("./savelog");
 const manageData = require("../app_mongo");
 const router = express.Router();
-saveLog(` | -- app get -- |`,`app_get >`);
+// saveLog(` | -- app get -- |`,`app_get >`);
 router.get('/all/:collectionname', async (req,res) => {
     const collectionName = req.params.collectionname;
-    saveLog(`/all | get pathname: ${collectionName}`,`app_get >`);
+    // saveLog(`/all | get pathname: ${collectionName}`,`app_get >`);
 
     let sendData;
 
     try {
-        saveLog(`14 get try - manageData _ nazwa kolekcji: ${collectionName}`,`app_get >`);
+        // saveLog(`14 get try - manageData _ nazwa kolekcji: ${collectionName}`,`app_get >`);
         sendData = await manageData(collectionName,'getall');
 
-            saveLog(`42 | odpowiedz get/all dla ${collectionName} wynosi: \n \n  ${JSON.stringify(sendData)} \n `,`app_get >`)
+            // saveLog(`42 | odpowiedz get/all dla ${collectionName} wynosi: \n \n  ${JSON.stringify(sendData)} \n `,`app_get >`)
             res.status(200).json(sendData);
 
     } catch (err) {
@@ -27,12 +27,12 @@ router.get('/login', async (req,res) => {
 
     const user = req.query.user;
     const password = req.query.password;
-    saveLog(`/login | get user: ${user}`, `app_get >`);
+    // saveLog(`/login | get user: ${user}`, `app_get >`);
 
     let userData;
     try {
         userData = await manageData('users', 'login', {password}, {user})
-        saveLog(`35 } get/login _ response - user data: \n ${JSON.stringify(userData)}  \n`, `app_get >`)
+        // saveLog(`35 } get/login _ response - user data: \n ${JSON.stringify(userData)}  \n`, `app_get >`)
         res.status(200).json(userData[0]);
 
     } catch (err) {
@@ -70,11 +70,11 @@ router.get('/one/:collectionname/:id', async (req,res) => {
     const cn = req.params.collectionname;
     const id = req.params.id;
     const collectionName = `${cn}s`
-    saveLog(`/one | collection name: ${collectionName} id: ${id}`,`app_get >`);
+    // saveLog(`/one | collection name: ${collectionName} id: ${id}`,`app_get >`);
 
     let sendData = await manageData(collectionName,'getone', id);
     try {
-        saveLog(`250 | response:  ${JSON.stringify(sendData)} `)
+        // saveLog(`250 | response:  ${JSON.stringify(sendData)} `)
         res.status(200).json(sendData);
 
     } catch (err) {
@@ -87,16 +87,26 @@ router.get('/one/:collectionname/:id', async (req,res) => {
 router.get('/select/:collectionname/:filter', async (req,res) => {
     const collectionName = req.params.collectionname;
     const id = req.params.filter;
+    let filter;
+    if (id === "downloaduserlist") {
+        filter = { "status": "public" },
+            {
+                "_id": 1,
+                "nick": 1,
+                "userPhoto": 1,
+                "groups": 1
+            }
+    } else {filter = {userId: id}}
 
     // const id = req.params.idNr;
 
     // saveLog(`203 | /userstrips/:idNr |  id: ${id} `)
-    let filter = {userId: id}
+
 
     saveLog(`/select | collection name: ${collectionName} filter: ${filter}`,`app_get >`);
     try {
         let sendData = await manageData( collectionName, 'get',null,filter);
-        saveLog(`/select | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
+        // saveLog(`/select | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
         res.status(200).json(sendData);
 
     } catch (err) {
@@ -110,7 +120,7 @@ router.get('/select/:collectionname/:filter', async (req,res) => {
 router.get('/file/:collectionname/:id', async (req,res) => {
     const collectionName = req.params.collectionname;
     const id = req.params.id;
-    saveLog(`/file | collection name: ${collectionName} id: ${id}`,`app_get >`);
+    // saveLog(`/file | collection name: ${collectionName} id: ${id}`,`app_get >`);
 
 })
 
@@ -119,7 +129,7 @@ router.get('/:collectionName', async (req, res) => {
     const collectionName = req.params.collectionName;
     const user = req.query.user;
     const password = req.query.password;
-    saveLog(`12 | get pathname: ${collectionName}`,`app_get >`);
+    // saveLog(`12 | get pathname: ${collectionName}`,`app_get >`);
 
 
     if (collectionName === 'login') {

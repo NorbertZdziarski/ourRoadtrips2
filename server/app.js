@@ -24,11 +24,8 @@ let port = process.env.PORT || '9000';
 // ------------------------------------------------------------------------ MULTER - do wgrania plików
 
 const storage = multer.diskStorage({
-
     destination: function(req, file, cb) {
         const fileType = req.body.type;
-        saveLog('check my-header',`app.js _ multer `);
-        saveLog(`file type: ${fileType}`,`app.js _ multer `);
         if ((fileType!=='users') && (fileType!=='trips')  && (fileType!=='cars')) {
             const error = new Error('błędna nazwa folderu (typ)');
             error.code = 'INCORRECT_FOLDER';
@@ -36,7 +33,6 @@ const storage = multer.diskStorage({
             return cb(error); }
         // const subFolderName = req.body.folderName;
         const folderName = path.join('images',fileType)
-        saveLog(`folder name: ${folderName}`,`app.js _ multer `);
         if (!fs.existsSync(folderName)) {
             fs.mkdirSync(folderName,{recursive: true})
         }
@@ -44,7 +40,6 @@ const storage = multer.diskStorage({
     },
     filename: function(req, file, cb) {
         const fileName = req.body.filename;
-        // const extension = path.extname(file.originalname);
         cb(null, fileName);
     }
 });
@@ -66,15 +61,13 @@ const corsOptions = {
     credentials: true
 };
 app.use(cors(corsOptions));
+
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 // ------------------------------------------------------------------------ images
 app.use(express.static('images'));
 app.use((req, res, next) => {
-    console.log('check my-header')
-    saveLog('check my-header');
     if (!req.headers['my-header']) {
-        saveLog(`74 | błąd: Brak wymaganego nagłówka`,`app.js >`)
         return res.status(400).send('error. Attempt to connect without required permissions');
     }
     next();
@@ -84,7 +77,6 @@ app.use((req, res, next) => {
 
 app.post('/upload', function (req, res) {
     upload(req, res, function (err) {
-        saveLog('85 | upload')
         try {
             if (err instanceof multer.MulterError) {
                 saveLog(`88 error upload _ MulterError -> ${err.message}`)
@@ -106,15 +98,8 @@ app.post('/upload', function (req, res) {
 app.get('/download', async function(req, res){
     const filePath = req.query.filepath;
     const fileName = req.query.filename;
-    saveLog('download nazwa pliku: ' + fileName)
-    saveLog('download sciezka: ' + filePath)
     let fullPath = path.join(filePath.toString(), fileName.toString());
-    console.log(typeof fullPath)
-    console.log(fullPath)
-    saveLog('139 | fullpath : ' + fullPath)
     let file = path.join(__dirname, fullPath);
-
-    saveLog('142 | file : ' + file)
     res.download(fullPath, function (err) {
         if (err) {
             saveLog(`145 | błąd podczas pobierania pliku:  ${err} `)
