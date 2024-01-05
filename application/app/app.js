@@ -44,6 +44,7 @@ function App() {
                             <Route path="/edituserdata" element={<MyForm type={"user"}/>}/>
                             <Route path="/addcar" element={<MyForm type={"car"}/>}/>
                             <Route path="/addtrip" element={<AddTrip/>}/>
+                            <Route path="/addgroup" element={<AddTrip/>}/>
                         </Routes>
                         {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
                         {showLoading ? <>{(showLoading[0]) ? (<Anim_loading/>):(<></>)}</> :<></>}

@@ -35,6 +35,22 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             carPurposeType: dataId.carPurposeType || '',
             carPhoto: dataId.carPhoto || []
         };
+    } else if (type === 'group') {
+        return {
+            saveDate: new Date(),
+            owner: dataId.owner || loggedUser.nick,
+            ownerId: dataId.ownerId || loggedUser._id,
+            name: dataId.name || '',
+            description: dataId.description || '',
+            type: dataId.type || '',
+            photo: dataId.photo || '',
+            public: dataId.public || false,
+            comments: dataId.comments || [],
+            design: dataId.design || [],
+            users: dataId.users || [],
+            trips: dataId.trips || [],
+            cars: dataId.cars || []
+        };
 
     } else {
         return {
@@ -46,7 +62,9 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             email: loggedUser.email || '',
             userPhoto: loggedUser.userPhoto || '',
             dateOfAccountCreation: loggedUser.dateOfAccountCreation || new Date(),
-            cars: loggedUser.cars || []
+            cars: loggedUser.cars || [],
+            groups: loggedUser.groups || [],
+            privateMessages: loggedUser.privateMessages || []
         };
     }
 }
