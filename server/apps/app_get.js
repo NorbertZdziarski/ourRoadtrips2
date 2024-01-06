@@ -88,26 +88,30 @@ router.get('/select/:collectionname/:filter', async (req,res) => {
     const collectionName = req.params.collectionname;
     const id = req.params.filter;
     let filter;
-    if (id === "downloaduserlist") {
-        filter = { "status": "public" },
-            {
-                "_id": 1,
-                "nick": 1,
-                "userPhoto": 1,
-                "groups": 1
-            }
-    } else {filter = {userId: id}}
 
     // const id = req.params.idNr;
-
     // saveLog(`203 | /userstrips/:idNr |  id: ${id} `)
-
-
-    saveLog(`/select | collection name: ${collectionName} filter: ${filter}`,`app_get >`);
+    // saveLog(`/select | collection name: ${collectionName} filter: ${filter}`,`app_get >`);
     try {
-        let sendData = await manageData( collectionName, 'get',null,filter);
-        // saveLog(`/select | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
-        res.status(200).json(sendData);
+        if (id === "downloaduserlist") {
+            // query: { "status": "public" },
+            filter = {
+                query: {},
+                projection: { "_id": 1, "nick": 1, "userPhoto": 1, "groups": 1 }
+            };
+            let sendData = await manageData( collectionName, 'getusers',null,filter);
+            // saveLog(`/select | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
+            res.status(200).json(sendData);
+        } else {
+
+            if (collectionName === 'messages') {
+                filter = id;
+            } else {
+            filter = {userId: id}}
+            let sendData = await manageData( collectionName, 'get',null,filter);
+            // saveLog(`/select | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
+            res.status(200).json(sendData);
+        }
 
     } catch (err) {
         saveLog(`193 | błąd:  ${err} `)

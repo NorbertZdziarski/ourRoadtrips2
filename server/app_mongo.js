@@ -31,7 +31,7 @@ async function manageData(collectionName, action, data, filter) {
         if (action === 'getall') {
             dataDB = await collection.find().toArray();
             await client.close();
-            saveLog(`34 | pobieranie typu get_all | uzyskane dane: ${dataDB}  `,`app_mongo`)
+            // saveLog(`34 | pobieranie typu get_all | uzyskane dane: ${dataDB}  `,`app_mongo`)
             return dataDB;
 
 
@@ -48,12 +48,17 @@ async function manageData(collectionName, action, data, filter) {
             dataDB = await collection.find(filter).toArray();
 
             await client.close();
-            saveLog(`51 | pobieranie typu get_one | uzyskane dane: ${dataDB}  `,`app_mongo`);
+            saveLog(`51 | pobieranie typu get | uzyskane dane: ${dataDB}  `,`app_mongo`);
             return dataDB;
 
 
-        }
-        else if (action === 'dodaj_obj') {
+        } else if (action === 'getusers') {
+            saveLog(`||| app mongo GET users filter ->  ${filter} JSON: ${JSON.stringify(filter) }`,`app_mongo`)
+            dataDB = await collection.find(filter.query, filter.projection).toArray();
+            await client.close();
+            saveLog(`59 | pobieranie typu get_users | uzyskane dane: ${dataDB}  `,`app_mongo`);
+            return dataDB;
+        } else if (action === 'dodaj_obj') {
             saveLog(` /// dodaj obj`, 'app_mongo');
             await collection.insertOne({data}, function (err,res) {
                 if (err) { saveLog(` /// BŁĄD: ${err}`, 'app_mongo');}
@@ -87,7 +92,18 @@ async function manageData(collectionName, action, data, filter) {
             }
             saveLog(`103 | zwrot ${dataDB}`, 'app_mongo')
             return dataDB;
+        } else if (data && action === 'postlikeget') {
+            saveLog(`81 | post _ insertOne ${JSON.stringify(data)}`, 'app_mongo')
 
+            try {
+                let result = await await collection.find(data).toArray();
+
+                return result;
+            } catch (error) {
+                saveLog('Error occurred while inserting: ' + error, 'app_mongo');
+                client.close();
+
+            }
         } else if (data && action === 'post') {
             saveLog(`81 | post _ insertOne ${JSON.stringify(data)}`, 'app_mongo')
             // await collection.insertOne(data);

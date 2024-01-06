@@ -56,30 +56,26 @@ router.post('/gle', async (req, res) => {
         });
 });
 
-router.post('/:inquiryType/add', async (req, res) => {
+router.post('/:inquiryType/:what', async (req, res) => {
        saveLog(`9 | -- app.post -- / /add `,`app_post >`);
     const collectionName = req.params.inquiryType + 's';
+    const whatToDo = req.params.what;
     const newItem = await req.body;
     let filter = null;
-
-    //     let photoLink;
-    // saveLog(`12 | action 'post', \n collection name: ${collectionName} , filter: ${filter} newItem: ${newItem} link ${collectionName.userPhoto}`,`app_post >`);
-    // saveLog(`13 | json:  \n newItem: ${JSON.stringify(newItem)}`,`app_post >`);
-    // if (collectionName.userPhoto) {photoLink = collectionName.userPhoto.slice(0,5)}
-    // saveLog(`15 | photo link: ${photoLink.length} ${photoLink}`,`app_post >`);
-    // if (photoLink!=='images')
-
-
-
-       saveLog(`16 | action 'post', collection name: ${collectionName} , filter: ${filter} newItem: ${newItem}`,`app_post >`);
-       saveLog(`17 | json:  \n newItem: ${JSON.stringify(newItem)}`);
-
+    saveLog(`65 | action 'post', collection name: ${collectionName} ,whatToDo ${whatToDo}, filter: ${filter} newItem: ${newItem}`,`app_post >`);
+    if (whatToDo === 'add') {
+       saveLog(`67 | json:  \n newItem: ${JSON.stringify(newItem)}`);
     await manageData(collectionName,'post', newItem).then((result) => {
-        saveLog(`20 | odpowiedz z zapisu: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
+        saveLog(`69 | odpowiedz z zapisu: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
         res.status(200).send({message: 'Dodano nowy element do bazy danych', id: result});
     });
-
-
+    } else {
+        saveLog(`72 | ----`);
+        await manageData(collectionName,'postlikeget', newItem).then((result) => {
+            saveLog(`74 | odpowiedz z POST: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
+            res.status(200).send({message: 'wszystko ok', id: result});
+    });
+    }
 });
 
 // router.post('/:inquiryType/add', async (req, res) => {
