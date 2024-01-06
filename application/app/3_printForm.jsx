@@ -3,17 +3,19 @@ import '../css/main.scss';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {fetchData} from "./a_CRUD_service";
 import ImagePreview from "./4_imagePreview";
+import UsersList from "./4_usersList";
 function PrintForm({form,formData,setFormData, setFile, type}) {
     const countriesInEurope = ["all", "Albania", "Andorra", "Austria", "Belarus", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Estonia", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Kosovo", "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom", "Vatican City"];
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const carsPurposeTypes=["all", "daily", "classic", "forFun"];
+    const groupTypes=["friends", "teem", "enthusiasts", "madmen"];
 
     const carsEngineFuelType=["petrol", "electric","hybrid","diesel", "other"];
     const loggedUserCars = useStoreState(state => state.loggedUserCars);
     const loggedUser = useStoreState(state => state.loggedUser);
 
-    const excludedValues = ['password', 'repeat password','regulations', 'tripCarStyleType','userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars'];
+    const excludedValues = ['password', 'repeat password','regulations', 'tripCarStyleType','userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars', 'public'];
     const excludedValuesTitle = ['cars','carId', 'tripUserId','tripCarStyleType'];
 
     const [choseCar, setChoseCar] = useState(false);
@@ -28,9 +30,15 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
     const [userCars,setUserCars] = useState([]);
     const setLoggedUserCars = useStoreActions(actions => actions.setLoggedUserCars);
 
+    const [invitedUsers, setInvitedUsers] = useState([]);
+
     let usersCarsDisp = [];
+    // let usersList = [];
+    const [usersList,setUsersList] = useState([]);
+
     const [stan, setStan] = useState(form.tripPublic);
     const [stanPublic, setStanPublic] = useState(form.tripPublic || false);
+    const [stanPublicGroup, setStanPublicGroup] = useState(form.tripPublic || false);
     let slicePoint;
     let commentsValue;
     let tripRateData;
@@ -40,6 +48,11 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
     //
     //     setStan()
     // },[])
+
+    useEffect(()=>{
+        setFormData({ ...formData, users: invitedUsers })
+    },[invitedUsers])
+
 
     useEffect(()=>{
         // console.log('}}} users cars disp _________________');
@@ -67,18 +80,42 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
 
         }
         setShowLoading([false,0]);
+console.log('type: ' + type)
+        if (type === 'group') {
+            const target = `select/users/downloaduserlist`
+            fetchData(target).then(downloadedData => {
+
+                setShowLoading([false,0]);
+
+                setUsersList(downloadedData)
+            });
+        }
+
+
     },[]);
 
     const zmienStan = () => {
-
+        setFormData({ ...formData, tripPublic: !stanPublic })
         setStanPublic(!stanPublic);
         console.log('_____ STAN: ' + stanPublic)
-        setFormData({ ...formData, tripPublic: stanPublic })
+
     };
+
+    const zmienStanGroup = () => {
+        console.log('1__g r o u p___ STAN: ' + stanPublicGroup)
+        setFormData({ ...formData, public: !stanPublicGroup })
+        setStanPublicGroup(!stanPublicGroup);
+        console.log('2__g r o u p___ STAN: ' + stanPublicGroup)
+
+
+    };
+
     const rullesStan = () => {
+        console.log('1_____ STAN: ' + stan)
+        setFormData({ ...formData, regulations: !stan })
         setStan(!stan);
-        console.log('_____ STAN: ' + stan)
-        setFormData({ ...formData, regulations: stan })
+        console.log('2_____ STAN: ' + stan)
+
     };
 
     function handleFileChange(event) {
@@ -194,15 +231,29 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
                             </option>
                         ))}
                     </select>):(<></>)}
-                    {(value === 'tripPublic')?(
+                    {(value === 'type')?(<select value={formData[value]} name={value} onChange={handleChange} className="">
+                        {groupTypes.map((groupType) => (
+                            <option key={groupType} value={groupType} >
+                                {groupType}
+                            </option>
+                        ))}
+                    </select>):(<></>)}
+
+                    {(value === 'tripPublic' )?(
                         <div className="imputForm_visibility">
-                            <div className="imputForm_visibility_txt">{stanPublic ? 'will not be displayed' : 'visible on main page'}</div>
+                            <div className="imputForm_visibility_txt">{stanPublic ?'visible on main page' : 'will not be displayed' }</div>
                             <button type="button" className="main_button" onClick={zmienStan}>change visibility</button>
+                        </div>
+                    ):(<></>)}
+                    {(value === 'public' )?(
+                        <div className="imputForm_visibility">
+                            <div className="imputForm_visibility_txt">{stanPublicGroup ? 'visible on main page' : 'will not be displayed'}</div>
+                            <button type="button" className="main_button" onClick={zmienStanGroup}>change vvvvvisibility</button>
                         </div>
                     ):(<></>)}
                     {(value === 'regulations')?(
                         <div className="imputForm_visibility">
-                            <div className="imputForm_visibility_txt">{stan ? 'you do not accept the regulations' : 'you accept the regulations'}</div>
+                            <div className="imputForm_visibility_txt">{stan ? 'you accept the regulations' : 'you do not accept the regulations' }</div>
                             <button type="button" className="main_button" onClick={rullesStan}>change</button>
                         </div>
                     ):(<></>)}
@@ -215,6 +266,9 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
                         <input type="file" onChange={handleFileChange} className="imputForm_inputFile" multiple/>
                     ):(<></>)}
                     {(value === 'userPhoto')?(
+                        <input type="file" onChange={handleFileChange} className="imputForm_inputFile"/>
+                    ):(<></>)}
+                    {(value === 'photo')?(
                         <input type="file" onChange={handleFileChange} className="imputForm_inputFile"/>
                     ):(<></>)}
                     {(value === 'tripRate')?(
@@ -242,8 +296,24 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
 
                     {(excludedValues.includes(value) ? null : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>)}
                 </label>
+
+                {(value === 'users')?
+                    <>
+                        <UsersList
+                            usersList={usersList}
+                            invitedUsers={invitedUsers}
+                            setInvitedUsers={setInvitedUsers}/>
+                        {/*    (<select value={formData[value]} name={value} onChange={handleChange} className="">*/}
+                        {/*    {usersList.map((oneUser) => (*/}
+                        {/*        <option key={oneUser} value={oneUser} >*/}
+                        {/*            {oneUser.nick}*/}
+                        {/*        </option>*/}
+                        {/*    ))}*/}
+                        {/*</select>)*/}
+                    </>
+                    :(<></>)}
             </div>)}
-            <ImagePreview/>
+            {/*<ImagePreview/>*/}
         </div>
     )
 }

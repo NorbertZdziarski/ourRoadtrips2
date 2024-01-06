@@ -6,6 +6,7 @@ import DisplayCars from "./3_displayCars";
 import PrintTrips from "./4_printTrips";
 import Anim_loading from "./anim_loading";
 import { Link } from "react-router-dom";
+import NewMessage from "./5_newMessage";
 
 
 
@@ -156,7 +157,7 @@ function UserProfile() {
                     <p> Twoja najlepiej oceniana podróż: </p>
                 </div>
             </section>
-
+            <NewMessage/>
             <section className={`showtrip_main colorstyle_button_${displayStyles}`}>
                 <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
                 <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>

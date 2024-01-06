@@ -115,7 +115,7 @@ function AddGroup() {
             await addDataToMongo(formDataToSave, dataId, type).then((r)=>{ console.log(r)})
         }
         // setShowLoading([false,0]);
-        setPage("userProfile");
+        setPage("userprofile");
 
         // setYesOrNot(prevState => {
         //     let newArray = [...prevState.yesOrNot];
@@ -123,11 +123,11 @@ function AddGroup() {
         //     return {array: newArray};
         // });
         setShowLoading([false,0]);
-        // setPage("userProfile");
+
     };
 
     useEffect(() => {
-        if (pageInputTrip === 666) handleSubmit()
+        if (pageInputTrip === 666) handleSubmit();
 
         if (pageInputTrip === 1) {setStyleButt1('current'); setStyleButt2('above') }
         if (pageInputTrip === 2) {setStyleButt1('below'); setStyleButt2('current'); setStyleButt3('above') }

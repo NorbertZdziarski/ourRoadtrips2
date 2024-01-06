@@ -17,6 +17,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             tripSaveDate: new Date(),
             tripRate: dataId.tripRate || [],
             tripComments: dataId.tripComments || [],
+            groups: dataId.groups || [],
             tripPublic: dataId.tripPublic || false
 
         };
@@ -33,7 +34,9 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             carFuelType: dataId.carFuelType || '',
             carStyleType: dataId.carStyleType || '',
             carPurposeType: dataId.carPurposeType || '',
-            carPhoto: dataId.carPhoto || []
+            carPhoto: dataId.carPhoto || [],
+            public: dataId.public || false,
+            groups: dataId.groups || []
         };
     } else if (type === 'group') {
         return {

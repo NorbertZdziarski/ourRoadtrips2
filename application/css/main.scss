@@ -425,7 +425,6 @@ $stripe-color2: rgba(255, 255, 0, 0.8);
 }
 
 .userPanel_first {
-
   box-sizing: border-box;
   width: 15rem;
   height: 15rem;
@@ -436,7 +435,6 @@ $stripe-color2: rgba(255, 255, 0, 0.8);
   align-items: center;
   border-radius: 50%;
   box-shadow: 1rem 1rem 1rem $color-background-userProfile;
-
   p {
     font-size: $tripTitle;
     font-weight: 600;
@@ -461,3 +459,52 @@ $stripe-color2: rgba(255, 255, 0, 0.8);
   height: 100%;
 }
 
+$height_line: 3.5rem;
+
+.photo_xs {
+  width: $height_line;
+}
+.datalist {
+  margin: 1rem auto;
+  font-size: 2rem;
+  width: 60rem;
+  height: $height_line;
+  justify-content: space-between;
+  //align-items: end;
+
+  p {
+    padding-left: 0.4rem;
+    padding-bottom: 0.2rem;
+    width: 50rem;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
+  }
+  div {
+    box-sizing: border-box;
+    transition-duration: 0.2s;
+    width: 10rem;
+    background-color: rgba(0,0,0,0);
+    color: $color-txt-main;
+    padding: 0.2rem;
+    text-align: center;
+    height: $height_line;
+    &:hover {
+      transition-duration: 0.2s;
+      width: 10rem;
+      color: #282c34;
+      background-color: $color-blink-color;
+      height: $height_line;
+    }
+  }
+  div.check {
+    box-sizing: border-box;
+    transition-duration: 0.2s;
+    //background-color: $color-txt-main;
+    border:2px solid $color-txt-main;
+    color: #282c34;
+    width: 10rem;
+    height: $height_line;
+  }
+  img {
+    border: 0;
+  }
+}

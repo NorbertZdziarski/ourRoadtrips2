@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { useLocation } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import {googleLogout} from '@react-oauth/google';
 import DataFilter from "./4_filter";
@@ -12,8 +12,10 @@ import icolist from "../images/list_tasks_to_do_list_icon_233416.png";
 import icohome from "../images/home_house_icon_143764.png";
 import { Link } from "react-router-dom";
 import FilterStaus from "./4_filterStatus";
+import {fetchData, transferData} from "./a_CRUD_service";
 
 function Header() {
+    const navigate = useNavigate();
     const [page, setNewPage] = useState('mainPage')
     // const page = useStoreState(state => state.page);
     const setPage = useStoreActions(actions => actions.setPage);
@@ -31,21 +33,43 @@ function Header() {
     const [moblieMenuClass, setMoblieMenuClass] = useState('');
     const [filterBar, setFilterBar] = useState(false);
     const [filterBarStatus, setFilterBarStatus] = useState('status');
-
-
-
-
-
-
+    const [newMessage, setNewMessage] = useState(false);
 
     const location = useLocation();
         React.useEffect(() => {
             // console.log('Zmiana URL', location);
-            const firstPartOfPath = location.pathname.split('/')[1];
-            // console.log('pierwsza część: ', firstPartOfPath);
-            if (firstPartOfPath === "") {setNewPage("mainPage")} else {setNewPage(firstPartOfPath)}
-
+            const firstPartOfPath = location.pathname.split('/')[1].toLowerCase();
+            console.log('pierwsza część: ', firstPartOfPath);
+            if (firstPartOfPath === "") {setNewPage("mainpage")} else {setNewPage(firstPartOfPath)}
+            if (!loggedUser && (firstPartOfPath === "userpanel" || firstPartOfPath === "userprofile" ||  firstPartOfPath === "addcar" || firstPartOfPath === "addtrip" || firstPartOfPath === "addgroup")) {
+                console.log('>> header - path: ' + firstPartOfPath)
+                navigate('/');
+            }
         }, [location]);
+
+    useEffect(() => {
+
+        if (loggedUser) {
+            async function fetchDataaa() {
+                let askForm = {receiverId: loggedUser._id};
+                let response = await transferData(`message/find`, askForm);
+                // let data = await response.json();
+                // console.log('data: ' + data);
+                let data = response.id;
+                console.log('response: ' + response.id);
+                console.log('data: ' + data.length);
+                console.log('data: ' + data[0]);
+                console.log('data: ' + data[0].txt);
+                console.log('------------------------------------------------');
+                console.log('response JSON: ' + JSON.stringify(response.id));
+                if (data.length > 0) setNewMessage(true)
+            }
+
+            fetchDataaa();
+        }
+    }, [loggedUser]);
+
+
 
         // console.log(`Obecny URL: ${location.pathname}`);
 
@@ -179,7 +203,8 @@ function Header() {
                                 </Link>
                                 <Link to="/addtrip" className="myLink" onClick={() => {setDataId(''); setPage("addtrip")}}> Add trip </Link>
                                 <Link to="/addcar" className="myLink" onClick={() => {setDataId(''); setPage("addcar")}}> Add Car </Link>
-                                <Link to="/addgroup" className="myLink" onClick={() => {setDataId(''); setPage("addgroup")}}> Add Car </Link>
+                                <Link to="/addgroup" className="myLink" onClick={() => {setDataId(''); setPage("addgroup")}}> Add Group </Link>
+                                <Link to="/admin" className="myLink" onClick={() => {setDataId(''); setPage("admin")}}> Admin panel </Link>
                                 <Link to="/edituserdata" className="myLink" onClick={() => {setPage("edituserdata")}}> Edit User Data </Link>
 
 
@@ -284,7 +309,7 @@ function Header() {
 
                             {/*<button onClick={() => setPage("login")}>*/}
                             {/*    LOGIN </button> </>*/}
-
+                            {newMessage ? <>new message!</> : <></>}
                             {!loggedUser ?<> <Link to="/login" className="myLink" onClick={() => {setPage("login")}}> LOGIN </Link></> : <></>}
                             {(page === 'userprofile') ? <button onClick={() => {
                                 setLoggedUser();

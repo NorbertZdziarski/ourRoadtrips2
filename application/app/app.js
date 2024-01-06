@@ -17,6 +17,8 @@ import ShowCar from "./3_showCar";
 import Gmap from "./2_map";
 import Anim_loading from "./anim_loading";
 import AddTrip from "./2_add_trip";
+import AddGroup from "./2_add_group";
+import NewMessage from "./5_newMessage";
 
 function App() {
     const page = useStoreState(state => state.page);
@@ -32,6 +34,7 @@ function App() {
                 <div className="mainWindowStyle  ">
                     <div className="layout_main layout_flex-sb layout_mainViewWidth">
                         <Routes>
+                            {/*<Route exact path="/" element={<NewMessage/>}/>*/}
                             <Route exact path="/" element={<ShowTrips dataFilter={dataFilter} map={false} />}/>
                             <Route path="/userprofile" element={<UserProfile/>}/>
                             <Route path="/aboutus" element={<AboutUs/>}/>
@@ -44,7 +47,7 @@ function App() {
                             <Route path="/edituserdata" element={<MyForm type={"user"}/>}/>
                             <Route path="/addcar" element={<MyForm type={"car"}/>}/>
                             <Route path="/addtrip" element={<AddTrip/>}/>
-                            <Route path="/addgroup" element={<AddTrip/>}/>
+                            <Route path="/addgroup" element={<AddGroup/>}/>
                         </Routes>
                         {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
                         {showLoading ? <>{(showLoading[0]) ? (<Anim_loading/>):(<></>)}</> :<></>}

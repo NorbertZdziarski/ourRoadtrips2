@@ -14,6 +14,13 @@
   overflow-x: hidden;
   //border: 1px solid deeppink;
 }
+.layout_flex {
+  //width: 100%;
+  display: flex;
+  //border: 1px solid red;
+  //@include rwd(flex);
+  //border: 1px solid blueviolet;
+}
 .layout_flex-sb {
   //width: 100%;
   display: flex;
@@ -35,7 +42,11 @@
   flex-direction: column;
   justify-content: space-between;
 }
-
+.layout_grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
+}
 .layout_grid3 {
   background-color: $color-background-main;
   border: 0;
