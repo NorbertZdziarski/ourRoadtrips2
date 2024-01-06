@@ -15,11 +15,11 @@ window.addEventListener("resize", resizeOps);
 ReactDOM.render(
     <GoogleOAuthProvider clientId="708085340019-karrgte5hed5fcobjn0ja6t8oitstagb.apps.googleusercontent.com">
         <React.StrictMode>
-            <Router>
+
                 <StoreProvider store={store}>
                     <App />
                 </StoreProvider>
-            </Router>
+
         </React.StrictMode>
     </GoogleOAuthProvider>,
     document.getElementById('root')
