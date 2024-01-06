@@ -19,6 +19,7 @@ import Anim_loading from "./anim_loading";
 import AddTrip from "./2_add_trip";
 import AddGroup from "./2_add_group";
 import NewMessage from "./5_newMessage";
+import Post from "./3_post";
 
 function App() {
     const page = useStoreState(state => state.page);
@@ -48,6 +49,7 @@ function App() {
                             <Route path="/addcar" element={<MyForm type={"car"}/>}/>
                             <Route path="/addtrip" element={<AddTrip/>}/>
                             <Route path="/addgroup" element={<AddGroup/>}/>
+                            <Route path="/post" element={<Post/>}/>
                         </Routes>
                         {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
                         {showLoading ? <>{(showLoading[0]) ? (<Anim_loading/>):(<></>)}</> :<></>}

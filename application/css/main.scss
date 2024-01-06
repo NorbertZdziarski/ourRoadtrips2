@@ -508,3 +508,21 @@ $height_line: 3.5rem;
     border: 0;
   }
 }
+
+nav.postListNav {
+  width: 30rem;
+  padding: 1rem;
+  border-right: 1px dotted white;
+  div {
+    border-radius: 0.5rem;
+    background-color: #40495f;
+    padding: 0.5rem;
+
+    button {
+      color: #282c34;
+    }
+  }
+}
+article.postMessage  {
+  padding: 1rem;
+}

@@ -53,18 +53,9 @@ function Header() {
             async function fetchDataaa() {
                 let askForm = {receiverId: loggedUser._id};
                 let response = await transferData(`message/find`, askForm);
-                // let data = await response.json();
-                // console.log('data: ' + data);
                 let data = response.id;
-                console.log('response: ' + response.id);
-                console.log('data: ' + data.length);
-                console.log('data: ' + data[0]);
-                console.log('data: ' + data[0].txt);
-                console.log('------------------------------------------------');
-                console.log('response JSON: ' + JSON.stringify(response.id));
                 if (data.length > 0) setNewMessage(true)
             }
-
             fetchDataaa();
         }
     }, [loggedUser]);
@@ -289,27 +280,20 @@ function Header() {
 
                         <div className={`headerButtons${moblieMenuClass} `}>
 
-                            {/*{(loggedUser && page!=='userProfile')  ? (<button onClick={()=>setPage("aboutMe")}>*/}
-                            {/*    /!*<p>{loggedUser.nick}</p>*!/*/}
-                            {/*    <LoadImage imageName={loggedUser.userPhoto || 'user.png'}*/}
-                            {/*               imagePath='images/users'*/}
-                            {/*               photoClass="header_photo"*/}
-                            {/*    />*/}
-                            {/*</button>):(<></>)}*/}
+                            {newMessage ? <>
+                                    <Link to={`/post`} className="myLink" onClick={() => {setPage("post")}}>
+                                    new message!
+                                    </Link>
+                                </> : <></>}
                             {(loggedUser && page !== 'userprofile') ?<>
                                 <Link to={`/userprofile`} className="myLink" onClick={() => {setPage("userprofile")}}>
-                                {/*<button onClick={() => setPage("userProfile")}>*/}
                                 <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
                                            imagePath='images/users'
                                            photoClass="header_photo"
                                 />
-                            {/*</button>*/}
                                 </Link>
                             </> : <></>}
 
-                            {/*<button onClick={() => setPage("login")}>*/}
-                            {/*    LOGIN </button> </>*/}
-                            {newMessage ? <>new message!</> : <></>}
                             {!loggedUser ?<> <Link to="/login" className="myLink" onClick={() => {setPage("login")}}> LOGIN </Link></> : <></>}
                             {(page === 'userprofile') ? <button onClick={() => {
                                 setLoggedUser();
