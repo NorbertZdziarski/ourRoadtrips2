@@ -41,7 +41,7 @@ function Header() {
             const firstPartOfPath = location.pathname.split('/')[1].toLowerCase();
             console.log('pierwsza część: ', firstPartOfPath);
             if (firstPartOfPath === "") {setNewPage("mainpage")} else {setNewPage(firstPartOfPath)}
-            if (!loggedUser && (firstPartOfPath === "userpanel" || firstPartOfPath === "userprofile" ||  firstPartOfPath === "addcar" || firstPartOfPath === "addtrip" || firstPartOfPath === "addgroup")) {
+            if (!loggedUser && (firstPartOfPath === "userpanel" || firstPartOfPath === "userprofile" ||  firstPartOfPath === "addcar" || firstPartOfPath === "addtrip" || firstPartOfPath === "addgroup" || firstPartOfPath === "post")) {
                 console.log('>> header - path: ' + firstPartOfPath)
                 navigate('/');
             }
@@ -224,7 +224,7 @@ function Header() {
                         ) : (
                             <></>)}
 
-                        {(((page === "edituserdata") || (page === "addcar") || (page === "addtrip")) ? (
+                        {(((page === "edituserdata") || (page === "addcar") || (page === "addtrip" || (page === 'post'))) ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                     <img src={icohome} className={`header_ico ico_${displayStyles}`}/>

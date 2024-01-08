@@ -1,38 +1,57 @@
 import React, {useEffect, useState} from 'react';
 import {fetchData, transferData, updateData} from "./a_CRUD_service";
-import {useStoreState} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 import addDataToMongo from "./a_addDataToMongo";
+import {useNavigate} from "react-router-dom";
 
-function NewMessage({author, trip, setAddComm}) {
+function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage, sendMessReciver}) {
+    console.log('sendMessages: ' + sendMessReciver)
+    console.log('JSON sendMessages: ' + JSON.stringify(sendMessReciver));
+
     const loggedUser = useStoreState(state => state.loggedUser);
     // const loggedUser = {
     //     nick: 'Kowalski',
     //     _id: 783274832
     // };
-
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     const [enterTitle, setEnterTitle] = useState();
-    const [enterMessage, setEnterMessage] = useState();
+    const [enterMessage, setEnterMessage] = useState(replyMessage || '');
     const [sendControl, setSendControl] = useState(false);
     const [usersList,setUsersList] = useState([]);
     const [formMessage,setFormMessage] = useState([]);
     const [selectedNick, setSelectedNick] = useState('');
     const displayStyles = useStoreState(state => state.displayStyles);
+    const navigate = useNavigate();
+
+
 
     useEffect(()=>{
+        setShowLoading([true,0]);
+        // setEnterMessage()
+        if (sendMessReciver) {
+            let saveData = {
+                receiverNick: sendMessReciver.nick,
+                receiverId: sendMessReciver._id,
+                receiverPhoto: sendMessReciver.userPhoto,
+            };
+            setFormMessage({ ...formMessage, ...saveData });
+        }
         const target = `select/users/downloaduserlist`
         fetchData(target).then(downloadedData => {
             setUsersList(downloadedData)
         });
+        setShowLoading([false,0]);
+
     },[])
 
     useEffect(()=>{
-        console.log(enterMessage)
-        console.log(formMessage)
         if (formMessage && formMessage.receiverId && enterMessage) setSendControl(true)
     },[enterMessage, formMessage])
 
     async function sendMessage() {
+        console.log(' --- > ')
+        setShowLoading([true,0]);
         let saveData = {
             receiverNick: formMessage.receiverNick,
             receiverId: formMessage.receiverId,
@@ -46,7 +65,10 @@ function NewMessage({author, trip, setAddComm}) {
             readed: false,
             sendData: new Date()
         };
+
         await addDataToMongo(saveData, null, 'message').then((r)=>{ console.log(r)})
+        setSendMessages(()=>[...sendMessages, saveData])
+        setWhichScreen('sended')
     }
     function handleChange(user) {
         console.log(user)
@@ -60,9 +82,12 @@ function NewMessage({author, trip, setAddComm}) {
     }
 
     return (
-        <div className={`showtrip_addComment colorstyle_reflex_${displayStyles}`}>
-            <div className={`comment_conteiner`} >
+        <div className={`newMessage colorstyle_reflex_${displayStyles}`}>
+            <div className={`layout_flex-sb-directColumn`} >
                 <p>receiver: </p>
+                {sendMessReciver ? <>
+                    <p>reply to: {sendMessReciver.nick}</p>
+                </> : <>
                     {usersList ?
                             <select value={selectedNick} name={'receiver'} className="" onChange={(event) => handleChange(usersList.find(user => user.nick === event.target.value))}>
                                 {usersList.map((user) => (
@@ -72,17 +97,19 @@ function NewMessage({author, trip, setAddComm}) {
                                 ))}
                             </select>
                             : <></>}
-
+                </>}
                 <div className={`addComment_cloud colorStyle_commentCloud_${displayStyles}`}>
                     <p>title: </p>
-                    <textarea maxlength="20" className="title" Value={enterTitle} onChange={(e)=>{setEnterTitle(e.target.value)}}/>
+                    <input maxlength="20" className="title" value={enterTitle} onChange={(e)=>{setEnterTitle(e.target.value)}}/>
                     <p>message: </p>
-                    <textarea maxlength="200" className="message" Value={enterMessage} onChange={(e)=>{setEnterMessage(e.target.value)}}/>
+                    <textarea maxlength="1000" className="message" value={enterMessage} onChange={(e)=>{setEnterMessage(e.target.value)}}/>
                     {/*<p className="comment_author"> {author.nick}</p>*/}
                 </div>
             </div>
-            <button disabled={!sendControl} onClick={()=>{sendMessage()}}>send</button>
-            <button >cancel</button>
+            <div>
+                <button disabled={!sendControl} onClick={()=>{sendMessage()}}>send</button>
+                <button >cancel</button>
+            </div>
         </div>
 
     )

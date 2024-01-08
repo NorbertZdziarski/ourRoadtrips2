@@ -32,7 +32,7 @@ function AddGroup() {
     const [formDataPageOther, setFormDataPageOther] = useState({});
 
     useEffect(() => {
-
+        setShowLoading([true,0]);
         const fetchData = async () => {
             const data = await getInitialFormData(type, loggedUser, dataId);
             setFormData(data);
@@ -81,6 +81,7 @@ function AddGroup() {
         };
 
         fetchData().then(setOkPrint(true));
+        setShowLoading([false,0]);
         setPageInputTrip(1);
     }, []);
 
