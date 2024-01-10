@@ -50,7 +50,7 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
     // },[])
 
     useEffect(()=>{
-        setFormData({ ...formData, users: invitedUsers })
+        if (invitedUsers) setFormData({ ...formData, invitedUsers: invitedUsers })
     },[invitedUsers])
 
 
@@ -86,7 +86,8 @@ console.log('type: ' + type)
             fetchData(target).then(downloadedData => {
 
                 setShowLoading([false,0]);
-
+                console.log(JSON.stringify(downloadedData));
+                console.log('JSON.stringify(downloadedData)');
                 setUsersList(downloadedData)
             });
         }
@@ -297,7 +298,7 @@ console.log('type: ' + type)
                     {(excludedValues.includes(value) ? null : <input type="text" name={value} value={formData[value] || ''} onChange={handleChange} className="imputForm_inputData"/>)}
                 </label>
 
-                {(value === 'users')?
+                {(value === 'invitedUsers')?
                     <>
                         <UsersList
                             usersList={usersList}

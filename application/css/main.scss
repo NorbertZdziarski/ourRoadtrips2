@@ -514,10 +514,10 @@ $height_line: 3.5rem;
 }
 
 nav.postListNav {
-  margin-top: 2rem;
-  width: 35rem;
+  //margin-top: 2rem;
+  width: 40rem;
   padding: 1rem;
-  border-right: 1px dotted white;
+  border-right: 1px dotted $color-txt-main;
   div.objReaded {
     box-sizing: border-box;
     border: 1px solid $color-blink-color;
@@ -528,8 +528,12 @@ nav.postListNav {
     border-radius: 0.5rem;
     background-color: #40495f;
     padding: 0.5rem;
-
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
     button {
+      border: 0;
+      padding: 0.3rem 0.8rem ;
+      border-radius: 0.3rem;
       color: #282c34;
     }
   }
@@ -537,29 +541,154 @@ nav.postListNav {
 }
 article.postMessage  {
   padding: 1rem;
+  textarea {
+    box-sizing: border-box;
+    margin-top: 1rem;
+    font-size: 2rem;
+    color: $color-txt-main;
+    //border: 1px dotted gray;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 100%;
+    height: 45rem;
+
+    overflow: auto;
+  }
+  button {
+    color: #282c34;
+  }
 }
 
 .newMessage {
-  .addComment_cloud {
+  box-sizing: border-box;
+  line-height: 2.5rem;
+  min-height: 70rem;
+  height: calc(100% - 3rem);
+  padding: 0;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+
+  div {
+    font-size: 2rem;
+
+    textarea {
+      color: #282c34;
+    }
+    option {
+      font-size: 1.8rem;
+      line-height: 2.5rem;
+    }
+  }
+  select {
+    padding: 0.5rem;
+    font-weight: 1.8rem;
+    font-size: 1.8rem;
+  }
+  input {
+    box-sizing: border-box;
+    padding: 0.5rem;
     width: 100%;
-    height: 80svh;
+    padding: 0.5rem;
+    font-size: 2rem;
+  }
+  .addComment_cloud {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
     padding: 0.5rem;
 
     p {
+      padding: 0.5rem 0;
       font-size: 2rem;
       height: 3rem;
-      border-bottom: 1px dotted white;
+      border-bottom: 1px dotted $color-txt-main;
     }
     textarea {
+
       margin-top: 1rem;
       font-size: 2rem;
       color: black;
-      border: 1px dotted gray;
-      border-radius: 0.5rem;
+
       padding: 0.5rem;
       width: 100%;
-      height: 100%;
-      min-height: 5rem;
+      height: 45rem;
     }
   }
+  &:last-child {
+    padding: 1rem;
+    button {
+      width: 15rem;
+      margin: 0.3rem;
+      border: 0;
+      border-radius: 0.3rem;
+      padding: 0.5rem 1rem ;
+      background-color: $color-background-main;
+      color: $color-txt-main;
+    }
+  }
+}
+
+.post {
+  header {
+    margin: 1rem 0;
+    nav {
+      margin: 1rem 0;
+      button {
+        box-sizing: border-box;
+        padding: 0.5rem;
+        border: 0;
+        &.selected {
+          box-sizing: border-box;
+          background-color: $color-background-main;
+          color: $color-txt-main;
+        }
+        &.new {
+          box-sizing: border-box;
+          border: 3px solid $color-blink-color;
+          background-color: rgba(255, 255, 255, 0.5);
+        }
+        }
+    }
+  }
+
+}
+
+
+.newMessageConttttt {
+}
+
+.postImg {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p {
+    font-family: "Georgia Pro";
+    font-weight: 100;
+    position: absolute;
+    color: $color-background-main;
+
+    font-size: 10rem;
+    animation: logoTxtAni 5s infinite;
+  }
+  img {
+    max-width: 90%;
+    max-height: 90%;
+  }
+}
+
+
+
+@keyframes logoTxtAni {
+  0% {
+    text-shadow: -0.5rem 0 3rem $color-blink-color;
+  }
+  50% {
+    text-shadow: 1rem 0 3rem $color-blink-color;
+  }
+  100% {
+     text-shadow: -0.5rem 0 3rem $color-blink-color;
+   }
 }

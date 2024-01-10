@@ -59,7 +59,7 @@ function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage
             fromUserNick: loggedUser.nick,
             fromUserId: loggedUser._id,
             fromUserPhoto: loggedUser.userPhoto,
-            type: 'none',
+            type: 'private',
             title: enterTitle,
             txt: enterMessage,
             readed: false,
@@ -67,7 +67,12 @@ function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage
         };
 
         await addDataToMongo(saveData, null, 'message').then((r)=>{ console.log(r)})
-        setSendMessages(()=>[...sendMessages, saveData])
+
+            let askFormSend = {fromUserId: loggedUser._id};
+            let responseSend = await transferData(`message/find`, askFormSend);
+            let dataSend = responseSend.id;
+            setSendMessages(dataSend)
+
         setWhichScreen('sended')
     }
     function handleChange(user) {
@@ -80,16 +85,17 @@ function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage
         setFormMessage({ ...formMessage, ...saveData });
         setSelectedNick(user.nick);
     }
-
+    // colorstyle_reflex_${displayStyles}
     return (
-        <div className={`newMessage colorstyle_reflex_${displayStyles}`}>
-            <div className={`layout_flex-sb-directColumn`} >
+        <div className={`fnt_subtitle newMessage colorStyle_commentCloud_${displayStyles} divHeightTemp newMessageCont`}>
+            <div className={` layout_flex-sb-directColumn divWidthTemp divHeightTemp`} >
                 <p>receiver: </p>
                 {sendMessReciver ? <>
                     <p>reply to: {sendMessReciver.nick}</p>
                 </> : <>
                     {usersList ?
-                            <select value={selectedNick} name={'receiver'} className="" onChange={(event) => handleChange(usersList.find(user => user.nick === event.target.value))}>
+                            <select value={selectedNick ? selectedNick : ' no data '} name={selectedNick} className="" onChange={(event) => handleChange(usersList.find(user => user.nick === event.target.value))}>
+                                <option value="" disabled={selectedNick !== ''}>choose who you are sending to</option>
                                 {usersList.map((user) => (
                                     <option key={user.id} value={user.nick}>
                                         {user.nick}
@@ -98,22 +104,22 @@ function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage
                             </select>
                             : <></>}
                 </>}
-                <div className={`addComment_cloud colorStyle_commentCloud_${displayStyles}`}>
+                <div className={`addComment_cloud divHeightTemp `}>
                     <p>title: </p>
                     <input maxlength="20" className="title" value={enterTitle} onChange={(e)=>{setEnterTitle(e.target.value)}}/>
                     <p>message: </p>
                     <textarea maxlength="1000" className="message" value={enterMessage} onChange={(e)=>{setEnterMessage(e.target.value)}}/>
                     {/*<p className="comment_author"> {author.nick}</p>*/}
+                    <div className={'layout_flex-sc divWidthTemp'}>
+                        <button disabled={!sendControl} onClick={()=>{sendMessage()}}>send</button>
+                        <button >cancel</button>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <button disabled={!sendControl} onClick={()=>{sendMessage()}}>send</button>
-                <button >cancel</button>
             </div>
         </div>
 
     )
-
+    // colorStyle_commentCloud_${displayStyles}
 }
 
 export default NewMessage;

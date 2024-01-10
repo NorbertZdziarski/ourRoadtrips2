@@ -10,10 +10,12 @@ import icotheme from "../images/color-palette_6591234.png";
 import icomap from "../images/map.png";
 import icolist from "../images/list_tasks_to_do_list_icon_233416.png";
 import icohome from "../images/home_house_icon_143764.png";
+import icogroup from "../images/people.png";
+import icocars from "../images/cars.png";
+import icoenvelope from "../images/envelope.png";
 import { Link } from "react-router-dom";
 import FilterStaus from "./4_filterStatus";
 import {fetchData, transferData} from "./a_CRUD_service";
-
 function Header() {
     const navigate = useNavigate();
     const [page, setNewPage] = useState('mainPage')
@@ -155,13 +157,21 @@ function Header() {
                                                <img src={icomap} className={`header_ico ico_${displayStyles}`}/>
                                            </Link>
                                        }
+                                       <Link to="/groups" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                        <img src={icogroup} className={`header_ico ico_${displayStyles}`}/>
+                                       </Link>
+
+                                       <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                        <img src={icocars} className={`header_ico ico_${displayStyles}`}/>
+                                       </Link>
+
                                        <button  onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
                                             Filter
                                             </button>
                                        {(page !=="map") ?<> <button onClick={() => setDataSortOn(true)}>
-                                            Sort
+                                            Sort / {tripSort}
                                             </button>
-                                           <p> {tripSort}</p></>: <></>}
+                                           </>: <></>}
 
 
 
@@ -183,6 +193,7 @@ function Header() {
                                    </> : <></>}
 
                                 </>}
+
                             </section>
 
                         ) : (<></>))}
@@ -229,6 +240,9 @@ function Header() {
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                     <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
                                 </Link>
+                                <button onClick={() => navigate(-1)}>
+                                    Back
+                                </button>
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
@@ -239,14 +253,12 @@ function Header() {
                         ) : (
                             <></>))}
 
-                        {((page === "aboutme") ? (
+                        {(((page === "aboutme") || (page === "groups")) ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                     <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
                                 </Link>
-                                <button onClick={() => {
-                                    setPage("showtrip")
-                                }}>
+                                <button onClick={() => navigate(-1)}>
                                     Back
                                 </button>
                                 {(moblieMenuClass === '') ? (<></>) : (
@@ -264,6 +276,9 @@ function Header() {
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                     <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
                                 </Link>
+                                <button onClick={() => navigate(-1)}>
+                                    Back
+                                </button>
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
@@ -282,7 +297,7 @@ function Header() {
 
                             {newMessage ? <>
                                     <Link to={`/post`} className="myLink" onClick={() => {setPage("post")}}>
-                                    new message!
+                                        <img src={icoenvelope} className={`header_ico ico_${displayStyles}`}/>
                                     </Link>
                                 </> : <></>}
                             {(loggedUser && page !== 'userprofile') ?<>

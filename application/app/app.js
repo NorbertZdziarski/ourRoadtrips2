@@ -4,7 +4,7 @@ import '../css/main.scss';
 import Header from "./1_header";
 import Footer from "./1_footer";
 import {useStoreActions, useStoreState} from "easy-peasy";
-import ShowTrips from "./2_showTrips";
+import ShowSelected from "./2_showSelected";
 import UserProfile from "./2_userProfile";
 import AboutUs from "./2_aboutUs";
 import ShowTrip from "./3_showTrip";
@@ -14,6 +14,7 @@ import DataFilter from "./4_filter";
 import Login from "./2_logowanie";
 import AboutMe from "./2_aboutMe";
 import ShowCar from "./3_showCar";
+import ShowGroup from "./3_showGroup";
 import Gmap from "./2_map";
 import Anim_loading from "./anim_loading";
 import AddTrip from "./2_add_trip";
@@ -36,13 +37,16 @@ function App() {
                     <div className="layout_main layout_flex-sb layout_mainViewWidth">
                         <Routes>
                             {/*<Route exact path="/" element={<NewMessage/>}/>*/}
-                            <Route exact path="/" element={<ShowTrips dataFilter={dataFilter} map={false} />}/>
+                            <Route exact path="/" element={<ShowSelected dataFilter={dataFilter} map={false} selected={'trips'} />}/>
+                            <Route path="/groups" element={<ShowSelected dataFilter={dataFilter} map={false} selected={'groups'}/>}/>
+                            <Route path="/cars" element={<ShowSelected dataFilter={dataFilter} map={false} selected={'cars'}/>}/>
                             <Route path="/userprofile" element={<UserProfile/>}/>
                             <Route path="/aboutus" element={<AboutUs/>}/>
                             <Route path="/login" element={<Login/>}/>
-                            <Route path="/map" element={<ShowTrips dataFilter={dataFilter} map={true}/>} />
+                            <Route path="/map" element={<ShowSelected dataFilter={dataFilter} map={true} selected={'trips'}/>} />
                             <Route path="/showTrip" element={<ShowTrip />}/>
                             <Route path="/showtrip/:id" element={<ShowTrip/>} />
+                            <Route path="/showgroup/:id" element={<ShowGroup/>} />
                             <Route path="/aboutme/:id" element={<AboutMe/>}/>
                             <Route path="/showcar/:id" element={<ShowCar/>}/>
                             <Route path="/edituserdata" element={<MyForm type={"user"}/>}/>

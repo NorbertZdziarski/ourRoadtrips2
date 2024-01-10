@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {deleteData, transferData, updateData} from "./a_CRUD_service";
+import {deleteData, fetchData, transferData, updateData} from "./a_CRUD_service";
 import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 import NewMessage from "./5_newMessage";
-// import {deleteItem} from "./5_delete";
+import logoRoadtrips from "../images/logo.png"
 
 function Post() {
     const loggedUser = useStoreState(state => state.loggedUser);
@@ -13,6 +13,17 @@ function Post() {
     const [sendMessReciver, setSendMessReciver] = useState(null);
     const [readMessage, setReadMessage] = useState(null);
     const [whichScreen, setWhichScreen] = useState('inbox');
+
+    const [newGroupUser, setNewGroupUser] = useState('')
+
+    const [newMessages, setNewMessages] = useState(0);
+    const [newMessagesOff, setNewMessagesOff] = useState(0);
+    const [updateGroup, setUpdateGroup] = useState(null);
+    const [inboxClass, setInboxClass] = useState('');
+    const [officialClass, setOfficialClass] = useState('');
+    const [newMessageClass, setNewMessageClass] = useState('');
+    const [sendedClass, setSendedClass] = useState('');
+
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
     const setToDelete = useStoreActions(actions => actions.setToDelete );
@@ -22,20 +33,85 @@ function Post() {
     async function fetchMessages() {
         let askFormInc = {receiverId: loggedUser._id};
         let responseInc = await transferData(`message/find`, askFormInc);
-        let data = responseInc.id;
+        let data = responseInc.id.reverse();
         setIncommingMessages(data)
         let askFormSend = {fromUserId: loggedUser._id};
         let responseSend = await transferData(`message/find`, askFormSend);
-        let dataSend = responseSend.id;
+        let dataSend = responseSend.id.reverse();
         setSendMessages(dataSend)
     }
 
     // async function updateMessage(message) {
 
     // }
-    // useEffect(async ()=>{
-    //
-    // },[readMessage])
+    useEffect(async ()=>{
+        if (updateGroup) {
+            console.log('update Group ' + JSON.stringify(updateGroup));
+            console.log(`newGroupUser: ` + newGroupUser)
+            updateGroup.users.push(newGroupUser)
+            console.log(JSON.stringify(updateGroup));
+            console.log(JSON.stringify(updateGroup.users))
+
+            // const updateMessage = { ...message, readed: true };
+            let target = `group/${updateGroup._id}`
+            console.log('target: ' + target)
+            await updateData(target,updateGroup).then((r)=>{console.log('ok. ' + r)}).catch((e)=>{console.log('error! ' + e)})
+        }
+    },[updateGroup])
+
+
+    useEffect(async ()=>{
+        if (newGroupUser) {
+                const checkData = (downloadedData) => {
+                    if (downloadedData.users) {
+                        if (downloadedData.users.includes(newGroupUser)) {
+                            console.log(' juz jest ')
+                            // alert ?
+                        } else {
+                            console.log('brak')
+                            setUpdateGroup(downloadedData);
+                        }
+                    } else {console.log('brak użytkowników.')}
+                }
+
+                const target = `one/group/${newGroupUser}`
+                const fetchDataAsync = async () => {
+                    try {
+                        const downloadedData = await fetchData(target);
+                        console.log(downloadedData);
+                        // console.log(downloadedData.users.includes(newGroupUser))
+                        checkData(downloadedData)
+                        //
+                    } catch (error) {
+                        console.error("Error fetching data: ", error);
+                    }
+                };
+                fetchDataAsync();
+
+
+
+            // const updateMessage = { ...message, readed: true };
+            // const { _id, ...newMessage } = updateMessage;
+            // const id = _id;
+            //
+            // let inMess = incommingMessages.map((mess) => {
+            //     if (mess._id === id) {
+            //         return updateMessage}
+            //     ;
+            //     return mess;
+            // });
+            //
+            // setIncommingMessages(inMess)
+            //
+            // setReadMessage(newMessage);
+            //
+            // let target = `message/${id}`
+            // await updateData(target,newMessage).then((r)=>{console.log('ok ' + r)}).catch((e)=>{console.log('error ' + e)})
+            // // }
+
+        } else {console.log(' błąd - brak wiadomosci')}
+
+    },[newGroupUser])
 
     useEffect(() => {
         if (loggedUser) {
@@ -44,6 +120,32 @@ function Post() {
         }
         setShowLoading([false,0]);
     }, []);
+
+    useEffect(()=>{
+        if (incommingMessages) {
+                let count = 0;
+                let countOff = 0;
+                incommingMessages.forEach((inmess)=>{
+                    if (inmess.readed === false) {
+                        if (inmess.type === 'official') {
+                            countOff++;
+                        } else {
+                            count++;
+                        }
+                    }
+                })
+            setNewMessages(count);
+            setNewMessagesOff(countOff)
+        }
+    },[incommingMessages])
+
+    useEffect(()=>{
+        setReadMessage(null)
+        if (whichScreen === 'inbox') {setInboxClass(`selected`)} else {setInboxClass('')}
+        if (whichScreen === 'official') {setOfficialClass(`selected`)} else {setOfficialClass('')}
+        if (whichScreen === 'sended') {setSendedClass(`selected`)} else {setSendedClass('')}
+        if (whichScreen === 'new') {setNewMessageClass(`selected`)} else {setNewMessageClass('')}
+    },[whichScreen])
 
     useEffect(async () => {
         console.log(' delete item ')
@@ -65,6 +167,8 @@ function Post() {
         setYesOrNot([false, 0])
     }, [yesOrNot[1]])
 
+
+
     async function showMessage(message) {
         if (message) {
             const updateMessage = { ...message, readed: true };
@@ -79,61 +183,52 @@ function Post() {
 
             setIncommingMessages(inMess)
 
-            // message = { ...message, title: 'kapusta i true' };
-
             setReadMessage(newMessage);
-            // if (readMessage) {
-            //     console.log(' update ' + readMessage._id)
-            //     console.log(' update JSON ' + JSON.stringify(readMessage))
-            //     // setReadMessage(readMessage.readed = true)
+
                 let target = `message/${id}`
                 await updateData(target,newMessage).then((r)=>{console.log('ok ' + r)}).catch((e)=>{console.log('error ' + e)})
             // }
-
-
 
         } else {console.log(' błąd - brak wiadomosci')}
 
     }
 
     return (
-        <section className={'divHeightTemp divWidthTemp'} >
+        <section className={'divHeightTemp divWidthTemp post '} >
             <header>
                 <nav className={'layout_grid3 divWidthTemp'}>
-                    <button onClick={()=>{
+                    <button className={newMessageClass} onClick={()=>{
                         setReadMessage(false);
                         setWhichScreen('new')}
                     }>write new message</button>
-                    <button onClick={()=>setWhichScreen('inbox')}>inbox</button>
-                    <button onClick={()=>setWhichScreen('sended')}>sended</button>
-                    <button onClick={()=>setWhichScreen('official')}>official</button>
+                    <button className={inboxClass} onClick={()=>setWhichScreen('inbox')}>inbox {newMessages ? `[ ${newMessages} ]` : ''}</button>
+                    <button className={sendedClass} onClick={()=>setWhichScreen('sended')}>sended</button>
+                    <button className={officialClass} onClick={()=>setWhichScreen('official')}>official {newMessagesOff ? `[ ${newMessagesOff} ]` : ''}</button>
                 </nav>
-                { ((whichScreen === 'inbox') && incommingMessages) ?  <h3>  ilość wiadomości: {incommingMessages.length}</h3> :null }
+                { ((whichScreen === 'inbox') && incommingMessages) ?  <h3>  ilość wiadomości: {incommingMessages.length}, w tym nie przeczytane: {newMessages}</h3> :null }
                 { ((whichScreen === 'sended') && sendMessages) ?  <h3>  ilość wiadomości: {sendMessages.length}</h3> : null }
                 { (whichScreen === 'new') ?  <h3>  write new message: </h3> : null }
             </header>
             <div className={'layout_flex-sb divWidthTemp'} >
-                <nav className={'layout_grid postListNav'}>
+                <nav className={'postListNav'}>
                     {(whichScreen === 'inbox') ? <>
                         {incommingMessages ? <>
-                            {incommingMessages.map((message, index)=>{
-                                return <div key={index} className={`layout_flex-sb  ${message.readed ? '' : 'objReaded'}`} >
-                                    <div className={`layout_flex-sb-directColumn`}>
-                                        <p className={'fnt_subtitle'}>from: {message.fromUserNick} </p>
-                                        <p className={'fnt_Title'}>title:  {message.title} </p>
-
-                                    </div>
-                                    <div className={`layout_flex-sb-directColumn`}>
-                                        <button onClick={()=>showMessage(message)}> show </button>
-                                        <button onClick={()=>{
-                                            setToDelete(['message',message])
-                                            setYesOrNot([true,0])
-                                            // deleteItem();
-                                        }}
-
-                                        > delete </button>
-                                    </div>
-                                </div>
+                            {incommingMessages.map((message, index) => {
+                                return (message.type !== 'official' ?
+                                    <div key={index} className={`layout_flex-sb  ${message.readed ? '' : 'objReaded'}`} >
+                                        <div className={`layout_flex-sb-directColumn`}>
+                                            <p className={'fnt_subtitle'}>from: {message.fromUserNick} </p>
+                                            <p className={'fnt_Title'}>title:  {message.title} </p>
+                                        </div>
+                                        <div className={`layout_flex-sb-directColumn`}>
+                                            <button onClick={()=>showMessage(message)}> show </button>
+                                            <button onClick={()=>{
+                                                setToDelete(['message',message])
+                                                setYesOrNot([true,0])
+                                                // deleteItem();
+                                            }}> delete </button>
+                                        </div>
+                                    </div> : null )
                             })}
                         </> : <p>no data</p>}
                     </>:<></>}
@@ -147,12 +242,35 @@ function Post() {
                                     </div>
                                     <div className={`layout_flex-sb-directColumn`}>
                                         <button onClick={()=>setReadMessage(message)}> show </button>
-                                        <button disabled onClick={()=>{}}> delete </button>
+                                        <button onClick={()=>{
+                                            setToDelete(['message',message])
+                                            setYesOrNot([true,0])
+                                        }}> delete </button>
                                     </div>
                                 </div>
                             })}
                         </> : <p>no data</p>}</>:<></>}
-
+                    {(whichScreen === 'official') ? <>
+                        {incommingMessages ? <>
+                            {incommingMessages.map((message, index) => {
+                                return (message.type === 'official' ?
+                                    <div key={index} className={`layout_flex-sb  ${message.readed ? '' : 'objReaded'}`} >
+                                        <div className={`layout_flex-sb-directColumn`}>
+                                            <p className={'fnt_subtitle'}>from: {message.fromUserNick} </p>
+                                            <p className={'fnt_Title'}>title:  {message.title} </p>
+                                        </div>
+                                        <div className={`layout_flex-sb-directColumn`}>
+                                            <button onClick={()=>showMessage(message)}> show </button>
+                                            <button onClick={()=>{
+                                                setToDelete(['message',message])
+                                                setYesOrNot([true,0])
+                                                // deleteItem();
+                                            }}> delete </button>
+                                        </div>
+                                    </div> : null )
+                            })}
+                        </> : <p>no data</p>}
+                    </>:<></>}
                 </nav>
                 <article className={'layout_grid postMessage divHeightTemp divWidthTemp'}>
                     {(whichScreen === 'new') ? <>
@@ -168,11 +286,20 @@ function Post() {
                                     />
                                 </div>
                             </> : <></>}
+                            <div className={'layout_flex-sb'}>
+                                <p className={'fnt_subtitle'}>from:  {readMessage.fromUserNick} </p>
+                                <LoadImage imageName={readMessage.fromUserPhoto || 'user.png'}
+                                           imagePath='images/users'
+                                           photoClass="photo_xs"
+                                />
+                            </div>
                             <p className={'fnt_tertiary'}>send:  {readMessage.sendData}</p>
                             <p className={'fnt_Title'}>title:  {readMessage.title}</p>
                             <div>
-                                <p className={'fnt_subtitle'}>message:  {readMessage.txt} </p>
-                                <button onClick={()=>{
+                                <p className={'fnt_subtitle'}> message: </p>
+                                {readMessage.type !== 'official' ? <>
+                                <textarea className={'fnt_subtitle'} value={readMessage.txt} />
+                                    <button onClick={()=>{
                                     let user = {
                                         nick: readMessage.fromUserNick,
                                         userPhoto: readMessage.fromUserPhoto,
@@ -181,15 +308,13 @@ function Post() {
                                     setSendMessReciver(user);
                                     setSendMessTxt(`\n ---oryginal--- \n from: ${readMessage.fromUserNick} \n date: ${readMessage.sendData} \n oryginal text: \n ${readMessage.txt} `)
                                     setWhichScreen('new')}}>Reply</button>
+                                </> : <>
+                                    <div className='fnt_subtitle' id='elementId' dangerouslySetInnerHTML={{ __html: readMessage.txt }}></div>
+                                    <button onClick={()=>{setNewGroupUser(readMessage.idGroup)}}> JOIN THE GROUP!</button>
+                                </> }
                             </div>
-                            <div className={'layout_flex-sb'}>
-                                <p className={'fnt_subtitle'}>from:  {readMessage.fromUserNick} </p>
-                                <LoadImage imageName={readMessage.fromUserPhoto || 'user.png'}
-                                           imagePath='images/users'
-                                           photoClass="photo_xs"
-                                />
-                            </div>
-                        </div> : <div> // no message // </div>}
+
+                        </div> : <div className={'postImg'}><p>ourRoadtrips</p><img src={logoRoadtrips}/></div>}
                     </>}
 
                 </article>

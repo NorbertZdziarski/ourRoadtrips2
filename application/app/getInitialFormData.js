@@ -50,6 +50,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             public: dataId.public || false,
             comments: dataId.comments || [],
             design: dataId.design || [],
+            invitedUsers: dataId.invitedUsers || [],
             users: dataId.users || [],
             trips: dataId.trips || [],
             cars: dataId.cars || []

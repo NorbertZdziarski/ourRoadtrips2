@@ -4,9 +4,10 @@ import {useStoreActions, useStoreState} from "easy-peasy";
 import { Link } from "react-router-dom";
 import ShowTrip from "./3_showTrip";
 import TripBox from "./2_tripBox";
+import GroupBox from "./3_groupBox";
 import Gmap from "./2_map";
 
-function SortingTrips({tripData, map }) {
+function SortingSelected({tripData, map, selected }) {
 
     const tripSort = useStoreState(state => state.tripSort);
     const setPage = useStoreActions(actions => actions.setPage);
@@ -49,15 +50,20 @@ function SortingTrips({tripData, map }) {
             :
             <>
                 {tripData ? <>
-                       {tripData.map((trip) => {
+                       {tripData.map((obj) => {
                             return (
-                                <div key={trip._id} >
-                                    <Link to={`/showtrip/${trip._id}`} onClick={()=>{
-                                        setTripId(trip._id)
+                                <div key={obj._id} >
+                                    {(selected === 'trips' ?
+                                    <Link to={`/showtrip/${obj._id}`} onClick={()=>{
+                                        setTripId(obj._id)
                                         setPage("showTrip");
                                     }}>
-                                        <TripBox trip={trip}/>
-                                    </Link>
+                                        <TripBox trip={obj}/>
+                                    </Link> : <Link to={`/showgroup/${obj._id}`} onClick={()=>{
+                                        setPage("showTrip");
+                                    }}>
+                                        <GroupBox group={obj}/>
+                                    </Link>)}
                                 </div>
                             );
                         })}
@@ -68,4 +74,4 @@ function SortingTrips({tripData, map }) {
         </div>
     );
 };
-export default SortingTrips;
+export default SortingSelected;

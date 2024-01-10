@@ -20,7 +20,7 @@ function AddGroup() {
     const page = useStoreState(state => state.page);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     const [okPrint, setOkPrint] = useState(false);
-    const keysToCopy = [['owner', 'name', 'description', 'type', 'public' ],['photo'],['design'],['users'],[ 'saveDate','ownerId', 'comments', 'trips','cars']];
+    const keysToCopy = [['owner', 'name', 'description', 'type', 'public' ],['photo'],['design'],['invitedUsers'],[ 'saveDate','ownerId', 'comments', 'users', 'trips','cars']];
     const [formDataPage1, setFormDataPage1] = useState({});
     const [formDataPage2, setFormDataPage2] = useState({});
     const [formDataPage3, setFormDataPage3] = useState({});
@@ -99,22 +99,50 @@ function AddGroup() {
         // e.preventDefault();
         setShowLoading([true,0]);
         let formDataToSave = { ...formData, ...formDataPage1, ...formDataPage2, ...formDataPage3 , ...formDataPage4 , ...formDataPageOther }
-
+        let idNewGroup;
         if (file) {
-
+            console.log(file)
             if (!dataId) {
                 await addDataToMongo(formDataToSave, null, type).then((res) => {
-
+                    idNewGroup = res.id;
+                    console.log('> RES > ' + res)
                     addMultiFiles(file, res.id, type, formDataToSave, loggedUser._id).then((responseData) => {
+                        console.log(responseData)
                         updateData(`${type}/${res.id}`, responseData);
                         // addDataToMongo(responseData).then((r)=>{ console.log(r)})
                     })
                 });
             }
         } else {
-
-            await addDataToMongo(formDataToSave, dataId, type).then((r)=>{ console.log(r)})
+            await addDataToMongo(formDataToSave, dataId, type).then((r)=>{
+                idNewGroup = r.id;
+            })
         }
+        console.log('formDataToSave ' + JSON.stringify(formDataToSave))
+        let usersList = formDataToSave.invitedUsers;
+        console.log('usersList ' + JSON.stringify(usersList))
+        let count;
+        usersList.map((userIp)=>{
+            let clickLink = `href="https://ourroadtrips.pl/showgroup/${idNewGroup}`
+            count ++;
+            let saveData = {
+                receiverNick: null,
+                receiverId: userIp,
+                receiverPhoto: null,
+                fromUserNick: loggedUser.nick,
+                fromUserId: loggedUser._id,
+                fromUserPhoto: loggedUser.userPhoto,
+                idGroup: idNewGroup,
+                type: 'official',
+                title: 'invitation to the group!',
+                txt: `Hi! I want to invite you to the group <b> ${formDataToSave.name} ! </b> <br> <hr> <br> Jest to grupa typu ${formDataToSave.type} <br> jeżeli chcesz zobaczyć naszą wizytówkę, zapraszam na nasz <a target="_blank" ${clickLink} > funpage </a> <br> Jeżeli chcesz do nas dołączyć kliknij poniżej  `,
+                readed: false,
+                sendData: new Date()
+            };
+            addDataToMongo(saveData, null, 'message').then((r)=>{ console.log('ok '+ r)}).catch((err)=>{ console.log('err '+ err)})
+        })
+        console.log('wysłano: ' + count)
+
         // setShowLoading([false,0]);
         setPage("userprofile");
 
