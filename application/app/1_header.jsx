@@ -16,6 +16,7 @@ import icoenvelope from "../images/envelope.png";
 import { Link } from "react-router-dom";
 import FilterStaus from "./4_filterStatus";
 import {fetchData, transferData} from "./a_CRUD_service";
+import InsertIco from "./5_ico";
 function Header() {
     const navigate = useNavigate();
     const [page, setNewPage] = useState('mainPage')
@@ -132,6 +133,7 @@ function Header() {
 
 
                                <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                   {/*<InsertIco icoName={'icohome'} />*/}
                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
                                </Link>
 
@@ -253,7 +255,7 @@ function Header() {
                         ) : (
                             <></>))}
 
-                        {(((page === "aboutme") || (page === "groups")) ? (
+                        {(((page === "aboutme") || (page === "groups")  || (page === "showgroup")) ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                     <img src={icohome} className={`header_ico ico_${displayStyles}`}/>

@@ -26,7 +26,7 @@ function AboutMe() {
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     let chosen = id;
-    console.info(' id: ' + id)
+
     useEffect(() => {
         // dodac żę jak nie ma chosen to chosen jest loggedUser.
         setShowLoading([true,0]);
@@ -55,11 +55,11 @@ function AboutMe() {
             setUserTrips(downloadedData)
         });
         target = `select/cars/${chosen}`
-        console.log('url target: ' + target)
+        // console.log('url target: ' + target)
         await fetchData(target).then(downloadedData => {
-            console.log('downloadedData: ' + downloadedData)
-            console.log('downloadedData p0: ' + downloadedData[0].carPhoto[0])
-            console.log('downloadedData JSON: ' + JSON.stringify(downloadedData));
+            // console.log('downloadedData: ' + downloadedData)
+            // console.log('downloadedData p0: ' + downloadedData[0].carPhoto[0])
+            // console.log('downloadedData JSON: ' + JSON.stringify(downloadedData));
             setShowLoading([false,0]);
             setUserCars(downloadedData)
         });
@@ -68,8 +68,8 @@ function AboutMe() {
         setShowLoading([false,0]);
         return <div>Error: {error}</div>;
     }
-    console.log('userData:  ' + userData )
-    console.log('userTrips:  ' + userTrips )
+    // console.log('userData:  ' + userData )
+    // console.log('userTrips:  ' + userTrips )
     return (<>
         <section className="layout_main layout_flex-sb">
             {userData ?

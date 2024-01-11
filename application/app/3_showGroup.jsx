@@ -13,6 +13,7 @@ import ShowPhotoSlide from "./5_showPhoto-slide";
 // import AddRoute from "./3_add_route";
 import ShowMap from "./3_show_map";
 import { useParams } from 'react-router-dom';
+import LoadImage from "./a_loadimage";
 
 function ShowGroup() {
     let { id } = useParams();
@@ -31,6 +32,9 @@ function ShowGroup() {
     const [data, setData] = useState(null);
     const [addComm, setAddComm] = useState(null);
     const [showMap, setShowMap] = useState(false);
+    const [showCars, setShowCars] = useState(false);
+    const [showUsers, setShowUsers] = useState(false);
+    const [showTrips, setShowTrips] = useState(false);
     const displayStyles = useStoreState(state => state.displayStyles);
     // console.log(typeof data)
     // console.log(typeof setData())
@@ -49,6 +53,9 @@ function ShowGroup() {
                 console.log(downloadedData);
                 console.log(typeof downloadedData);
                 setData(downloadedData);
+                setShowUsers(downloadedData.users)
+                setShowCars(downloadedData.cars)
+                setShowTrips(downloadedData.trips)
             } catch (error) {
                 console.error("Error fetching data: ", error);
             }
@@ -95,80 +102,123 @@ function ShowGroup() {
             {data ? <>
                 <header className="showtrip_header">
                     <div>
-                        <h3>   {data.tripName} </h3>
-                        <p className="fnt_subtitle">{data.tripType} in {data.tripCountry || 'unknown'}</p>
+                        <h3>   {data.name} </h3>
+                        <p className="fnt_subtitle">{data.type} </p>
                     </div>
 
-                    {loggedUser._id ? <RateModule
-                        tripId = {data._id}
-                        tripRate = {data.tripRate}
-                        onRatingChange={(value) => saveDataFn({rate: value, user:loggedUser._id})}/> :  <ShowRate
-                        rateArr={data.tripRate}/> }
+                    {/*{loggedUser._id ? <RateModule*/}
+                    {/*    tripId = {data._id}*/}
+                    {/*    tripRate = {data.tripRate}*/}
+                    {/*    onRatingChange={(value) => saveDataFn({rate: value, user:loggedUser._id})}/> :  <ShowRate*/}
+                    {/*    rateArr={data.tripRate}/> }*/}
                     {/*UWAGA - poniżej coś jest nie teges!*/}
                     {/*<p>like: {rateValue} of {quantity} </p>*/}
                     {/*    onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
 
                 </header>
                 <div className={`showtrip_main colorstyle_button_${displayStyles} buttons_inline`}>
-                    <button onClick={()=>setShowMap(false)}>   photo </button>
-                    <button onClick={()=>setShowMap(true)}>   map </button>
-                    <button onClick={()=> {
-                        setShowMap(false);
-                        // window.location.href = '#tripDescription'
-                    }}>   story </button>
+                    {/*<button onClick={()=>setShowMap(false)}>   photo </button>*/}
+                    {/*<button onClick={()=>setShowMap(true)}>   map </button>*/}
+                    {/*<button onClick={()=> {*/}
+                    {/*    setShowMap(false);*/}
+                    {/*    // window.location.href = '#tripDescription'*/}
+                    {/*}}>   story </button>*/}
 
-                    {data.userId ?
-                        <Link to={`/aboutme/${data.userId}`} onClick={()=>{
-                            setShowMap(false);
-                            // setPage("showTrip");
-                            }}>
-                                {data.tripUser}
-                        </Link> : <></>}
-                    {data.tripCar ?
-                        <Link to={`/showcar/${data.tripCar[1]}`} onClick={()=>{
-                                setShowMap(false);
-                                // setPage("showcar");
-                            }}>
-                                {data.tripCar[0]}
-                        </Link> : <></>}
-
-                    {/*<button onClick={()=> { /aboutme*/}
-                    {/*    */}
-                    {/*    chosenFn(data.userId)*/}
-                    {/*}}>    </button>*/}
-                      {/*  <button disabled={!data.tripCar} onClick={()=>{*/}
-                      {/*      setShowMap(false);*/}
-                      {/*      setChosen();*/}
-                      {/*setPage("");*/}
-                      {/*  }}>    </button>*/}
-                </div>
-                {showMap ? <><ShowMap country={data.tripCountry} tripMap={data.tripMap}/></> : <>
-                    {data.tripPhoto ? <ShowPhotoSlide
-                        photo={data.tripPhoto}
+                    {data.description}
+                    {data.type}
+                    {data.owner}
+                    {data.photo ? <ShowPhotoSlide
+                        photo={data.photo}
                         style={'aboutme_PhotoCar'}/> : <p>no photo</p>}
-                </> }
 
+                {/*    {data.userId ?*/}
+                {/*        <Link to={`/aboutme/${data.userId}`} onClick={()=>{*/}
+                {/*            setShowMap(false);*/}
+                {/*            // setPage("showTrip");*/}
+                {/*            }}>*/}
+                {/*                {data.tripUser}*/}
+                {/*        </Link> : <></>}*/}
+                {/*    {data.tripCar ?*/}
+                {/*        <Link to={`/showcar/${data.tripCar[1]}`} onClick={()=>{*/}
+                {/*                setShowMap(false);*/}
+                {/*                // setPage("showcar");*/}
+                {/*            }}>*/}
+                {/*                {data.tripCar[0]}*/}
+                {/*        </Link> : <></>}*/}
 
-                <div id="tripDescription" className="showtrip_description">
-                    <p>   {data.tripDescription} </p>
+                {/*    /!*<button onClick={()=> { /aboutme*!/*/}
+                {/*    /!*    *!/*/}
+                {/*    /!*    chosenFn(data.userId)*!/*/}
+                {/*    /!*}}>    </button>*!/*/}
+                {/*      /!*  <button disabled={!data.tripCar} onClick={()=>{*!/*/}
+                {/*      /!*      setShowMap(false);*!/*/}
+                {/*      /!*      setChosen();*!/*/}
+                {/*      /!*setPage("");*!/*/}
+                {/*      /!*  }}>    </button>*!/*/}
                 </div>
-                <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
-                    {loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}
-                    {loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}
+                {/*{showMap ? <><ShowMap country={data.tripCountry} tripMap={data.tripMap}/></> : <>*/}
+                {/*    {data.tripPhoto ? <ShowPhotoSlide*/}
+                {/*        photo={data.tripPhoto}*/}
+                {/*        style={'aboutme_PhotoCar'}/> : <p>no photo</p>}*/}
+                {/*</> }*/}
 
-                    <button disabled>Share</button>
 
+                <div className="showtrip_description ">
+
+                    <p> USERS: </p>
+                    {data.users ? data.users.map((user) => (
+                        <div key={`keytrip${user.id}`}>
+                            <p>{user.nick}</p>
+                            {user.photo ?
+                            <LoadImage imageName={user.photo || 'user.png'}
+                                       imagePath='images/users'
+                                       photoClass="userPanel_userPhoto"
+                            /> : <p>no photo</p>}
+                        </div>
+                    )) : null}
+                    <p> TRIPS: </p>
+                    {/*{showTrips ? <>showTrips.map((user)=>{*/}
+
+                    {/*    <div key={`keytrip${user}`}>*/}
+                    {/*        <p>_</p>*/}
+                    {/*        <p>fsdjkfhjdshfksdj</p>*/}
+                    {/*        /!*{user.photo ? <ShowPhotoSlide*!/*/}
+                    {/*        /!*    photo={data.photo}*!/*/}
+                    {/*        /!*    style={'aboutme_PhotoCar'}/> : <p>no photo</p>}*!/*/}
+                    {/*    </div>*/}
+                    {/*}) </> : <></>}*/}
+                    <p> CARS: </p>
+                    {/*{showCars ? <> showCars.map((user)=>{*/}
+
+                    {/*    <div key={`keytrip${user}`}>*/}
+                    {/*        <p>_</p>*/}
+                    {/*        <p>fsdjkfhjdshfksdj</p>*/}
+                    {/*        /!*{user.photo ? <ShowPhotoSlide*!/*/}
+                    {/*        /!*    photo={data.photo}*!/*/}
+                    {/*        /!*    style={'aboutme_PhotoCar'}/> : <p>no photo</p>}*!/*/}
+                    {/*    </div>*/}
+                    {/*}) </> : <></> }*/}
+
+                    {/*// forum dyskusyjne ???????????????????????????????????? */}
                 </div>
-                {addComm ? <>
-                    <AddComment
-                        author={loggedUser}
-                        trip={data}
-                        setAddComm={setAddComm}/>
-                    </>: <></>}
-                <div id="tripComm" className="showtrip_description">
-                    {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}
-                </div>
-            </> : <p>loading data</p>}
+                <button> JOIN US! </button>
+            {/*    <div className={`showtrip_main colorstyle_button_${displayStyles}`}>*/}
+            {/*        {loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}*/}
+            {/*        {loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}*/}
+
+            {/*        <button disabled>Share</button>*/}
+
+            {/*    </div>*/}
+            {/*    {addComm ? <>*/}
+            {/*        <AddComment*/}
+            {/*            author={loggedUser}*/}
+            {/*            trip={data}*/}
+            {/*            setAddComm={setAddComm}/>*/}
+            {/*        </>: <></>}*/}
+            {/*    <div id="tripComm" className="showtrip_description">*/}
+            {/*        {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}*/}
+            {/*    </div>*/}
+            </> : <p>loading data</p> }
             </section>
         </section>
     );

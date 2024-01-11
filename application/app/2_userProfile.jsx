@@ -157,7 +157,6 @@ function UserProfile() {
                     <p> Twoja najlepiej oceniana podróż: </p>
                 </div>
             </section>
-            <NewMessage/>
             <section className={`showtrip_main colorstyle_button_${displayStyles}`}>
                 <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
                 <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>

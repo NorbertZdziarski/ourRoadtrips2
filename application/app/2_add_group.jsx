@@ -124,6 +124,7 @@ function AddGroup() {
         let count;
         usersList.map((userIp)=>{
             let clickLink = `href="https://ourroadtrips.pl/showgroup/${idNewGroup}`
+            // target="_blank"
             count ++;
             let saveData = {
                 receiverNick: null,
@@ -135,7 +136,7 @@ function AddGroup() {
                 idGroup: idNewGroup,
                 type: 'official',
                 title: 'invitation to the group!',
-                txt: `Hi! I want to invite you to the group <b> ${formDataToSave.name} ! </b> <br> <hr> <br> Jest to grupa typu ${formDataToSave.type} <br> jeżeli chcesz zobaczyć naszą wizytówkę, zapraszam na nasz <a target="_blank" ${clickLink} > funpage </a> <br> Jeżeli chcesz do nas dołączyć kliknij poniżej  `,
+                txt: `Hi! <br> I want to invite you to the group <b> ${formDataToSave.name} ! </b> <br> <hr> <br> This is a group of cool people. We are best described as: ${formDataToSave.type} <br> Please visit our funpage!  :-) <br> If you want to join us, click below :-) <br> go ahead! we are waiting for you!   `,
                 readed: false,
                 sendData: new Date()
             };

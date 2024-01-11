@@ -4,6 +4,7 @@ import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 import NewMessage from "./5_newMessage";
 import logoRoadtrips from "../images/logo.png"
+import { Link } from "react-router-dom";
 
 function Post() {
     const loggedUser = useStoreState(state => state.loggedUser);
@@ -46,16 +47,26 @@ function Post() {
     // }
     useEffect(async ()=>{
         if (updateGroup) {
-            console.log('update Group ' + JSON.stringify(updateGroup));
-            console.log(`newGroupUser: ` + newGroupUser)
-            updateGroup.users.push(newGroupUser)
+            console.log(loggedUser)
+            console.log(JSON.stringify(loggedUser));
+            let addUser = {
+                nick: loggedUser.nick,
+                id: loggedUser._id,
+                photo: loggedUser.userPhoto
+            }
+            // console.log('update Group ' + JSON.stringify(updateGroup));
+            // console.log(`newGroupUser: ` + newGroupUser)
+            updateGroup.users.push(addUser)
+            const idGroup = updateGroup._id;
+            delete updateGroup._id;
             console.log(JSON.stringify(updateGroup));
-            console.log(JSON.stringify(updateGroup.users))
+            // console.log(JSON.stringify(updateGroup.users))
 
             // const updateMessage = { ...message, readed: true };
-            let target = `group/${updateGroup._id}`
+            let target = `group/${idGroup}`
             console.log('target: ' + target)
             await updateData(target,updateGroup).then((r)=>{console.log('ok. ' + r)}).catch((e)=>{console.log('error! ' + e)})
+            setReadMessage('')
         }
     },[updateGroup])
 
@@ -65,7 +76,8 @@ function Post() {
                 const checkData = (downloadedData) => {
                     if (downloadedData.users) {
                         if (downloadedData.users.includes(newGroupUser)) {
-                            console.log(' juz jest ')
+                            // console.log(' juz jest ')
+                            setReadMessage('')
                             // alert ?
                         } else {
                             console.log('brak')
@@ -235,19 +247,20 @@ function Post() {
                     {(whichScreen === 'sended') ? <>
                         {sendMessages ? <>
                             {sendMessages.map((message, index)=>{
-                                return <div key={index} className={'layout_flex-sb'}>
-                                    <div className={'layout_flex-sb-directColumn'}>
-                                        <p className={'fnt_subtitle'}>to: {message.receiverNick} </p>
-                                        <p className={'fnt_Title'}>title:  {message.title} </p>
-                                    </div>
-                                    <div className={`layout_flex-sb-directColumn`}>
-                                        <button onClick={()=>setReadMessage(message)}> show </button>
-                                        <button onClick={()=>{
-                                            setToDelete(['message',message])
-                                            setYesOrNot([true,0])
-                                        }}> delete </button>
-                                    </div>
-                                </div>
+                                return (message.type !== 'official' ?
+                                     <div key={index} className={'layout_flex-sb'}>
+                                        <div className={'layout_flex-sb-directColumn'}>
+                                            <p className={'fnt_subtitle'}>to: {message.receiverNick} </p>
+                                            <p className={'fnt_Title'}>title:  {message.title} </p>
+                                        </div>
+                                        <div className={`layout_flex-sb-directColumn`}>
+                                            <button onClick={()=>setReadMessage(message)}> show </button>
+                                            <button onClick={()=>{
+                                                setToDelete(['message',message])
+                                                setYesOrNot([true,0])
+                                            }}> delete </button>
+                                        </div>
+                                </div> : null )
                             })}
                         </> : <p>no data</p>}</>:<></>}
                     {(whichScreen === 'official') ? <>
@@ -309,8 +322,11 @@ function Post() {
                                     setSendMessTxt(`\n ---oryginal--- \n from: ${readMessage.fromUserNick} \n date: ${readMessage.sendData} \n oryginal text: \n ${readMessage.txt} `)
                                     setWhichScreen('new')}}>Reply</button>
                                 </> : <>
-                                    <div className='fnt_subtitle' id='elementId' dangerouslySetInnerHTML={{ __html: readMessage.txt }}></div>
-                                    <button onClick={()=>{setNewGroupUser(readMessage.idGroup)}}> JOIN THE GROUP!</button>
+                                    <div className='fnt_subtitle postAddGroup' id='elementId' dangerouslySetInnerHTML={{ __html: readMessage.txt }}></div>
+                                        <div className={'layout_flex-sc postAddGroupButt'}>
+                                        <button onClick={()=>{setNewGroupUser(readMessage.idGroup)}}> JOIN THE GROUP!</button>
+                                        <Link to={`../showgroup/${readMessage.idGroup}`} target="_blank"> SHOW FUNPAGE!</Link>
+                                    </div>
                                 </> }
                             </div>
 

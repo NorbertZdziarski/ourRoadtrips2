@@ -692,3 +692,25 @@ article.postMessage  {
      text-shadow: -0.5rem 0 3rem $color-blink-color;
    }
 }
+
+.postAddGroup {
+  margin: 0.5rem 0;
+  padding: 1rem;
+
+  font-size: 1.8rem;
+  background-color: rgba(64, 73, 95, 0.58);
+}
+
+.postAddGroupButt {
+
+  button, a {
+    margin: 1rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    width: 20rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
+}

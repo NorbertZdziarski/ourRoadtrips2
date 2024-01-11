@@ -44,6 +44,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             owner: dataId.owner || loggedUser.nick,
             ownerId: dataId.ownerId || loggedUser._id,
             name: dataId.name || '',
+            comment: dataId.comment || '',
             description: dataId.description || '',
             type: dataId.type || '',
             photo: dataId.photo || '',
