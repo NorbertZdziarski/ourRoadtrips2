@@ -21,6 +21,7 @@ import AddTrip from "./2_add_trip";
 import AddGroup from "./2_add_group";
 import NewMessage from "./5_newMessage";
 import Post from "./3_post";
+import Alert from "./5_alert";
 
 function App() {
     const page = useStoreState(state => state.page);
@@ -28,6 +29,8 @@ function App() {
     const dataFilter = useStoreState(state => state.dataFilter);
     const displayStyles = useStoreState(state => state.displayStyles);
     const showLoading = useStoreActions(actions => actions.showLoading);
+
+    const showAlert = null;
 
     return (
         <div className={`app colorstyle_${displayStyles}`}>
@@ -57,6 +60,7 @@ function App() {
                         </Routes>
                         {(yesOrNot[0] ? (<YesOrNot/>):(<></>))}
                         {showLoading ? <>{(showLoading[0]) ? (<Anim_loading/>):(<></>)}</> :<></>}
+                        {showAlert ? <Alert/> : null}
 
                     </div>
                 </div>

@@ -7,18 +7,20 @@ import icohome from "../images/home_house_icon_143764.png";
 import icogroup from "../images/people.png";
 import icocars from "../images/cars.png";
 import icoenvelope from "../images/envelope.png";
+import fuelpetrol from "../images/dispenser.png"
+import fuelev from "../images/energy.png"
 import {useStoreState} from "easy-peasy";
 function InsertIco({icoName}) {
     const displayStyles = useStoreState(state => state.displayStyles);
     const [icoStyle, setIcoStyle] = useState();
-
-    if (icoName === '') {
+let target;
+    if (icoName === 'icohome') { target = icohome
 
     } else {
 
     }
     return (<>
-        <img src={`${icoName}`} className={`header_ico ico_${displayStyles}`}/>
+        <img src={target} className={`header_ico ico_${displayStyles}`}/>
     </>)
 }
 

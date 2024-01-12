@@ -117,7 +117,15 @@ function Login() {
     };
 
     return (
-        <div className="layout_main layout_flex-sb login_main">
+        <div className="layout_main layout_flex-sb_mobile_Column login_main">
+            <section className="login_newaccount">
+                <GoogleLogin
+                    clientId={clientId}
+                    onSuccess={handleSuccess}
+                    onFailure={handleFailure}
+                />
+
+            </section>
             <section className={`login_box colorStyle_input_${displayStyles}`}>
                 {fetchError ? <p className={`login_error colorStyle_error_${displayStyles}`}>{fetchError}</p> : <></>}
                 <form >
@@ -136,14 +144,7 @@ function Login() {
                 {/*    <button disabled onClick={()=>setPage("editUserData")} className={`button-important button-important_${displayStyles}`}> Create an account </button>*/}
                 {/*</div>*/}
             </section>
-            <section className="login_newaccount">
-            <GoogleLogin
-                clientId={clientId}
-                onSuccess={handleSuccess}
-                onFailure={handleFailure}
-            />
 
-            </section>
         </div>
     );
 }

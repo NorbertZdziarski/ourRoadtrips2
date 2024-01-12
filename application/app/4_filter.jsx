@@ -13,7 +13,7 @@ function DataFilter({setMoblieMenuClass}) {
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const acceptFn = (event) => {
         // event.preventDefault()
-        // console.log(selectCountry,choiceTripType,choiceStyleTypes)
+        // console.log(selectCountry,choiceTripType,choiceStyleTypes)set
         let saveCountry;
         if (selectCountry==='choose a country') {saveCountry = 'all'} else { saveCountry = selectCountry}
         let saveTripType;

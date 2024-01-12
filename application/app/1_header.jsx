@@ -50,6 +50,17 @@ function Header() {
             }
         }, [location]);
 
+        useEffect(()=>{
+        if (filterBarStatus === 'status' && window.innerWidth < 950) setFilterBar(false)
+            // console.log(' ! HEADER CHECK ! ')
+            // console.log('screenWidth ' + screenWidth)
+            // console.log('moblieMenuClass ' + moblieMenuClass)
+            // console.log('filterBar ' + filterBar)
+            // console.log('filterBarStatus ' + filterBarStatus)
+
+        },[screenWidth, moblieMenuClass, filterBar, filterBarStatus])
+
+
     useEffect(() => {
 
         if (loggedUser) {
@@ -67,23 +78,21 @@ function Header() {
 
         // console.log(`Obecny URL: ${location.pathname}`);
 
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //         setScreenWidth(window.innerWidth);
-    //         if (window.innerWidth >= 950) {
-    //             console.log('screenWidth >= 950');
-    //             setMoblieMenuClass('');
-    //         }
-    //     }
-    //     window.addEventListener('resize', handleResize);
-    //     handleResize();
-    //     return () => {
-    //         window.removeEventListener('resize', handleResize);
-    //     };
-    // }, []);
+    useEffect(() => {
+        const handleResize = () => {
+            setScreenWidth(window.innerWidth);
+            if (window.innerWidth >= 950) {
+                setMoblieMenuClass('');
+            }
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     function openMenu() {
         if (moblieMenuClass === '') {
-            console.log('bla bla bla');
             setMoblieMenuClass('_mobile');
         } else {
             setMoblieMenuClass('');
@@ -116,8 +125,6 @@ function Header() {
 
     }, [dataFilter, dataSortOn, page]);
 
-    // colorStyle_headerBtn_${displayStyles}
-
     return (<>
             <header className={`headerStyle${moblieMenuClass} fnt_btn_header`}>
                 <div className={` layout_flex-sb layout_mainViewWidth colorStyle_headerBtn_${displayStyles}`}>
@@ -144,54 +151,50 @@ function Header() {
                             {/*{((dataSortOn) && (page !=="map")) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
 
                                    {((!dataSortOn) || (!dataFilter[0])) ? <>
-                                       { (page === "map") ?
-                                           // <Link to="/"  onClick={() => {setPage("mainPage")}}>
-                                           //
-                                           // </Link>
-                                           <Link to="/"  className="myLink" >
-                                               <img src={icolist} className={`header_ico ico_${displayStyles}`}/>
-                                           </Link>
-                                           :
-                                           // <Link to="/"  onClick={() => {setPage("mainPage")}}>
-                                           // <img src={ico} className={`header_logo logo_${displayStyles}`}/>
-                                           // </Link>
-                                           <Link to="/map"  className="myLink" >
-                                               <img src={icomap} className={`header_ico ico_${displayStyles}`}/>
-                                           </Link>
-                                       }
-                                       <Link to="/groups" className="myLink" onClick={() => {setPage("mainpage")}}>
-                                        <img src={icogroup} className={`header_ico ico_${displayStyles}`}/>
-                                       </Link>
+                                       <div className={'layout_flex-sb'}>
+                                           { (page === "map") ?
+                                               <Link to="/"  className="myLink" >
+                                                   <img src={icolist} className={`header_ico ico_${displayStyles}`}/>
+                                               </Link>
+                                               :
+                                               <Link to="/map"  className="myLink" >
+                                                   <img src={icomap} className={`header_ico ico_${displayStyles}`}/>
+                                               </Link>
 
-                                       <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
-                                        <img src={icocars} className={`header_ico ico_${displayStyles}`}/>
-                                       </Link>
+                                           }
+                                           <Link to="/groups" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                                <img src={icogroup} className={`header_ico ico_${displayStyles}`}/>
+                                           </Link>
 
-                                       <button  onClick={() => setDataFilter([true, 'all', 'all', 'all'])}>
+                                           <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                                <img src={icocars} className={`header_ico ico_${displayStyles}`}/>
+                                           </Link>
+                                           {(moblieMenuClass === '_mobile')? <Link to="/"  onClick={() => {
+                                               setMoblieMenuClass('')
+                                               setPage("mainpage")}}>
+                                               <img src={logourl} className={`header_ico logo_${displayStyles}`}/>
+                                           </Link>:null}
+
+                                       </div>
+                                       <button  onClick={() => {
+                                           setMoblieMenuClass('')
+                                           setFilterBar(true)
+                                           setDataFilter([true, 'all', 'all', 'all'])}}>
                                             Filter
                                             </button>
-                                       {(page !=="map") ?<> <button onClick={() => setDataSortOn(true)}>
+                                       {(page !=="map") ?<> <button onClick={() => {
+                                           setMoblieMenuClass('')
+                                           setFilterBar(true)
+                                           setDataSortOn(true)}}>
                                             Sort / {tripSort}
                                             </button>
                                            </>: <></>}
 
-
-
-
-
-                                   {/* {(page === "mainPage") ?*/}
-                                   {/*        <Link to="/map"  className="myLink" onClick={() => {setPage("mainPage")}}> Map </Link> : <button disabled>*/}
-                                   {/*          List*/}
-                                   {/*      </button>*/}
-                                   {/*}*/}
                                         {(moblieMenuClass === '') ? (<></>) : (
                                           <button onClick={() => setMoblieMenuClass('')}>
-                                              cancel
+                                              hide
                                          </button>
                                    )}
-                                      {/*<button disabled onClick={()=>setPage("tymczasowe")}>*/}
-                                      {/* tymczasowe*/}
-                                      {/* </button>*/}
                                    </> : <></>}
 
                                 </>}
@@ -205,32 +208,23 @@ function Header() {
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                     <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
                                 </Link>
-                                <Link to="/addtrip" className="myLink" onClick={() => {setDataId(''); setPage("addtrip")}}> Add trip </Link>
-                                <Link to="/addcar" className="myLink" onClick={() => {setDataId(''); setPage("addcar")}}> Add Car </Link>
-                                <Link to="/addgroup" className="myLink" onClick={() => {setDataId(''); setPage("addgroup")}}> Add Group </Link>
-                                <Link to="/admin" className="myLink" onClick={() => {setDataId(''); setPage("admin")}}> Admin panel </Link>
+                                <Link to="/addtrip" className="myLink" onClick={() => {
+                                    setMoblieMenuClass('')
+                                    setDataId(''); setPage("addtrip")}}> Add trip </Link>
+                                <Link to="/addcar" className="myLink" onClick={() => {
+                                    setMoblieMenuClass('')
+                                    setDataId(''); setPage("addcar")}}> Add Car </Link>
+                                <Link to="/addgroup" className="myLink" onClick={() => {
+                                    setMoblieMenuClass('')
+                                    setDataId(''); setPage("addgroup")}}> Add Group </Link>
+                                <Link to="/admin" className="myLink" onClick={() => {
+                                    setMoblieMenuClass('')
+                                    setDataId(''); setPage("admin")}}> Admin panel </Link>
                                 <Link to="/edituserdata" className="myLink" onClick={() => {setPage("edituserdata")}}> Edit User Data </Link>
 
-
-                                {/*<button onClick={() => {*/}
-                                {/*    */}
-                                {/*}}>*/}
-                                {/*    Add trip*/}
-                                {/*</button>*/}
-                                {/*<button onClick={() => {*/}
-                                {/*    setDataId('')*/}
-                                {/*    setPage("addCar")*/}
-                                {/*}*/}
-                                {/*}>*/}
-                                {/*    Add car*/}
-                                {/*</button>*/}
-                                {/*<button onClick={() => setPage("editUserData")}>*/}
-                                {/*    Edit User Data*/}
-                                {/*</button>*/}
                                 {(moblieMenuClass === '') ? (<></>) : (
-
                                     <button onClick={() => setMoblieMenuClass('')}>
-                                        cancel
+                                        hide
                                     </button>
                                 )}
                             </section>
@@ -248,7 +242,7 @@ function Header() {
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
-                                        cancel
+                                        hide
                                     </button>
                                 )}
                             </section>
@@ -266,7 +260,7 @@ function Header() {
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
-                                        cancel
+                                        hide
                                     </button>
                                 )}
                             </section>
@@ -284,7 +278,7 @@ function Header() {
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
-                                        cancel
+                                        hide
                                     </button>
                                 )}
                             </section>
@@ -327,19 +321,13 @@ function Header() {
                             }}>
                                 <img src={icotheme} className={`header_ico ico_${displayStyles}`}/>
                             </button>
-                            {/*<button onClick={() => setPage("mainPage")}>*/}
-
-                            {/*</button>*/}
                         </div>) : (<></>)}
 
 
                 </div>
-                <Link to="/"  onClick={() => {setPage("mainpage")}}>
+                {(moblieMenuClass !== '_mobile')? <Link to="/"  onClick={() => {setPage("mainpage")}}>
                     <img src={logourl} className={`header_logo logo_${displayStyles}`}/>
-                </Link>
-                {/*<button onClick={() => setFilterBar(!filterBar)}>*/}
-                {/*    Toggle Filter Bar*/}
-                {/*</button>*/}
+                </Link> : null }
             </header>
             <div className={`subHeader_${displayStyles}`}>
 
@@ -352,7 +340,7 @@ function Header() {
 
                 {filterBarStatus === 'filter' ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
                 {filterBarStatus === 'sort' ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
-                {filterBarStatus === 'status' ? <FilterStaus setFilterBar={setFilterBar}/> :<></>}
+                {(filterBarStatus === 'status' && window.innerWidth > 950) ? <FilterStaus setFilterBar={setFilterBar}/> :<></>}
             </div>
 
         </>

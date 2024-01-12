@@ -75,11 +75,11 @@ body {
 }
 .mainWindowStyle {
   box-sizing: border-box;
+  padding-bottom: 0.5rem;
   @include mainStyle($main-view-height);
 
-  //width: calc( 100vw - 10px);
   width: $main-view-width;
-  margin-left: 10px;
+
   overflow-y: scroll;
   @include rwd();
 
@@ -87,10 +87,14 @@ body {
 
   @media screen and (max-width: 950px) {
     height: $mobile_main-view-height;
+    padding: 0.5rem;
+  }
+  @media screen and (min-width: 951px) {
+    margin-left: 10px;
+    @include sidebarstyle;
+
   }
 
-  @include sidebarstyle;
-  padding-bottom: 0.5rem;
 }
 
 .mainViewStyle {

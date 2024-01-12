@@ -178,7 +178,7 @@ console.log('type: ' + type)
         <div className="imputForm_container">
             {form.map((value) => <div key={`line${value}`}>
                 {/*// ------------------------- ------ ----!!!!!!! TO DO !!!!!!!!!!!!!------- rodzaj paliwa, areatext do opisu*/}
-                <label className={`imputForm_box colorStyle_input_${displayStyles}`}>
+                <label className={`imputForm_box layout_flex-sb_mobile_Column colorStyle_input_${displayStyles}`}>
                     {(excludedValuesTitle.includes(value) ? null : <p >{value.slice(slicePoint,value.length)}:</p>)}
                     {(value === 'tripCountry') ? <select value={formData[value]} name={value} onChange={handleChange} className="">
                         {countriesInEurope.map((country) => (

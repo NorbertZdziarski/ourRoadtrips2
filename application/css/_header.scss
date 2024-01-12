@@ -106,9 +106,17 @@
   overflow: hidden;
   transition: height 0.5s;
   background-color: $color-background-main;
-  width: $main-view-width;
+  margin-bottom: 0.5rem;
 
-  height: 4rem;
+
+  @media (max-width: 950px) {
+    height: 20rem;
+    width: 100%;
+  }
+  @media (min-width: 951px) {
+    width: $main-view-width;
+    height: 4rem;
+  }
   font-size: 1.8rem;
 }
 .show {
@@ -121,7 +129,13 @@
     }
     100% {
       top:0;
-      height: 4rem;
+      @media (max-width: 950px) {
+        height: 20rem;
+      }
+
+      @media (min-width: 951px) {
+        height: 4rem;
+      }
     }
   }
 }
@@ -132,7 +146,12 @@
   @keyframes slide-up {
     0% {
       top:0;
-      height: 4rem;
+      @media (max-width: 950px) {
+        height: 20rem;
+      }
+      @media (min-width: 951px) {
+        height: 4rem;
+      }
     }
     100% {
       top:-1rem;
