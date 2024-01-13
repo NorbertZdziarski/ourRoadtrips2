@@ -50,6 +50,7 @@ function AboutUs() {
                             <li> easy-peasy </li>
                             <li> axios </li>
                             <li> jwt-decode </li>
+                            <li> HTML5 </li>
 
                         </ul>
                         <ul> <p> SASS </p>
@@ -65,7 +66,7 @@ function AboutUs() {
                         <img src={logonode} className={`aboutme_photo`}/>
                     </div>
                     <div>
-                        <h5 >*  aplikacja serwerowa</h5>
+                        <h5 >* aplikacja serwerowa</h5>
                         <p> aplikacja serwerowa została przeze mnie napisana w NodeJS. Wykorzystując SSH oraz FTP umieściłem ją na hostingu nazwa.pl.</p>
                         <ul>
                             <li> cors </li>
@@ -74,6 +75,7 @@ function AboutUs() {
                             <li> fs </li>
                             <li> mongoDB </li>
                             <li> multer </li>
+                            <li> szyfrowanie wrażliwych danych zapisywanych w bazie</li>
                         </ul>
                     </div>
                 </section>
@@ -82,7 +84,7 @@ function AboutUs() {
                     <img src={logomongo} className={`aboutme_photo`}/>
                 </div>
                 <div >
-                    <h5 > *baza danych</h5>
+                    <h5 > * baza danych</h5>
                     <p>Mongo DB </p>
                 </div>
                 </section>
@@ -92,12 +94,12 @@ function AboutUs() {
                         <img src={logogmaps} className={`aboutme_photo`}/>
                     </div>
                     <div >
-                                    <h5 > API </h5>
+                        <h5> * API </h5>
                         <p> aplikacja wykorzystuje zewnętrzne API do obsługi: </p>
                         <ul>
                             <li> logowanie Google </li>
                             <li> obsługa Google Map </li>
-                            <li> logowanie ... / wkrótce /</li>
+                            <li> alternatywne logowanie ... / wkrótce /</li>
                         </ul>
                     </div>
                 </section>
@@ -105,7 +107,7 @@ function AboutUs() {
                     <div>
                     </div>
                     <div>
-                    <h5 >  ** projekt i realizacja</h5>
+                    <h5 >  * projekt i realizacja</h5>
                         <p>podczas realizacji wykorzystwałem ideę SCRUM oraz liczne narzędzia: </p>
                         <ul>
                             <li> idea SCRUM </li>
@@ -119,8 +121,14 @@ function AboutUs() {
                     <div>
                     </div>
                     <div>
-                        <h5 >* pozostałe dane</h5>
-                        <p>HTML5, SASS, </p>
+                        <h5 >* dalszy rozwój </h5>
+                        <p> co jest w trakcie lub planowane do realizacji? </p>
+                        <ul>
+                            <li> inne sposoby logowania </li>
+                            <li> wyszukiwarka </li>
+                            <li> forum dyskusyjne </li>
+                            <li> inna wersja językowa </li>
+                        </ul>
                     </div>
                 </section>
             </main>
