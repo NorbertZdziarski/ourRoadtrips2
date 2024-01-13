@@ -217,11 +217,14 @@ function Post() {
                     <button className={sendedClass} onClick={()=>setWhichScreen('sended')}>sended</button>
                     <button className={officialClass} onClick={()=>setWhichScreen('official')}>official {newMessagesOff ? `[ ${newMessagesOff} ]` : ''}</button>
                 </nav>
-                { ((whichScreen === 'inbox') && incommingMessages) ?  <h3>  ilość wiadomości: {incommingMessages.length}, w tym nie przeczytane: {newMessages}</h3> :null }
-                { ((whichScreen === 'sended') && sendMessages) ?  <h3>  ilość wiadomości: {sendMessages.length}</h3> : null }
-                { (whichScreen === 'new') ?  <h3>  write new message: </h3> : null }
+                { ((whichScreen === 'inbox') && incommingMessages) ?  <h5>  ilość wiadomości: {incommingMessages.length}, w tym nie przeczytane: {newMessages}</h5> :null }
+                { ((whichScreen === 'sended') && sendMessages) ?  <h5>  ilość wiadomości: {sendMessages.length}</h5> : null }
+                { (whichScreen === 'new') ?  <h5>  write new message: </h5> : null }
+                <hr/>
+                {(readMessage && window.innerWidth < 951 ) ? <a onClick={()=>setReadMessage(false)}> X close message </a> : null }
             </header>
-            <div className={'layout_flex-sb divWidthTemp'} >
+            <div className={'layout_flex-sb_mobile_Column divWidthTemp'} >
+                {(!readMessage || window.innerWidth > 951 )?
                 <nav className={'postListNav'}>
                     {(whichScreen === 'inbox') ? <>
                         {incommingMessages ? <>
@@ -284,7 +287,8 @@ function Post() {
                             })}
                         </> : <p>no data</p>}
                     </>:<></>}
-                </nav>
+                </nav> :null}
+                {(readMessage || window.innerWidth > 951 ) ?
                 <article className={'layout_grid postMessage divHeightTemp divWidthTemp'}>
                     {(whichScreen === 'new') ? <>
                         <NewMessage setWhichScreen={setWhichScreen} sendMessages={sendMessages} setSendMessages={setSendMessages} replyMessage={sendMessTxt} sendMessReciver={sendMessReciver}/>
@@ -333,7 +337,7 @@ function Post() {
                         </div> : <div className={'postImg'}><p>ourRoadtrips</p><img src={logoRoadtrips}/></div>}
                     </>}
 
-                </article>
+                </article> :null}
             </div>
 
         </section>

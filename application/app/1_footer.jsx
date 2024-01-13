@@ -8,14 +8,12 @@ function Footer() {
     const setPage = useStoreActions(actions => actions.setPage);
     const d = new Date()
     let year = d.getFullYear();
-    return (
-
-        <footer className="footerWindowStyle footer_underconstruction">
+    return (<footer className="footerWindowStyle footer_underconstruction">
             <div className={`layout_main layout_flex-sb footerStyle colorStyle_footer_${displayStyles}`}>
-                <p >(C) {year} Norbert Zdziarski. 401-03-13-11</p>
+                {(window.innerWidth > 950) ? <p>(C) {year} Norbert Zdziarski. 401-03-13-11</p> : null}
                 <Link to="/aboutus" className="myLink" onClick={() => {setPage("mainPage")}}> about project </Link>
 
-                <p>Site under construction. </p>
+                {(window.innerWidth > 950) ? <p>Site under construction. </p> : null}
             </div>
         </footer>
     );

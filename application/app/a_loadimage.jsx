@@ -66,7 +66,7 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
         <div className={perspectiveStyle}>
             {image ? <>
                 <img src={image} alt={'foto'} width={imageWidth} className={photoClass}/>
-            </>: <><Anim_loading size={'_m'}/></>}
+            </>: <div className={'divHeightTemp divWidthTemp'}><Anim_loading size={'_m'}/></div>}
 
         </div>
     );

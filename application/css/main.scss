@@ -55,23 +55,33 @@ body {
   font-family: "BankGothic Lt BT";
   padding: 5px;
   height: $footer-height;
-  width: $main-view-width;
   overflow: hidden;
+  align-items: center;
+  @media screen and (max-width: 950px) {
+    width: 100%;
+    justify-content: center;
+  };
+  @media screen and (min-width: 951px){
+    width: $main-view-width;
+  };
+
+
   //@include mainStyle($footer-height);
 }
 .footerWindowStyle {
   box-sizing: border-box;
   //@include mainStyle($footer-height);
-  width: calc( 100vw - 10px);
-  margin-left: 10px;
+  //width: calc( 100vw - 10px);
+  //margin-left: 10px;
   //overflow-y: scroll;
   @include rwd();
 
   @media screen and (max-width: 950px) {
     height: $footer-height;
   }
-
-  @include sidebarstyle;
+  //@media screen and (min-width: 951px) {
+  //@include sidebarstyle;
+  //}
 }
 .mainWindowStyle {
   box-sizing: border-box;
@@ -201,7 +211,7 @@ body {
   width: 2rem;
   height: 2rem;
 
-  position: relative;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -209,15 +219,15 @@ body {
 
   background-color: rgba(0,0,0,0);
   border-radius: 50%;
-  border-left: 5px solid $color-blink-color;
-  border-right: 5px solid $color-blink-color;
+  border: 5px dotted $color-blink-color;
   box-shadow: 0 0 0.4rem rgba(0,0,0,0.5);
-  border-bottom: 0;
-  border-top: 0;
+  //border-bottom: 0;
+  //border-top: 0;
   animation: obrot 2s linear infinite;
 }
 
 .symbol_loading {
+
   z-index: 1500;
   width: 4rem;
   height: 4rem;
@@ -230,11 +240,9 @@ body {
 
   background-color: rgba(0,0,0,0);
   border-radius: 50%;
-  border-left: 5px solid $color-blink-color;
-  border-right: 5px solid $color-blink-color;
+  border: 5px dashed $color-blink-color;
   box-shadow: 0 0 0.4rem rgba(0,0,0,0.5);
-  border-bottom: 0;
-  border-top: 0;
+
   animation: obrot 2s linear infinite;
 }
 @keyframes obrot {
@@ -519,9 +527,16 @@ $height_line: 3.5rem;
 
 nav.postListNav {
   //margin-top: 2rem;
-  width: 40rem;
-  padding: 1rem;
-  border-right: 1px dotted $color-txt-main;
+box-sizing: border-box;
+  @media screen and (max-width: 950px) {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  @media screen and (min-width: 951px) {
+    width: 40rem;
+    padding: 1rem;
+    border-right: 1px dotted $color-txt-main;
+  }
   div.objReaded {
     box-sizing: border-box;
     border: 1px solid $color-blink-color;
@@ -544,7 +559,15 @@ nav.postListNav {
 
 }
 article.postMessage  {
+  box-sizing: border-box;
+  @media screen and (max-width: 950px) {
+    width: 100%;
+    padding: 0.5rem;
+  }
+  @media screen and (min-width: 951px) {
   padding: 1rem;
+  }
+
   textarea {
     box-sizing: border-box;
     margin-top: 1rem;
@@ -716,5 +739,95 @@ article.postMessage  {
     width: 20rem;
     padding: 0.5rem;
     border-radius: 0.5rem;
+  }
+}
+
+.load {
+  box-sizing: border-box;
+  border: 1px solid red;
+}
+
+.button_center {
+  margin-inline: auto;
+}
+
+.aboutUsStyle {
+  width: 100%;
+
+  header {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(130px,100%), 1fr));
+    gap: 5px;
+
+    @media (max-width: 950px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  a {
+    transition-duration: 0.3s;
+    align-items: center;
+    text-align: center;
+    color: black;
+    background-color: rgba(255, 255, 255, 0.51);
+    flex-grow: 1;
+    padding: 0.5rem;
+    border: 0;
+    &:hover {
+      background-color: $color-blink-color;
+      transition-duration: 0.5s;
+    }
+  }
+  img {
+    width: 9rem;
+    margin-bottom: 0.2rem;
+  }
+
+
+  section {
+    margin-top: 2rem;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.15);
+    padding-bottom: 2rem;
+    @media screen and (max-width: 950px){
+
+    }
+    @media screen and (min-width: 951px) {
+      display: flex;
+      div:first-child {
+        width: 10rem;
+      }
+      div:last-child {
+        padding-left: 2rem;
+        width: 100%;
+        h5 {
+          margin-bottom: 0.4rem;
+        }
+        p {
+          font-size: 1.8rem;
+          line-height: 2.4rem;
+        }
+        ul {
+          margin-top: 0.4rem;
+          p {
+            font-size: 2rem;
+            line-height: 2.4rem;
+          }
+        }
+        li {
+
+          font-size: 1.6rem;
+          padding-left: 1rem;
+          line-height: 2rem;
+        }
+      }
+    }
+  }
+  footer {
+    display: flex;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 1.6rem;
+    gap: 1rem;
   }
 }

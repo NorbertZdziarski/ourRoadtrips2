@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import ShowMap from "./3_show_map";
 import {fetchData} from "./a_CRUD_service";
 import {useStoreState} from "easy-peasy";
+import Anim_loading from "./anim_loading";
 
 function Gmap({tripData}) {
     const tripId = useStoreState(state => state.tripId);
@@ -44,7 +45,7 @@ function Gmap({tripData}) {
                     tripMap={null}
                     tripPoint={tripPoint}
                     locations={locations}
-                /> : <>loading....</>}
+                /> : <Anim_loading /> }
         </>
     );
 };

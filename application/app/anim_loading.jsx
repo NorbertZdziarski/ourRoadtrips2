@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Anim_loading({size}) {
+function Anim_loading({size=''}) {
 
 // let size = '';
 // if (showLoading[1] === 1) {size = '_m'}

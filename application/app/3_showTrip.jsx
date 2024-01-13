@@ -13,6 +13,7 @@ import ShowPhotoSlide from "./5_showPhoto-slide";
 // import AddRoute from "./3_add_route";
 import ShowMap from "./3_show_map";
 import { useParams } from 'react-router-dom';
+import Anim_loading from "./anim_loading";
 
 function ShowTrip() {
     let { id } = useParams();
@@ -20,7 +21,7 @@ function ShowTrip() {
     // const page = useStoreState(state => state.page);
     // // const tripId_memory = useStoreState(state => state.tripId);
     const tripId = id;
-
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
     const loggedUser = useStoreState(state => state.loggedUser);
     // const setPage = useStoreActions(actions => actions.setPage);
     // console.log(typeof loggedUser)
@@ -42,8 +43,10 @@ function ShowTrip() {
 
     useEffect(() => {
         // console.log('| use efect _ show trip')
+
         const target = `one/trip/${tripId}`
         const fetchDataAsync = async () => {
+            setShowLoading([true,0]);
             try {
                 const downloadedData = await fetchData(target);
                 // console.log(downloadedData);
@@ -52,6 +55,7 @@ function ShowTrip() {
             } catch (error) {
                 console.error("Error fetching data: ", error);
             }
+            setShowLoading([false,0]);
         };
         fetchDataAsync();
     }, []);
@@ -62,6 +66,7 @@ function ShowTrip() {
     // }
 
     async function saveDataFn(saveData) {
+        setShowLoading([true,0]);
         let rateArr = [];
         if (!data.tripRate) {data.tripRate = {}};
 
@@ -78,6 +83,7 @@ function ShowTrip() {
             };
         const target = `trip/${tripId}`
         await updateData(target,dataToSave);
+        setShowLoading([false,0]);
         // console.log(typeof dataToSave);
         //     .then(downloadedData => {
         //     setData(downloadedData[0])
@@ -90,8 +96,8 @@ function ShowTrip() {
     }
 
     return (
-        <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
-        <section className="mainViewStyle">
+        <section className={`userPanel_main divHeightTemp colorstyle_reflex_${displayStyles}`}>
+        <section className="mainViewStyle divHeightTemp">
             {data ? <>
                 <header className="showtrip_header">
                     <div>
@@ -168,7 +174,7 @@ function ShowTrip() {
                 <div id="tripComm" className="showtrip_description">
                     {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}
                 </div>
-            </> : <p>loading data</p>}
+            </> : <Anim_loading />}
             </section>
         </section>
     );

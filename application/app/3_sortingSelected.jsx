@@ -12,8 +12,10 @@ function SortingSelected({tripData, map, selected }) {
     const tripSort = useStoreState(state => state.tripSort);
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
+    const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     const sortAvg = () => {
+        setShowLoading([true,0]);
         tripData.forEach(trip => {
             let sum = 0;
             if (Array.isArray(trip.tripRate)) {
@@ -22,6 +24,7 @@ function SortingSelected({tripData, map, selected }) {
                 });
                 trip.averageRate = sum / trip.tripRate.length;
             } else {trip.averageRate = 0}
+            setShowLoading([false,0]);
         });
     }
     if (tripData) {

@@ -14,6 +14,7 @@ import ShowPhotoSlide from "./5_showPhoto-slide";
 import ShowMap from "./3_show_map";
 import { useParams } from 'react-router-dom';
 import LoadImage from "./a_loadimage";
+import Anim_loading from "./anim_loading";
 
 function ShowGroup() {
     let { id } = useParams();
@@ -48,6 +49,7 @@ function ShowGroup() {
         // console.log('| use efect _ show trip')
         const target = `one/group/${tripId}`
         const fetchDataAsync = async () => {
+
             try {
                 const downloadedData = await fetchData(target);
                 console.log(downloadedData);
@@ -98,7 +100,7 @@ function ShowGroup() {
 
     return (
         <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
-        <section className="mainViewStyle">
+        <section className="mainViewStyle divHeightTemp">
             {data ? <>
                 <header className="showtrip_header">
                     <div>
@@ -218,7 +220,7 @@ function ShowGroup() {
             {/*    <div id="tripComm" className="showtrip_description">*/}
             {/*        {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}*/}
             {/*    </div>*/}
-            </> : <p>loading data</p> }
+            </> : <Anim_loading /> }
             </section>
         </section>
     );

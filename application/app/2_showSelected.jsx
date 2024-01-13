@@ -3,6 +3,7 @@ import {useLocation, useNavigate, useMatch} from 'react-router-dom';
 import {fetchData} from "./a_CRUD_service";
 import SortingSelected from "./3_sortingSelected";
 import {useStoreActions} from "easy-peasy";
+import Anim_loading from "./anim_loading";
 
 function ShowSelected({dataFilter, map, selected}) {
     const [data, setData] = useState(null);
@@ -32,8 +33,10 @@ function ShowSelected({dataFilter, map, selected}) {
     }, [selected]);
 
     useEffect(() => {
+
         if (selected === 'trips') {
             if (data) {
+                setShowLoading([true,0]);
                 const fData = data.filter(trip => {
                     if (!trip.tripPublic) return false;
                     if ((dataFilter[1] !== "all" && dataFilter[1] !== "choose a country") && dataFilter[1] !== trip.tripCountry) {
@@ -50,10 +53,13 @@ function ShowSelected({dataFilter, map, selected}) {
                 setFilteredData(fData);
             }
         }
+
     }, [data, dataFilter]);
 
     useEffect(()=>{
-        if (filteredData) setShowOn(true);
+        if (filteredData) {
+            setShowLoading([false,0]);
+            setShowOn(true);}
     },[filteredData])
 
     return (
@@ -62,9 +68,7 @@ function ShowSelected({dataFilter, map, selected}) {
                 <SortingSelected tripData={filteredData}
                                  map = {map}
                                  selected={selected}/>
-            ) : (
-                <p>data loading...</p>
-            )}
+            ) : ( <Anim_loading />)}
         </section>
     );
 }

@@ -13,6 +13,7 @@ import icohome from "../images/home_house_icon_143764.png";
 import icogroup from "../images/people.png";
 import icocars from "../images/cars.png";
 import icoenvelope from "../images/envelope.png";
+import arrowup from "../images/up-arrow_icon-icons.com_73351.png";
 import { Link } from "react-router-dom";
 import FilterStaus from "./4_filterStatus";
 import {fetchData, transferData} from "./a_CRUD_service";
@@ -192,7 +193,7 @@ function Header() {
 
                                         {(moblieMenuClass === '') ? (<></>) : (
                                           <button onClick={() => setMoblieMenuClass('')}>
-                                              hide
+                                              <img src={arrowup} className={`header_ico ico_${displayStyles}`}/>
                                          </button>
                                    )}
                                    </> : <></>}

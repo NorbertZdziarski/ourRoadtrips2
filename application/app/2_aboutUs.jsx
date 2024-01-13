@@ -12,60 +12,120 @@ import logogmaps from "../images/gmaps.png";
 function AboutUs() {
     const displayStyles = useStoreState(state => state.displayStyles);
     return (
-        <section className="underConstruction mainViewStyle">
-            <header className={`layout_flex-sb`}>
-                <button> idea </button>
-                <button> aplikacja web </button>
-                <button> aplikacja serwerowa  </button>
-                <button> baza danych</button>
-                <button> API</button>
-                <button> projekt i realizacja </button>
-                <button> o mnie </button>
+        <section className="aboutUsStyle">
+            <header >
+                <a href="#aboutProject_idea"> idea </a>
+                <a href="#aboutProject_front"> aplikacja web </a>
+                <a href="#aboutProject_back"> aplikacja serwerowa  </a>
+                <a href="#aboutProject_dataBase"> baza danych</a>
+
+                <a href="#aboutProject_api">API</a>
+
+                <a href="#aboutProject_prj"> projekt i realizacja </a>
+                <a href="#aboutProject_aboutMe"> o mnie </a>
             </header>
             <main>
-                <section>
-                    <h4 >             * idea</h4>
-                    <p>stworzenie............ </p>
-                </section>
-
-                <section>
-                    <img src={logoreact} className={`aboutme_photo`}/>
-                    <img src={logosass} className={`aboutme_photo`}/>
+                <section id="aboutProject_idea">
                     <div>
-                        <h4 >             * aplikacka web</h4>
-                        <p>wykorzystuje ReactJS wraz z HTML, SASS, </p>
+                    </div>
+                    <div>
+                        <h5 >* idea</h5>
+                        <p> / wkrótce ;) / </p>
                     </div>
                 </section>
 
-                <section>
-                    <img src={logonode} className={`aboutme_photo`}/>
-                    <h4 >   *  aplikacja serwerowa</h4>
-                    <p>
-                        * nodeJS </p>
+                <section id="aboutProject_front">
+                    <div>
+                        <img src={logoreact} className={`aboutme_photo`}/>
+                        <img src={logosass} className={`aboutme_photo`}/>
+                    </div>
+                    <div>
+                        <h5 >* aplikacja web</h5>
+                        <p> podczas realizacji aplikacji wykorzystałem ReactJS + SASS oraz przedstawione poniżej frameworki oraz biblioteki:</p>
+                        <ul> <p> ReactJS </p>
+                            <li> język JSX </li>
+                            <li> funkcje JavaScript </li>
+                            <li> asynchroniczność </li>
+                            <li> React Rooter Dom </li>
+                            <li> easy-peasy </li>
+                            <li> axios </li>
+                            <li> jwt-decode </li>
+
+                        </ul>
+                        <ul> <p> SASS </p>
+                            <li> RWD Responsive Web Design </li>
+                            <li> Mixins </li>
+                            <li> @Import </li>
+                        </ul>
+                    </div>
                 </section>
-                <section>
+
+                <section id="aboutProject_back">
+                    <div>
+                        <img src={logonode} className={`aboutme_photo`}/>
+                    </div>
+                    <div>
+                        <h5 >*  aplikacja serwerowa</h5>
+                        <p> aplikacja serwerowa została przeze mnie napisana w NodeJS. Wykorzystując SSH oraz FTP umieściłem ją na hostingu nazwa.pl.</p>
+                        <ul>
+                            <li> cors </li>
+                            <li> dotenv </li>
+                            <li> express </li>
+                            <li> fs </li>
+                            <li> mongoDB </li>
+                            <li> multer </li>
+                        </ul>
+                    </div>
+                </section>
+                <section id="aboutProject_dataBase">
+                    <div>
                     <img src={logomongo} className={`aboutme_photo`}/>
-                    <h4 >         *baza danych</h4>
+                </div>
+                <div >
+                    <h5 > *baza danych</h5>
                     <p>Mongo DB </p>
+                </div>
+                </section>
+                <section id='aboutProject_api'>
+                    <div>
+                        <img src={logogoogle} className={`aboutme_photo`}/>
+                        <img src={logogmaps} className={`aboutme_photo`}/>
+                    </div>
+                    <div >
+                                    <h5 > API </h5>
+                        <p> aplikacja wykorzystuje zewnętrzne API do obsługi: </p>
+                        <ul>
+                            <li> logowanie Google </li>
+                            <li> obsługa Google Map </li>
+                            <li> logowanie ... / wkrótce /</li>
+                        </ul>
+                    </div>
+                </section>
+                <section id="aboutProject_prj">
+                    <div>
+                    </div>
+                    <div>
+                    <h5 >  ** projekt i realizacja</h5>
+                        <p>podczas realizacji wykorzystwałem ideę SCRUM oraz liczne narzędzia: </p>
+                        <ul>
+                            <li> idea SCRUM </li>
+                            <li> narzędzie millanote </li>
+                            <li> narzędzie GIThub </li>
+                        </ul>
+
+                    </div>
                 </section>
                 <section>
-                    <img src={logogoogle} className={`aboutme_photo`}/>
-                    <img src={logogmaps} className={`aboutme_photo`}/>
-                    <h4 > API </h4>
-                </section>
-                <section>
-                    <h4 >             *             *projekt i realizacja</h4>
-                    <p>idea scrum </p>
-                    <p>millanote </p>
-                    <p>millanote </p>
-                </section>
-                <section>
-                    <h4 >             * aplikacka web</h4>
-                    <p>wykorzystuje ReactJS wraz z HTML, SASS, </p>
+                    <div>
+                    </div>
+                    <div>
+                        <h5 >* pozostałe dane</h5>
+                        <p>HTML5, SASS, </p>
+                    </div>
                 </section>
             </main>
-            <footer>
-                <p> o mnie. Linked In, </p>
+            <footer id="aboutProject_aboutMe" className={'layout_flex-sb-directColumn'}>
+                <p> zapraszam na strony o mnie: </p> <a href={'https://github.com/NorbertZdziarski'} target={'_blank'}> GitHub </a> <a href={'https://www.linkedin.com/in/norbert-zdziarski/'} target={'_blank'}> Linked In </a>
             </footer>
         </section>
     );

@@ -19,7 +19,7 @@ function DataSort({setMoblieMenuClass}) {
                 </option>
             ))}
         </select>
-        <button onClick={()=> {
+        <button className={'main_button '} onClick={()=> {
             setMoblieMenuClass('');
             setDataSortOn(false)} }>Cancel</button>
     </>)
