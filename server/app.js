@@ -26,7 +26,7 @@ let port = process.env.PORT || '9000';
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         const fileType = req.body.type;
-        if ((fileType!=='users') && (fileType!=='trips')  && (fileType!=='cars')) {
+        if ((fileType!=='users') && (fileType!=='trips')  && (fileType!=='cars') && (fileType!=='groups')) {
             const error = new Error('błędna nazwa folderu (typ)');
             error.code = 'INCORRECT_FOLDER';
             saveLog(`błąd ${error}`,`app.js _ multer `);
