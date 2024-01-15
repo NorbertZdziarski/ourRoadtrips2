@@ -11,6 +11,7 @@
     @include sidebarstyle;
   }
   //width: $main-view-width;
+  min-height: 100%;
   box-sizing: border-box;
   margin-inline: auto;
   overflow-x: hidden;
@@ -79,5 +80,15 @@
   button {
     color: black;
     border: 0;
+  }
+}
+
+.layout_gridAuto {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(130px,100%), 1fr));
+  gap: 5px;
+
+  @media (max-width: 950px) {
+    grid-template-columns: 1fr;
   }
 }

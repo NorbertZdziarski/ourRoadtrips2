@@ -36,6 +36,10 @@ async function addMultiFiles(file, dataId, type, formData, loggedUser) {
         toSave = {
             tripPhoto: tempFileNameArr
         };
+    } else if (type === 'group') {
+        toSave = {
+            photo: tempFileNameArr
+        };
     }
 
     const toReturn = {

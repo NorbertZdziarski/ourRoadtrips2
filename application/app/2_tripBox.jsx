@@ -44,8 +44,8 @@ function TripBox({trip}) {
                     </div>
                     <div>
                         <div className="tripInfo_mainpage_Info-tripRate">
-                            {/*<ShowRate*/}
-                            {/*    rateArr={trip.tripRate}/>*/}
+                            <ShowRate
+                                rateArr={trip.tripRate}/>
                         </div>
                         {/*<p className="tripInfo_mainpage_Info-tripComm">comments</p>*/}
                         {(trip.tripComments && trip.tripComments.length > 0) ? <img src={icoChat} className="icoStyleTripBox"/> : <></>}

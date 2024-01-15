@@ -99,111 +99,65 @@ function ShowGroup() {
     }
 
     return (
-        <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
-        <section className="mainViewStyle divHeightTemp">
+        // <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
+        // <section className="mainViewStyle divHeightTemp">
+        <section className={'divWidthTemp divHeightTemp'}>
             {data ? <>
-                <header className="showtrip_header">
+                {/*className="showtrip_header"*/}
+                <header >
                     <div>
-                        <h3>   {data.name} </h3>
-                        <p className="fnt_subtitle">{data.type} </p>
-                    </div>
+                        <LoadImage imageName={data.photo[0]}
+                                   imagePath={'images/groups'}
+                                   photoClass={'showGroup_mainPhoto'}
+                        />
+                        <h3> H3:  {data.name} </h3>
 
-                    {/*{loggedUser._id ? <RateModule*/}
-                    {/*    tripId = {data._id}*/}
-                    {/*    tripRate = {data.tripRate}*/}
-                    {/*    onRatingChange={(value) => saveDataFn({rate: value, user:loggedUser._id})}/> :  <ShowRate*/}
-                    {/*    rateArr={data.tripRate}/> }*/}
-                    {/*UWAGA - poniżej coś jest nie teges!*/}
-                    {/*<p>like: {rateValue} of {quantity} </p>*/}
-                    {/*    onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
+                    </div>
+                    <nav className={'layout_flex-sc'}>
+                        <button> JOIN US! </button> <button> follow us </button>
+                    </nav>
 
                 </header>
-                <div className={`showtrip_main colorstyle_button_${displayStyles} buttons_inline`}>
-                    {/*<button onClick={()=>setShowMap(false)}>   photo </button>*/}
-                    {/*<button onClick={()=>setShowMap(true)}>   map </button>*/}
-                    {/*<button onClick={()=> {*/}
-                    {/*    setShowMap(false);*/}
-                    {/*    // window.location.href = '#tripDescription'*/}
-                    {/*}}>   story </button>*/}
+                <div className={`colorstyle_button_${displayStyles} fnt_subtitle`}>
+                    <p>! under construction !</p>
+                    <p > TYP GRUPY: {data.type} </p>
+                    <p>about us: {data.description}</p>
+                    <p>founder of the group: {data.owner}</p>
+                    <p>the group has existed since: </p>
 
-                    {data.description}
-                    {data.type}
-                    {data.owner}
-                    {data.photo ? <ShowPhotoSlide
-                        photo={data.photo}
-                        style={'aboutme_PhotoCar'}/> : <p>no photo</p>}
+               </div>
+                <nav className={'layout_gridAuto'}>
+                    <button disabled onClick={()=>setShowMap(false)}> TRIPS </button>
+                    <button disabled onClick={()=>setShowMap(true)}> USERS </button>
+                    <button disabled onClick={()=>setShowMap(true)}> CARS </button>
+                    <button disabled onClick={()=>setShowMap(true)}> DISCUSSION </button>
+                </nav>
+                <div className={'fnt_subtitle'}>
 
-                {/*    {data.userId ?*/}
-                {/*        <Link to={`/aboutme/${data.userId}`} onClick={()=>{*/}
-                {/*            setShowMap(false);*/}
-                {/*            // setPage("showTrip");*/}
-                {/*            }}>*/}
-                {/*                {data.tripUser}*/}
-                {/*        </Link> : <></>}*/}
-                {/*    {data.tripCar ?*/}
-                {/*        <Link to={`/showcar/${data.tripCar[1]}`} onClick={()=>{*/}
-                {/*                setShowMap(false);*/}
-                {/*                // setPage("showcar");*/}
-                {/*            }}>*/}
-                {/*                {data.tripCar[0]}*/}
-                {/*        </Link> : <></>}*/}
-
-                {/*    /!*<button onClick={()=> { /aboutme*!/*/}
-                {/*    /!*    *!/*/}
-                {/*    /!*    chosenFn(data.userId)*!/*/}
-                {/*    /!*}}>    </button>*!/*/}
-                {/*      /!*  <button disabled={!data.tripCar} onClick={()=>{*!/*/}
-                {/*      /!*      setShowMap(false);*!/*/}
-                {/*      /!*      setChosen();*!/*/}
-                {/*      /!*setPage("");*!/*/}
-                {/*      /!*  }}>    </button>*!/*/}
-                </div>
-                {/*{showMap ? <><ShowMap country={data.tripCountry} tripMap={data.tripMap}/></> : <>*/}
-                {/*    {data.tripPhoto ? <ShowPhotoSlide*/}
-                {/*        photo={data.tripPhoto}*/}
-                {/*        style={'aboutme_PhotoCar'}/> : <p>no photo</p>}*/}
-                {/*</> }*/}
+                    <p> our groups: </p>
 
 
-                <div className="showtrip_description ">
 
-                    <p> USERS: </p>
+
                     {data.users ? data.users.map((user) => (
-                        <div key={`keytrip${user.id}`}>
-                            <p>{user.nick}</p>
-                            {user.photo ?
-                            <LoadImage imageName={user.photo || 'user.png'}
-                                       imagePath='images/users'
-                                       photoClass="userPanel_userPhoto"
-                            /> : <p>no photo</p>}
-                        </div>
+                            <Link to={`/aboutme/${user.id}`} key={`keytrip${user.id}`} onClick={()=>{
+                                setShowMap(false);
+                                // setPage("showTrip");
+                            }}>
+                                <LoadImage imageName={user.photo || 'user.png'}
+                                           imagePath='images/users'
+                                           photoClass="userPanel_userPhoto"
+                                />
+                            </Link>
                     )) : null}
                     <p> TRIPS: </p>
-                    {/*{showTrips ? <>showTrips.map((user)=>{*/}
 
-                    {/*    <div key={`keytrip${user}`}>*/}
-                    {/*        <p>_</p>*/}
-                    {/*        <p>fsdjkfhjdshfksdj</p>*/}
-                    {/*        /!*{user.photo ? <ShowPhotoSlide*!/*/}
-                    {/*        /!*    photo={data.photo}*!/*/}
-                    {/*        /!*    style={'aboutme_PhotoCar'}/> : <p>no photo</p>}*!/*/}
-                    {/*    </div>*/}
-                    {/*}) </> : <></>}*/}
                     <p> CARS: </p>
-                    {/*{showCars ? <> showCars.map((user)=>{*/}
 
-                    {/*    <div key={`keytrip${user}`}>*/}
-                    {/*        <p>_</p>*/}
-                    {/*        <p>fsdjkfhjdshfksdj</p>*/}
-                    {/*        /!*{user.photo ? <ShowPhotoSlide*!/*/}
-                    {/*        /!*    photo={data.photo}*!/*/}
-                    {/*        /!*    style={'aboutme_PhotoCar'}/> : <p>no photo</p>}*!/*/}
-                    {/*    </div>*/}
-                    {/*}) </> : <></> }*/}
+                    <p> discussion: </p>
 
-                    {/*// forum dyskusyjne ???????????????????????????????????? */}
                 </div>
-                <button> JOIN US! </button>
+
             {/*    <div className={`showtrip_main colorstyle_button_${displayStyles}`}>*/}
             {/*        {loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}*/}
             {/*        {loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}*/}
@@ -222,7 +176,7 @@ function ShowGroup() {
             {/*    </div>*/}
             </> : <Anim_loading /> }
             </section>
-        </section>
+        // </section>
     );
 }
 

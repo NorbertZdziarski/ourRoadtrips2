@@ -38,15 +38,15 @@ function Header() {
     const [filterBar, setFilterBar] = useState(false);
     const [filterBarStatus, setFilterBarStatus] = useState('status');
     const [newMessage, setNewMessage] = useState(false);
-
+    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "post_ale_czy_aby_na_pewno" ]
     const location = useLocation();
         React.useEffect(() => {
             // console.log('Zmiana URL', location);
             const firstPartOfPath = location.pathname.split('/')[1].toLowerCase();
-            console.log('pierwsza część: ', firstPartOfPath);
+            // console.log('pierwsza część: ', firstPartOfPath);
             if (firstPartOfPath === "") {setNewPage("mainpage")} else {setNewPage(firstPartOfPath)}
             if (!loggedUser && (firstPartOfPath === "userpanel" || firstPartOfPath === "userprofile" ||  firstPartOfPath === "addcar" || firstPartOfPath === "addtrip" || firstPartOfPath === "addgroup" || firstPartOfPath === "post")) {
-                console.log('>> header - path: ' + firstPartOfPath)
+                // console.log('>> header - path: ' + firstPartOfPath)
                 navigate('/');
             }
         }, [location]);
@@ -129,17 +129,17 @@ function Header() {
     return (<>
             <header className={`headerStyle${moblieMenuClass} fnt_btn_header`}>
                 <div className={` layout_flex-sb layout_mainViewWidth colorStyle_headerBtn_${displayStyles}`}>
-                    {(screenWidth < 950) && (moblieMenuClass === '') ? <>
+                    {(screenWidth < 950) && (moblieMenuClass === '') && (!pageExclusion.includes(page)) ? <>
                         <button onClick={() => openMenu()}>
                             =
                         </button>
                     </> : <>
-                        {(((page === "mainpage") || (page === "aboutus") || (page === "showtrip") || (page === "showcar") || (page === "map") || (page === "mainpagefilter")) ? (
+                        {(((page === "mainpage") || (page === "mainpagefilter")) ? (
                             <section className={`headerButtons${moblieMenuClass} `}>
 
                            {((page !== "mainpage") && (page !== "map")) ?<>
 
-
+                               {/*|| (page === "aboutus") || (page === "showtrip") || (page === "showcar") || (page === "map")*/}
                                <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                    {/*<InsertIco icoName={'icohome'} />*/}
                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
@@ -225,14 +225,14 @@ function Header() {
 
                                 {(moblieMenuClass === '') ? (<></>) : (
                                     <button onClick={() => setMoblieMenuClass('')}>
-                                        hide
+                                        <img src={arrowup} className={`header_ico ico_${displayStyles}`}/>
                                     </button>
                                 )}
                             </section>
                         ) : (
                             <></>)}
 
-                        {(((page === "edituserdata") || (page === "addcar") || (page === "addtrip" || (page === 'post'))) ? (
+                        {((pageExclusion.includes(page)) ? (
                             <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
                                 <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
                                     <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
@@ -243,48 +243,48 @@ function Header() {
                                 {(moblieMenuClass === '') ? (<></>) : (
 
                                     <button onClick={() => setMoblieMenuClass('')}>
-                                        hide
+                                        <img src={arrowup} className={`header_ico ico_${displayStyles}`}/>
                                     </button>
                                 )}
                             </section>
                         ) : (
                             <></>))}
 
-                        {(((page === "aboutme") || (page === "groups")  || (page === "showgroup")) ? (
-                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
-                                <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
-                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
-                                </Link>
-                                <button onClick={() => navigate(-1)}>
-                                    Back
-                                </button>
-                                {(moblieMenuClass === '') ? (<></>) : (
+                        {/*{(((page === "aboutme") || (page === "groups")  || (page === "showgroup")) ? (*/}
+                        {/*    <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>*/}
+                        {/*        <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>*/}
+                        {/*            <img src={icohome} className={`header_ico ico_${displayStyles}`}/>*/}
+                        {/*        </Link>*/}
+                        {/*        <button onClick={() => navigate(-1)}>*/}
+                        {/*            Back*/}
+                        {/*        </button>*/}
+                        {/*        {(moblieMenuClass === '') ? (<></>) : (*/}
 
-                                    <button onClick={() => setMoblieMenuClass('')}>
-                                        hide
-                                    </button>
-                                )}
-                            </section>
-                        ) : (
-                            <></>))}
+                        {/*            <button onClick={() => setMoblieMenuClass('')}>*/}
+                        {/*                hide*/}
+                        {/*            </button>*/}
+                        {/*        )}*/}
+                        {/*    </section>*/}
+                        {/*) : (*/}
+                        {/*    <></>))}*/}
 
-                        {((page === "login") ? (
-                            <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>
-                                <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
-                                    <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
-                                </Link>
-                                <button onClick={() => navigate(-1)}>
-                                    Back
-                                </button>
-                                {(moblieMenuClass === '') ? (<></>) : (
+                        {/*{((page === "login") ? (*/}
+                        {/*    <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>*/}
+                        {/*        <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>*/}
+                        {/*            <img src={icohome} className={`header_ico ico_${displayStyles}`}/>*/}
+                        {/*        </Link>*/}
+                        {/*        <button onClick={() => navigate(-1)}>*/}
+                        {/*            Back*/}
+                        {/*        </button>*/}
+                        {/*        {(moblieMenuClass === '') ? (<></>) : (*/}
 
-                                    <button onClick={() => setMoblieMenuClass('')}>
-                                        hide
-                                    </button>
-                                )}
-                            </section>
-                        ) : (
-                            <></>))}
+                        {/*            <button onClick={() => setMoblieMenuClass('')}>*/}
+                        {/*                hide*/}
+                        {/*            </button>*/}
+                        {/*        )}*/}
+                        {/*    </section>*/}
+                        {/*) : (*/}
+                        {/*    <></>))}*/}
 
 
                     </>}

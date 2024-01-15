@@ -12,7 +12,7 @@ function GroupBox({group}) {
     const setTripId = useStoreActions(actions => actions.setTripId);
     const displayStyles = useStoreState(state => state.displayStyles);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
-
+    console.log(' group box ')
     window.onload = function() {
         var divHeight = document.getElementById('tripbox_title').offsetHeight;
         // console.log('div height: ' + divHeight)
@@ -53,9 +53,8 @@ function GroupBox({group}) {
 
                     </div>
                 </div>
-                {group.photo ? <>
-                    <ShowPhoto photo={group.photo} style={"photoStyle"} source='trips' />
-                </> : <p className="ramka">no photo.</p>}
+                <ShowPhoto photo={group.photo} style={"photoStyle"} source='groups' />
+
             {/*</button>*/}
             {/*</Link>*/}
         </div>

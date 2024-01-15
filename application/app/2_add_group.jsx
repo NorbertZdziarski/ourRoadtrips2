@@ -107,8 +107,8 @@ function AddGroup() {
                     idNewGroup = res.id;
                     console.log('> RES > ' + res)
                     addMultiFiles(file, res.id, type, formDataToSave, loggedUser._id).then((responseData) => {
-                        console.log(responseData)
-                        updateData(`${type}/${res.id}`, responseData);
+                        console.log('responseData: ' + responseData)
+                        updateData(`${type}/${res.id}`, responseData).then((r)=>{ console.log('>>> odp: ' + r)});
                         // addDataToMongo(responseData).then((r)=>{ console.log(r)})
                     })
                 });

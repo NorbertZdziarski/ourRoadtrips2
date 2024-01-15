@@ -18,6 +18,7 @@ function Post() {
     const [newGroupUser, setNewGroupUser] = useState('')
 
     const [newMessages, setNewMessages] = useState(0);
+    const [newMessagesInbox, setNewMessagesInbox] = useState(0);
     const [newMessagesOff, setNewMessagesOff] = useState(0);
     const [updateGroup, setUpdateGroup] = useState(null);
     const [inboxClass, setInboxClass] = useState('');
@@ -39,7 +40,15 @@ function Post() {
         let askFormSend = {fromUserId: loggedUser._id};
         let responseSend = await transferData(`message/find`, askFormSend);
         let dataSend = responseSend.id.reverse();
-        setSendMessages(dataSend)
+        let tempArr = [];
+        dataSend.forEach((inmess)=>{
+                // if (inmess.readed === false) {
+                    if (inmess.type !== 'official') {
+                        tempArr.push(inmess)
+                    // }
+                }
+        })
+        setSendMessages(tempArr)
     }
 
     // async function updateMessage(message) {
@@ -136,16 +145,17 @@ function Post() {
     useEffect(()=>{
         if (incommingMessages) {
                 let count = 0;
+                let countInbox = 0;
                 let countOff = 0;
                 incommingMessages.forEach((inmess)=>{
-                    if (inmess.readed === false) {
-                        if (inmess.type === 'official') {
-                            countOff++;
-                        } else {
-                            count++;
-                        }
+                    if (inmess.type === 'official')  {
+                        if (inmess.readed === false) countOff++;
+                    } else {
+                        countInbox++;
+                        if (inmess.readed === false) count++;
                     }
                 })
+            setNewMessagesInbox(countInbox)
             setNewMessages(count);
             setNewMessagesOff(countOff)
         }
@@ -160,7 +170,7 @@ function Post() {
     },[whichScreen])
 
     useEffect(async () => {
-        console.log(' delete item ')
+        // console.log(' delete item ')
         if (yesOrNot[1] === 2) {
             if (toDelete[0] === 'message') {
                 console.log('message ' + toDelete[1]._id)
@@ -217,7 +227,7 @@ function Post() {
                     <button className={sendedClass} onClick={()=>setWhichScreen('sended')}>sended</button>
                     <button className={officialClass} onClick={()=>setWhichScreen('official')}>official {newMessagesOff ? `[ ${newMessagesOff} ]` : ''}</button>
                 </nav>
-                { ((whichScreen === 'inbox') && incommingMessages) ?  <h5>  ilość wiadomości: {incommingMessages.length}, w tym nie przeczytane: {newMessages}</h5> :null }
+                { ((whichScreen === 'inbox') && incommingMessages) ?  <h5>  ilość wiadomości: {newMessagesInbox}, w tym nie przeczytane: {newMessages}</h5> :null }
                 { ((whichScreen === 'sended') && sendMessages) ?  <h5>  ilość wiadomości: {sendMessages.length}</h5> : null }
                 { (whichScreen === 'new') ?  <h5>  write new message: </h5> : null }
                 <hr/>
@@ -263,7 +273,7 @@ function Post() {
                                                 setYesOrNot([true,0])
                                             }}> delete </button>
                                         </div>
-                                </div> : null )
+                                     </div> : null )
                             })}
                         </> : <p>no data</p>}</>:<></>}
                     {(whichScreen === 'official') ? <>
@@ -288,7 +298,7 @@ function Post() {
                         </> : <p>no data</p>}
                     </>:<></>}
                 </nav> :null}
-                {(readMessage || window.innerWidth > 951 ) ?
+                {(readMessage || whichScreen === 'new' || window.innerWidth > 951 ) ?
                 <article className={'layout_grid postMessage divHeightTemp divWidthTemp'}>
                     {(whichScreen === 'new') ? <>
                         <NewMessage setWhichScreen={setWhichScreen} sendMessages={sendMessages} setSendMessages={setSendMessages} replyMessage={sendMessTxt} sendMessReciver={sendMessReciver}/>

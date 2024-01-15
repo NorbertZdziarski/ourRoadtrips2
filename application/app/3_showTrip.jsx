@@ -66,6 +66,8 @@ function ShowTrip() {
     // }
 
     async function saveDataFn(saveData) {
+        // console.log(JSON.stringify(saveData))
+
         setShowLoading([true,0]);
         let rateArr = [];
         if (!data.tripRate) {data.tripRate = {}};
@@ -94,9 +96,10 @@ function ShowTrip() {
         setChosen(user);
     //     setPage("aboutMe");
     }
-
+    if (data) console.log('data.tripRate ' + data.tripRate)
     return (
-        <section className={`userPanel_main divHeightTemp colorstyle_reflex_${displayStyles}`}>
+        // <section className={`userPanel_main divHeightTemp colorstyle_reflex_${displayStyles}`}>
+        <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
         <section className="mainViewStyle divHeightTemp">
             {data ? <>
                 <header className="showtrip_header">
@@ -108,11 +111,11 @@ function ShowTrip() {
                     {loggedUser._id ? <RateModule
                         tripId = {data._id}
                         tripRate = {data.tripRate}
-                        onRatingChange={(value) => saveDataFn({rate: value, user:loggedUser._id})}/> :  <ShowRate
-                        rateArr={data.tripRate}/> }
-                    {/*UWAGA - poniżej coś jest nie teges!*/}
+                        onRatingChange={(value) => saveDataFn({rate: value, user:loggedUser._id})}/> :
+                        <ShowRate rateArr={data.tripRate}/> }
+                    {/*UWAGA !!!!!!!!!!!!!!!!!!!! - poniżej coś jest nie teges!*/}
                     {/*<p>like: {rateValue} of {quantity} </p>*/}
-                    {/*    onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
+                    {/*   <onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
 
                 </header>
                 <div className={`showtrip_main colorstyle_button_${displayStyles} buttons_inline`}>

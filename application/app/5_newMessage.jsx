@@ -6,8 +6,8 @@ import addDataToMongo from "./a_addDataToMongo";
 import {useNavigate} from "react-router-dom";
 
 function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage, sendMessReciver}) {
-    console.log('sendMessages: ' + sendMessReciver)
-    console.log('JSON sendMessages: ' + JSON.stringify(sendMessReciver));
+    // console.log('sendMessages: ' + sendMessReciver)
+    // console.log('JSON sendMessages: ' + JSON.stringify(sendMessReciver));
 
     const loggedUser = useStoreState(state => state.loggedUser);
     // const loggedUser = {
@@ -50,7 +50,7 @@ function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage
     },[enterMessage, formMessage])
 
     async function sendMessage() {
-        console.log(' --- > ')
+        // console.log(' --- > ')
         setShowLoading([true,0]);
         let saveData = {
             receiverNick: formMessage.receiverNick,
@@ -76,7 +76,7 @@ function NewMessage({setWhichScreen, setSendMessages, sendMessages, replyMessage
         setWhichScreen('sended')
     }
     function handleChange(user) {
-        console.log(user)
+        // console.log(user)
         let saveData = {
             receiverNick: user.nick,
             receiverId: user._id,

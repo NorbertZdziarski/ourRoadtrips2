@@ -5,6 +5,7 @@ import {updateData} from "./a_CRUD_service";
 function RateModule({ tripId, tripRate, onRatingChange }) {
     const [value, setValue] = useState(tripRate);
     const handleChange = (event, newValue) => {
+        // console.log('new value: ' + newValue)
         setValue(newValue);
         onRatingChange(newValue);
 
