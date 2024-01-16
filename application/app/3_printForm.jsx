@@ -63,7 +63,7 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
 
             const target = `select/cars/${loggedUser._id}`
             fetchData(target).then(downloadedData => {
-                usersCarsDisp = Object.values(downloadedData).map(car => [`${car.carMaker} ${car.carBrand}`,car._id, car.carStyleType]);
+                usersCarsDisp = Object.values(downloadedData).map(car => [`${car.carMaker} ${car.carBrand}`,car._id, car.carStyleType, car.carFuelType]);
                 // console.log('}}} users cars disp: ' + usersCarsDisp + ' JSON: ' + JSON.stringify(usersCarsDisp))
                 setShowLoading([false,0]);
                 // console.log('}}} 3 print form |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))

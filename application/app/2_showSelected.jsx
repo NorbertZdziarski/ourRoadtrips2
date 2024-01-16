@@ -22,12 +22,17 @@ function ShowSelected({dataFilter, map, selected}) {
                 target = 'all/groups';
             } else {
                 // do zmiany !!! na samochody !!!
-                target = 'all/trips';
+                target = 'all/cars';
             }
+            // console.log("target " + target)
             fetchData(target).then(downloadedData => {
+                // console.log("downloadedData " + downloadedData)
+                // console.log("downloadedData JSON " + JSON.stringify(downloadedData))
                 const dataArray = downloadedData.map(obj => Object.values(obj));
+
                 setData(downloadedData);
                 if (selected === 'groups') {setFilteredData(downloadedData)};
+                if (selected === 'cars') {setFilteredData(downloadedData)};
             });
         }
     }, [selected]);
@@ -64,11 +69,14 @@ function ShowSelected({dataFilter, map, selected}) {
 
     return (
         <section className="showTrips  ">
-            {showOn ? (
+            {showOn ? (<>
+                {/*{(selected === 'trips' ? <p></p> : null )}*/}
+                {(selected === 'groups' ? <><h4>ourGroups</h4><hr/></> : null )}
+                {(selected === 'cars' ? <><h4>ourCars</h4><hr/></> : null )}
                 <SortingSelected tripData={filteredData}
                                  map = {map}
                                  selected={selected}/>
-            ) : ( <Anim_loading />)}
+            </>) : ( <Anim_loading />)}
         </section>
     );
 }

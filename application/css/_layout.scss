@@ -52,6 +52,14 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.layout_flex-sb-directColumnToLine {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media screen and (max-width: 950px) {
+    flex-direction: row;
+  }
+}
 .layout_grid {
   display: grid;
   gap: 2rem;

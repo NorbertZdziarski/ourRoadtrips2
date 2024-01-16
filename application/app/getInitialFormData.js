@@ -8,6 +8,7 @@ export const getInitialFormData = (type,loggedUser, dataId) => {
             tripCar: dataId.tripCar ||  '',
             tripCarId: dataId.tripCarId ||  '',
             tripCarStyleType: dataId.tripCarStyleType ||  '',
+            tripCarFuelType: dataId.tripCarFuelType ||  '',
             tripDate: dataId.tripDate || '',
             tripCountry: dataId.tripCountry || '',
             tripType: dataId.tripType || '',

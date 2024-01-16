@@ -177,12 +177,18 @@ div.colorStyle_headerBtn_dark {
 }
 
 .colorstyle_tripInfoBox_dark {
-  background-color: rgba(0, 0, 0, 0.26);
   color: $color-txt-main;
-  &:hover {
-    transition-duration: 0.2s;
+  @media screen and (max-width: 950px){
     background-color: rgba(0, 0, 0, 0.66);
   }
+  @media screen and (min-width: 951px) {
+    background-color: rgba(0, 0, 0, 0.26);
+    &:hover {
+      transition-duration: 0.2s;
+      background-color: rgba(0, 0, 0, 0.66);
+    }
+  }
+
 }
 
 .colorstyle_borderB_dark {

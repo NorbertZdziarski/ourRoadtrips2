@@ -38,7 +38,7 @@ function Header() {
     const [filterBar, setFilterBar] = useState(false);
     const [filterBarStatus, setFilterBarStatus] = useState('status');
     const [newMessage, setNewMessage] = useState(false);
-    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "post_ale_czy_aby_na_pewno" ]
+    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "cars", "post_ale_czy_aby_na_pewno" ]
     const location = useLocation();
         React.useEffect(() => {
             // console.log('Zmiana URL', location);
@@ -167,7 +167,7 @@ function Header() {
                                                 <img src={icogroup} className={`header_ico ico_${displayStyles}`}/>
                                            </Link>
 
-                                           <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                           <Link to="/cars" className="myLink" onClick={() => {setPage("mainpage")}}>
                                                 <img src={icocars} className={`header_ico ico_${displayStyles}`}/>
                                            </Link>
                                            {(moblieMenuClass === '_mobile')? <Link to="/"  onClick={() => {
@@ -298,22 +298,28 @@ function Header() {
                                     </Link>
                                 </> : <></>}
                             {(loggedUser && page !== 'userprofile') ?<>
-                                <Link to={`/userprofile`} className="myLink" onClick={() => {setPage("userprofile")}}>
-                                <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
-                                           imagePath='images/users'
-                                           photoClass="header_photo"
-                                />
-                                </Link>
+                                {/*<Link to={`/userprofile`} className="myLink" onClick={() => {setPage("userprofile")}}>*/}
+
+                                {/*</Link>*/}
+                                <button onClick={()=>{
+                                    setFilterBarStatus("settings");
+                                    setFilterBar(!filterBar);
+
+                                }}> <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
+                                               imagePath='images/users'
+                                               photoClass="header_photo"
+                                /></button>
                             </> : <></>}
 
                             {!loggedUser ?<> <Link to="/login" className="myLink" onClick={() => {setPage("login")}}> LOGIN </Link></> : <></>}
-                            {(page === 'userprofile') ? <button onClick={() => {
-                                setLoggedUser();
-                                googleLogout();
-                                setPage("mainPage");
-                            }}> Logout
-                            </button> : <></>}
-                            <button onClick={() => {
+                            {/*{(page === 'userprofile') ? <button onClick={() => {*/}
+                            {/*    setLoggedUser();*/}
+                            {/*    googleLogout();*/}
+                            {/*    setPage("mainPage");*/}
+                            {/*}}> Logout*/}
+                            {/*</button> : <></>}*/}
+                            {(!loggedUser ?
+                                <button onClick={() => {
                                 if (displayStyles === 'dark') {
                                     setDisplayStyles('light')
                                 } else {
@@ -321,7 +327,7 @@ function Header() {
                                 }
                             }}>
                                 <img src={icotheme} className={`header_ico ico_${displayStyles}`}/>
-                            </button>
+                            </button> : null )}
                         </div>) : (<></>)}
 
 
@@ -342,6 +348,61 @@ function Header() {
                 {filterBarStatus === 'filter' ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
                 {filterBarStatus === 'sort' ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
                 {(filterBarStatus === 'status' && window.innerWidth > 950) ? <FilterStaus setFilterBar={setFilterBar}/> :<></>}
+
+                {filterBarStatus === 'settings' ?
+                    <div className={'underHeader_settings'}>
+                        {(loggedUser && page !== 'userprofile') ?<>
+                            <Link to={`/userprofile`} className="myLink" onClick={() => {
+                                setFilterBar(!filterBar);
+                                setPage("userprofile");}}>
+                        <p>user panel</p>
+                            </Link>
+                        </> : <></>}
+                        <button disabled>yours groups</button>
+                        <button disabled>admin panel</button>
+                        <Link to={`/post`} className="myLink" onClick={() => {
+                            setFilterBar(!filterBar);
+                            setPage("post")}}>
+                        <p>post</p></Link>
+                        <button onClick={() => {
+                            if (displayStyles === 'dark') {
+                                setDisplayStyles('light')
+                            } else {
+                                setDisplayStyles('dark')
+                            }
+                        }}>
+                            <img src={icotheme} className={`header_ico ico_${displayStyles} style_separate`}/>
+                        </button>
+                        <button onClick={() => {
+                            setLoggedUser();
+                            googleLogout();
+                            setFilterBar(!filterBar);
+                            setPage("mainPage");
+                        }}> Logout
+                        </button>
+                        {/*{newMessage ? <>*/}
+                        {/*    */}
+                        {/*        <img src={icoenvelope} className={`header_ico ico_${displayStyles}`}/>*/}
+                        {/*    */}
+                        {/*</> : <></>}*/}
+
+                                {/*<LoadImage imageName={loggedUser.userPhoto || 'user.png'}*/}
+                                {/*           imagePath='images/users'*/}
+                                {/*           photoClass="header_photo"*/}
+                                {/*/>*/}
+
+
+                    {/*    {!loggedUser ?<> <Link to="/login" className="myLink" onClick={() => {setPage("login")}}> LOGIN </Link></> : <></>}*/}
+                    {/*    {(page === 'userprofile') ? <button onClick={() => {*/}
+                    {/*        setLoggedUser();*/}
+                    {/*        googleLogout();*/}
+                    {/*        setPage("mainPage");*/}
+                    {/*    }}> Logout*/}
+                    {/*</button> : <></>}*/}
+
+
+                    {/*<button onClick={()=>setFilterBar(!filterBar)}> HIDE </button>*/}
+                </div>:<></>}
             </div>
 
         </>

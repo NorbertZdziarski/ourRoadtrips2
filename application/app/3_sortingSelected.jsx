@@ -6,6 +6,7 @@ import ShowTrip from "./3_showTrip";
 import TripBox from "./2_tripBox";
 import GroupBox from "./3_groupBox";
 import Gmap from "./2_map";
+import CarBox from "./3_carBox";
 
 function SortingSelected({tripData, map, selected }) {
 
@@ -13,6 +14,11 @@ function SortingSelected({tripData, map, selected }) {
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+
+    // console.log('sorting vvvvvvvv')
+    // console.log('trip data JSON ' + JSON.stringify(tripData))
+    // console.log('trip data ' + tripData)
+    // console.log('selected ' + selected)
 
     const sortAvg = () => {
         setShowLoading([true,0]);
@@ -62,11 +68,17 @@ function SortingSelected({tripData, map, selected }) {
                                         setPage("showTrip");
                                     }}>
                                         <TripBox trip={obj}/>
-                                    </Link> : <Link to={`/showgroup/${obj._id}`} onClick={()=>{
+                                    </Link> : <></> )}
+                                    {(selected === 'groups' ? <Link to={`/showgroup/${obj._id}`} onClick={()=>{
                                         setPage("showTrip");
                                     }}>
                                         <GroupBox group={obj}/>
-                                    </Link>)}
+                                    </Link> : <></> )}
+                                    {(selected === 'cars' ? <Link to={`/showcar/${obj._id}`} onClick={()=>{
+                                        setPage("showCar");
+                                    }}>
+                                        <CarBox car={obj}/>
+                                    </Link> : <></> )}
                                 </div>
                             );
                         })}
