@@ -23,6 +23,8 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     if (typeof imageName !== 'string') return <>error</>;
     useEffect(() => {
         if (!imageName) return;
+        setShowLoading([true,0]);
+        console.log(' image name : ' + imageName)
         if (imageName.substring(0,4) === 'http') {
             imagePath=null;
             setImage(imageName);
@@ -43,8 +45,10 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
                 responseType: 'blob',
             }).then((response) => {
                 const url = window.URL.createObjectURL(new Blob([response.data]));
+                setShowLoading([false,0]);
                 setImage(url);
             }).catch((error) => {
+                setShowLoading([false,0]);
                 console.error('Błąd podczas żądania:', error);
             });}
 

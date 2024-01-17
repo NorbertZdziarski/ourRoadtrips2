@@ -71,8 +71,8 @@ function ShowSelected({dataFilter, map, selected}) {
         <section className="showTrips  ">
             {showOn ? (<>
                 {/*{(selected === 'trips' ? <p></p> : null )}*/}
-                {(selected === 'groups' ? <><h4>ourGroups</h4><hr/></> : null )}
-                {(selected === 'cars' ? <><h4>ourCars</h4><hr/></> : null )}
+                {(selected === 'groups' ? <><h4 className={'showSelected_header'}>ourGroups</h4></> : null )}
+                {(selected === 'cars' ? <><h4 className={'showSelected_header'}>ourCars</h4></> : null )}
                 <SortingSelected tripData={filteredData}
                                  map = {map}
                                  selected={selected}/>

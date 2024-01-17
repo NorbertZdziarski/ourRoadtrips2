@@ -16,6 +16,9 @@ function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
 
     const [photoNr, setPhotoNr] = useState(0);
 
+    console.log(photo)
+    console.log(photo.length)
+    console.log(JSON.stringify(photo))
 
     const fnBtnLeft = () => {
         if (photoNr > 0) {setPhotoNr( prevNr => prevNr -1)} else {setPhotoNr(photo.length-1)}
@@ -25,11 +28,11 @@ function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
         }
 
     return (<div className="imageBox" >
-        <button onClick={fnBtnLeft} className="imageBox_btn_L"> <img src={btnImgL} className="btnarrow"/> </button>
+        {photoNr > 0 ? <button onClick={fnBtnLeft} className="imageBox_btn_L"> <img src={btnImgL} className="btnarrow"/> </button> : null}
             <LoadImage imageName={photo[photoNr]}
                        imagePath={photoPath}
                        photoClass={style} />
-        <button onClick={fnBtnRight} className="imageBox_btn_R"> <img src={btnImgR} className="btnarrow"/> </button>
+        {photoNr < (photo.length -1) ? <button onClick={fnBtnRight} className="imageBox_btn_R"> <img src={btnImgR} className="btnarrow"/> </button> : null}
     </div>)
 }
 

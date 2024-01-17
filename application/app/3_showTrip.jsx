@@ -14,6 +14,13 @@ import ShowPhotoSlide from "./5_showPhoto-slide";
 import ShowMap from "./3_show_map";
 import { useParams } from 'react-router-dom';
 import Anim_loading from "./anim_loading";
+import icomap from "../images/map.png";
+import icobook from "../images/book.svg";
+import icophoto from "../images/image-solid.svg";
+import icouser from "../images/User-Outline.png";
+import icocarcar from "../images/car.png";
+import LoadImage from "./a_loadimage";
+
 
 function ShowTrip() {
     let { id } = useParams();
@@ -31,7 +38,7 @@ function ShowTrip() {
 
     const [data, setData] = useState(null);
     const [addComm, setAddComm] = useState(null);
-    const [showMap, setShowMap] = useState(false);
+    const [showPage, setShowPage] = useState('photo');
     const displayStyles = useStoreState(state => state.displayStyles);
     // console.log(typeof data)
     // console.log(typeof setData())
@@ -119,26 +126,30 @@ function ShowTrip() {
 
                 </header>
                 <div className={`showtrip_main colorstyle_button_${displayStyles} buttons_inline`}>
-                    <button onClick={()=>setShowMap(false)}>   photo </button>
-                    <button onClick={()=>setShowMap(true)}>   map </button>
+                    <button onClick={()=>setShowPage('photo')}>  {window.innerWidth < 950 ?
+                        <img src={icophoto} className={`header_ico ico_${displayStyles}`}/> : <p>photo</p> } </button>
+                    <button onClick={()=>setShowPage('map')}>
+                        {window.innerWidth < 950 ?
+                            <img src={icomap} className={`header_ico ico_${displayStyles}`}/> : <p>map</p> }
+                    </button>
                     <button onClick={()=> {
-                        setShowMap(false);
-                        // window.location.href = '#tripDescription'
-                    }}>   story </button>
+                        setShowPage('story');
+                      }}>  {window.innerWidth < 950 ?
+                        <img src={icobook} className={`header_ico ico_${displayStyles}`}/> : <p>story</p> }
+                     </button>
 
                     {data.userId ?
                         <Link to={`/aboutme/${data.userId}`} onClick={()=>{
-                            setShowMap(false);
-                            // setPage("showTrip");
-                            }}>
-                                {data.tripUser}
+                                      }}>
+                            {window.innerWidth < 950 ?
+                                <img src={icouser} className={`header_ico ico_${displayStyles}`}/> : <p>{data.tripUser}</p> }
+
                         </Link> : <></>}
                     {data.tripCar ?
                         <Link to={`/showcar/${data.tripCar[1]}`} onClick={()=>{
-                                setShowMap(false);
-                                // setPage("showcar");
-                            }}>
-                                {data.tripCar[0]}
+                                   }}>
+                            {window.innerWidth < 950 ? <img src={icocarcar} className={`header_ico ico_${displayStyles}`} />
+                                : <p>{data.tripCar[0]}</p> }
                         </Link> : <></>}
 
                     {/*<button onClick={()=> { /aboutme*/}
@@ -151,16 +162,18 @@ function ShowTrip() {
                       {/*setPage("");*/}
                       {/*  }}>    </button>*/}
                 </div>
-                {showMap ? <><ShowMap country={data.tripCountry} tripMap={data.tripMap}/></> : <>
+                {showPage === 'map' ? <><ShowMap country={data.tripCountry} tripMap={data.tripMap}/></> : null }
+                {showPage === 'photo' ?
+                <>
                     {data.tripPhoto ? <ShowPhotoSlide
                         photo={data.tripPhoto}
                         style={'aboutme_PhotoCar'}/> : <p>no photo</p>}
-                </> }
+                </> : null }
 
-
+                {showPage === 'story' ?
                 <div id="tripDescription" className="showtrip_description">
                     <p>   {data.tripDescription} </p>
-                </div>
+                </div> : null }
                 <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
                     {loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}
                     {loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}

@@ -7,6 +7,7 @@ import LoadImage from "./a_loadimage";
 import DataSort from "./4_sort";
 import logourl from "../images/logo_m.png";
 import icotheme from "../images/color-palette_6591234.png";
+import icomenu from "../images/menu.png";
 import icomap from "../images/map.png";
 import icolist from "../images/list_tasks_to_do_list_icon_233416.png";
 import icohome from "../images/home_house_icon_143764.png";
@@ -131,7 +132,7 @@ function Header() {
                 <div className={` layout_flex-sb layout_mainViewWidth colorStyle_headerBtn_${displayStyles}`}>
                     {(screenWidth < 950) && (moblieMenuClass === '') && (!pageExclusion.includes(page)) ? <>
                         <button onClick={() => openMenu()}>
-                            =
+                            <img src={icomenu} className={`header_ico ico_${displayStyles}`}/>
                         </button>
                     </> : <>
                         {(((page === "mainpage") || (page === "mainpagefilter")) ? (
@@ -163,11 +164,17 @@ function Header() {
                                                </Link>
 
                                            }
-                                           <Link to="/groups" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                           <Link to="/groups" className="myLink" onClick={() => {
+                                               setMoblieMenuClass('')
+                                               setPage("mainpage")
+                                           }}>
                                                 <img src={icogroup} className={`header_ico ico_${displayStyles}`}/>
                                            </Link>
 
-                                           <Link to="/cars" className="myLink" onClick={() => {setPage("mainpage")}}>
+                                           <Link to="/cars" className="myLink" onClick={() => {
+                                               setMoblieMenuClass('')
+                                               setPage("mainpage")
+                                           }}>
                                                 <img src={icocars} className={`header_ico ico_${displayStyles}`}/>
                                            </Link>
                                            {(moblieMenuClass === '_mobile')? <Link to="/"  onClick={() => {

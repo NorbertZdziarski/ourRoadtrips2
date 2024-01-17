@@ -39,26 +39,32 @@ function TripBox({trip}) {
             {/*    setPage("showTrip")*/}
             {/*    setTripId(trip._id)*/}
             {/*    } }>*/}
+            <section className="tripInfo_mainpage_Info-tripRate">
+                <ShowRate
+                    rateArr={trip.tripRate}/>
+            </section>
                 <div className={`tripInfo_mainpage_box layout_flex-sb-directColumnToLine colorstyle_tripInfoBox_${displayStyles}`}>
-                    <div>
+                  <div>
                         <div id="tripbox_title" className={`tripInfo_mainpage_title colorstyle_borderB_${displayStyles}`}>{trip.tripName}</div>
-                        <p className="tripInfo_mainpage_author"> by: {trip.tripUser}</p>
+                        <p className="trsipInfo_mainpage_author"> by: {trip.tripUser}</p>
                         <p className="tripInfo_mainpage_Info-country"> {trip.tripCountry}</p>
                     </div>
                     <div>
-                        <div className="tripInfo_mainpage_Info-tripRate">
-                            <ShowRate
-                                rateArr={trip.tripRate}/>
-                        </div>
-                        {/*<p className="tripInfo_mainpage_Info-tripComm">comments</p>*/}
-                        {(trip.tripComments && trip.tripComments.length > 0) ? <img src={icoChat} className="icoStyleTripBox"/> : <></>}
-
+                        <section className={window.innerWidth < 950 ? 'layout_flex-sc-directColumn' : ''}>
                         {window.innerWidth < 950 ? <>
                             {trip.tripType === "recreation" ? <img src={icotriprecreation} className="icoStyleTripBox"/> : <></> }
                             {trip.tripType === "sightseeing" ? <img src={icotripsightseeing} className="icoStyleTripBox"/> : <></> }
                             {trip.tripType === "extreme" ? <img src={icotripextreem} className="icoStyleTripBox"/> : <></> }
-                        </> : <p className="tripInfo_mainpage_Info-tripType"> {trip.tripType}</p>}
+                        </> : <section className="tripInfo_mainpage_Info-tripRate">
+                            <ShowRate
+                                rateArr={trip.tripRate}/>
+                        </section> }
 
+                        {/*<p className="tripInfo_mainpage_Info-tripComm">comments</p>*/}
+                        {(trip.tripComments && trip.tripComments.length > 0) ? <img src={icoChat} className="icoStyleTripBox"/> : <></>}
+
+                        {window.innerWidth < 950 ? null : <p className="tripInfo_mainpage_Info-tripType"> {trip.tripType}</p>}
+                        </section>
                     </div>
                 </div>
                 {trip.tripPhoto ? <>

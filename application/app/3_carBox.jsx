@@ -50,7 +50,8 @@ function CarBox({car}) {
                 <div className={`tripInfo_mainpage_box layout_flex-sb-directColumn colorstyle_tripInfoBox_${displayStyles}`}>
                     <div>
                         {/*<div id="tripbox_title" className={`tripInfo_mainpage_title colorstyle_borderB_${displayStyles}`}>{car.name}</div>*/}
-                        <p className="tripInfo_mainpage_author"> {car.carMaker} {car.carBrand}</p>
+                        <p className="tripInfo_mainpage_title"> {car.carMaker} {car.carBrand}</p>
+                        <p className={'tripInfo_mainpage_author'}> owner: {car.carUser} </p>
                         {/*<p className="tripInfo_mainpage_Info-country"> {group.tripCountry}</p>*/}
                     </div>
                     <div>
@@ -60,15 +61,16 @@ function CarBox({car}) {
                         </div>
                         {/*<p className="tripInfo_mainpage_Info-tripComm">comments</p>*/}
                         {/*{(group.tripComments && group.tripComments.length > 0) ? <img src={icoChat} className="icoStyleTripBox"/> : <></>}*/}
-                        <p className="tripInfo_mainpage_Info-tripType"> {car.carStyleType}</p>
-                        {car.carStyleType?<>
-                            {(car.carStyleType==="car")?<img src={icocarcar} className={`header_ico ico_${displayStyles}`} />:null}
-                            {(car.carStyleType==="bike")?<img src={icocarbike} className={`header_ico ico_${displayStyles}`} />:null}
-                            {(car.carStyleType==="4x4")?<img src={icocar4x4} className={`header_ico ico_${displayStyles}`} />:null}
-                            {(car.carStyleType==="camper")?<img src={icocarcamper} className={`header_ico ico_${displayStyles}`} />:null}
-                            {(car.carStyleType==="other")?<img src={icocarcar} className={`header_ico ico_${displayStyles}`} />:null}
 
-                        </>:null}
+                        {window.innerWidth < 950 ? <>
+                            {car.carStyleType?<>
+                                {(car.carStyleType==="car")?<img src={icocarcar} className={`header_ico ico_${displayStyles}`} />:null}
+                                {(car.carStyleType==="bike")?<img src={icocarbike} className={`header_ico ico_${displayStyles}`} />:null}
+                                {(car.carStyleType==="4x4")?<img src={icocar4x4} className={`header_ico ico_${displayStyles}`} />:null}
+                                {(car.carStyleType==="camper")?<img src={icocarcamper} className={`header_ico ico_${displayStyles}`} />:null}
+                                {(car.carStyleType==="other")?<img src={icocarcar} className={`header_ico ico_${displayStyles}`} />:null}
+
+                            </>:null} </>: <p className="tripInfo_mainpage_Info-tripType"> {car.carStyleType}</p> }
                         <p className="tripInfo_mainpage_Info-tripType">
                             {car.carFuelType?<>
                                 {(car.carFuelType==='petrol')?<img src={icopetrolpb} className={`header_ico ico_${displayStyles}`} />:null}

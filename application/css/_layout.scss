@@ -46,6 +46,13 @@
   //border: 1px solid blue;
   @include rwd(flex);
 }
+.layout_flex-sc-directColumn {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  @include rwd(flex);
+}
 
 .layout_flex-sb-directColumn {
   display: flex;
