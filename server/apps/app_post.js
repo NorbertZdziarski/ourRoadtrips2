@@ -36,18 +36,18 @@ router.post('/glephoto', async (req,res) => {
 
 })
 
-router.post('/gle', async (req, res) => {
+router.post('/check/:collectionName', async (req, res) => {
     saveLog(`26 | -- app.post -- /GLE `,`app_post >`);
     const inputData = await req.body;
-    let collectionName = 'users';
+    let collectionName = req.params.collectionName;
 
-    saveLog(`25 | google: ${inputData} json: ${JSON.stringify(inputData)}`,`app_post >`);
+    saveLog(`25 | check: ${inputData} json: ${JSON.stringify(inputData)}`,`app_post >`);
     let googlefilter = JSON.stringify(inputData.googleId)
 
     saveLog(`28 | json google ID  ${googlefilter} `,`app_post >`);
 
-    await manageData(collectionName,'googleId',inputData).then((r)=>{
-        saveLog(`31 | google - mongo response:  ${r} `,`app_post >`);
+    await manageData(collectionName,'check',inputData).then((r)=>{
+        saveLog(`50 | google / check - mongo response:  ${r} `,`app_post >`);
         res.status(200).send(r);
     })
         .catch((err)=>{

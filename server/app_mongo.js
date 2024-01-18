@@ -80,17 +80,17 @@ async function manageData(collectionName, action, data, filter) {
             await collection.deleteOne({_id: new ObjectId(data)});
             await client.close();
         }
-        else if (action === 'googleId') {
+        else if (action === 'check') {
 
-            saveLog(`-- google -- ${data}`, 'app_mongo')
+            saveLog(`-- check -- ${data}`, 'app_mongo')
             dataDB = await collection.findOne(data)
 
             await client.close();
             if (!dataDB) {
-                saveLog(`100 | zwrot - noUser`, 'app_mongo')
-                return 'noUser';
+                saveLog(`90 | zwrot - noData`, 'app_mongo')
+                return 'noData';
             }
-            saveLog(`103 | zwrot ${dataDB}`, 'app_mongo')
+            saveLog(`93 | zwrot ${dataDB}`, 'app_mongo')
             return dataDB;
         } else if (data && action === 'postlikeget') {
             saveLog(`81 | post _ insertOne ${JSON.stringify(data)}`, 'app_mongo')
