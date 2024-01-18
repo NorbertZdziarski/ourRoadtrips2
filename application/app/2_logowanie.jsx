@@ -92,11 +92,11 @@ function Login() {
 
         let sendData = { googleId: decodedToken.sub }
 
-        await transferData('gle',sendData)
+        await transferData('check/users',sendData)
             .then((downloadedData)=>{
 
                 if (downloadedData) {
-                    if (downloadedData === 'noUser') {
+                    if (downloadedData === 'noData') {
                             createUser(decodedToken);
                         setPage("mainPage")
                     } else {

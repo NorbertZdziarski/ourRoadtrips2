@@ -755,18 +755,25 @@ article.postMessage  {
 
 .aboutUsStyle {
   width: 100%;
+  position: relative;
 
   header {
-
+    z-index: 100;
+    background-color: rgba(40, 44, 52, 0.75);
+    position: sticky;
+    top: 0;
+    left: 0;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(130px,100%), 1fr));
     gap: 5px;
 
     @media (max-width: 950px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(4, 1fr);
     }
   }
-
+  main {
+    padding-top: 2rem;
+  }
   a {
     transition-duration: 0.3s;
     align-items: center;
@@ -892,4 +899,41 @@ article.postMessage  {
 .showSelected_header {
   border-bottom: 1px dotted rgba(255, 255, 255, 0.75);
   margin-bottom: 2rem;
+}
+
+.userAdminGroup {
+  width: 100%;
+
+ table {
+   width: 100%;
+   margin-top: 1rem;
+   background-color: rgba(119, 136, 153, 0.5);
+   border-collapse: collapse;
+   font-size: 1.8rem;
+   th {
+     background-color: #b2b2b2;
+     border-left: 1px solid rgba(119, 136, 153, 0.2);
+     color: #313131;
+
+   }
+   td, th {
+     padding: 0.5rem 1rem;
+     min-width: 3rem;
+     font-size: 2rem;
+   }
+   td {
+     border-left: 1px solid #b2b2b2;
+     border-bottom: 3px solid #b2b2b2;
+   }
+   tr {
+     min-height: 3rem;
+     &:hover {
+       transition-duration: 1s;
+       background-color: rgba(119, 136, 153, 1);
+     }
+   }
+   td:first-child {
+     border-left: 0;
+   }
+ }
 }

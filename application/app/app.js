@@ -22,6 +22,8 @@ import AddGroup from "./2_add_group";
 import NewMessage from "./5_newMessage";
 import Post from "./3_post";
 import Alert from "./5_alert";
+import userAdminGroup from "./3_user_groupPanel_admin";
+import UserAdminGroup from "./3_user_groupPanel_admin";
 
 function App() {
     const page = useStoreState(state => state.page);
@@ -44,6 +46,7 @@ function App() {
                             <Route path="/groups" element={<ShowSelected dataFilter={dataFilter} map={false} selected={'groups'}/>}/>
                             <Route path="/cars" element={<ShowSelected dataFilter={dataFilter} map={false} selected={'cars'}/>}/>
                             <Route path="/userprofile" element={<UserProfile/>}/>
+                            <Route path="/useradmingroup" element={<UserAdminGroup/>}/>
                             <Route path="/aboutus" element={<AboutUs/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/map" element={<ShowSelected dataFilter={dataFilter} map={true} selected={'trips'}/>} />
