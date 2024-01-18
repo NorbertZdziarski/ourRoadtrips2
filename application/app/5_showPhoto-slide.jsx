@@ -16,9 +16,9 @@ function ShowPhotoSlide({photo, style, photoPath='images/trips'}) {
 
     const [photoNr, setPhotoNr] = useState(0);
 
-    console.log(photo)
-    console.log(photo.length)
-    console.log(JSON.stringify(photo))
+    // console.log(photo)
+    // console.log(photo.length)
+    // console.log(JSON.stringify(photo))
 
     const fnBtnLeft = () => {
         if (photoNr > 0) {setPhotoNr( prevNr => prevNr -1)} else {setPhotoNr(photo.length-1)}

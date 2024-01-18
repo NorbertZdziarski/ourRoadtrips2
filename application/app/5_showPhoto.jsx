@@ -2,7 +2,7 @@ import LoadImage from "./a_loadimage";
 import React from "react";
 
 function ShowPhoto({photo, style, source}) {
-    console.log('source ' + source)
+    // console.log('source ' + source)
     let path = 'images/' + source;
 
     if (!photo) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useStoreState} from "easy-peasy";
 
 import logoreact from "../images/React.png";
@@ -11,21 +11,23 @@ import logogmaps from "../images/gmaps.png";
 
 function AboutUs() {
     const displayStyles = useStoreState(state => state.displayStyles);
+    const [selectSection, setSelectSection] = useState();
     return (
         <section className="aboutUsStyle">
             <header >
-                <a href="#aboutProject_idea"> idea </a>
-                <a href="#aboutProject_front"> aplikacja web </a>
-                <a href="#aboutProject_back"> aplikacja serwerowa  </a>
-                <a href="#aboutProject_dataBase"> baza danych</a>
+                <a href="#aboutProject_idea" onClick={()=>setSelectSection('idea')}> idea </a>
+                <a href="#aboutProject_front" onClick={()=>setSelectSection('front')}> aplikacja web </a>
 
-                <a href="#aboutProject_api">API</a>
+                <a href="#aboutProject_back" onClick={()=>setSelectSection('back')}> aplikacja serwerowa  </a>
+                <a href="#aboutProject_dataBase" onClick={()=>setSelectSection('db')}> baza danych</a>
 
-                <a href="#aboutProject_prj"> projekt i realizacja </a>
-                <a href="#aboutProject_aboutMe"> o mnie </a>
+                <a href="#aboutProject_api" onClick={()=>setSelectSection('api')}>API</a>
+
+                <a href="#aboutProject_prj" onClick={()=>setSelectSection('prj')}> projekt i realizacja </a>
+                <a href="#aboutProject_aboutMe" onClick={()=>setSelectSection('aboutme')}> o mnie </a>
             </header>
             <main>
-                <section id="aboutProject_idea">
+                <section id="aboutProject_idea" className={selectSection === 'idea' ? 'selected' : ''}>
                     <div>
                     </div>
                     <div>
@@ -34,7 +36,7 @@ function AboutUs() {
                     </div>
                 </section>
 
-                <section id="aboutProject_front">
+                <section id="aboutProject_front" className={selectSection === 'front' ? 'selected' : ''}>
                     <div>
                         <img src={logoreact} className={`aboutme_photo`}/>
                         <img src={logosass} className={`aboutme_photo`}/>
@@ -61,7 +63,7 @@ function AboutUs() {
                     </div>
                 </section>
 
-                <section id="aboutProject_back">
+                <section id="aboutProject_back" className={selectSection === 'back' ? 'selected' : ''}>
                     <div>
                         <img src={logonode} className={`aboutme_photo`}/>
                     </div>
@@ -79,7 +81,7 @@ function AboutUs() {
                         </ul>
                     </div>
                 </section>
-                <section id="aboutProject_dataBase">
+                <section id="aboutProject_dataBase" className={selectSection === 'db' ? 'selected' : ''}>
                     <div>
                     <img src={logomongo} className={`aboutme_photo`}/>
                 </div>
@@ -88,7 +90,7 @@ function AboutUs() {
                     <p>Mongo DB </p>
                 </div>
                 </section>
-                <section id='aboutProject_api'>
+                <section id='aboutProject_api' className={selectSection === 'api' ? 'selected' : ''}>
                     <div>
                         <img src={logogoogle} className={`aboutme_photo`}/>
                         <img src={logogmaps} className={`aboutme_photo`}/>
@@ -103,7 +105,7 @@ function AboutUs() {
                         </ul>
                     </div>
                 </section>
-                <section id="aboutProject_prj">
+                <section id="aboutProject_prj" className={selectSection === 'prj' ? 'selected' : ''}>
                     <div>
                     </div>
                     <div>
@@ -117,7 +119,7 @@ function AboutUs() {
 
                     </div>
                 </section>
-                <section>
+                <section >
                     <div>
                     </div>
                     <div>
@@ -132,7 +134,7 @@ function AboutUs() {
                     </div>
                 </section>
             </main>
-            <footer id="aboutProject_aboutMe" className={'layout_flex-sb-directColumn'}>
+            <footer id="aboutProject_aboutMe" className={'layout_flex-sb-directColumn '}>
                 <p> zapraszam na strony o mnie: </p> <a href={'https://github.com/NorbertZdziarski'} target={'_blank'}> GitHub </a> <a href={'https://www.linkedin.com/in/norbert-zdziarski/'} target={'_blank'}> Linked In </a>
             </footer>
         </section>

@@ -24,7 +24,7 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     useEffect(() => {
         if (!imageName) return;
         setShowLoading([true,0]);
-        console.log(' image name : ' + imageName)
+        // console.log(' image name : ' + imageName)
         if (imageName.substring(0,4) === 'http') {
             imagePath=null;
             setImage(imageName);

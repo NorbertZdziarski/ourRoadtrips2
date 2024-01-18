@@ -39,7 +39,7 @@ function Header() {
     const [filterBar, setFilterBar] = useState(false);
     const [filterBarStatus, setFilterBarStatus] = useState('status');
     const [newMessage, setNewMessage] = useState(false);
-    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "cars", "post_ale_czy_aby_na_pewno" ]
+    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "cars", "post" ]
     const location = useLocation();
         React.useEffect(() => {
             // console.log('Zmiana URL', location);
@@ -186,13 +186,21 @@ function Header() {
                                        </div>
                                        <button  onClick={() => {
                                            setMoblieMenuClass('')
-                                           setFilterBar(true)
-                                           setDataFilter([true, 'all', 'all', 'all'])}}>
-                                            Filter
-                                            </button>
+                                           setDataFilter([true, 'all', 'all', 'all'])
+                                           if (filterBar) {
+                                               setFilterBar(false)
+                                               setDataFilter([false, 'all', 'all', 'all'])
+                                           } else {
+                                               setFilterBar(true)
+                                               setDataFilter([true, 'all', 'all', 'all'])
+                                           }
+
+                                            }}>
+                                           Filter
+                                       </button>
                                        {(page !=="map") ?<> <button onClick={() => {
                                            setMoblieMenuClass('')
-                                           setFilterBar(true)
+                                           if (filterBar) {setFilterBar(false)} else {setFilterBar(true)}s
                                            setDataSortOn(true)}}>
                                             Sort / {tripSort}
                                             </button>
