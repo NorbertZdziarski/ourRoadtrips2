@@ -2,6 +2,7 @@ import React from "react";
 import LoadImage from "./a_loadimage";
 import {useStoreState} from "easy-peasy";
 import ShowPhoto from "./5_showPhoto";
+import {Link} from "react-router-dom";
 
 
 function DisplayCars({usersCars, setDataId,  setPage, loggedUser, setYesOrNot, yesOrNot, setToDelete }) {
@@ -42,15 +43,13 @@ function DisplayCars({usersCars, setDataId,  setPage, loggedUser, setYesOrNot, y
                             : <p>no photo</p>}
                     </button>
                     <div className="userPanel-buttons">
-                        <button onClick={()=>{
+                        <Link to="/addcar" onClick={()=>{
                             setPage("addCar")
                             setDataId(car)}
-                        }>edit</button>
+                        }>edit</Link>
                         <button onClick={()=>{
-
                             setToDelete(['car',car])
                             setYesOrNot([true,0])
-
                         }
                         }>delete</button>
                         {car.carPublic ?<p> public </p> : <p>hidden</p>}

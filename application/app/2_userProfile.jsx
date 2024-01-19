@@ -135,9 +135,9 @@ function UserProfile() {
                     <h3 className="userPanel_mainpage_title"> Cześć {loggedUser.firstName || loggedUser.nick}!</h3>
                     {/*<p className="fnt_subtitle"> {loggedUser.userPersonalComment}</p>*/}
                     <div className="userPanel_mainpage_content">
-                        <p> to jest Twoja przestrzeń. </p>
-                        <p> tutaj możesz zarządzać swoimi podróżami, samochodami oraz danymi osobistymi. Od Ciebie zależy co będzie widoczne, a co nie dla innych użytkowników.</p>
-                        <p> Miłej zabawy! </p>
+                        <h4>this is your space. </h4>
+                        <p>here you can manage your trips, cars and personal data. It's up to you what will be visible and what will not be visible to other users.</p>
+                        <p>Have fun!</p>
 
                     </div>
                 </div>
@@ -146,7 +146,7 @@ function UserProfile() {
 
             <section id="userData" className="">
                 <div>
-                    <p>Your data:</p>
+                    <h5>Your data:</h5>
                 </div>
                 <div className={`userPanel_mainpage_content colorstyle_button_${displayStyles}`}>
                     <p>Name: {loggedUser.firstName}</p>
@@ -154,7 +154,7 @@ function UserProfile() {
                     <p>{loggedUser.nick}</p>
                     <p>{loggedUser.email}</p>
                     <p>{loggedUser.userDescription}</p>
-                    <p> Twoja najlepiej oceniana podróż: </p>
+                    <p>Your top rated trip:</p>
                 </div>
             </section>
             <section className={`showtrip_main colorstyle_button_${displayStyles}`}>

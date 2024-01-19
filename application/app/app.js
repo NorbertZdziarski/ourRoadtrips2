@@ -24,6 +24,7 @@ import Post from "./3_post";
 import Alert from "./5_alert";
 import userAdminGroup from "./3_user_groupPanel_admin";
 import UserAdminGroup from "./3_user_groupPanel_admin";
+import UserAdminGroup_edit from "./3_user_groupPanel_edit";
 
 function App() {
     const page = useStoreState(state => state.page);
@@ -31,8 +32,13 @@ function App() {
     const dataFilter = useStoreState(state => state.dataFilter);
     const displayStyles = useStoreState(state => state.displayStyles);
     const showLoading = useStoreActions(actions => actions.showLoading);
-
+    const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
     const showAlert = null;
+
+    useEffect(()=>{
+        setYesOrNot([true, 0, 'this page is under construction'])
+    },[])
+
 
     return (
         <div className={`app colorstyle_${displayStyles}`}>
@@ -47,6 +53,7 @@ function App() {
                             <Route path="/cars" element={<ShowSelected dataFilter={dataFilter} map={false} selected={'cars'}/>}/>
                             <Route path="/userprofile" element={<UserProfile/>}/>
                             <Route path="/useradmingroup" element={<UserAdminGroup/>}/>
+                            <Route path="/useradmingroup-edit" element={<UserAdminGroup_edit/>}/>
                             <Route path="/aboutus" element={<AboutUs/>}/>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/map" element={<ShowSelected dataFilter={dataFilter} map={true} selected={'trips'}/>} />

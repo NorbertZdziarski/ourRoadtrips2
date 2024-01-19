@@ -119,6 +119,9 @@ p:last-child {
 }
 
 .yesOrNot {
+  $alert-color1: rgba(0,0,0,0.2);
+  $alert-color2: $color-background-yesornot;
+  $stripe-width: 5rem;
   z-index: 200;
   background-color: $color-background-yesornot;
   border: 2px solid black;
@@ -132,6 +135,32 @@ p:last-child {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  flex-direction: column;
+  p {
+    color: black;
+    font-size: 3rem;
+    font-weight: 600;
+  }
+  div {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    button {
+      color: black;
+    }
+  }
+  div.alertLine {
+    width: 90%;
+    height: 2rem;
+    //margin-inline: 2rem;
+    background: repeating-linear-gradient(
+                    45deg,
+                    $alert-color1,
+                    $alert-color1 $stripe-width,
+                    $alert-color2 $stripe-width,
+                    $alert-color2 $stripe-width * 2
+    );
+  }
 }
 
 .imageBox {
@@ -303,8 +332,9 @@ p:last-child {
   box-sizing: border-box;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+
   width: 100%;
+  height: 60rem;
   text-align: justify;
   //background-color: $color-background-secondary;
   background-color: rgba(0,0,0,0);
@@ -914,6 +944,7 @@ article.postMessage  {
      background-color: #b2b2b2;
      border-left: 1px solid rgba(119, 136, 153, 0.2);
      color: #313131;
+     transform: rotate(90);
 
    }
    td, th {
@@ -936,4 +967,75 @@ article.postMessage  {
      border-left: 0;
    }
  }
+}
+.userAdminGroupEdit {
+  width: 100%;
+  h6 {
+    font-size: 2.8rem;
+    border-bottom: 1px solid rgba(49, 49, 49, 0.7);
+  }
+  div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: rgba(119, 136, 153, 0.5);
+    padding: 0.5rem 1rem;
+    div {
+      flex-direction: column;
+      div {
+        background-color: rgba(0,0,0,0);
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+  }
+  p {
+    font-size: 1.8rem;
+    color: #313131;
+    padding: 0.5rem 0;
+  }
+  button {
+    border: 0;
+    min-height: 2.8rem;
+    min-width: 10rem;
+    background-color: #b2b2b2;
+    color: #282c34;
+    padding: 0.3rem;
+    &:hover {
+      background-color: #282c34;
+      color: #b2b2b2;
+    }
+  }
+  section.dataLine {
+    background-color: rgba(255, 255, 255, 0.88);
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.4rem;
+    p {
+      width: 100%;
+    }
+    button {
+      width: 20rem;
+      margin-left: 0.2rem;
+    }
+  }
+  div.dataBox {
+    display: flex;
+    flex-direction: column;
+  }
+  div.userAdminHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    div {
+      background-color: rgba(0,0,0,0);
+      width: 24rem;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+    }
+  }
 }

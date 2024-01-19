@@ -126,7 +126,7 @@ function Login() {
                 />
 
             </section>
-            <section className={`login_box colorStyle_input_${displayStyles}`}>
+            <section className={`login_box colorStyle_input_${displayStyles} alert_underConstruction`}>
                 {fetchError ? <p className={`login_error colorStyle_error_${displayStyles}`}>{fetchError}</p> : <></>}
                 <form >
                     <input disabled placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userName}

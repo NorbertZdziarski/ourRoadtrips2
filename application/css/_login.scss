@@ -66,3 +66,24 @@
   display: flex;
   justify-content: space-around;
 }
+.alert_underConstruction {
+  width: 100%;
+}
+.alert_underConstruction::after {
+  z-index: 20;
+  content: "out of order";
+  position: absolute;
+  display: flex;
+  top: 50%;
+  left: 50%;
+  transform: translate(10%, -50%) rotate(-25deg);
+  width: 300px;
+  height: 100px;
+  background-color: rgba(62, 0, 0, 0.29);
+  color: #ff0000;
+  border: 5px dashed #ff0000;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  line-height: 25px;
+}

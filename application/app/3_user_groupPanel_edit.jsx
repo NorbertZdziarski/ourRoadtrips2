@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useStoreActions} from "easy-peasy";
 
 function UserAdminGroup_edit() {
     const index = 1;
@@ -14,56 +15,180 @@ function UserAdminGroup_edit() {
     public: true,
     comments: [],
     design: [],
-    invitedUsers: [1234,3333],
-    users: [],
-    trips: [],
-    cars: []
+    invitedUsers: [1234,3333,7584,67483],
+    users: [5567,9090,478293],
+    trips: [12],
+    cars: [2222]
 }
-
+    const [showActiveUsers, setShowActiveUsers] = useState(false)
+    const [showInvUsers, setShowInvUsers] = useState(false)
+    const [showCars, setShowCars] = useState(false)
+    const [showTrips, setShowTrips] = useState(false)
+    const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
     let rok = inputData.saveDate.getFullYear();
     let miesiac = inputData.saveDate.getMonth() + 1; // Dodajemy 1, aby otrzymać wartość od 1 do 12
     let dzien = inputData.saveDate.getDate();
+
     return (<>
-        <section className={'userAdminGroup'}>
-            <div>
+        <section className={'userAdminGroupEdit'}>
+            <div className={'userAdminHeader'}>
                 <h4>panel administracyjny do edycji grupy:</h4>
+                <div >
+                    <button>cancel</button>
+                    <button onClick={()=>setYesOrNot([true, 0])}>save changes</button>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h6>name</h6>
+                    <p>{inputData.name}</p>
+                </div>
+                <div>
+                    <h6>date</h6>
+                    <p>{dzien} {miesiac} {rok}</p>
+                </div>
+                <div>
+                    <h6>public</h6>
+                    <p>{inputData.public?<p>yes</p> : <p>no</p>}</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h6>commen</h6>
+                    <p>{inputData.comment}</p>
+                </div>
+                <div>
+                    <h6>description</h6>
+                    <p>{inputData.description}...</p>
+                </div>
+
+
+
+
+            </div>
+            <div>
+                <div>
+                    <h6>type</h6>
+                    <p>{inputData.type}</p>
+                </div>
+                <div>
+                    <h6>design</h6>
+                    <p>{inputData.design}</p>
+                </div>
+                <div>
+                    <h6>photo</h6>
+                    <p>{inputData.photo?<p>yes</p> : <p>no</p>}</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <h6>invited users</h6>
+                             <div>
+                        {showInvUsers? <div className={'dataBox'}>
+                            {inputData.invitedUsers.map((invUser)=>{
+                                return (
+                                <section className={'dataLine'}>
+                                    <p>user id number: {invUser}</p>
+                                    <p>name: {invUser}</p>
+                                    <button>send message</button>
+                                    <button>remove invitation</button>
+                                </section>
+                                )
+                            })}
+                            <button onClick={()=>setShowInvUsers(!showInvUsers)}>hide</button>
+                        </div>:<>
+                            <p>{inputData.invitedUsers.length}</p>
+                            <button onClick={()=>setShowInvUsers(!showInvUsers)}>show</button>
+                        </>}
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <div>
+                    <h6>active users</h6>
+                    <div>
+                        {showActiveUsers? <div className={'dataBox'}>
+                            {inputData.users.map((user)=>{
+                                return (
+                                    <section className={'dataLine'}>
+                                        <p>user id number: {user}</p>
+                                        <p>name: {user}</p>
+                                        <button>send message</button>
+                                        <button>send reprimand</button>
+                                        <button>remove user</button>
+                                    </section>
+                                )
+                            })}
+                            <button onClick={()=>setShowActiveUsers(!showActiveUsers)}>hide</button>
+                        </div>:<>
+                            <p>{inputData.users.length}</p>
+                            <button onClick={()=>setShowActiveUsers(!showActiveUsers)}>show</button>
+                        </>}
+
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <div>
+                    <h6>our trips</h6>
+                    <div>
+                        {showTrips? <div className={'dataBox'}>
+                            {inputData.trips.map((trip)=>{
+                                return (
+                                    <section className={'dataLine'}>
+                                        <p>user id number: {trip}</p>
+                                        <p>name: {trip}</p>
+                                        <button>option</button>
+                                        <button>option</button>
+                                        <button>show / hide</button>
+                                    </section>
+                                )
+                            })}
+                            <button onClick={()=>setShowTrips(!showTrips)}>hide</button>
+                        </div>:<>
+                            <p>{inputData.trips.length}</p>
+                            <button onClick={()=>setShowTrips(!showTrips)}>show</button>
+                        </>}
+
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <div>
+                    <h6>our cars</h6>
+                    <div>
+                        {showCars? <div className={'dataBox'}>
+                            {inputData.cars.map((car)=>{
+                                return (
+                                    <section className={'dataLine'}>
+                                        <p>user id number: {car}</p>
+                                        <p>name: {car}</p>
+                                        <button>option</button>
+                                        <button>option</button>
+                                        <button>show / hide</button>
+                                    </section>
+                                )
+                            })}
+                            <button onClick={()=>setShowCars(!showCars)}>hide</button>
+                        </div>:<>
+                            <p>{inputData.cars.length}</p>
+                            <button onClick={()=>setShowCars(!showCars)}>show</button>
+                        </>}
+
+                    </div>
+                </div>
+
             </div>
 
 
-            <table>
-                <tr>
-                    <th>l.p.</th>
-                    <th>date</th>
-                    <th>name</th>
-                    <th>comment</th>
-                    <th>description</th>
-                    <th>type</th>
-                    <th>photo</th>
-                    <th>comments</th>
-                    <th>design</th>
-                    <th>invited users</th>
-                    <th>users</th>
-                    <th>trips</th>
-                    <th>cars</th>
-                    <th>public</th>
-                </tr>
-                <tr>
-                    <td>{index}</td>
-                    <td>{dzien} {miesiac} {rok}</td>
-                    <td>{inputData.name}</td>
-                    <td>{inputData.comment}</td>
-                    <td>{inputData.description.slice(0,20)}...</td>
-                    <td>{inputData.type}</td>
-                    <td>{inputData.photo?<p>yes</p> : <p>no</p>}</td>
-                    <td>{inputData.comments?<p>yes</p> : <p>no</p>}</td>
-                    <td>{inputData.design?<p>yes</p> : <p>no</p>}</td>
-                    <td>{inputData.invitedUsers.length}</td>
-                    <td>{inputData.users.length}</td>
-                    <td>{inputData.trips.length}</td>
-                    <td>{inputData.cars.length}</td>
-                    <td>{inputData.public?<p>yes</p> : <p>no</p>}</td>
-                </tr>
-            </table>
+            {/*        <th>comments</th>*/}
+
+            {/*        <td>{inputData.comments?<p>yes</p> : <p>no</p>}</td>*/}
 
         </section>
 

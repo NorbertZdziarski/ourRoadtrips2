@@ -39,7 +39,7 @@ function Header() {
     const [filterBar, setFilterBar] = useState(false);
     const [filterBarStatus, setFilterBarStatus] = useState('status');
     const [newMessage, setNewMessage] = useState(false);
-    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "cars", "post" ]
+    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "cars", "post" ,"useradmingroup","useradmingroup-edit"]
     const location = useLocation();
         React.useEffect(() => {
             // console.log('Zmiana URL', location);
@@ -374,7 +374,13 @@ function Header() {
                             </Link>
                         </> : <></>}
                         <button disabled>yours groups</button>
-                        <button disabled>admin panel</button>
+                        {/*<button disabled>admin panel</button>*/}
+                        <Link to={`/useradmingroup`} className="myLink" onClick={() => {
+                            setFilterBar(!filterBar);
+                            // setPage("post")
+                        }}>
+                            <p>admin panel</p></Link>
+
                         <Link to={`/post`} className="myLink" onClick={() => {
                             setFilterBar(!filterBar);
                             setPage("post")}}>
