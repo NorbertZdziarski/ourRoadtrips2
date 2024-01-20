@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 import ShowPhotoSlide from "./5_showPhoto-slide";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import path from "path";
 import {fetchData} from "./a_CRUD_service";
+import icouser from "../images/User-Outline.png";
 
 function ShowCar() {
     // console.log(' show car ')
@@ -47,7 +48,11 @@ function ShowCar() {
                 <div className="showtrip_header">
                     <p > {chosen.carMaker} {chosen.carBrand} </p>
                     <p className="fnt_subtitle"> {chosen.carStyleType} | {chosen.carPurposeType}</p>
-
+                    {chosen.userId ?
+                        <Link to={`/aboutme/${chosen.userId}`} onClick={()=>{
+                        }}>
+                            <p>owner: {chosen.carUser} </p>
+                        </Link> : <></>}
                 </div>
                 {/*<LoadImage imageName={chosen.carPhoto} imageWidth='100%' imagePath='images/users' photoClass="showtrip_photoStyle" />*/}
                 <div>
@@ -63,6 +68,8 @@ function ShowCar() {
                    {/*poprawić className ^^^*/}
                     <p>technical stuff</p>
                     <p className="fnt_subtitle">{chosen.carEngine} with {chosen.carEnginePower}</p>
+
+
                 </div>
                 <div className="showtrip_description">
                     <p>about my car:</p>
