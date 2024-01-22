@@ -11,6 +11,9 @@ import icotripsightseeing from "../images/mountain-sun-solid.svg"
 import {Link} from "react-router-dom";
 
 function TripBox({trip}) {
+
+
+
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
     const displayStyles = useStoreState(state => state.displayStyles);

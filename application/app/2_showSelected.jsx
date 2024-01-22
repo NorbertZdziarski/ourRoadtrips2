@@ -73,7 +73,7 @@ function ShowSelected({dataFilter, map, selected}) {
                 {/*{(selected === 'trips' ? <p></p> : null )}*/}
                 {(selected === 'groups' ? <><h4 className={'showSelected_header'}>ourGroups</h4></> : null )}
                 {(selected === 'cars' ? <><h4 className={'showSelected_header'}>ourCars</h4></> : null )}
-                <SortingSelected tripData={filteredData}
+                <SortingSelected inputData={filteredData}
                                  map = {map}
                                  selected={selected}/>
             </>) : ( <Anim_loading />)}

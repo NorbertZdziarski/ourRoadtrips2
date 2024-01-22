@@ -103,7 +103,6 @@
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
-
   color: $color-txt-secondary;
 }
 
@@ -131,7 +130,7 @@
 }
 
 .buttons_inline a, .buttons_inline button {
-  display: block;
+  display: flex;
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
@@ -147,5 +146,13 @@
     box-shadow: 0 0 0.8rem 0.2rem $color-blink-color;
     background-color: $color-blink-color;
     color: $color-background-main;
+  }
+}
+
+.icoShowTrip {
+  a:hover {
+    img {
+      filter: none;
+    }
   }
 }

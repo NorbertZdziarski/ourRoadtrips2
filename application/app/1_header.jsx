@@ -43,7 +43,7 @@ function Header() {
     const [incommingMessages, setIncommingMessages] = useState(false);
     const [sendMessages, setSendMessages] = useState(false);
 
-    const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "cars", "post" ,"useradmingroup","useradmingroup-edit"]
+    const pageExclusion = ["aboutus", "showtrip", "showcar", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "post" ,"useradmingroup","useradmingroup-edit"]
     const location = useLocation();
         React.useEffect(() => {
             // console.log('Zmiana URL', location);
@@ -159,43 +159,28 @@ function Header() {
                             <img src={icomenu} className={`header_ico ico_${displayStyles}`}/>
                         </button>
                     </> : <>
-                        {(((page === "mainpage") || (page === "mainpagefilter")) ? (
+                        {(((page === "mainpage") || (page === "mainpagefilter") || (page === "map")|| (page === "groups") || (page === "cars")) ? (
                             <section className={`headerButtons${moblieMenuClass} `}>
-
-                           {((page !== "mainpage") && (page !== "map")) ?<>
-
-                               {/*|| (page === "aboutus") || (page === "showtrip") || (page === "showcar") || (page === "map")*/}
-                               <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>
-                                   {/*<InsertIco icoName={'icohome'} />*/}
-                                   <img src={icohome} className={`header_ico ico_${displayStyles}`}/>
-                               </Link>
-
-                               </> : <>
-
-
-                            {/*{(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
-                            {/*{((dataSortOn) && (page !=="map")) ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
 
                                    {((!dataSortOn) || (!dataFilter[0])) ? <>
                                        <div className={'layout_flex-sb'}>
-                                           { (page === "map") ?
-                                               <Link to="/"  className="myLink" >
-                                                   <img src={icolist} className={`header_ico ico_${displayStyles}`}/>
-                                               </Link>
-                                               :
-                                               <Link to="/map"  className="myLink" >
-                                                   <img src={icomap} className={`header_ico ico_${displayStyles}`}/>
-                                               </Link>
 
-                                           }
-                                           <Link to="/groups" className="myLink" onClick={() => {
+                                           <Link to="/"  className={`myLink ${page === "mainpage" && 'underlineStyle'}`} >
+                                               <img src={icolist} className={`header_ico ico_${displayStyles} `}/>
+                                           </Link>
+
+                                           <Link to="/map"  className={`myLink ${page === "map" && 'underlineStyle'}`} >
+                                               <img src={icomap} className={`header_ico ico_${displayStyles}`}/>
+                                           </Link>
+
+                                           <Link to="/groups" className={`myLink ${page === "groups" && 'underlineStyle'}`} onClick={() => {
                                                setMoblieMenuClass('')
                                                setPage("mainpage")
                                            }}>
                                                 <img src={icogroup} className={`header_ico ico_${displayStyles}`}/>
                                            </Link>
 
-                                           <Link to="/cars" className="myLink" onClick={() => {
+                                           <Link to="/cars" className={`myLink ${page === "cars" && 'underlineStyle'}`} onClick={() => {
                                                setMoblieMenuClass('')
                                                setPage("mainpage")
                                            }}>
@@ -208,6 +193,7 @@ function Header() {
                                            </Link>:null}
 
                                        </div>
+                                       {(page ==="mainpage" || page ==="map") ?
                                        <button  onClick={() => {
                                            setMoblieMenuClass('')
                                            setDataFilter([true, 'all', 'all', 'all'])
@@ -221,11 +207,11 @@ function Header() {
 
                                             }}>
                                            Filter
-                                       </button>
+                                       </button> : <></>}
                                        {(page !=="map") ?<> <button onClick={() => {
                                            setMoblieMenuClass('')
-                                           if (filterBar) {setFilterBar(false)} else {setFilterBar(true)}s
-                                           setDataSortOn(true)}}>
+                                           if (filterBar) {setFilterBar(false)} else {setDataSortOn(true); setFilterBar(true)}
+                                           }}>
                                             Sort / {tripSort}
                                             </button>
                                            </>: <></>}
@@ -237,7 +223,6 @@ function Header() {
                                    )}
                                    </> : <></>}
 
-                                </>}
 
                             </section>
 

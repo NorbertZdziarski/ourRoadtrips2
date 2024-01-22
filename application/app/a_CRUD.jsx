@@ -30,9 +30,17 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                             'my-header': 'all'
                         }
                     });
-                    // console.log(response.data);
-                    // console.log(response);
-                    return response.data;
+                    // console.log('response: ' + response.data);
+                    let sendResponse;
+                    if (response) {
+                        sendResponse = response.data
+                    } else {
+                        sendResponse = 'no data'
+                    }
+                    // console.log('response: ' + response);
+                    // console.log('JSON response: ' + JSON.stringify(response));
+                    // return response.data;
+                    return sendResponse;
                 } catch (error) {
                     console.error(error);
                 }

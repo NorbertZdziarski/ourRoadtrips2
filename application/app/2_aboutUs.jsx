@@ -7,6 +7,9 @@ import logomongo from "../images/mongoDB.png";
 import logosass from "../images/sass.png";
 import logogoogle from "../images/google.png";
 import logogmaps from "../images/gmaps.png";
+import logomilanote from "../images/milanote.png";
+import logogithub from "../images/github_alt_macos_bigsur_icon_190138.png";
+import logoscrum from "../images/brand_scrum_icon_158716.png";
 
 
 function AboutUs() {
@@ -33,6 +36,21 @@ function AboutUs() {
                     <div>
                         <h5 >* idea</h5>
                         <p> / soon ;) / </p>
+                        <ul> <p>funkcjonalność aplikacji: </p>
+                             <li>zakładanie / edytowanie konta</li>
+                             <li>dodawanie, modyfikowanie, usówanie:
+                                <li>- tras</li>
+                                <li>- samochodów</li>
+                                <li>- grup</li>
+                             </li>
+                            <li>wysyłanie, odbieranie, usówanie poczty między użytkownikami</li>
+                            <li>filtrowanie, sortowanie tras</li>
+                            <li>dodawanie komentarzy</li>
+                            <li>dodawanie oceny</li>
+                            <li>rysowanie oraz pokazywanie tras na mapach google</li>
+                            <li>logowanie przez konto google</li>
+                        </ul>
+
                     </div>
                 </section>
 
@@ -107,6 +125,9 @@ function AboutUs() {
                 </section>
                 <section id="aboutProject_prj" className={selectSection === 'prj' ? 'selected' : ''}>
                     <div>
+                        <img src={logoscrum} className={`aboutme_photo`}/>
+                        <img src={logomilanote} className={`aboutme_photo`}/>
+                        <img src={logogithub} className={`aboutme_photo`}/>
                     </div>
                     <div>
                     <h5 >  * projekt i realizacja</h5>

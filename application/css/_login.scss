@@ -68,15 +68,16 @@
 }
 .alert_underConstruction {
   width: 100%;
+  position: relative;
 }
 .alert_underConstruction::after {
   z-index: 20;
-  content: "out of order";
+  content: "OUT OF ORDER";
   position: absolute;
   display: flex;
   top: 50%;
   left: 50%;
-  transform: translate(10%, -50%) rotate(-25deg);
+  transform: translate(-50%, -50%) rotate(-25deg);
   width: 300px;
   height: 100px;
   background-color: rgba(62, 0, 0, 0.29);

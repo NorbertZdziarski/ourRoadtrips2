@@ -8,11 +8,14 @@ import icoChat from "../images/ico/chat.png"
 import {Link} from "react-router-dom";
 
 function GroupBox({group}) {
+
+
+
     const setPage = useStoreActions(actions => actions.setPage);
     const setTripId = useStoreActions(actions => actions.setTripId);
     const displayStyles = useStoreState(state => state.displayStyles);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
-    console.log(' group box ')
+
     window.onload = function() {
         var divHeight = document.getElementById('tripbox_title').offsetHeight;
         // console.log('div height: ' + divHeight)

@@ -5,6 +5,7 @@ import {fetchData, transferData, transferGooglePhoto} from "./a_CRUD_service";
 import { GoogleLogin, GoogleUser } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
 import {checkIfItExists} from "./app_check";
+import Anim_loading from "./anim_loading";
 require('dotenv').config();
 function Login() {
     const page = useStoreState(state => state.page);
@@ -16,6 +17,7 @@ function Login() {
     const navigate = useNavigate();
     const clientId = process.env.CLIENT_ID;
     const displayStyles = useStoreState(state => state.displayStyles);
+    const [loading, setLoading] = useState(false);
 
     useEffect(()=>{
         if (page === "mainPage") {
@@ -116,20 +118,32 @@ function Login() {
         // console.log('Logowanie nie powiodło się:', response);
     };
 
+
+
+
+
+
     return (
         <div className="layout_main layout_flex-sb_mobile_Column login_main">
             <section className="login_newaccount">
+                {/*<GoogleLogin*/}
+                {/*    clientId={clientId}*/}
+                {/*    onSuccess={handleSuccess}*/}
+                {/*    onFailure={handleFailure}*/}
+                {/*/>*/}
+
+                {loading && <Anim_loading />}
                 <GoogleLogin
                     clientId={clientId}
                     onSuccess={handleSuccess}
                     onFailure={handleFailure}
+                    onRequest={() => setLoading(true)}
                 />
-
             </section>
             <section className={`login_box colorStyle_input_${displayStyles} alert_underConstruction`}>
-                {fetchError ? <p className={`login_error colorStyle_error_${displayStyles}`}>{fetchError}</p> : <></>}
+                {fetchError ? <p className={`login_error colorStyle_error_${displayStyles} `}>{fetchError}</p> : <></>}
                 <form >
-                    <input disabled placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userName}
+                    <input disabled placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles} `} value={userName}
                            onChange={(e) => setUserName(e.target.value)}></input>
                     <input disabled  placeholder='password' type="password" name="inputUserPassword" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userPassword}
                            onChange={(e) => setUserPassword(e.target.value)}></input>
