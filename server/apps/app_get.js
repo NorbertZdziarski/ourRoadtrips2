@@ -85,13 +85,14 @@ router.get('/one/:collectionname/:id', async (req,res) => {
 
 })
 router.get('/select/:collectionname/:filter', async (req,res) => {
-    const collectionName = req.params.collectionname;
+    let collectionName = req.params.collectionname;
     const id = req.params.filter;
     let filter;
 
     // const id = req.params.idNr;
     // saveLog(`203 | /userstrips/:idNr |  id: ${id} `)
     // saveLog(`/select | collection name: ${collectionName} filter: ${filter}`,`app_get >`);
+    // saveLog(`95 | id:  ${id}  kolekcja: ${collectionName} `, 'app GET')
     try {
         if (id === "downloaduserlist") {
             // query: { "status": "public" },
@@ -106,15 +107,20 @@ router.get('/select/:collectionname/:filter', async (req,res) => {
 
             if (collectionName === 'messages') {
                 filter = id;
+            } else  if (collectionName === 'group' || collectionName === 'groups') {
+                collectionName = 'groups'
+                filter = {ownerId: id}
             } else {
-            filter = {userId: id}}
-            let sendData = await manageData( collectionName, 'get',null,filter);
-            // saveLog(`/select | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
+            filter = {userId: id}
+            }
+            // saveLog(`/select 116 ||| filter: ${filter}`)
+            let sendData = await manageData(collectionName, 'get',null,filter);
+            // saveLog(`/select 118 | sendData: ${sendData} JSON: ${JSON.stringify(sendData)}`,`app_get >`);
             res.status(200).json(sendData);
         }
 
     } catch (err) {
-        saveLog(`193 | błąd:  ${err} `)
+        saveLog(`123 | błąd:  ${err} `,'APP GET')
         res.status(500).send('Wystąpił błąd 3 podczas pobierania danych');
     }
 

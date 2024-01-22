@@ -25,8 +25,8 @@ async function manageData(collectionName, action, data, filter) {
         const collection = db.collection(collectionName);
         let dataDB;
             // saveLog(`32 | ${collection}`, 'app_mongo');
-        saveLog(`42 | nazwa kolekcji: ${collectionName} , JSON ${JSON.stringify(collectionName)}`, 'app_mongo');
-        saveLog(`43 | action: ${action}`, 'app_mongo');
+        // saveLog(`42 | nazwa kolekcji: ${collectionName} , JSON ${JSON.stringify(collectionName)}`, 'app_mongo');
+        // saveLog(`43 | action: ${action}`, 'app_mongo');
 
         if (action === 'getall') {
             dataDB = await collection.find().toArray();
@@ -43,7 +43,7 @@ async function manageData(collectionName, action, data, filter) {
         }
          else if (action === 'get') {
 
-            saveLog(`||| app mongo GET filter ->  ${filter} JSON: ${JSON.stringify(filter) }`,`app_mongo`)
+            saveLog(`||| nazwa kolekcji: ${collectionName} ||| action: ${action} ||| app mongo GET filter ->  ${filter} JSON: ${JSON.stringify(filter) }`,`app_mongo`)
 
             dataDB = await collection.find(filter).toArray();
 
