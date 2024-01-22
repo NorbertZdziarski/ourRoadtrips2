@@ -11,6 +11,7 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
     const port = process.env.SERVER_PORT || 9000
     const apiURL = `https://${host}:${port}/download`;
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+    const [showLarge, setShowLarge] = useState(false);
     // const apiURL = `http://${host}:${port}/download`;
     //
     // console.log('---------- LOAD IMAGE ---------')
@@ -65,13 +66,22 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
                 img.style.width = 'auto';
             }
         };}
-// console.log('image ' + image)
+
+
+
+    function LargeImage() {
+        console.log( 'i co tu mamy? '+ image )
+        return(
+            <main className={'photoClassLarge'} onClick={()=>setShowLarge(false)}>
+                <img src={image} className={photoClass} />
+            </main>)
+    }
+
     return (
         <div className={perspectiveStyle}>
-            {image ? <>
-                <img src={image} alt={'foto'} width={imageWidth} className={photoClass}/>
-            </>: <div className={'divHeightTemp divWidthTemp'}><Anim_loading size={'_m'}/></div>}
-
+            {showLarge ? LargeImage() : (image ? <>
+                <img src={image} alt={'foto'} width={imageWidth} className={photoClass} onClick={()=>setShowLarge(true)}/>
+            </>: <div className={'divHeightTemp divWidthTemp'}><Anim_loading size={'_m'}/></div>)}
         </div>
     );
 };

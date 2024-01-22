@@ -32,7 +32,7 @@ function AboutUs() {
                     </div>
                     <div>
                         <h5 >* idea</h5>
-                        <p> / wkrótce ;) / </p>
+                        <p> / soon ;) / </p>
                     </div>
                 </section>
 
@@ -110,7 +110,7 @@ function AboutUs() {
                     </div>
                     <div>
                     <h5 >  * projekt i realizacja</h5>
-                        <p>podczas realizacji wykorzystwałem ideę SCRUM oraz liczne narzędzia: </p>
+                        <p>podczas realizacji wykorzystwałem ideę SCRUM oraz m.in. narzędzia: </p>
                         <ul>
                             <li> idea SCRUM </li>
                             <li> narzędzie millanote </li>
@@ -124,7 +124,7 @@ function AboutUs() {
                     </div>
                     <div>
                         <h5 >* dalszy rozwój </h5>
-                        <p> co jest w trakcie lub planowane do realizacji? </p>
+                        <p>Jeżeli tylko czas pozowli chcę rozwijać aplikację w zakresie: </p>
                         <ul>
                             <li> inne sposoby logowania </li>
                             <li> wyszukiwarka </li>
