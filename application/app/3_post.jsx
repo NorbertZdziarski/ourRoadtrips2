@@ -3,6 +3,7 @@ import {deleteData, fetchData, transferData, updateData} from "./a_CRUD_service"
 import {useStoreActions, useStoreState} from "easy-peasy";
 import LoadImage from "./a_loadimage";
 import NewMessage from "./5_newMessage";
+import {fetchMessages} from "./a_fetchMessages";
 import logoRoadtrips from "../images/logo.png"
 import { Link } from "react-router-dom";
 
@@ -32,24 +33,7 @@ function Post() {
     const toDelete = useStoreState(state => state.toDelete);
     const yesOrNot = useStoreState(state => state.yesOrNot);
 
-    async function fetchMessages() {
-        let askFormInc = {receiverId: loggedUser._id};
-        let responseInc = await transferData(`message/find`, askFormInc);
-        let data = responseInc.id.reverse();
-        setIncommingMessages(data)
-        let askFormSend = {fromUserId: loggedUser._id};
-        let responseSend = await transferData(`message/find`, askFormSend);
-        let dataSend = responseSend.id.reverse();
-        let tempArr = [];
-        dataSend.forEach((inmess)=>{
-                // if (inmess.readed === false) {
-                    if (inmess.type !== 'official') {
-                        tempArr.push(inmess)
-                    // }
-                }
-        })
-        setSendMessages(tempArr)
-    }
+
 
     // async function updateMessage(message) {
 
@@ -137,7 +121,7 @@ function Post() {
     useEffect(() => {
         if (loggedUser) {
             setShowLoading([true,0]);
-            fetchMessages();
+            fetchMessages(loggedUser, setIncommingMessages, setSendMessages);
         }
         setShowLoading([false,0]);
     }, []);
@@ -173,9 +157,9 @@ function Post() {
         // console.log(' delete item ')
         if (yesOrNot[1] === 2) {
             if (toDelete[0] === 'message') {
-                console.log('message ' + toDelete[1]._id)
+                // console.log('message ' + toDelete[1]._id)
                 await deleteData(`message/${toDelete[1]._id}`);
-                fetchMessages();
+                fetchMessages(loggedUser, setIncommingMessages, setSendMessages);
                 // const target = `select/trips/${loggedUser._id}`
 
                 // await fetchData(target).then(downloadedData => {

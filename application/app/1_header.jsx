@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import FilterStaus from "./4_filterStatus";
 import {fetchData, transferData} from "./a_CRUD_service";
 import InsertIco from "./5_ico";
+import {fetchMessages} from "./a_fetchMessages";
 function Header() {
     const navigate = useNavigate();
     const [page, setNewPage] = useState('mainPage')
@@ -39,6 +40,9 @@ function Header() {
     const [filterBar, setFilterBar] = useState(false);
     const [filterBarStatus, setFilterBarStatus] = useState('status');
     const [newMessage, setNewMessage] = useState(false);
+    const [incommingMessages, setIncommingMessages] = useState(false);
+    const [sendMessages, setSendMessages] = useState(false);
+
     const pageExclusion = ["aboutus", "showtrip", "showcar", "map", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "groups" , "cars", "post" ,"useradmingroup","useradmingroup-edit"]
     const location = useLocation();
         React.useEffect(() => {
@@ -75,8 +79,28 @@ function Header() {
             fetchDataaa();
         }
     }, [loggedUser]);
+        useEffect(()=>{
+            if (incommingMessages) {
+            let countMess = 0;
+            incommingMessages.forEach((inmess)=>{
+                if (inmess.readed === false)  {
+                    countMess++;
+                }
+            })
 
+            if (countMess > 0) {setNewMessage(true)} else {setNewMessage(false)}
+            }
+        },[incommingMessages])
+    const checkMessage = () => {
+        fetchMessages(loggedUser, setIncommingMessages, setSendMessages);
+    };
 
+    useEffect(() => {
+        if (loggedUser) {
+            const intervalId = setInterval(checkMessage, 20000);
+            return () => clearInterval(intervalId);
+        }
+    }, [loggedUser]);
 
         // console.log(`Obecny URL: ${location.pathname}`);
 
