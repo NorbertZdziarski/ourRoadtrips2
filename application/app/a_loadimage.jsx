@@ -67,10 +67,8 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
             }
         };}
 
-
-
     function LargeImage() {
-        console.log( 'i co tu mamy? '+ image )
+
         return(
             <main className={'photoClassLarge'} onClick={()=>setShowLarge(false)}>
                 <img src={image} className={photoClass} />
@@ -79,9 +77,21 @@ function LoadImage({ imageName, imageWidth, imagePath, photoClass,perspectiveSty
 
     return (
         <div className={perspectiveStyle}>
-            {showLarge ? LargeImage() : (image ? <>
-                <img src={image} alt={'foto'} width={imageWidth} className={photoClass} onClick={()=>setShowLarge(true)}/>
-            </>: <div className={'divHeightTemp divWidthTemp'}><Anim_loading size={'_m'}/></div>)}
+            {imagePath === 'images/users' ? (
+                image ? (
+                    <img src={image} alt={'foto'} width={imageWidth} className={photoClass} />
+                ) : (
+                    <div className={'divHeightTemp divWidthTemp'}><Anim_loading size={'_m'}/></div>
+                )
+            ) : (
+                showLarge ? LargeImage() : (
+                    image ? (
+                        <img src={image} alt={'foto'} width={imageWidth} className={photoClass} onClick={()=>setShowLarge(true)}/>
+                    ) : (
+                        <div className={'divHeightTemp divWidthTemp'}><Anim_loading size={'_m'}/></div>
+                    )
+                )
+            )}
         </div>
     );
 };
