@@ -15,7 +15,7 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
     const loggedUserCars = useStoreState(state => state.loggedUserCars);
     const loggedUser = useStoreState(state => state.loggedUser);
 
-    const excludedValues = ['password', 'repeat password','regulations', 'tripCarStyleType','userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars', 'public'];
+    const excludedValues = ['password', 'repeat password','regulations', 'tripCarStyleType','userPhoto', 'tripDate', 'carId', 'tripUserId', 'tripType', 'tripCountry', 'carStyleType', 'carPurposeType', 'carPhoto','tripPhoto','tripCar', 'tripPublic','tripRate','tripComments', 'cars', 'public', 'type', 'invitedUsers'];
     const excludedValuesTitle = ['cars','carId', 'tripUserId','tripCarStyleType'];
 
     const [choseCar, setChoseCar] = useState(false);
@@ -80,14 +80,14 @@ function PrintForm({form,formData,setFormData, setFile, type}) {
 
         }
         setShowLoading([false,0]);
-console.log('type: ' + type)
+// console.log('type: ' + type)
         if (type === 'group') {
             const target = `select/users/downloaduserlist`
             fetchData(target).then(downloadedData => {
 
                 setShowLoading([false,0]);
-                console.log(JSON.stringify(downloadedData));
-                console.log('JSON.stringify(downloadedData)');
+                // console.log(JSON.stringify(downloadedData));
+                // console.log('JSON.stringify(downloadedData)');
                 setUsersList(downloadedData)
             });
         }
@@ -248,8 +248,8 @@ console.log('type: ' + type)
                     ):(<></>)}
                     {(value === 'public' )?(
                         <div className="imputForm_visibility">
-                            <div className="imputForm_visibility_txt">{stanPublicGroup ? 'visible on main page' : 'will not be displayed'}</div>
-                            <button type="button" className="main_button" onClick={zmienStanGroup}>change vvvvvisibility</button>
+                            <div className="imputForm_visibility_txt">{stanPublicGroup ? 'group open to others' : 'a group closed to others'}</div>
+                            <button type="button" className="main_button" onClick={zmienStanGroup}>change group availability</button>
                         </div>
                     ):(<></>)}
                     {(value === 'regulations')?(

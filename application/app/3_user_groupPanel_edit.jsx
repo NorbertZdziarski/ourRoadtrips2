@@ -34,7 +34,7 @@ function UserAdminGroup_edit() {
     let dzien = saveDate.getDate();
 
     return (<>
-        <section className={'userAdminGroupEdit'}>
+        <section className={'userAdminGroupEdit alert_underConstruction'}>
             <div className={'userAdminHeader'}>
                 <h4>panel administracyjny do edycji grupy:</h4>
                 <div >

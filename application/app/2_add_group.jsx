@@ -7,6 +7,7 @@ import {getInitialFormData} from "./getInitialFormData";
 import PrintForm from "./3_printForm";
 import {fetchData, updateData} from "./a_CRUD_service";
 import AddTripPageMap from "./3_addTripPageMap";
+import {checkIfItExists} from "./app_check";
 
 function AddGroup() {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ function AddGroup() {
     const setPage = useStoreActions(actions => actions.setPage);
     const page = useStoreState(state => state.page);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+    const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
     const [okPrint, setOkPrint] = useState(false);
     const keysToCopy = [['owner', 'name', 'description', 'type', 'public' ],['photo'],['design'],['invitedUsers'],[ 'saveDate','ownerId', 'comments', 'users', 'trips','cars']];
     const [formDataPage1, setFormDataPage1] = useState({});
@@ -98,16 +100,25 @@ function AddGroup() {
 
         // e.preventDefault();
         setShowLoading([true,0]);
+
+
+
+
+
         let formDataToSave = { ...formData, ...formDataPage1, ...formDataPage2, ...formDataPage3 , ...formDataPage4 , ...formDataPageOther }
+        // console.log('||||| formDataToSave.name: ' + formDataPage1.name)
+
+
+
         let idNewGroup;
         if (file) {
-            console.log(file)
+            // console.log(file)
             if (!dataId) {
                 await addDataToMongo(formDataToSave, null, type).then((res) => {
                     idNewGroup = res.id;
-                    console.log('> RES > ' + res)
+                    // console.log('> RES > ' + res)
                     addMultiFiles(file, res.id, type, formDataToSave, loggedUser._id).then((responseData) => {
-                        console.log('responseData: ' + responseData)
+                        // console.log('responseData: ' + responseData)
                         updateData(`${type}/${res.id}`, responseData).then((r)=>{ console.log('>>> odp: ' + r)});
                         // addDataToMongo(responseData).then((r)=>{ console.log(r)})
                     })
@@ -118,9 +129,9 @@ function AddGroup() {
                 idNewGroup = r.id;
             })
         }
-        console.log('formDataToSave ' + JSON.stringify(formDataToSave))
+        // console.log('formDataToSave ' + JSON.stringify(formDataToSave))
         let usersList = formDataToSave.invitedUsers;
-        console.log('usersList ' + JSON.stringify(usersList))
+        // console.log('usersList ' + JSON.stringify(usersList))
         let count;
         usersList.map((userIp)=>{
             let clickLink = `href="https://ourroadtrips.pl/showgroup/${idNewGroup}`
@@ -142,7 +153,7 @@ function AddGroup() {
             };
             addDataToMongo(saveData, null, 'message').then((r)=>{ console.log('ok '+ r)}).catch((err)=>{ console.log('err '+ err)})
         })
-        console.log('wysłano: ' + count)
+        // console.log('wysłano: ' + count)
 
         // setShowLoading([false,0]);
         setPage("userprofile");
@@ -157,7 +168,17 @@ function AddGroup() {
     };
 
     useEffect(() => {
-        if (pageInputTrip === 666) handleSubmit();
+        if (pageInputTrip === 666) {
+            checkIfItExists('groups',formDataPage1.name).then((check)=>{
+              if (check) {
+                     setYesOrNot([true, 0, `${formDataPage1.name} already exists`]);
+                    setPageInputTrip(1);
+                    return;
+                } else {handleSubmit();}
+            });
+
+
+        }
 
         if (pageInputTrip === 1) {setStyleButt1('current'); setStyleButt2('above') }
         if (pageInputTrip === 2) {setStyleButt1('below'); setStyleButt2('current'); setStyleButt3('above') }
@@ -192,11 +213,16 @@ function AddGroup() {
         <section className={`addTrip`}>
             {okPrint ? <>
                 <div>
-                    {(pageInputTrip === 1 || pageInputTrip === 2 || pageInputTrip === 4) &&
+                    {(pageInputTrip === 1 || pageInputTrip === 2|| pageInputTrip === 3 || pageInputTrip === 4) &&
                         <div id={'addGroupPage1'}>
-                            <h4>add your new group!</h4>
-                            <h3>give us some informations:</h3>
-                            <form>
+                            <h4>you create a new group!</h4>
+                            {pageInputTrip === 1 ? <h3>give us some informations:</h3> : null }
+                            {pageInputTrip === 2 ? <h3>add a profile photo:</h3> : null }
+                            {pageInputTrip === 3 ? <h3>choose style:</h3> : null }
+                            {pageInputTrip === 4 ? <h3>who we invite to the group:</h3> : null }
+
+                            <form className={pageInputTrip === 3 && 'alert_underConstruction'}>
+
                                 {okPrint ?
                                     <PrintForm
                                         form={pageInputTrip === 1 ? formArr1 : pageInputTrip === 2 ? formArr2 :pageInputTrip === 3 ? formArr3 :  formArr4}

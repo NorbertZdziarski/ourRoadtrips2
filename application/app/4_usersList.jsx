@@ -3,8 +3,8 @@ import LoadImage from "./a_loadimage";
 
 function UsersList({usersList, invitedUsers, setInvitedUsers}) {
     // const [invitedUsers, setInvitedUsers] = useState([]);
-    console.log('4_userList ')
-    console.log(JSON.stringify(usersList))
+    // console.log('4_userList ')
+    // console.log(JSON.stringify(usersList))
     function addUserToGroup(userId) {
         setInvitedUsers(prevInvitedUsers => {
             if (prevInvitedUsers.includes(userId)) {
