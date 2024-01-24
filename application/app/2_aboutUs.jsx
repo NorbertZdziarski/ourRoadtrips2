@@ -36,6 +36,7 @@ function AboutUs() {
                     <div>
                         <h5 >* idea</h5>
                         <p> / soon ;) / </p>
+                        <p>Jestem autorem i wykonawcą tej aplikacji. Odpowiadam za wygląd, UI, aplikację webową i serwerową a także za hosting czy domenę.</p>
                         <ul> <p>funkcjonalność aplikacji: </p>
                              <li>zakładanie / edytowanie konta</li>
                              <li>dodawanie, modyfikowanie, usówanie:
@@ -136,6 +137,7 @@ function AboutUs() {
                             <li> idea SCRUM </li>
                             <li> narzędzie millanote </li>
                             <li> narzędzie GIThub </li>
+                            <li> WebStorm </li>
                         </ul>
 
                     </div>

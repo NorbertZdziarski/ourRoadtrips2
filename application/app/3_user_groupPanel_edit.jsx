@@ -1,33 +1,37 @@
 import React, {useState} from 'react';
-import {useStoreActions} from "easy-peasy";
+import {useStoreActions, useStoreState} from "easy-peasy";
 
 function UserAdminGroup_edit() {
-    const index = 1;
-    const inputData = {
-    saveDate: new Date(),
-    owner: 'Stefan',
-    ownerId: '12345',
-    name: 'Wyprawa na księżyc',
-    comment: ' jest gites! ',
-    description: 'lorem ipsum uno lorem ipsum lorem 2 ipsum lorem trie ipsum lorem blabus ipsum lorem ipsum lorem ipsum',
-    type: 'friends',
-    photo: 'foto.jpg',
-    public: true,
-    comments: [],
-    design: [],
-    invitedUsers: [1234,3333,7584,67483],
-    users: [5567,9090,478293],
-    trips: [12],
-    cars: [2222]
-}
+//     const index = 1;
+//     const inputData = {
+//     saveDate: new Date(),
+//     owner: 'Stefan',
+//     ownerId: '12345',
+//     name: 'Wyprawa na księżyc',
+//     comment: ' jest gites! ',
+//     description: 'lorem ipsum uno lorem ipsum lorem 2 ipsum lorem trie ipsum lorem blabus ipsum lorem ipsum lorem ipsum',
+//     type: 'friends',
+//     photo: 'foto.jpg',
+//     public: true,
+//     comments: [],
+//     design: [],
+//     invitedUsers: [1234,3333,7584,67483],
+//     users: [5567,9090,478293],
+//     trips: [12],
+//     cars: [2222]
+// }
     const [showActiveUsers, setShowActiveUsers] = useState(false)
     const [showInvUsers, setShowInvUsers] = useState(false)
     const [showCars, setShowCars] = useState(false)
     const [showTrips, setShowTrips] = useState(false)
     const setYesOrNot = useStoreActions(actions => actions.setYesOrNot);
-    let rok = inputData.saveDate.getFullYear();
-    let miesiac = inputData.saveDate.getMonth() + 1; // Dodajemy 1, aby otrzymać wartość od 1 do 12
-    let dzien = inputData.saveDate.getDate();
+    const loggedUser = useStoreState(state => state.loggedUser);
+    const inputData = useStoreState(state => state.tempInMemory);
+
+    let saveDate = new Date(inputData.saveDate);
+    let rok = saveDate.getFullYear();
+    let miesiac = saveDate.getMonth() + 1;
+    let dzien = saveDate.getDate();
 
     return (<>
         <section className={'userAdminGroupEdit'}>
@@ -114,8 +118,8 @@ function UserAdminGroup_edit() {
                             {inputData.users.map((user)=>{
                                 return (
                                     <section className={'dataLine'}>
-                                        <p>user id number: {user}</p>
-                                        <p>name: {user}</p>
+                                        <p>user id number: {user.id}</p>
+                                        <p>name: {user.nick}</p>
                                         <button>send message</button>
                                         <button>send reprimand</button>
                                         <button>remove user</button>
@@ -127,10 +131,8 @@ function UserAdminGroup_edit() {
                             <p>{inputData.users.length}</p>
                             <button onClick={()=>setShowActiveUsers(!showActiveUsers)}>show</button>
                         </>}
-
                     </div>
                 </div>
-
             </div>
             <div>
                 <div>

@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {fetchData} from "./a_CRUD_service";
 import {useStoreActions, useStoreState} from "easy-peasy";
+import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 function UserAdminGroup() {
 
     const loggedUser = useStoreState(state => state.loggedUser);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
+    const setTempInMemory = useStoreActions(actions => actions.setTempInMemory);
+
     const [loggedUsersGroups, setLoggedUsersGroups ] = useState();
 
 //     const inputData = {
@@ -31,7 +35,7 @@ function UserAdminGroup() {
         setShowLoading([true,0]);
         let targetGroups = `select/groups/${loggedUser._id}`
         await fetchData(targetGroups).then(downloadedGroups => {
-            console.log('2 user profile | trips |  downloadedData: ' + downloadedGroups + ' JSON: ' + JSON.stringify(downloadedGroups))
+            // console.log('2 user profile | trips |  downloadedData: ' + downloadedGroups + ' JSON: ' + JSON.stringify(downloadedGroups))
             setLoggedUsersGroups(downloadedGroups);
             setShowLoading([false, 0]);
         })
@@ -65,34 +69,42 @@ function UserAdminGroup() {
                     <th>trips</th>
                     <th>cars</th>
                     <th>public</th>
+                    <th></th>
                 </tr>
                 {loggedUsersGroups.map((loggedUserGroup, index) => {
-                    // console.log(loggedUserGroup.saveDate)
-                    // console.log(typeof loggedUserGroup.saveDate)
                     let saveDate = new Date(loggedUserGroup.saveDate);
                     let rok = saveDate.getFullYear();
                     let miesiac = saveDate.getMonth() + 1;
                     let dzien = saveDate.getDate();
 
                     return (
-                <tr>
-                    <td>{index + 1}</td>
-                    <td>{dzien} {miesiac} {rok}</td>
-                    {/*<td> no data </td>*/}
-                    <td>{loggedUserGroup.name}</td>
-                    <td>{loggedUserGroup.comment}</td>
-                    <td>{loggedUserGroup.description.slice(0,20)}...</td>
-                    <td>{loggedUserGroup.type}</td>
-                    <td>{loggedUserGroup.photo?<p>yes</p> : <p>no</p>}</td>
-                    <td>{loggedUserGroup.comments?<p>yes</p> : <p>no</p>}</td>
-                    <td>{loggedUserGroup.design?<p>yes</p> : <p>no</p>}</td>
-                    <td>{loggedUserGroup.invitedUsers.length}</td>
-                    <td>{loggedUserGroup.users.length}</td>
-                    <td>{loggedUserGroup.trips.length}</td>
-                    <td>{loggedUserGroup.cars.length}</td>
-                    <td>{loggedUserGroup.public?<p>yes</p> : <p>no</p>}</td>
-                </tr>)}
-                )}
+                        <tr>
+
+                                <td>{index + 1}</td>
+                                <td>{dzien} {miesiac} {rok}</td>
+                                <td>{loggedUserGroup.name}</td>
+                                <td>{loggedUserGroup.comment}</td>
+                                <td>{loggedUserGroup.description.slice(0,20)}...</td>
+                                <td>{loggedUserGroup.type}</td>
+                                <td>{loggedUserGroup.photo?<p>yes</p> : <p>no</p>}</td>
+                                <td>{loggedUserGroup.comments?<p>yes</p> : <p>no</p>}</td>
+                                <td>{loggedUserGroup.design?<p>yes</p> : <p>no</p>}</td>
+                                <td>{loggedUserGroup.invitedUsers.length}</td>
+                                <td>{loggedUserGroup.users.length}</td>
+                                <td>{loggedUserGroup.trips.length}</td>
+                                <td>{loggedUserGroup.cars.length}</td>
+                                <td>{loggedUserGroup.public?<p>yes</p> : <p>no</p>}</td>
+                                <td className={'full-cell-button-container'}>
+                                    <Link to={`/useradmingroup-edit`} onClick={()=>{setTempInMemory(loggedUserGroup)}} className={'full-cell-button'} >
+
+                                            EDIT
+
+                                    </Link>
+                                </td>
+
+                        </tr>
+                    );
+                })}
             </table> : <p>loading</p> }
 
         </section>

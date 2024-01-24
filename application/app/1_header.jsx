@@ -43,14 +43,14 @@ function Header() {
     const [incommingMessages, setIncommingMessages] = useState(false);
     const [sendMessages, setSendMessages] = useState(false);
 
-    const pageExclusion = ["aboutus", "showtrip", "showcar", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "post" ,"useradmingroup","useradmingroup-edit"]
+    const pageExclusion = ["aboutus", "showtrip", "showcar", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "post","useradmingroup" ,"useradmingroup-edit"]
     const location = useLocation();
         React.useEffect(() => {
             // console.log('Zmiana URL', location);
             const firstPartOfPath = location.pathname.split('/')[1].toLowerCase();
             // console.log('pierwsza część: ', firstPartOfPath);
             if (firstPartOfPath === "") {setNewPage("mainpage")} else {setNewPage(firstPartOfPath)}
-            if (!loggedUser && (firstPartOfPath === "userpanel" || firstPartOfPath === "userprofile" ||  firstPartOfPath === "addcar" || firstPartOfPath === "addtrip" || firstPartOfPath === "addgroup" || firstPartOfPath === "post")) {
+            if (!loggedUser && (firstPartOfPath === "userpanel" || firstPartOfPath === "userprofile" ||  firstPartOfPath === "addcar" || firstPartOfPath === "addtrip" || firstPartOfPath === "addgroup" || firstPartOfPath === "post" || firstPartOfPath === "useradmingroup" || firstPartOfPath === "useradmingroup-edit")) {
                 // console.log('>> header - path: ' + firstPartOfPath)
                 navigate('/');
             }
@@ -74,7 +74,7 @@ function Header() {
                 let askForm = {receiverId: loggedUser._id};
                 let response = await transferData(`message/find`, askForm);
                 let data = response.id;
-                if (data.length > 0) setNewMessage(true)
+                // if (data.length > 0) setNewMessage(true)
             }
             fetchDataaa();
         }
@@ -97,6 +97,7 @@ function Header() {
 
     useEffect(() => {
         if (loggedUser) {
+
             const intervalId = setInterval(checkMessage, 20000);
             return () => clearInterval(intervalId);
         }

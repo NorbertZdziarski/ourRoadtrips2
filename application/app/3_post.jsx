@@ -40,8 +40,8 @@ function Post() {
     // }
     useEffect(async ()=>{
         if (updateGroup) {
-            console.log(loggedUser)
-            console.log(JSON.stringify(loggedUser));
+            // console.log(loggedUser)
+            // console.log(JSON.stringify(loggedUser));
             let addUser = {
                 nick: loggedUser.nick,
                 id: loggedUser._id,
@@ -52,12 +52,12 @@ function Post() {
             updateGroup.users.push(addUser)
             const idGroup = updateGroup._id;
             delete updateGroup._id;
-            console.log(JSON.stringify(updateGroup));
+            // console.log(JSON.stringify(updateGroup));
             // console.log(JSON.stringify(updateGroup.users))
 
             // const updateMessage = { ...message, readed: true };
             let target = `group/${idGroup}`
-            console.log('target: ' + target)
+            // console.log('target: ' + target)
             await updateData(target,updateGroup).then((r)=>{console.log('ok. ' + r)}).catch((e)=>{console.log('error! ' + e)})
             setReadMessage('')
         }
@@ -83,7 +83,7 @@ function Post() {
                 const fetchDataAsync = async () => {
                     try {
                         const downloadedData = await fetchData(target);
-                        console.log(downloadedData);
+                        // console.log(downloadedData);
                         // console.log(downloadedData.users.includes(newGroupUser))
                         checkData(downloadedData)
                         //
