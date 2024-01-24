@@ -130,9 +130,17 @@ p:last-child {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 500px;
-  height: 250px;
   display: flex;
+  @media screen and (min-width: 551px) {
+    width: 500px;
+
+  }
+  @media screen and (max-width: 550px){
+    width: 90%;
+  }
+
+  height: 250px;
+
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
@@ -140,6 +148,7 @@ p:last-child {
     color: black;
     font-size: 3rem;
     font-weight: 600;
+    text-align: center;
   }
   div {
     display: flex;
@@ -1078,4 +1087,30 @@ article.showDescription {
 }
 .underlineStyle {
   border-bottom: 3px solid $color-blink-color;
+}
+
+
+
+table td.full-cell-button-container {
+  padding: 0;
+}
+
+.full-cell-button {
+  padding: 0;
+  margin-top:0.7rem;
+
+  margin-inline: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  color: black;
+  background-color: $color-blink-color;
+  height: inherit;
+  width: 80%;
+  height: 3rem;
+  border-radius: 0.2rem;
+  &:hover {
+    background-color: white;
+  }
 }
