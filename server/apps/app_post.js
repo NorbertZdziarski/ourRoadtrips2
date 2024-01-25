@@ -62,17 +62,17 @@ router.post('/:inquiryType/:what', async (req, res) => {
     const whatToDo = req.params.what;
     const newItem = await req.body;
     let filter = null;
-    saveLog(`65 | action 'post', collection name: ${collectionName} ,whatToDo ${whatToDo}, filter: ${filter} newItem: ${newItem}`,`app_post >`);
+    saveLog(`65 | action 'post',\n collection name: ${collectionName} ,whatToDo ${whatToDo}, filter: ${filter} newItem: ${newItem}`,`app_post >`);
     if (whatToDo === 'add') {
-       saveLog(`67 | json:  \n newItem: ${JSON.stringify(newItem)}`);
+       // saveLog(`67 | json:  \n newItem: ${JSON.stringify(newItem)}`);
     await manageData(collectionName,'post', newItem).then((result) => {
-        saveLog(`69 | odpowiedz z zapisu: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
+        // saveLog(`69 | odpowiedz z zapisu: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
         res.status(200).send({message: 'Dodano nowy element do bazy danych', id: result});
     });
     } else {
-        saveLog(`72 | ----`);
+        // saveLog(`72 | ----`);
         await manageData(collectionName,'postlikeget', newItem).then((result) => {
-            saveLog(`74 | odpowiedz z POST: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
+            // saveLog(`74 | odpowiedz z POST: ${result} json: ${JSON.stringify(result)}`,`app_post >`);
             res.status(200).send({message: 'wszystko ok', id: result});
     });
     }

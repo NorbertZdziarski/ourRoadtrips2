@@ -4,7 +4,7 @@ const fs = require("fs");
 const saveLog = require("./apps/savelog");
 require('dotenv').config();
 
-async function manageData(collectionName, action, data, filter) {
+async function manageData(collectionName, action, data, filter, idCom) {
     saveLog(`8 | uruchomiono app_mongo`, 'app_mongo');
     const dbName = process.env.DBNAME || 'ourRoadtrips2';
     const url = process.env.DBFULLPATH || 'mongodb://127.0.0.1:27017';
@@ -141,7 +141,9 @@ async function manageData(collectionName, action, data, filter) {
 
             // else { console.log('! Niepoprawny identyfikator action: ' + action + ' lub data: ' + data);
         } else if (action === 'patchComm') {
+            saveLog('----------------------app mongo: patch comm :-) ', 'app_mongo');
         await collection.updateOne(
+
             {_id: new ObjectId(filter)},
             { $set: { tripComments: data } },
             //     function(err, result) {
@@ -152,26 +154,21 @@ async function manageData(collectionName, action, data, filter) {
             //         client.close();
             //     }
         );
-        await client.close();return
-        }  else if (action === 'patchCommLike') {
-            saveLog('----------------------app mongo: patch comm like.', 'app_mongo');
+        await client.close();
+        // return
+        } else if (action === 'patchCommLike') {
+            // saveLog('----------------------app mongo: patch comm like.', 'app_mongo');
 
-            saveLog('filter: ' + filter, 'app_mongo')
-            // saveLog('id: ' + idCom)
-            // saveLog(typeof idCom);
-            saveLog('data: ' + data, 'app_mongo')
-
-            //
             try {
+
                 const result = await collection.updateOne(
-                    {"_id": new ObjectId(filter), "tripComments": { $elemMatch: { id: idCom } } },
-                    { $set: { "tripComments.$.commLike": data } }
+                {"_id": new ObjectId(filter), "tripComments": { $elemMatch: { id: Number(idCom) } } },
+                { $set: { "tripComments.$.commLike": data } },
+                { upsert: true }
                 );
-                // console.log('Result: ');
-                saveLog(`81 | result: ${result} `,`app_mongo`);
                 saveLog("Dokument został zaktualizowany!", 'app_mongo');
             } catch (err) {
-                saveLog(`84 | błąd: ${err}`,`app_mongo`);
+                saveLog(`179 | błąd: ${err}`,`app_mongo`);
             } finally {
                 await client.close();
             }

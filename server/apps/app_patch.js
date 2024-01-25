@@ -12,7 +12,7 @@ router.patch('/:inquiryType/comment/:id', async (req, res) => {
     const id = req.params.id;
     saveLog('patch comment id: ' + id,'app_patch <>')
     const pathName = req.params.inquiryType + 's';
-    saveLog('patch comment pathName: ' + pathName,'app_patch <>')
+    // saveLog('patch comment pathName: ' + pathName,'app_patch <>')
     // const idCom = req.params.idCom;
     let newItem = await req.body;
     // if (id.includes('/comment/')) {
@@ -22,7 +22,7 @@ router.patch('/:inquiryType/comment/:id', async (req, res) => {
     //     console.log(beforeComment); // wyświetla 'trip/${tripId}'
     //     console.log(afterComment);  // wyświetla '${comment._id}'}
     // }
-    saveLog(`25 | komentarz ${newItem} JSON ${JSON.stringify(newItem)}`,`app_patch >`);
+    // saveLog(`25 | komentarz ${newItem} JSON ${JSON.stringify(newItem)}`,`app_patch >`);
 
     await manageData(pathName,'patchComm',  newItem,id);
 
@@ -31,7 +31,7 @@ router.patch('/:inquiryType/comment/:id', async (req, res) => {
 router.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     const id = req.params.id;
     console.log('----------------------comm like.');
-    console.log('34 id: ' + id)
+    // console.log('34 id: ' + id)
     const pathName = req.params.inquiryType + 's';
     const idCom = req.params.idCom;
     const newItem = await req.body;
@@ -43,11 +43,12 @@ router.patch('/:inquiryType/:id/commlike/:idCom', async (req, res) => {
     //     console.log(afterComment);  // wyświetla '${comment._id}'}
     // }
     saveLog(`45 | komentarz like ${pathName}`,`app_patch >`);
-    saveLog(' 46 | new item: ' + newItem, 'app_mongo');
-    console.log('idCOm: ' + idCom);
-    console.log('----------------------');
+    saveLog('46 | new item: ' + newItem,`app_patch >`);
+    saveLog('46 | new item: ' + typeof newItem,`app_patch >`);
+    saveLog('47 | idCOm: ' + idCom,`app_patch >`);
 
-    await manageData(pathName,'patch', 'patchCommLike',newItem,id, idCom);
+
+    await manageData(pathName, 'patchCommLike',newItem,id, idCom);
     res.send('Dane zostały zaktualizowane');
 });
 router.patch('/:inquiryType/:id', async (req, res) => {
