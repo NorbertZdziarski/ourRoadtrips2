@@ -87,7 +87,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 })
                     .then(response => {
                         console.log('-=-=- GooglePhoto response ')
-                        console.log(response.data);
+                        // console.log(response.data);
                     })
                     .catch(error => {
                         console.log('-=-=- GooglePhoto error ')
@@ -112,7 +112,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                     }
                 })
                     .then(response => {
-                        console.log(response.data);
+                        // console.log(response.data);
                     })
                     .catch(error => {
                         console.error(error);
@@ -120,7 +120,7 @@ const sendRequest = async (method, target, data,folderName, fileName) => {
                 return;
                 // break;
             case 'patch':
-                // console.log('CRUD: patch')
+
                 response = await axios.patch(`${apiURL}/${target}`, data,{
                     headers: {
                         'Content-Type': 'application/json',

@@ -99,9 +99,7 @@ function UserAdminGroup() {
                     );
                 })}
             </table> : null }
-            {loggedUsersGroups && window.innerWidth < 950 ?
-                <>
-
+            {loggedUsersGroups && window.innerWidth < 950 ? <>
                     {loggedUsersGroups.map((loggedUserGroup, index) => {
                         let saveDate = new Date(loggedUserGroup.saveDate);
                         let rok = saveDate.getFullYear();
@@ -166,7 +164,6 @@ function UserAdminGroup() {
                     })}
                 </> :  null }
         </section>
-
     </>)
 }
 

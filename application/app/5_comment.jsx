@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useStoreState} from "easy-peasy";
 import {fetchData, updateData} from "./a_CRUD_service";
 import LoadImage from "./a_loadimage";
+import Anim_loading from "./anim_loading";
 
 
 
@@ -39,22 +40,32 @@ function Comment({comment, author, userId, tripId}) {
     async function addLike() {
         if (loggedUser) {
             if (!comment.commLike.includes(loggedUser._id)) {
-                let nowa_wartosc = [...comment.commLike, loggedUser._id];
+                let nowa_wartosc = [];
+
+                if (Object.keys(comment.commLike).length > 0) {
+
+                    nowa_wartosc = Object.values(comment.commLike);
+                    nowa_wartosc.push(loggedUser._id);
+                } else {
+                    nowa_wartosc.push(loggedUser._id);
+                }
+
                 setLike(prevLike => prevLike + 1);
-                setVoteState('loggedInVoted'); // Aktualizacja stanu voteState
+                setVoteState('loggedInVoted');
                 const target = `trip/${tripId}/commlike/${comment.id}`;
                 comment.commLike.push(loggedUser._id);
-                await updateData(target, nowa_wartosc);
+
+                await updateData(target, nowa_wartosc).then((r)=>{'response ' + r});
             }
         }
     }
     return (
         <button className={`comment_conteiner colorStyle_comment_${displayStyles}`} onClick={()=>{addLike()}}>
             <div className="comment_photo_container">
-                <LoadImage imageName={photo || 'user.png'}
-                           imagePath={photoPath}
-                           photoClass={"comment_photo" }
-                />
+                {photo && photoPath ?    <LoadImage imageName={photo || 'user.png'}
+                                                    imagePath={photoPath}
+                                                    photoClass={"comment_photo" }
+                /> : <p>no photo</p> }
             </div>
             <div className={`comment_cloud colorStyle_commentCloud_${displayStyles}`}>
                 <div className={`comment_like ${voteState}_${displayStyles}`}>{like}</div>

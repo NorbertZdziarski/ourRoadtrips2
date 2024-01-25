@@ -11,7 +11,7 @@ function AddComment({author, trip, setAddComm}) {
 
     async function sendComm() {
         if (loggedUser) {
-                console.log(trip.tripComments)
+                // console.log(trip.tripComments)
                const dataToSave = {
                     id: trip.tripComments.length,
                     commTxt:enterComment,
@@ -23,7 +23,7 @@ function AddComment({author, trip, setAddComm}) {
                 let newData = [...trip.tripComments, dataToSave];
 
                 const target = `trip/comment/${trip._id}`;
-                await updateData(target, newData);
+                await updateData(target, newData).then((r)=>{console.log('r: ' + r)});
         }
 
         setEnterComment('');
@@ -41,10 +41,6 @@ function AddComment({author, trip, setAddComm}) {
                                photoClass={`comment_photo colorStyle_comment_${displayStyles}`}
                     />
                 </div>
-                {/*<img className="comment_photo" src="../images/user.png" alt='foto' >*/}
-
-                {/*</img>*/}
-
 
                 <div className={`addComment_cloud colorStyle_commentCloud_${displayStyles}`}>
                     <textarea className="comment_message" Value={enterComment} onChange={(e)=>{setEnterComment(e.target.value)}}/>
