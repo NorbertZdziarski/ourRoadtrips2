@@ -525,7 +525,12 @@ $height_line: 3.5rem;
 .datalist {
   margin: 1rem auto;
   font-size: 2rem;
-  width: 60rem;
+  @media screen and (min-width: 951px) {
+    width: 60rem;
+    }
+  @media screen and (max-width: 950px) {
+    width: 95%;
+  }
   height: $height_line;
   justify-content: space-between;
   //align-items: end;
@@ -534,6 +539,12 @@ $height_line: 3.5rem;
     padding-left: 0.4rem;
     padding-bottom: 0.2rem;
     width: 50rem;
+    @media screen and (min-width: 951px) {
+      width: 50rem;
+    }
+    @media screen and (max-width: 950px) {
+      width: 70%;
+    }
     border-bottom: 1px dotted rgba(255, 255, 255, 0.3);
   }
   div {
@@ -558,9 +569,16 @@ $height_line: 3.5rem;
     transition-duration: 0.2s;
     //background-color: $color-txt-main;
     border:2px solid $color-txt-main;
-    color: #282c34;
+    color: $color-txt-main;
     width: 10rem;
     height: $height_line;
+    margin-block: auto;
+    &:hover {
+      transition-duration: 0.2s;
+      width: 10rem;
+      color: #282c34;
+      background-color: $color-txt-main;
+      height: $height_line;}
   }
   img {
     border: 0;
@@ -942,24 +960,25 @@ article.postMessage  {
 }
 
 .userAdminGroup {
-  width: 100%;
-
+  //width: 100%;
+  h4 {
+    margin-bottom: 0.5rem;
+  }
  table {
+   max-width: 120rem;
    width: 100%;
    margin-top: 1rem;
    background-color: rgba(119, 136, 153, 0.5);
    border-collapse: collapse;
-   font-size: 1.8rem;
+   //font-size: 1.8rem;
    th {
      background-color: #b2b2b2;
      border-left: 1px solid rgba(119, 136, 153, 0.2);
      color: #313131;
-     transform: rotate(90);
-
    }
    td, th {
      padding: 0.5rem 1rem;
-     min-width: 3rem;
+     min-width: 2rem;
      font-size: 2rem;
    }
    td {
@@ -1112,5 +1131,48 @@ table td.full-cell-button-container {
   border-radius: 0.2rem;
   &:hover {
     background-color: white;
+  }
+}
+
+.userGroupPanelAdminMobile {
+  margin-bottom: 0.5rem;
+  border-radius: 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.3rem;
+  div {
+    margin: 0.3rem;
+    padding: 0.5rem;
+    width: 100%;
+
+    h6 {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+    p {
+      font-size: 2rem;
+      font-weight: 200;
+      line-height: 3rem;
+    }
+  }
+  header {
+    div:first-child {
+      text-align: center;
+      width: 4rem;
+    }
+  }
+  main, header, footer, section  {
+    background-color: rgba(255,255,255,0.1);
+
+    padding: 0.2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  section {
+    border-bottom: 2px dotted rgba(255,255,255,0.6);
+  }
+  header, footer {
+    border-top: 2px dotted rgba(255,255,255,0.6);
+    border-bottom: 2px dotted rgba(255,255,255,0.6);
   }
 }

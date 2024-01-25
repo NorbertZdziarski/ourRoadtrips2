@@ -37,10 +37,7 @@ function UserAdminGroup_edit() {
         <section className={'userAdminGroupEdit alert_underConstruction'}>
             <div className={'userAdminHeader'}>
                 <h4>panel administracyjny do edycji grupy:</h4>
-                <div >
-                    <button>cancel</button>
-                    <button onClick={()=>setYesOrNot([true, 0])}>save changes</button>
-                </div>
+
             </div>
             <div>
                 <div>
@@ -186,6 +183,15 @@ function UserAdminGroup_edit() {
                 </div>
 
             </div>
+            <nav>
+                <button disabled>
+                    cancel
+                </button>
+                <button disabled onClick={()=>setYesOrNot([true, 0])}>save changes</button>
+                <button disabled>
+                    delete the group
+                </button>
+            </nav>
 
 
             {/*        <th>comments</th>*/}

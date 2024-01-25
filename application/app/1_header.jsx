@@ -98,6 +98,7 @@ function Header() {
     useEffect(() => {
         if (loggedUser) {
 
+
             const intervalId = setInterval(checkMessage, 20000);
             return () => clearInterval(intervalId);
         }
@@ -243,7 +244,7 @@ function Header() {
                                 <Link to="/addgroup" className="myLink" onClick={() => {
                                     setMoblieMenuClass('')
                                     setDataId(''); setPage("addgroup")}}> Add Group </Link>
-                                <Link to="/admin" className="myLink" onClick={() => {
+                                <Link to="/useradmingroup" className="myLink" onClick={() => {
                                     setMoblieMenuClass('')
                                     setDataId(''); setPage("admin")}}> Admin panel </Link>
                                 <Link to="/edituserdata" className="myLink" onClick={() => {setPage("edituserdata")}}> Edit User Data </Link>
