@@ -4,15 +4,15 @@ import {useStoreActions, useStoreState} from "easy-peasy";
 import RateModule from "./4_rateModule";
 import ShowRate from "./4_showRate";
 import ShowPhoto from "./5_showPhoto";
-import icoChat from "../images/ico/chat.png"
+import icoChat from "../images/forum_FILL0_wght400_GRAD0_opsz24.svg"
 import {Link} from "react-router-dom";
-import icopetrolpb from "../images/dispenser.png";
-import icopetroldiesel from "../images/dispenser.png";
-import icopetrolbev from "../images/energy.png";
+import icopetrolpb from "../images/local_gas_station_FILL0_wght400_GRAD0_opsz24.svg";
+import icopetroldiesel from "../images/local_gas_station_FILL0_wght400_GRAD0_opsz24.svg";
+import icopetrolbev from "../images/ev_station_FILL0_wght400_GRAD0_opsz24.svg";
 import icocarcar from "../images/car.png";
 import icocar4x4 from "../images/4x4.png";
-import icocarbike from "../images/bike.png";
-import icocarcamper from "../images/van.png";
+import icocarbike from "../images/two_wheeler_FILL0_wght400_GRAD0_opsz24.svg";
+import icocarcamper from "../images/airport_shuttle_FILL0_wght400_GRAD0_opsz24.svg";
 
 
 function CarBox({car}) {
@@ -20,7 +20,7 @@ function CarBox({car}) {
     const setTripId = useStoreActions(actions => actions.setTripId);
     const displayStyles = useStoreState(state => state.displayStyles);
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
-    console.log(' group box ')
+
     // window.onload = function() {
     //     var divHeight = document.getElementById('tripbox_title').offsetHeight;
     //     // console.log('div height: ' + divHeight)

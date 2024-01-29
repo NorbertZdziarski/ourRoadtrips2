@@ -6,15 +6,15 @@ import DataFilter from "./4_filter";
 import LoadImage from "./a_loadimage";
 import DataSort from "./4_sort";
 import logourl from "../images/logo_m.png";
-import icotheme from "../images/color-palette_6591234.png";
-import icomenu from "../images/menu.png";
-import icomap from "../images/map.png";
-import icolist from "../images/list_tasks_to_do_list_icon_233416.png";
-import icohome from "../images/home_house_icon_143764.png";
-import icogroup from "../images/people.png";
+import icotheme from "../images/palette_FILL0_wght400_GRAD0_opsz24.svg";
+import icomenu from "../images/menu_FILL0_wght400_GRAD0_opsz24.svg";
+import icomap from "../images/map_FILL0_wght400_GRAD0_opsz24.svg";
+import icolist from "../images/splitscreen_FILL0_wght400_GRAD0_opsz24.svg";
+import icohome from "../images/home_FILL0_wght400_GRAD0_opsz24.svg";
+import icogroup from "../images/groups_FILL0_wght400_GRAD0_opsz24.svg";
 import icocars from "../images/cars.png";
-import icoenvelope from "../images/envelope.png";
-import arrowup from "../images/up-arrow_icon-icons.com_73351.png";
+import icoenvelope from "../images/mail_FILL0_wght400_GRAD0_opsz24.svg";
+import arrowup from "../images/expand_less_FILL0_wght400_GRAD0_opsz24.svg";
 import { Link } from "react-router-dom";
 import FilterStaus from "./4_filterStatus";
 import {fetchData, transferData} from "./a_CRUD_service";
@@ -38,7 +38,7 @@ function Header() {
     const [screenWidth, setScreenWidth] = useState();
     const [moblieMenuClass, setMoblieMenuClass] = useState('');
     const [filterBar, setFilterBar] = useState(false);
-    const [filterBarStatus, setFilterBarStatus] = useState('status');
+    const [filterBarStatus, setFilterBarStatus] = useState('filter');
     const [newMessage, setNewMessage] = useState(false);
     const [incommingMessages, setIncommingMessages] = useState(false);
     const [sendMessages, setSendMessages] = useState(false);
@@ -57,8 +57,9 @@ function Header() {
         }, [location]);
 
         useEffect(()=>{
-        if (filterBarStatus === 'status' && window.innerWidth < 950) setFilterBar(false)
+
             // console.log(' ! HEADER CHECK ! ')
+            // console.log('page ' + page)
             // console.log('screenWidth ' + screenWidth)
             // console.log('moblieMenuClass ' + moblieMenuClass)
             // console.log('filterBar ' + filterBar)
@@ -129,28 +130,31 @@ function Header() {
 
     useEffect(() => {
 
+
         if (dataSortOn && page !== "map") {
             setFilterBar(true);
-            setFilterBarStatus('sort');
+
         } else {
             if (filterBarStatus === 'sort') {
                 setFilterBar(false);
-                setFilterBarStatus('status');
-            }
+               }
         }
         if (dataFilter[0]) {
             setFilterBar(true);
-            setFilterBarStatus('filter');
+
         } else {
             if (filterBarStatus === 'filter') {
                 setFilterBar(false);
-                setFilterBarStatus('status');
+
             }
         }
         if (dataFilter[1] !== 'all' || dataFilter[2] !== 'all' || dataFilter[3] !== 'all') {
             setFilterBar(true);
         }
+        if ((filterBarStatus === 'filter') && (page !=="mainpage")) {
 
+            setFilterBar(false);
+        }
     }, [dataFilter, dataSortOn, page]);
 
     return (<>
@@ -164,7 +168,7 @@ function Header() {
                         {(((page === "mainpage") || (page === "mainpagefilter") || (page === "map")|| (page === "groups") || (page === "cars")) ? (
                             <section className={`headerButtons${moblieMenuClass} `}>
 
-                                   {((!dataSortOn) || (!dataFilter[0])) ? <>
+                                   {/*{((!dataSortOn) || (!dataFilter[0])) ? <>*/}
                                        <div className={'layout_flex-sb'}>
 
                                            <Link to="/"  className={`myLink ${page === "mainpage" && 'underlineStyle'}`} >
@@ -197,6 +201,7 @@ function Header() {
                                        </div>
                                        {(page ==="mainpage" || page ==="map") ?
                                        <button  onClick={() => {
+                                           setFilterBarStatus('filter')
                                            setMoblieMenuClass('')
                                            setDataFilter([true, 'all', 'all', 'all'])
                                            if (filterBar) {
@@ -211,12 +216,13 @@ function Header() {
                                            Filter
                                        </button> : <></>}
                                        {(page !=="map") ?<> <button onClick={() => {
+                                           setFilterBarStatus('sort')
                                            setMoblieMenuClass('')
                                            if (filterBar) {setFilterBar(false)} else {setDataSortOn(true); setFilterBar(true)}
                                            }}>
                                             Sort / {tripSort}
                                             </button>
-                                           </>: <></>}
+                                           {/*</>: <></>}*/}
 
                                         {(moblieMenuClass === '') ? (<></>) : (
                                           <button onClick={() => setMoblieMenuClass('')}>
@@ -276,43 +282,6 @@ function Header() {
                         ) : (
                             <></>))}
 
-                        {/*{(((page === "aboutme") || (page === "groups")  || (page === "showgroup")) ? (*/}
-                        {/*    <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>*/}
-                        {/*        <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>*/}
-                        {/*            <img src={icohome} className={`header_ico ico_${displayStyles}`}/>*/}
-                        {/*        </Link>*/}
-                        {/*        <button onClick={() => navigate(-1)}>*/}
-                        {/*            Back*/}
-                        {/*        </button>*/}
-                        {/*        {(moblieMenuClass === '') ? (<></>) : (*/}
-
-                        {/*            <button onClick={() => setMoblieMenuClass('')}>*/}
-                        {/*                hide*/}
-                        {/*            </button>*/}
-                        {/*        )}*/}
-                        {/*    </section>*/}
-                        {/*) : (*/}
-                        {/*    <></>))}*/}
-
-                        {/*{((page === "login") ? (*/}
-                        {/*    <section className={`headerButtons${moblieMenuClass} colorStyle_headerBtn_${displayStyles}`}>*/}
-                        {/*        <Link to="/" className="myLink" onClick={() => {setPage("mainpage")}}>*/}
-                        {/*            <img src={icohome} className={`header_ico ico_${displayStyles}`}/>*/}
-                        {/*        </Link>*/}
-                        {/*        <button onClick={() => navigate(-1)}>*/}
-                        {/*            Back*/}
-                        {/*        </button>*/}
-                        {/*        {(moblieMenuClass === '') ? (<></>) : (*/}
-
-                        {/*            <button onClick={() => setMoblieMenuClass('')}>*/}
-                        {/*                hide*/}
-                        {/*            </button>*/}
-                        {/*        )}*/}
-                        {/*    </section>*/}
-                        {/*) : (*/}
-                        {/*    <></>))}*/}
-
-
                     </>}
                     {(moblieMenuClass === '') ? (
 
@@ -338,12 +307,7 @@ function Header() {
                             </> : <></>}
 
                             {!loggedUser ?<> <Link to="/login" className="myLink" onClick={() => {setPage("login")}}> LOGIN </Link></> : <></>}
-                            {/*{(page === 'userprofile') ? <button onClick={() => {*/}
-                            {/*    setLoggedUser();*/}
-                            {/*    googleLogout();*/}
-                            {/*    setPage("mainPage");*/}
-                            {/*}}> Logout*/}
-                            {/*</button> : <></>}*/}
+
                             {(!loggedUser ?
                                 <button onClick={() => {
                                 if (displayStyles === 'dark') {
@@ -356,16 +320,12 @@ function Header() {
                             </button> : null )}
                         </div>) : (<></>)}
 
-
                 </div>
                 {(moblieMenuClass !== '_mobile')? <Link to="/"  onClick={() => {setPage("mainpage")}}>
                     <img src={logourl} className={`header_logo logo_${displayStyles}`}/>
                 </Link> : null }
             </header>
-            <div className={`subHeader_${displayStyles}`}>
-
-            </div>
-
+            <div className={`subHeader_${displayStyles}`}></div>
             <div className={`headerMenu_filter-bar ${filterBar ? 'show' : 'hide'}`}>
 
                 {/*{(dataFilter[0]) ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/> : <></>}*/}
@@ -373,7 +333,7 @@ function Header() {
 
                 {filterBarStatus === 'filter' ? <DataFilter setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
                 {filterBarStatus === 'sort' ? <DataSort setMoblieMenuClass={setMoblieMenuClass}/>:<></>}
-                {(filterBarStatus === 'status' && window.innerWidth > 950) ? <FilterStaus setFilterBar={setFilterBar}/> :<></>}
+                {/*{(filterBarStatus === 'status' && window.innerWidth > 950) ? <FilterStaus setFilterBar={setFilterBar}/> :<></>}*/}
 
                 {filterBarStatus === 'settings' ?
                     <div className={'underHeader_settings'}>
@@ -412,31 +372,9 @@ function Header() {
                             setPage("mainPage");
                         }}> Logout
                         </button>
-                        {/*{newMessage ? <>*/}
-                        {/*    */}
-                        {/*        <img src={icoenvelope} className={`header_ico ico_${displayStyles}`}/>*/}
-                        {/*    */}
-                        {/*</> : <></>}*/}
 
-                                {/*<LoadImage imageName={loggedUser.userPhoto || 'user.png'}*/}
-                                {/*           imagePath='images/users'*/}
-                                {/*           photoClass="header_photo"*/}
-                                {/*/>*/}
-
-
-                    {/*    {!loggedUser ?<> <Link to="/login" className="myLink" onClick={() => {setPage("login")}}> LOGIN </Link></> : <></>}*/}
-                    {/*    {(page === 'userprofile') ? <button onClick={() => {*/}
-                    {/*        setLoggedUser();*/}
-                    {/*        googleLogout();*/}
-                    {/*        setPage("mainPage");*/}
-                    {/*    }}> Logout*/}
-                    {/*</button> : <></>}*/}
-
-
-                    {/*<button onClick={()=>setFilterBar(!filterBar)}> HIDE </button>*/}
                 </div>:<></>}
             </div>
-
         </>
     );
 }

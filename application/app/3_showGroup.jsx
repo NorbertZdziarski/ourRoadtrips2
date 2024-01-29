@@ -9,8 +9,7 @@ import {calculateTheAverage} from "./calculateTheAverage";
 import ShowComments from "./4_showComments";
 import AddComment from "./5_addComment";
 import ShowPhotoSlide from "./5_showPhoto-slide";
-// import Gmap from "./2_map";
-// import AddRoute from "./3_add_route";
+
 import ShowMap from "./3_show_map";
 import { useParams } from 'react-router-dom';
 import LoadImage from "./a_loadimage";
@@ -46,14 +45,14 @@ function ShowGroup() {
     // console.log(' show trip id: ' + tripId + ' id: '+ id)
 
     useEffect(() => {
-        // console.log('| use efect _ show trip')
+
         const target = `one/group/${tripId}`
         const fetchDataAsync = async () => {
 
             try {
                 const downloadedData = await fetchData(target);
-                console.log(downloadedData);
-                console.log(typeof downloadedData);
+                // console.log(downloadedData);
+                // console.log(typeof downloadedData);
                 setData(downloadedData);
                 setShowUsers(downloadedData.users)
                 setShowCars(downloadedData.cars)
@@ -101,44 +100,54 @@ function ShowGroup() {
     return (
         // <section className={`userPanel_main colorstyle_reflex_${displayStyles}`}>
         // <section className="mainViewStyle divHeightTemp">
-        <section className={'divWidthTemp divHeightTemp'}>
+        <section className={'divWidthTemp divHeightTemp showGroup'}>
             {data ? <>
                 {/*className="showtrip_header"*/}
-                <header >
+                <section >
                     <div>
                         <LoadImage imageName={data.photo[0]}
                                    imagePath={'images/groups'}
                                    photoClass={'showGroup_mainPhoto'}
                         />
-                        <h3> H3:  {data.name} </h3>
+                        <h3> {data.name} </h3>
+                        <div className='showgroup_cover'>
+                            <div>
+                                <p>type of the group:  </p>
+                                <p>about us: </p>
+                                <p>founder of the group: </p>
+                                <p>the group has existed since: </p>
+                            </div>
+                            <div>
+                                <p>{data.type} </p>
+                                <p>{data.description}</p>
+                                <p>{data.owner}</p>
+                                <p>date </p>
+                            </div>
 
+
+                        </div>
+                        <nav className={'showgroup_cover'} >
+                            <button disabled> JOIN US! </button> <button disabled> follow us </button>
+                        </nav>
+                        {/*className={`colorstyle_button_${displayStyles} fnt_subtitle`}*/}
                     </div>
-                    <nav className={'layout_flex-sc'}>
-                        <button> JOIN US! </button> <button> follow us </button>
-                    </nav>
 
-                </header>
-                <div className={`colorstyle_button_${displayStyles} fnt_subtitle`}>
-                    <p>! under construction !</p>
-                    <p > TYP GRUPY: {data.type} </p>
-                    <p>about us: {data.description}</p>
-                    <p>founder of the group: {data.owner}</p>
-                    <p>the group has existed since: </p>
 
-               </div>
+                </section>
+
                 <nav className={'layout_gridAuto'}>
                     <button disabled onClick={()=>setShowMap(false)}> TRIPS </button>
                     <button disabled onClick={()=>setShowMap(true)}> USERS </button>
                     <button disabled onClick={()=>setShowMap(true)}> CARS </button>
                     <button disabled onClick={()=>setShowMap(true)}> DISCUSSION </button>
                 </nav>
-                <div className={'fnt_subtitle'}>
+                <div className={'fnt_subtitle '}>
 
-                    <p> our groups: </p>
-
-
+                    <p> members of our group: </p>
 
 
+
+                    <div className={'layout_flex_toColumn'}>
                     {data.users ? data.users.map((user) => (
                             <Link to={`/aboutme/${user.id}`} key={`keytrip${user.id}`} onClick={()=>{
                                 setShowMap(false);
@@ -150,10 +159,13 @@ function ShowGroup() {
                                 />
                             </Link>
                     )) : null}
-                    <p> TRIPS: </p>
-
-                    <p> CARS: </p>
-
+                    </div>
+                    <p> our expeditions: </p>
+                    <div className={'layout_flex_toColumn'}>
+                    </div>
+                    <p> our vehicles: </p>
+                        <div className={'layout_flex_toColumn'}>
+                        </div>
                     <p> discussion: </p>
 
                 </div>

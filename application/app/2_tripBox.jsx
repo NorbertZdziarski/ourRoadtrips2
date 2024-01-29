@@ -4,9 +4,9 @@ import {useStoreActions, useStoreState} from "easy-peasy";
 import RateModule from "./4_rateModule";
 import ShowRate from "./4_showRate";
 import ShowPhoto from "./5_showPhoto";
-import icoChat from "../images/ico/chat.png"
+import icoChat from "../images/forum_FILL0_wght400_GRAD0_opsz24.svg"
 import icotriprecreation from "../images/mug-saucer-solid.svg"
-import icotripextreem from "../images/flag-checkered-solid.svg"
+import icotripextreem from "../images/sports_score_FILL0_wght400_GRAD0_opsz24.svg"
 import icotripsightseeing from "../images/mountain-sun-solid.svg"
 import {Link} from "react-router-dom";
 

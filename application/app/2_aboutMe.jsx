@@ -131,8 +131,29 @@ function AboutMe() {
                     {/*        </div>*/}
                     {/*    )}*/}
                     {/*</section>*/}
+                    <h5>my trips</h5>
+                    <section className={`aboutme_show-container colorstyle_button_${displayStyles} layout_flex_toColumn`}>
+                        {userTrips ? (
+                            Object.values(userTrips).map((trip) =>
+                                <div key={`keytrip${trip._id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
+                                    <Link to={`/showtrip/${trip._id}`} className="aboutme_button" onClick={()=>{
+                                        // setTripId(trip._id)
+                                        setPage("showTrip");
+                                    }}>
+                                        {/*<button className="aboutme_button" onClick={()=> {*/}
+                                        {/*    // setPage("showTrip")*/}
+                                        {/*    setTripId(trip._id)*/}
+                                        {/*}}>*/}
+                                        <PrintTrips  trip={trip}/>
+                                    </Link>
 
-                    <section className={`aboutme_show-container colorstyle_button_${displayStyles}`}>
+                                </div>)
+                        ) : (
+                            <div>loading data....</div>
+                        )}
+                    </section>
+                    <h5>my cars</h5>
+                    <section className={`aboutme_show-container colorstyle_button_${displayStyles} layout_flex_toColumn`}>
 
                         {userCars ? (
                             Object.values(userCars).map((car) =>
@@ -156,26 +177,7 @@ function AboutMe() {
                             <div>loading data....</div>
                         )}
                     </section>
-                    <section className={`aboutme_show-container colorstyle_button_${displayStyles}`}>
-                        {userTrips ? (
-                            Object.values(userTrips).map((trip) =>
-                                <div key={`keytrip${trip._id}`} className={`colorStyle_slideShow_${displayStyles} aboutme_show`}>
-                                    <Link to={`/showtrip/${trip._id}`} className="aboutme_button" onClick={()=>{
-                                        // setTripId(trip._id)
-                                        setPage("showTrip");
-                                    }}>
-                                    {/*<button className="aboutme_button" onClick={()=> {*/}
-                                    {/*    // setPage("showTrip")*/}
-                                    {/*    setTripId(trip._id)*/}
-                                    {/*}}>*/}
-                                        <PrintTrips  trip={trip}/>
-                                    </Link>
 
-                                </div>)
-                        ) : (
-                            <div>loading data....</div>
-                        )}
-                    </section>
 
                 </div>: <>...no data...</> }
 

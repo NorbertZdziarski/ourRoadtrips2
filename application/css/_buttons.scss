@@ -3,6 +3,7 @@
 }
 
 a, button {
+  border: 0;
   display: block;
   font-size: $txtNormal;
 }
@@ -109,3 +110,10 @@ a, button {
   filter: invert(100%);
 }
 
+.button_25p {
+  width: 25%;
+}
+
+button.button_25p {
+  color: $color-background-main;
+}

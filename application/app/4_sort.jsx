@@ -12,14 +12,14 @@ function DataSort({setMoblieMenuClass}) {
 
     };
     return (<>
-        <select value={tripSort} name={'sort'} onChange={handleChange} className="header_dropdown_menu">
+        <select value={tripSort} name={'sort'} onChange={handleChange} className="button_25p header_dropdown_menu underHeader">
             {sortTypes.map((carStyle) => (
                 <option key={carStyle} value={carStyle}>
                     {carStyle}
                 </option>
             ))}
         </select>
-        <button className={'main_button '} onClick={()=> {
+        <button className='button_25p' onClick={()=> {
             setMoblieMenuClass('');
             setDataSortOn(false)} }>Cancel</button>
     </>)

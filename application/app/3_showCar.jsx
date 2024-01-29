@@ -5,7 +5,7 @@ import ShowPhotoSlide from "./5_showPhoto-slide";
 import {Link, useParams} from "react-router-dom";
 import path from "path";
 import {fetchData} from "./a_CRUD_service";
-import icouser from "../images/User-Outline.png";
+import icouser from "../images/person_FILL0_wght400_GRAD0_opsz24.svg";
 
 function ShowCar() {
     // console.log(' show car ')

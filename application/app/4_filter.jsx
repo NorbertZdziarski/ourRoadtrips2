@@ -12,21 +12,19 @@ function DataFilter({setMoblieMenuClass}) {
     const tripTypes = ["all", "recreation", "sightseeing", "extreme"];
     const carsStyleTypes=["all", "car", "bike", "4x4", "camper", "other"];
     const acceptFn = (event) => {
-        // event.preventDefault()
-        // console.log(selectCountry,choiceTripType,choiceStyleTypes)set
         let saveCountry;
         if (selectCountry==='choose a country') {saveCountry = 'all'} else { saveCountry = selectCountry}
         let saveTripType;
         if (choiceTripType==='select the type of trip') {saveTripType = 'all'} else { saveTripType = choiceTripType}
         let saveStyleTypes;
         if (choiceStyleTypes==="select vehicle type") {saveStyleTypes = 'all'} else { saveStyleTypes = choiceStyleTypes}
-
         setDataFilter([false,saveCountry,saveTripType,saveStyleTypes ])
+
     }
     return (
-        <div >
-            <form className='layout_grid3'>
-                <select value={selectCountry} onChange={(event) => setSelectCountry(event.target.value)} className="header_dropdown_menu">
+        <>
+            <form className='layout_grid3 divWidthTemp'>
+                <select value={selectCountry} onChange={(event) => setSelectCountry(event.target.value)} className="header_dropdown_menu underHeader">
                     <option value="choose a country" disabled={selectCountry !== "choose a country"}>choose a country</option>
                     {countriesInEurope.map((country) => (
                         <option key={country} value={country}>
@@ -35,7 +33,7 @@ function DataFilter({setMoblieMenuClass}) {
                     ))}
                 </select>
 
-                <select value={choiceTripType} name={choiceTripType} onChange={(event)=>setChoiceTripType(event.target.value)} className="header_dropdown_menu">
+                <select value={choiceTripType} name={choiceTripType} onChange={(event)=>setChoiceTripType(event.target.value)} className="header_dropdown_menu underHeader">
                     <option value="select the type of trip" disabled={selectCountry !== "select the type of trip"}>select the type of trip</option>
                     {tripTypes.map((triptype) => (
                         <option key={triptype} value={triptype} >
@@ -43,7 +41,7 @@ function DataFilter({setMoblieMenuClass}) {
                         </option>
                     ))}
                 </select>
-                <select value={choiceStyleTypes} name={choiceStyleTypes} onChange={(event)=>setChoiceStyleTypes(event.target.value)} className="header_dropdown_menu">
+                <select value={choiceStyleTypes} name={choiceStyleTypes} onChange={(event)=>setChoiceStyleTypes(event.target.value)} className="header_dropdown_menu underHeader">
                     <option value="select vehicle type" disabled={selectCountry !== "select vehicle type"}>select vehicle type</option>
                     {carsStyleTypes.map((carStyle) => (
                         <option key={carStyle} value={carStyle} >
@@ -53,15 +51,17 @@ function DataFilter({setMoblieMenuClass}) {
                 </select>
 
                 <button onClick={(e)=> {
+                    e.preventDefault()
                     setMoblieMenuClass('');
                     acceptFn(e.target)
                 } }>Accept</button>
+                {window.innerWidth < 950 ? <>
                 <button onClick={()=> {
                     setMoblieMenuClass('');
                     setDataFilter([false,selectCountry,choiceTripType,choiceStyleTypes ])
-                }}>Cancel</button>
+                }}>Cancel</button></> : null}
             </form>
-        </div>
+        </>
     )
 }
 export default DataFilter;

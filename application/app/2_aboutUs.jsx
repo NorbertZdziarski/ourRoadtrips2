@@ -138,7 +138,8 @@ function AboutUs() {
                             <li> narzędzie millanote </li>
                             <li> narzędzie GIThub </li>
                             <li> WebStorm </li>
-
+                            <li> free icons: https://icon-icons.com/ </li>
+                            <li> Google Fonts: https://fonts.google.com/ </li>
                         </ul>
 
                     </div>
@@ -154,7 +155,7 @@ function AboutUs() {
                             <li> wyszukiwarka </li>
                             <li> forum dyskusyjne </li>
                             <li> inna wersja językowa </li>
-                            <li> free icons: https://icon-icons.com/ </li>
+
                         </ul>
                     </div>
                 </section>

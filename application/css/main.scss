@@ -919,13 +919,89 @@ article.postMessage  {
 
 .showGroup_mainPhoto {
   width: 100%;
-  height: 15rem;
+  height: 60rem;
+  object-fit: cover;
+  z-index: 190;
+
 }
+.showGroup {
+  section {
+    height: 60rem;
+    div {
+      position: relative;
+      box-sizing: border-box;
+      h3 {
+        color: $color-txt-main;
+        position: absolute;
+        left: 2rem;
+        top: 2rem;
+        font-size: 5rem;
+        text-shadow: 0 0 1rem rgba(0,0,0,0.8);
+        z-index: 100;
+      }
+      div.showgroup_cover {
+        box-sizing: border-box;
+
+        position: relative;
+        z-index: 100;
+        background-color: rgba(0,0,0,0.5);
+        left: 0;
+        bottom: 20rem;
+        width: 100%;
+        height: 20rem;
+        padding: 1rem;
+        display: flex;
+        div {
+          box-sizing: border-box;
+
+          z-index: 110;
+          background-color: rgba(0,0,0,0);
+          padding-left: 1rem;
+        }
+        div:first-child {
+          width: 32rem;
+          border-right: 1px dotted white;
+        }
+      }
+      nav.showgroup_cover {
+
+        position: absolute;
+        z-index: 100;
+        right: 2rem;
+        bottom: 20rem;
+        width: 10rem;
+        height: 20rem;
+        button {
+          width: 7rem;
+          height: 7rem;
+          border-radius: 5rem;
+          margin: 1.5rem;
+          background-color: rgba(0,0,0,0);
+          border: 1px solid white;
+          &:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+          }
+
+        }
+      }
+    }
+  }
+  nav {
+    height: 4rem;
+  }
+  p {
+    font-size: 2rem;
+    line-height: 3rem;
+  }
+}
+
 
 .underHeader_settings {
   display: flex;
   align-items: center;
   justify-content: right;
+  width: 100%;
+
   button, a {
     display: block;
     border: 0;
@@ -958,7 +1034,18 @@ article.postMessage  {
   border-bottom: 1px dotted rgba(255, 255, 255, 0.75);
   margin-bottom: 2rem;
 }
-
+.cloudIcoComment {
+  z-index: 9500;
+  min-width: 10rem;
+  height: 3rem;
+  background-color: rgba(250, 237, 2, 0.9);
+  border-radius: 0.5rem;
+  color: black;
+  padding-inline: 0.8rem;
+  font-size: 2rem;
+  line-height: 3rem;
+  box-shadow: 0.5rem, 0.5rem, 0.5rem, rgba(0,0,0,.3);
+}
 .userAdminGroup {
   //width: 100%;
   h4 {
@@ -972,9 +1059,17 @@ article.postMessage  {
    border-collapse: collapse;
    //font-size: 1.8rem;
    th {
-     background-color: #b2b2b2;
+     background-color: #313131;
      border-left: 1px solid rgba(119, 136, 153, 0.2);
-     color: #313131;
+     //color: #313131;
+     position: relative;
+     p {
+       position: absolute;
+       left: 2px;
+       top: 2px;
+       background-color: #b53a3a;
+       color: rosybrown;
+     }
    }
    td, th {
      padding: 0.5rem 1rem;
@@ -1175,4 +1270,8 @@ table td.full-cell-button-container {
     border-top: 2px dotted rgba(255,255,255,0.6);
     border-bottom: 2px dotted rgba(255,255,255,0.6);
   }
+}
+
+.inverseIco {
+  filter: invert(100%);
 }

@@ -73,10 +73,9 @@
   grid-template-columns: repeat(1, 1fr);
 }
 .layout_grid3 {
-  background-color: $color-background-main;
-  border: 0;
+
   display: grid;
-  gap: 0.5rem;
+
   grid-template-columns: repeat(4, 1fr);
 
   @media (max-width: 950px) {
@@ -105,5 +104,19 @@
 
   @media (max-width: 950px) {
     grid-template-columns: 1fr;
+  }
+}
+
+.layout_flex_toColumn {
+
+  display: flex;
+
+  @media screen and (min-width: 951px) {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  @media screen and (max-width: 950px) {
+    flex-direction: column;
   }
 }

@@ -72,7 +72,11 @@
     transition-duration: 0.4s;
     width: 60rem;
   }
+  @media screen and (max-width: 950px) {
+    width: 98%;
+    margin: 1rem auto 0.5rem auto;
 
+  }
   //border-radius: 50%;
 }
 
