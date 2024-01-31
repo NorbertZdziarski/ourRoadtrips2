@@ -2,24 +2,7 @@ import React, {useState} from 'react';
 import {useStoreActions, useStoreState} from "easy-peasy";
 
 function UserAdminGroup_edit() {
-//     const index = 1;
-//     const inputData = {
-//     saveDate: new Date(),
-//     owner: 'Stefan',
-//     ownerId: '12345',
-//     name: 'Wyprawa na księżyc',
-//     comment: ' jest gites! ',
-//     description: 'lorem ipsum uno lorem ipsum lorem 2 ipsum lorem trie ipsum lorem blabus ipsum lorem ipsum lorem ipsum',
-//     type: 'friends',
-//     photo: 'foto.jpg',
-//     public: true,
-//     comments: [],
-//     design: [],
-//     invitedUsers: [1234,3333,7584,67483],
-//     users: [5567,9090,478293],
-//     trips: [12],
-//     cars: [2222]
-// }
+
     const [showActiveUsers, setShowActiveUsers] = useState(false)
     const [showInvUsers, setShowInvUsers] = useState(false)
     const [showCars, setShowCars] = useState(false)

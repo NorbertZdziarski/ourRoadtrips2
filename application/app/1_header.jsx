@@ -23,7 +23,7 @@ import {fetchMessages} from "./a_fetchMessages";
 function Header() {
     const navigate = useNavigate();
     const [page, setNewPage] = useState('mainPage')
-    // const page = useStoreState(state => state.page);
+
     const setPage = useStoreActions(actions => actions.setPage);
     const loggedUser = useStoreState(state => state.loggedUser);
     const setLoggedUser = useStoreActions(actions => actions.setLoggedUser);
@@ -46,12 +46,11 @@ function Header() {
     const pageExclusion = ["aboutus", "showtrip", "showcar", "aboutme", "login", "addtrip", "addcar", "addgroup", "admin", "edituserdata", "showgroup", "post","useradmingroup" ,"useradmingroup-edit"]
     const location = useLocation();
         React.useEffect(() => {
-            // console.log('Zmiana URL', location);
+
             const firstPartOfPath = location.pathname.split('/')[1].toLowerCase();
-            // console.log('pierwsza część: ', firstPartOfPath);
+
             if (firstPartOfPath === "") {setNewPage("mainpage")} else {setNewPage(firstPartOfPath)}
             if (!loggedUser && (firstPartOfPath === "userpanel" || firstPartOfPath === "userprofile" ||  firstPartOfPath === "addcar" || firstPartOfPath === "addtrip" || firstPartOfPath === "addgroup" || firstPartOfPath === "post" || firstPartOfPath === "useradmingroup" || firstPartOfPath === "useradmingroup-edit")) {
-                // console.log('>> header - path: ' + firstPartOfPath)
                 navigate('/');
             }
         }, [location]);
