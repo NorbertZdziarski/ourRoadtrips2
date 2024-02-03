@@ -15,6 +15,7 @@ import logoscrum from "../images/brand_scrum_icon_158716.png";
 function AboutUs() {
     const displayStyles = useStoreState(state => state.displayStyles);
     const [selectSection, setSelectSection] = useState();
+    const [ideasection, setIdeasection] = useState(0);
     return (
         <section className="aboutUsStyle">
             <header >
@@ -37,6 +38,10 @@ function AboutUs() {
                         <h5 >* idea</h5>
                         <p> / soon ;) / </p>
                         <p>Jestem autorem i wykonawcą tej aplikacji. Odpowiadam za wygląd, UI, aplikację webową i serwerową a także za hosting czy domenę.</p>
+                        {ideasection === 0 ? <></> : <></>}
+                        {ideasection === 1 ? <></> : <></>}
+                        {ideasection === 2 ? <></> : <></>}
+                        {ideasection === 3 ? <></> : <></>}
                         <ul> <p>funkcjonalność aplikacji: </p>
                              <li>zakładanie / edytowanie konta</li>
                              <li>dodawanie, modyfikowanie, usówanie:
