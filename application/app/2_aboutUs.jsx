@@ -38,24 +38,25 @@ function AboutUs() {
                         <h5 >* idea</h5>
                         <p> / soon ;) / </p>
                         <p>Jestem autorem i wykonawcą tej aplikacji. Odpowiadam za wygląd, UI, aplikację webową i serwerową a także za hosting czy domenę.</p>
-                        {ideasection === 0 ? <></> : <></>}
+                        {ideasection === 0 ? <>
+                            <ul> <p>funkcjonalność aplikacji: </p>
+                                <li>zakładanie / edytowanie konta</li>
+                                <li>dodawanie, modyfikowanie, usówanie:
+                                    <li>- tras</li>
+                                    <li>- samochodów</li>
+                                    <li>- grup</li>
+                                </li>
+                                <li>wysyłanie, odbieranie, usówanie poczty między użytkownikami</li>
+                                <li>filtrowanie, sortowanie tras</li>
+                                <li>dodawanie komentarzy</li>
+                                <li>dodawanie oceny</li>
+                                <li>rysowanie oraz pokazywanie tras na mapach google</li>
+                                <li>logowanie przez konto google</li>
+                            </ul></> : <></>}
                         {ideasection === 1 ? <></> : <></>}
                         {ideasection === 2 ? <></> : <></>}
                         {ideasection === 3 ? <></> : <></>}
-                        <ul> <p>funkcjonalność aplikacji: </p>
-                             <li>zakładanie / edytowanie konta</li>
-                             <li>dodawanie, modyfikowanie, usówanie:
-                                <li>- tras</li>
-                                <li>- samochodów</li>
-                                <li>- grup</li>
-                             </li>
-                            <li>wysyłanie, odbieranie, usówanie poczty między użytkownikami</li>
-                            <li>filtrowanie, sortowanie tras</li>
-                            <li>dodawanie komentarzy</li>
-                            <li>dodawanie oceny</li>
-                            <li>rysowanie oraz pokazywanie tras na mapach google</li>
-                            <li>logowanie przez konto google</li>
-                        </ul>
+
 
                     </div>
                 </section>
