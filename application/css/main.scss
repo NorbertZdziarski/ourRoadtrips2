@@ -50,41 +50,8 @@ body {
   padding: 1rem 0;
 }
 
-.footerStyle {
-  font-size: 1.6rem;
-  font-family: "BankGothic Lt BT";
-  padding: 0 5px;
-  height: $footer-height;
-  overflow: hidden;
-  align-items: center;
-  @media screen and (max-width: 950px) {
-    width: 100%;
-    justify-content: center;
-  };
-  @media screen and (min-width: 951px){
-    width: $main-view-width;
-  };
-p:last-child {
-  text-align: right;
-}
 
-  //@include mainStyle($footer-height);
-}
-.footerWindowStyle {
-  box-sizing: border-box;
-  //@include mainStyle($footer-height);
-  //width: calc( 100vw - 10px);
-  //margin-left: 10px;
-  //overflow-y: scroll;
-  @include rwd();
 
-  @media screen and (max-width: 950px) {
-    height: $footer-height;
-  }
-  //@media screen and (min-width: 951px) {
-  //@include sidebarstyle;
-  //}
-}
 .mainWindowStyle {
   box-sizing: border-box;
   padding-bottom: 0.5rem;

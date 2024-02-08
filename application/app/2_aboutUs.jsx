@@ -15,7 +15,7 @@ import logoscrum from "../images/brand_scrum_icon_158716.png";
 function AboutUs() {
     const displayStyles = useStoreState(state => state.displayStyles);
     const [selectSection, setSelectSection] = useState();
-    const [ideasection, setIdeasection] = useState(0);
+    const [ideasection, setIdeasection] = useState(1);
     return (
         <section className="aboutUsStyle">
             <header >
@@ -38,7 +38,13 @@ function AboutUs() {
                         <h5 >* idea</h5>
                         <p> / soon ;) / </p>
                         <p>Jestem autorem i wykonawcą tej aplikacji. Odpowiadam za wygląd, UI, aplikację webową i serwerową a także za hosting czy domenę.</p>
-                        {ideasection === 0 ? <>
+                        <div className='layout_gridAuto button_a'>
+                            <a onClick={()=>setIdeasection(1)}> 1. zakres funkcjonalnosci</a>
+                            <a onClick={()=>setIdeasection(2)}> 2. mapa komponentów </a>
+                            <a onClick={()=>setIdeasection(3)}> 3. </a>
+                            <a onClick={()=>setIdeasection(4)}> 4. zrzuty ekranu </a>
+                        </div>
+                        {ideasection === 1 ? <>
                             <ul> <p>funkcjonalność aplikacji: </p>
                                 <li>zakładanie / edytowanie konta</li>
                                 <li>dodawanie, modyfikowanie, usówanie:
@@ -53,9 +59,9 @@ function AboutUs() {
                                 <li>rysowanie oraz pokazywanie tras na mapach google</li>
                                 <li>logowanie przez konto google</li>
                             </ul></> : <></>}
-                        {ideasection === 1 ? <></> : <></>}
-                        {ideasection === 2 ? <></> : <></>}
-                        {ideasection === 3 ? <></> : <></>}
+                        {ideasection === 2 ? <div>2 / soon /</div> : <></>}
+                        {ideasection === 3 ? <div>3 / soon /</div> : <></>}
+                        {ideasection === 4 ? <div>4 / soon /</div> : <></>}
 
 
                     </div>

@@ -10,18 +10,18 @@
   @media screen and (min-width: 951px) {
     @include sidebarstyle;
   }
-  //width: $main-view-width;
+
   min-height: 100%;
   box-sizing: border-box;
   margin-inline: auto;
   overflow-x: hidden;
-  //border: 1px solid deeppink;
+
 }
 .layout_flex {
   //width: 100%;
   display: flex;
   //border: 1px solid red;
-  //@include rwd(flex);
+
   //border: 1px solid blueviolet;
 }
 .layout_flex-sb {
@@ -44,14 +44,14 @@
   display: flex;
   justify-content: center;
   //border: 1px solid blue;
-  @include rwd(flex);
+  @include rwd;
 }
 .layout_flex-sc-directColumn {
   display: flex;
   align-items: center;
   justify-content: space-around;
   flex-direction: column;
-  @include rwd(flex);
+  @include rwd;
 }
 
 .layout_flex-sb-directColumn {

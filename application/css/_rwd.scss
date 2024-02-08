@@ -1,11 +1,9 @@
-@mixin rwd($displayStyle:block) {
+@mixin rwd() {
   @media screen and (max-width: 950px) {
-    //@content
     max-width: 100%;
     width: 100%;
     margin-left: 0;
     margin-right: 0;
-    //display: $displayStyle
   }
 }
 

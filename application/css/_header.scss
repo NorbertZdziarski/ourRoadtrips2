@@ -31,8 +31,7 @@
     background-color: $color-background-dropdown;
     padding: 0.2rem;
   }
-
-  @include rwd(block);
+  @include rwd;
 }
 
 select.header_dropdown_menu.underHeader {
@@ -45,23 +44,10 @@ select.header_dropdown_menu.underHeader {
   background-color: $color-background-main;
   transition-duration: 0.5s;
   min-height: $header-height;
-  //border: 1px solid red;
   margin-top: 0.5rem;
-  //margin-left: 1rem;
   box-sizing: border-box;
   @include mainStyle($header-height);
   width: 100%;
-  //border-bottom: 2px solid $color-background-main;
-
-  //border: 1px solid cyan;
-  //@media screen and (max-width: 950px) {
-  //  //max-width: 100%;
-  //  margin: 0;
-  //  display: block;
-  //  min-height: $mobile_header-height;
-  //
-  //}
-
 }
 
 .headerStyle_mobile {
@@ -69,16 +55,13 @@ select.header_dropdown_menu.underHeader {
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
-  //min-height: $header-height;
-  //height: 100%;
-  //border: 1px solid cyan;
+
 }
 
 .headerButtons {
   display: flex;
   flex-direction: row;
   align-items: end;
-  //height: 100%;
 }
 
 .headerButtons_mobile {
@@ -87,20 +70,16 @@ select.header_dropdown_menu.underHeader {
   width: 100%;
   display: flex;
   flex-direction: column;
-  //align-items: end;
-  //border: 2px solid #009dff;
   button {
     height: 4rem;
     background-color: rgba(0,0,0,0);
     border: 1px dotted rgba(255, 255, 255, 0.2);
   }
-  //height: 100%;
 }
 
 .headerMenu_filter {
   display: block;
-  //align-items: end;
-  //height: 100%;
+
 }
 
 .headerMenu_filter-bar {
@@ -172,17 +151,31 @@ select.header_dropdown_menu.underHeader {
   }
 }
 
-//&:hover {
-//  background-color: yellow;
-//  ::selection {
-//    background: $color-blink-color;
-//    color: $color-background-main;
-//  }
-//
-//  /* Dla Firefox */
-//  ::-moz-selection {
-//    background: $color-blink-color;
-//    color: $color-background-main;
-//  }
-//}
+//-------- footer
 
+.footerWindowStyle {
+  box-sizing: border-box;
+  @include rwd();
+  @media screen and (max-width: 950px) {
+    height: $footer-height;
+  }
+}
+
+.footerStyle {
+  font-size: 1.6rem;
+  font-family: "BankGothic Lt BT";
+  padding: 0 5px;
+  height: $footer-height;
+  overflow: hidden;
+  align-items: center;
+  @media screen and (max-width: 950px) {
+    width: 100%;
+    justify-content: center;
+  };
+  @media screen and (min-width: 951px){
+    width: $main-view-width;
+  };
+  p:last-child {
+    text-align: right;
+  }
+}
