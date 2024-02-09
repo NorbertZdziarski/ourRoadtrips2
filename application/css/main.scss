@@ -113,7 +113,7 @@ body {
   flex-direction: column;
   p {
     color: black;
-    font-size: 3rem;
+    font-size: $txtXL;
     font-weight: 600;
     text-align: center;
   }
@@ -285,7 +285,7 @@ body {
   //background-color: $color-background-secondary;
   padding: 1rem;
   font-family: Abel;
-  font-size: 30px;
+  font-size: $txtXL;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 .showtrip_main {
@@ -297,9 +297,6 @@ body {
   height: 4rem;
   //background-color: $color-background-secondary;
   padding: 1rem;
-  font-family: Abel;
-  font-size: 20px;
-  //box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   z-index: 50;
 }
@@ -313,11 +310,8 @@ body {
   justify-content: space-around;
   width: 100%;
   text-align: justify;
-  //background-color: $color-background-secondary;
   background-color: rgba(0,0,0,0);
   padding: 1rem;
-  font-family: Abel;
-  font-size: 20px;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
   @include rwd;
 }
@@ -330,25 +324,22 @@ body {
   width: 100%;
   text-align: left;
   padding: 1rem;
-  font-family: Abel;
-  font-size: 20px;
-
   @include rwd;
 }
 
-.showtrip_footer {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  height: 7rem;
-  //background-color: $color-background-secondary;
-  padding: 1rem;
-  font-family: Abel;
-  font-size: 20px;
-  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
-}
+//.showtrip_footer {
+//  box-sizing: border-box;
+//  display: flex;
+//  justify-content: space-around;
+//  align-items: center;
+//  width: 100%;
+//  height: 7rem;
+//  //background-color: $color-background-secondary;
+//  padding: 1rem;
+//  font-family: Abel;
+//  font-size: $tripTitle;
+//  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.2);
+//}
 
 .trips_container {
   width: 100%;
@@ -356,50 +347,28 @@ body {
 
 // ----------------------------------------co poniżej jest ROBOCZE - do usunięcia ----
 
-.tymczasowy_header {
-  font-size: 1.6rem;
-  font-family: "BankGothic Lt BT";
-  color: #1da072;
-  @media screen and (max-width: 950px) {
-    //@content
-    //background-color: #283535;
-    //max-width: 100%;
-    margin: 0;
-    //display: block;
-    //height: auto;
-    padding-top: 1rem;
-  }
-}
-
-.underConstruction {
-  //box-sizing: border-box;
-  ////border: 2px dashed #ffa600;
-  //display: flex;
-  ////justify-content: space-between;
-  //
-  //
-  //font-size: 1.6rem;
-  //font-family: "BankGothic Lt BT";
-  //color: #1da072;
-  //padding: 5px;
-  //height: 100%;
-}
-.underConstruction-height {
-  //height: 100%;
-}
+//.tymczasowy_header {
+//  font-size: $tripInfo;
+//  font-family: "BankGothic Lt BT";
+//  color: #1da072;
+//  @media screen and (max-width: 950px) {
+//    margin: 0;
+//    padding-top: 1rem;
+//  }
+//}
 
 
 input {
   border: 0;
 }
 .testDataImport {
-  font-size: 9px;
-  //color: rgba(169, 169, 169, 0.26);
+  font-size: $tripInfo;
+
 
 }
 .dataImportLine {
   width: 100%;
-  font-size: 15px;
+  font-size: $txtNormal;
   border-bottom: 1px solid #b53a3a;
   margin-bottom: 5px;
   &:hover {
@@ -411,7 +380,7 @@ input {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 15px;
+  font-size: $txtNormal;
 }
 
 .testForm > * {
@@ -473,7 +442,7 @@ $stripe-color2: rgba(255, 255, 0, 0.8);
 
 .windowItem {
   color: black;
-  font-size: 1.6rem;
+  font-size: $tripInfo;
 }
 
 .divHeightTemp {
@@ -491,7 +460,7 @@ $height_line: 3.5rem;
 }
 .datalist {
   margin: 1rem auto;
-  font-size: 2rem;
+  font-size: $tripTitle;
   @media screen and (min-width: 951px) {
     width: 60rem;
     }
@@ -598,7 +567,7 @@ article.postMessage  {
   textarea {
     box-sizing: border-box;
     margin-top: 1rem;
-    font-size: 2rem;
+    font-size: $tripTitle;
     color: $color-txt-main;
     //border: 1px dotted gray;
     border-radius: 0.5rem;
@@ -623,27 +592,27 @@ article.postMessage  {
   border-radius: 0.5rem;
 
   div {
-    font-size: 2rem;
+    font-size: $tripTitle;
 
     textarea {
       color: #282c34;
     }
     option {
-      font-size: 1.8rem;
+      font-size: $tripAuthor;
       line-height: 2.5rem;
     }
   }
   select {
     padding: 0.5rem;
     font-weight: 1.8rem;
-    font-size: 1.8rem;
+    font-size: $tripAuthor;
   }
   input {
     box-sizing: border-box;
     padding: 0.5rem;
     width: 100%;
     padding: 0.5rem;
-    font-size: 2rem;
+    font-size: $tripTitle;
   }
   .addComment_cloud {
     box-sizing: border-box;
@@ -653,14 +622,14 @@ article.postMessage  {
 
     p {
       padding: 0.5rem 0;
-      font-size: 2rem;
+      font-size: $tripTitle;
       height: 3rem;
       border-bottom: 1px dotted $color-txt-main;
     }
     textarea {
 
       margin-top: 1rem;
-      font-size: 2rem;
+      font-size: $tripTitle;
       color: black;
 
       padding: 0.5rem;
@@ -724,7 +693,7 @@ article.postMessage  {
     position: absolute;
     color: $color-background-main;
 
-    font-size: 10rem;
+    font-size: $txtXS;
     animation: logoTxtAni 5s infinite;
   }
   img {
@@ -751,7 +720,7 @@ article.postMessage  {
   margin: 0.5rem 0;
   padding: 1rem;
 
-  font-size: 1.8rem;
+  font-size: $tripAuthor;
   background-color: rgba(64, 73, 95, 0.58);
 }
 
@@ -839,19 +808,19 @@ article.postMessage  {
           margin-bottom: 0.4rem;
         }
         p {
-          font-size: 1.8rem;
+          font-size: $tripAuthor;
           line-height: 2.4rem;
         }
         ul {
           margin-top: 0.4rem;
           p {
-            font-size: 2rem;
+            font-size:$tripTitle;
             line-height: 2.4rem;
           }
         }
         li {
 
-          font-size: 1.6rem;
+          font-size: $tripInfo;
           padding-left: 1rem;
           line-height: 2rem;
         }
@@ -865,7 +834,7 @@ article.postMessage  {
   footer {
     padding: 0.5rem;
     text-align: center;
-    font-size: 1.6rem;
+    font-size: $tripInfo;
     gap: 1rem;
   }
 }
@@ -902,7 +871,7 @@ article.postMessage  {
         position: absolute;
         left: 2rem;
         top: 2rem;
-        font-size: 5rem;
+        font-size: $txtXXL;
         text-shadow: 0 0 1rem rgba(0,0,0,0.8);
         z-index: 100;
       }
@@ -957,7 +926,7 @@ article.postMessage  {
     height: 4rem;
   }
   p {
-    font-size: 2rem;
+    font-size: $tripTitle;
     line-height: 3rem;
   }
 }
@@ -1009,7 +978,7 @@ article.postMessage  {
   border-radius: 0.5rem;
   color: black;
   padding-inline: 0.8rem;
-  font-size: 2rem;
+  font-size: $tripTitle;
   line-height: 3rem;
   box-shadow: 0.5rem, 0.5rem, 0.5rem, rgba(0,0,0,.3);
 }
@@ -1024,7 +993,7 @@ article.postMessage  {
    margin-top: 1rem;
    background-color: rgba(119, 136, 153, 0.5);
    border-collapse: collapse;
-   //font-size: 1.8rem;
+
    th {
      background-color: #313131;
      border-left: 1px solid rgba(119, 136, 153, 0.2);
@@ -1041,7 +1010,7 @@ article.postMessage  {
    td, th {
      padding: 0.5rem 1rem;
      min-width: 2rem;
-     font-size: 2rem;
+     font-size: $tripTitle;
    }
    td {
      border-left: 1px solid #b2b2b2;
@@ -1062,7 +1031,7 @@ article.postMessage  {
 .userAdminGroupEdit {
   width: 100%;
   h6 {
-    font-size: 2.8rem;
+    font-size: $txtXL;
     border-bottom: 1px solid rgba(49, 49, 49, 0.7);
   }
   div {
@@ -1082,7 +1051,7 @@ article.postMessage  {
     }
   }
   p {
-    font-size: 1.8rem;
+    font-size: $tripAuthor;
     color: #313131;
     padding: 0.5rem 0;
   }
@@ -1162,7 +1131,7 @@ article.showDescription {
   background-color: rgba(255,255,255,0.9) ;
   color: black;
   font-family: "Segoe UI", sans-serif;
-  font-size: 2.2rem;
+  font-size: $tripTitle;
   font-weight: 400;
   line-height: 3.4rem;
 }
@@ -1208,11 +1177,11 @@ table td.full-cell-button-container {
     width: 100%;
 
     h6 {
-      font-size: 1.4rem;
+      font-size: $txtS;
       font-weight: 600;
     }
     p {
-      font-size: 2rem;
+      font-size: $tripTitle;
       font-weight: 200;
       line-height: 3rem;
     }

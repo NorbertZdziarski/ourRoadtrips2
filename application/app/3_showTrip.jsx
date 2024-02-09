@@ -104,7 +104,7 @@ function ShowTrip() {
                         {/*   <onRatingChange={(value) => data.tripRate = {rate: value, user:'loggedUser'}}/>*/}
 
                     </header>
-                    <div className={`showtrip_main colorstyle_button_${displayStyles} buttons_inline icoShowTrip`}>
+                    <div className={`showtrip_main fnt_Title colorstyle_button_${displayStyles} buttons_inline icoShowTrip`}>
                         <button onClick={()=>setShowPage('photo')}>  {window.innerWidth < 950 ?
                             <img src={icophoto} className={`header_ico ico_${displayStyles}`}/> : <p>photo</p> } </button>
                         <button onClick={()=>setShowPage('map')}>
@@ -150,10 +150,10 @@ function ShowTrip() {
                     </> : null }
 
                     {showPage === 'story' ?
-                    <div id="tripDescription" className="showtrip_box showtrip_description">
+                    <div id="tripDescription" className="showtrip_box showtrip_description fnt_Title">
                         <article className='showDescription'>   {data.tripDescription} </article>
                     </div> : null }
-                    <div className={`showtrip_main colorstyle_button_${displayStyles}`}>
+                    <div className={`showtrip_main fnt_Title colorstyle_button_${displayStyles}`}>
                         {loggedUser ? <button disabled>Like It</button> : <p>register to like it</p>}
                         {loggedUser ? <button onClick={()=>setAddComm(true)}>Comment</button> : <p>register to comment</p>}
 
@@ -166,7 +166,7 @@ function ShowTrip() {
                             trip={data}
                             setAddComm={setAddComm}/>
                         </>: <></>}
-                    <div id="tripComm" className="showtrip_description">
+                    <div id="tripComm" className="showtrip_description fnt_Title">
                         {data.tripComments ? <><ShowComments tripComments={data.tripComments} tripId={data._id}/></> : <p>no comments</p>}
                     </div>
                 </> : <Anim_loading />}

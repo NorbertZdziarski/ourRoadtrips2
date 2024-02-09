@@ -20,11 +20,15 @@ $main-view-height: calc($viewHeight - ($header-height + $footer-height));
 
 $mobile_main-view-height: calc($viewHeight - ($mobile_header-height + $footer-height));
 
+$txtXXL: 5rem;
+$txtXL: 3rem;
 $tripTitle: 2rem;
 $tripAuthor: 1.8rem;
 $tripInfo: 1.6rem;
 $txtNormal: 1.6rem;
 $txtLarge: 1.8rem;
+$txtS: 1.4rem;
+$txtXS: 1rem;
 
 $fontStyleMain: Abel;
 

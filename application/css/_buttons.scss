@@ -9,6 +9,7 @@ a, button {
 }
 
 .myLink {
+  border-radius: 0;
   @include headerBtnStyle;
 }
 //.showtrip_main a {

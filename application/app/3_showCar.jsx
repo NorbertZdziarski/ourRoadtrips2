@@ -64,14 +64,14 @@ function ShowCar() {
                 {/*    <p className="fnt_subtitle">{chosen.carDescription}</p>*/}
                 {/*</div>*/}
 
-                <div className="showtrip_main">
+                <div className="showtrip_main fnt_Title">
                    {/*poprawić className ^^^*/}
                     <p>technical stuff</p>
                     <p className="fnt_subtitle">{chosen.carEngine} with {chosen.carEnginePower}</p>
 
 
                 </div>
-                <div className="showtrip_description">
+                <div className="showtrip_description fnt_Title">
                     <p>about my car:</p>
                     <p className="fnt_subtitle">{chosen.carDescription}</p>
                 </div>

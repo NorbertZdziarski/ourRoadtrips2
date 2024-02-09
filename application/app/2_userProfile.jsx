@@ -157,7 +157,7 @@ function UserProfile() {
                     <p>Your top rated trip:</p>
                 </div>
             </section>
-            <section className={`showtrip_main colorstyle_button_${displayStyles}`}>
+            <section className={`showtrip_main fnt_Title colorstyle_button_${displayStyles}`}>
                 <button onClick={()=> window.location.href = '#userTrips'}>   my trips </button>
                 <button onClick={()=> window.location.href = '#userCars'}>   my cars </button>
                 <button disabled onClick={()=> window.location.href = '#userData'}>   my map </button>

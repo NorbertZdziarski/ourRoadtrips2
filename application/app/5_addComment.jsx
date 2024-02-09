@@ -33,7 +33,7 @@ function AddComment({author, trip, setAddComm}) {
     }
 
     return (
-        <div className={`showtrip_addComment colorstyle_reflex_${displayStyles}`}>
+        <div className={`showtrip_addComment fnt_Title colorstyle_reflex_${displayStyles}`}>
             <div className={`comment_conteiner`} >
                 <div className={`comment_photo_container`}>
                     <LoadImage imageName={loggedUser.userPhoto || 'user.png'}
