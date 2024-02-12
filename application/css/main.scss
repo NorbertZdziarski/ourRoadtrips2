@@ -782,10 +782,16 @@ article.postMessage  {
       transition-duration: 0.5s;
     }
   }
-  img {
+  div > img {
     width: 9rem;
     margin-bottom: 0.2rem;
   }
+  span > img {
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 0.2rem;
+  }
+
 
 
   section {
@@ -1210,4 +1216,12 @@ table td.full-cell-button-container {
 
 .inverseIco {
   filter: invert(100%);
+}
+
+.tempAlert {
+  border: 1px solid red;
+}
+
+.tempAlertHeight {
+  height: 50px;
 }

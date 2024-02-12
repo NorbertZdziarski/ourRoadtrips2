@@ -63,7 +63,10 @@ function AboutUs() {
                             </ul></> : <></>}
                         {ideasection === 2 ? <>
                             <div>
-                                <img src={componentsmap} className={`photoStyle`}/>
+                                <span>
+                                    <img src={componentsmap}/>
+                                     {/*className={`photoStyle`}*/}
+                                </span>
                             </div> </>: <></>}
                         {ideasection === 3 ? <div>3 / soon /</div> : <></>}
                         {/*{ideasection === 4 ? <div>4 / soon /</div> : <></>}*/}
