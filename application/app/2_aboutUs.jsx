@@ -10,6 +10,8 @@ import logogmaps from "../images/gmaps.png";
 import logomilanote from "../images/milanote.png";
 import logogithub from "../images/github_alt_macos_bigsur_icon_190138.png";
 import logoscrum from "../images/brand_scrum_icon_158716.png";
+import componentsmap from "../images/canvas_ourroadtrips-komponenty.png"
+import ShowPhoto from "./5_showPhoto";
 
 
 function AboutUs() {
@@ -36,13 +38,13 @@ function AboutUs() {
                     </div>
                     <div>
                         <h5 >* idea</h5>
-                        <p> / soon ;) / </p>
+                        {/*<p> / soon ;) / </p>*/}
                         <p>Jestem autorem i wykonawcą tej aplikacji. Odpowiadam za wygląd, UI, aplikację webową i serwerową a także za hosting czy domenę.</p>
                         <div className='layout_gridAuto button_a'>
                             <a onClick={()=>setIdeasection(1)}> 1. zakres funkcjonalnosci</a>
                             <a onClick={()=>setIdeasection(2)}> 2. mapa komponentów </a>
-                            <a onClick={()=>setIdeasection(3)}> 3. </a>
-                            <a onClick={()=>setIdeasection(4)}> 4. zrzuty ekranu </a>
+                            <a onClick={()=>setIdeasection(3)}> 3. zrzuty ekranu </a>
+                            {/*<a onClick={()=>setIdeasection(4)}> 4.  </a>*/}
                         </div>
                         {ideasection === 1 ? <>
                             <ul> <p>funkcjonalność aplikacji: </p>
@@ -59,9 +61,12 @@ function AboutUs() {
                                 <li>rysowanie oraz pokazywanie tras na mapach google</li>
                                 <li>logowanie przez konto google</li>
                             </ul></> : <></>}
-                        {ideasection === 2 ? <div>2 / soon /</div> : <></>}
+                        {ideasection === 2 ? <>
+                            <div>
+                                <img src={componentsmap} className={`photoStyle`}/>
+                            </div> </>: <></>}
                         {ideasection === 3 ? <div>3 / soon /</div> : <></>}
-                        {ideasection === 4 ? <div>4 / soon /</div> : <></>}
+                        {/*{ideasection === 4 ? <div>4 / soon /</div> : <></>}*/}
 
 
                     </div>
@@ -156,21 +161,7 @@ function AboutUs() {
 
                     </div>
                 </section>
-                <section >
-                    <div>
-                    </div>
-                    <div>
-                        <h5 >* dalszy rozwój </h5>
-                        <p>Jeżeli tylko czas pozowli chcę rozwijać aplikację w zakresie: </p>
-                        <ul>
-                            <li> inne sposoby logowania </li>
-                            <li> wyszukiwarka </li>
-                            <li> forum dyskusyjne </li>
-                            <li> inna wersja językowa </li>
 
-                        </ul>
-                    </div>
-                </section>
             </main>
             <footer id="aboutProject_aboutMe" className={'layout_flex-sb-directColumn '}>
                 <p> zapraszam na strony o mnie: </p> <a href={'https://github.com/NorbertZdziarski'} target={'_blank'}> GitHub </a> <a href={'https://www.linkedin.com/in/norbert-zdziarski/'} target={'_blank'}> Linked In </a>

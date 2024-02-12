@@ -28,21 +28,19 @@ function UserProfile() {
     const setShowLoading = useStoreActions(actions => actions.setShowLoading);
 
     useEffect(async () => {
-        // setPage("userProfile")
+
         setShowLoading([true,0]);
         let targetTrips = `select/trips/${loggedUser._id}`
         await fetchData(targetTrips).then(downloadedTrips => {
-            // console.log('2 user profile | trips |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
+
             setLoggedUserTrips(downloadedTrips)
         });
         let targetCars = `select/cars/${loggedUser._id}`
-        // console.log('---------{ user profile : target cars : 33 }-----------------');
-        // console.log('target: ' + targetCars);
-        // console.log('user: ' + loggedUser.name);
+
 
         await fetchData(targetCars).then(downloadedCars => {
             setShowLoading([false,0]);
-            // console.log('2 user profile | cars |  downloadedData: ' + downloadedCars + ' JSON: ' + JSON.stringify(downloadedCars))
+
             setLoggedUserCars(downloadedCars)
         });
         setShowLoading([false,0]);
@@ -63,48 +61,10 @@ function UserProfile() {
                 if (toDelete[1].carPhoto) await deleteFile('images/cars/',toDelete[1].carPhoto);
                 setToDelete([``,``])
 
-                // let carsArr = [...loggedUser.cars];
-                // const userCopy = {...loggedUser}
-                // console.log('///// cars ARR: ' + carsArr)
-                // carsArr = carsArr.filter(ob=>ob._id !== toDelete[1]._id
-                // );
-                // const dataToSave = {
-                //     cars: carsArr,
-                // };
-                //
-                // await deleteData(`car/${toDelete[1]._id}`);
-                // const target = `select/car/${loggedUser._id}`
-                //
-                // fetchData(target).then(downloadedData => {
-                //     console.log('2 user profile | toDelete |  downloadedData: ' + downloadedData + ' JSON: ' + JSON.stringify(downloadedData))
-                //     setLoggedUserCars(downloadedData)
-                // });
-                //
-                // userCopy.cars = carsArr;
-                // setLoggedUser(userCopy);
-                //
-                // await updateData(`user/${loggedUser._id}`, dataToSave).then(()=>{
-                //     setLoggedUserCars(carsArr)});
-                //
-                // let photos = Object.values(toDelete[1].carPhoto);
-                //     console.log('_______________________________')
-                //     console.log(photos)
-                //     console.log(photos.length)
-                //      console.log(typeof photos)
-                //
-                //
-                // if (toDelete[1].carPhoto) await deleteFile('images/cars/',photos);
-                // setToDelete([``,``])
             }
             if (toDelete[0] === 'trip') {
                 await deleteData(`trip/${toDelete[1]._id}`);
                 const target = `select/trips/${loggedUser._id}`
-
-                // console.log('target: ' + target)
-                // console.log('user id: ' + loggedUser._id)
-                // console.log('to delete: ' + toDelete)
-
-
                 await fetchData(target).then(downloadedData => {
 
                     setLoggedUserTrips(downloadedData)
@@ -132,8 +92,8 @@ function UserProfile() {
                     />
                 </div>
                 <div>
-                    <h3 className="userPanel_mainpage_title"> Cześć {loggedUser.firstName || loggedUser.nick}!</h3>
-                    {/*<p className="fnt_subtitle"> {loggedUser.userPersonalComment}</p>*/}
+                    <h3 className="userPanel_mainpage_title"> Hi {loggedUser.firstName || loggedUser.nick}!</h3>
+
                     <div className="userPanel_mainpage_content">
                         <h4>this is your space. </h4>
                         <p>here you can manage your trips, cars and personal data. It's up to you what will be visible and what will not be visible to other users.</p>
@@ -167,17 +127,14 @@ function UserProfile() {
 
                 {loggedUserTrips ? (
                     loggedUserTrips.map((trip) =>
-                        // return (
+
                         <div key={`keytrip${trip._id}`} className={`userPanelItem colorstyle_reverse_${displayStyles}`}>
 
                             <Link to={`/showtrip/${trip._id}`} className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=>{
                             setTripId(trip._id)
                             setPage("showTrip");
                         }}>
-                            {/*<button className={`clickPage colorStyle_clickPage_${displayStyles}`} onClick={()=> {*/}
-                            {/*    setPage("showTrip")*/}
-                            {/*    setTripId(trip._id)*/}
-                            {/*}}>*/}
+
                                 <PrintTrips  trip={trip}/>
                             </Link>
 
