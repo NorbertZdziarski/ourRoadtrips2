@@ -11,13 +11,33 @@ import logomilanote from "../images/milanote.png";
 import logogithub from "../images/github_alt_macos_bigsur_icon_190138.png";
 import logoscrum from "../images/brand_scrum_icon_158716.png";
 import componentsmap from "../images/canvas_ourroadtrips-komponenty.png"
-import ShowPhoto from "./5_showPhoto";
+import ourroadtrip_1 from "../images/ourroadtrip_1.jpg"
+import ourroadtrip_2 from "../images/ourroadtrip_2.jpg"
+import ourroadtrip_m1 from "../images/ourroadtrip_m1.png"
+import ourroadtrip_m2 from "../images/ourroadtrip_m2.png"
+import ourroadtrip_m3 from "../images/ourroadtrip_m3.png"
+
+
+import {Link} from "react-router-dom";
+
+import Anim_loading from "./anim_loading";
+
 
 
 function AboutUs() {
     const displayStyles = useStoreState(state => state.displayStyles);
     const [selectSection, setSelectSection] = useState();
     const [ideasection, setIdeasection] = useState(1);
+    const printScreenes = [ourroadtrip_1,ourroadtrip_2,ourroadtrip_m1,ourroadtrip_m2,ourroadtrip_m3]
+    const [showLarge, setShowLarge] = useState('');
+    function LargeImage() {
+
+        return(
+            <main className={'photoClassLarge'} onClick={()=>setShowLarge(false)}>
+                <img src={image} className={photoClass} />
+            </main>)
+    }
+
     return (
         <section className="aboutUsStyle">
             <header >
@@ -64,17 +84,24 @@ function AboutUs() {
                         <div id={'divAboutUsImg'}>
                         {ideasection === 2 ? <>
                                 <span>
-                                    <img src={componentsmap}/>
-                                     {/*className={`photoStyle`}*/}
+                                    <img src={componentsmap} alt={'mapa komponentów'}/>
                                 </span>
                             </>: <></>}
-                        {ideasection === 3 ? <div>
-                            3 / soon /
+                            {ideasection === 3 ? <div id={'divAboutUsSampleImg'} className={'layout_gridAuto'}>
+                                {printScreenes ? (
+                                    printScreenes.map((printScreen) =>
+                                            <span  key={printScreen} className={'photoPrintScreen'} >
 
-                        </div> : <></>}
-                        {/*{ideasection === 4 ? <div>4 / soon /</div> : <></>}*/}
+                                                {showLarge ? <main className={'photoClassLarge'} onClick={()=>setShowLarge('')}>
+                                                    <img src={showLarge} alt={showLarge}/>
+                                                </main> : <img src={printScreen} alt={printScreen} onClick={()=>setShowLarge(printScreen)}/>}
+
+                                            </span>
+                                    )
+                                ) : (<></>)}
+                            </div> : <></>}
+                            {/*{ideasection === 4 ? <div>4 / soon /</div> : <></>}*/}
                         </div>
-
                     </div>
                 </section>
 
