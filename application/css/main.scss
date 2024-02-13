@@ -786,11 +786,13 @@ article.postMessage  {
     width: 9rem;
     margin-bottom: 0.2rem;
   }
-  span > img {
+  div > span > img {
+
     width: 100%;
     object-fit: cover;
     margin-bottom: 0.2rem;
   }
+
 
 
 
@@ -844,7 +846,9 @@ article.postMessage  {
     gap: 1rem;
   }
 }
-
+#divAboutUsImg {
+  padding: 0;
+  }
 @keyframes selectedBox {
   0% {
     box-shadow: inset 0 0 1rem rgba(0,0,0,0);

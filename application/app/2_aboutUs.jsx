@@ -61,16 +61,19 @@ function AboutUs() {
                                 <li>rysowanie oraz pokazywanie tras na mapach google</li>
                                 <li>logowanie przez konto google</li>
                             </ul></> : <></>}
+                        <div id={'divAboutUsImg'}>
                         {ideasection === 2 ? <>
-                            <div>
                                 <span>
                                     <img src={componentsmap}/>
                                      {/*className={`photoStyle`}*/}
                                 </span>
-                            </div> </>: <></>}
-                        {ideasection === 3 ? <div>3 / soon /</div> : <></>}
-                        {/*{ideasection === 4 ? <div>4 / soon /</div> : <></>}*/}
+                            </>: <></>}
+                        {ideasection === 3 ? <div>
+                            3 / soon /
 
+                        </div> : <></>}
+                        {/*{ideasection === 4 ? <div>4 / soon /</div> : <></>}*/}
+                        </div>
 
                     </div>
                 </section>
