@@ -140,24 +140,24 @@ function Login() {
                     onRequest={() => setLoading(true)}
                 />
             </section>
-            <section className={`login_box colorStyle_input_${displayStyles} alert_underConstruction`}>
-                {fetchError ? <p className={`login_error colorStyle_error_${displayStyles} `}>{fetchError}</p> : <></>}
-                <form >
-                    <input disabled placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles} `} value={userName}
-                           onChange={(e) => setUserName(e.target.value)}></input>
-                    <input disabled  placeholder='password' type="password" name="inputUserPassword" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userPassword}
-                           onChange={(e) => setUserPassword(e.target.value)}></input>
-                <div className={`login_buttons colorstyle_button_${displayStyles}`}>
-                    <button disabled onClick={handleLogin} className="main_button "> Login </button>
-                    <button onClick={()=>setPage("mainPage")} className="main_button "> Cancel </button>
+            {/*<section className={`login_box colorStyle_input_${displayStyles} alert_underConstruction`}>*/}
+            {/*    {fetchError ? <p className={`login_error colorStyle_error_${displayStyles} `}>{fetchError}</p> : <></>}*/}
+            {/*    <form >*/}
+            {/*        <input disabled placeholder='login' type="text" name="inputUserName" className={`login_input colorStyle_inputLogin_${displayStyles} `} value={userName}*/}
+            {/*               onChange={(e) => setUserName(e.target.value)}></input>*/}
+            {/*        <input disabled  placeholder='password' type="password" name="inputUserPassword" className={`login_input colorStyle_inputLogin_${displayStyles}`} value={userPassword}*/}
+            {/*               onChange={(e) => setUserPassword(e.target.value)}></input>*/}
+            {/*    <div className={`login_buttons colorstyle_button_${displayStyles}`}>*/}
+            {/*        <button disabled onClick={handleLogin} className="main_button "> Login </button>*/}
+            {/*        <button onClick={()=>setPage("mainPage")} className="main_button "> Cancel </button>*/}
 
-                </div>
-                </form>
+            {/*    </div>*/}
+            {/*    </form>*/}
 
-                {/*<div className="login_newaccount">*/}
-                {/*    <button disabled onClick={()=>setPage("editUserData")} className={`button-important button-important_${displayStyles}`}> Create an account </button>*/}
-                {/*</div>*/}
-            </section>
+            {/*    /!*<div className="login_newaccount">*!/*/}
+            {/*    /!*    <button disabled onClick={()=>setPage("editUserData")} className={`button-important button-important_${displayStyles}`}> Create an account </button>*!/*/}
+            {/*    /!*</div>*!/*/}
+            {/*</section>*/}
 
         </div>
     );
