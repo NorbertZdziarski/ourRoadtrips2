@@ -6,4 +6,4 @@ tools:
 BackEnd: nodeJS
 FrontEnd: React, Sass, HTML5
 
-<img src='image/ourroadtrip_1.jpg' />
+<img src='application/images/ourroadtrip_1.jpg' />
